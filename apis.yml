@@ -1,0 +1,13 @@
+aid: gitea
+url: https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml
+name: Gitea
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+description: 'Self-hosted Git service with REST API for teams and developers.'
+created: '2026-05-06'
+modified: '2026-05-06'
+specificationVersion: '0.19'
+tags:
+  - API
+url-source: https://about.gitea.com/
+apis: []
