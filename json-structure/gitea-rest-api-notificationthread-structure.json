@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-notificationthread-structure.json",
+  "name": "NotificationThread",
+  "description": "JSON Structure description of the Gitea NotificationThread entity.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "ID is the unique identifier for the notification thread",
+      "format": "int64"
+    },
+    "pinned": {
+      "type": "boolean",
+      "description": "Pinned indicates if the notification is pinned"
+    },
+    "repository": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "unread": {
+      "type": "boolean",
+      "description": "Unread indicates if the notification has been read"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "UpdatedAt is the time when the notification was last updated",
+      "format": "date-time"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL is the API URL for this notification thread"
+    }
+  }
+}

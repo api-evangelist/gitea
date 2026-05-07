@@ -1,0 +1,129 @@
+name: Gitea Vocabulary
+description: >-
+  Controlled vocabulary for the Gitea API surface, mapping operational
+  resources, capability dimensions, and domain terminology used across
+  the project's documentation and REST API.
+provider: gitea
+version: '1.0.0'
+modified: '2026-05-06'
+domains:
+  - id: source-control
+    name: Source Control
+    description: Git repository hosting, branches, commits, tags, and refs.
+    terms:
+      - name: Repository
+        description: A Git repository hosted by Gitea.
+      - name: Branch
+        description: A named pointer to a commit within a repository.
+      - name: Commit
+        description: A snapshot of repository state with metadata (author, message, parents).
+      - name: Tag
+        description: An immutable named ref typically used to mark releases.
+      - name: Mirror
+        description: A pull or push mirror that synchronizes with an upstream remote.
+      - name: Default Branch
+        description: The branch shown by default and used as merge target.
+  - id: collaboration
+    name: Collaboration
+    description: Pull requests, issues, comments, reviews, and code review workflow.
+    terms:
+      - name: Pull Request
+        description: A request to merge changes from a head branch into a base branch.
+      - name: Issue
+        description: A tracked work item, bug, or feature request.
+      - name: Comment
+        description: A note attached to an issue, pull request, or commit.
+      - name: Review
+        description: A formal approval, request for changes, or comment on a pull request.
+      - name: Label
+        description: A categorical tag applied to an issue or pull request.
+      - name: Milestone
+        description: A grouping of issues / pull requests with an optional due date.
+  - id: cicd
+    name: CI/CD
+    description: Continuous integration and delivery via Gitea Actions.
+    terms:
+      - name: Workflow
+        description: A YAML-defined automation pipeline triggered by repository events.
+      - name: Job
+        description: A unit of work in a workflow executed by a runner.
+      - name: Runner
+        description: An act_runner agent that executes workflow jobs.
+      - name: Action
+        description: A reusable workflow step compatible with GitHub Actions.
+      - name: Secret
+        description: An encrypted variable available to workflows at runtime.
+  - id: packages
+    name: Package Registry
+    description: Multi-format package storage and distribution.
+    terms:
+      - name: Package Type
+        description: One of 24 supported ecosystems (Container, Maven, npm, Helm, etc.).
+      - name: Package Version
+        description: A specific version of a package in the registry.
+      - name: Package Owner
+        description: The user or organization that owns a package namespace.
+  - id: identity
+    name: Identity And Access
+    description: Users, organizations, teams, tokens, and authentication.
+    terms:
+      - name: User
+        description: An individual account on a Gitea instance.
+      - name: Organization
+        description: A group account that owns shared repositories and teams.
+      - name: Team
+        description: A subset of organization members with shared permissions.
+      - name: Personal Access Token
+        description: A user-issued long-lived credential for the REST API.
+      - name: OAuth2 Application
+        description: A third-party application registered to authenticate via OAuth2.
+      - name: Two-Factor Authentication
+        description: Time-based one-time password second-factor login.
+  - id: events
+    name: Events And Notifications
+    description: Webhooks and notification threads.
+    terms:
+      - name: Webhook
+        description: An outbound HTTP callback delivering JSON event payloads.
+      - name: Event Type
+        description: One of push, pull_request, issues, release, package, and others.
+      - name: Notification Thread
+        description: A user-scoped collection of activity related to a subject.
+  - id: governance
+    name: Governance And Administration
+    description: Instance administration, settings, audit, and compliance.
+    terms:
+      - name: Instance Administrator
+        description: A user with global administrative privileges.
+      - name: Audit Log
+        description: An immutable record of administrative or security events (Enterprise).
+      - name: SAML SSO
+        description: Single sign-on integration available in Gitea Enterprise.
+      - name: SOC 2 Type 2
+        description: Compliance certification held by Gitea Cloud.
+operationalDimensions:
+  - id: hosting-model
+    values:
+      - name: Self-Hosted Open Source
+        description: MIT-licensed Gitea installed on customer infrastructure.
+      - name: Self-Hosted Enterprise
+        description: Commercial self-managed edition with SSO, audit logs, and SLA support.
+      - name: Cloud
+        description: Single-tenant fully-managed Gitea hosted by CommitGo.
+  - id: api-version
+    values:
+      - name: v1
+        description: Current REST API version exposed at /api/v1/.
+  - id: authentication
+    values:
+      - name: BasicAuth
+      - name: Token
+      - name: AccessToken
+      - name: AuthorizationHeaderToken
+      - name: OAuth2
+      - name: TOTPHeader
+      - name: SudoHeader
+      - name: SudoParam
+maintainers:
+  - FN: Kin Lane
+    email: kinlane@gmail.com

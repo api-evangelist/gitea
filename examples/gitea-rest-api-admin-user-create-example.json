@@ -1,0 +1,28 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/admin/users",
+    "operationId": "adminCreateUser",
+    "summary": "Create a user",
+    "tags": [
+      "admin"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "username": "newuser",
+      "email": "newuser@example.com",
+      "password": "changeme",
+      "must_change_password": true,
+      "send_notify": false
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

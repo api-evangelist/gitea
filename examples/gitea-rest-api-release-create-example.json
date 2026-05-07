@@ -1,0 +1,29 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/repos/{owner}/{repo}/releases",
+    "operationId": "repoCreateRelease",
+    "summary": "Create a release",
+    "tags": [
+      "repository"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "tag_name": "v1.0.0",
+      "name": "v1.0.0",
+      "body": "Initial release",
+      "draft": false,
+      "prerelease": false,
+      "target_commitish": "main"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

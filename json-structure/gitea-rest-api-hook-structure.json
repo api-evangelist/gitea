@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-hook-structure.json",
+  "name": "Hook",
+  "description": "JSON Structure description of the Gitea Hook entity.",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "description": "Whether the webhook is active and will be triggered"
+    },
+    "authorization_header": {
+      "type": "string",
+      "description": "Authorization header to include in webhook requests"
+    },
+    "branch_filter": {
+      "type": "string",
+      "description": "Branch filter pattern to determine which branches trigger the webhook"
+    },
+    "config": {
+      "type": "object",
+      "description": "Configuration settings for the webhook"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "events": {
+      "type": "array",
+      "description": "List of events that trigger this webhook"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the webhook",
+      "format": "int64"
+    },
+    "name": {
+      "type": "string",
+      "description": "Optional human-readable name for the webhook"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the webhook (e.g., gitea, slack, discord)"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/repos/{owner}/{repo}/issues",
+    "operationId": "issueCreateIssue",
+    "summary": "Create an issue. If using deadline only the date will be taken into account, and time of day ignored.",
+    "tags": [
+      "issue"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Bug report",
+      "body": "Steps to reproduce...",
+      "labels": [
+        1,
+        2
+      ],
+      "assignees": [
+        "octocat"
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

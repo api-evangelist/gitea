@@ -1,0 +1,27 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/repos/{owner}/{repo}/pulls",
+    "operationId": "repoCreatePullRequest",
+    "summary": "Create a pull request",
+    "tags": [
+      "repository"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "title": "Add feature",
+      "body": "Description",
+      "head": "feature/x",
+      "base": "main"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

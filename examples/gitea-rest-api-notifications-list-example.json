@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/notifications",
+    "operationId": "notifyGetList",
+    "summary": "List users's notification threads",
+    "tags": [
+      "notification"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

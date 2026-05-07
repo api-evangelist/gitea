@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-issue-structure.json",
+  "name": "Issue",
+  "description": "JSON Structure description of the Gitea Issue entity.",
+  "type": "object",
+  "properties": {
+    "assets": {
+      "type": "array"
+    },
+    "assignee": {
+      "type": "string"
+    },
+    "assignees": {
+      "type": "array"
+    },
+    "body": {
+      "type": "string"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "comments": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "content_version": {
+      "type": "integer",
+      "description": "The version of the issue content for optimistic locking",
+      "format": "int64"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "html_url": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "is_locked": {
+      "type": "boolean"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "milestone": {
+      "type": "string"
+    },
+    "number": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "original_author": {
+      "type": "string"
+    },
+    "original_author_id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "pin_order": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "pull_request": {
+      "type": "string"
+    },
+    "ref": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "time_estimate": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "title": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "url": {
+      "type": "string"
+    },
+    "user": {
+      "type": "string"
+    }
+  }
+}

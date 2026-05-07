@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-user-structure.json",
+  "name": "User",
+  "description": "JSON Structure description of the Gitea User entity.",
+  "type": "object",
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "description": "Is user active"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "URL to the user's avatar"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "description": "the user's description"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "followers_count": {
+      "type": "integer",
+      "description": "user counts",
+      "format": "int64"
+    },
+    "following_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "the user's full name"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "URL to the user's gitea page"
+    },
+    "id": {
+      "type": "integer",
+      "description": "the user's id",
+      "format": "int64"
+    },
+    "is_admin": {
+      "type": "boolean",
+      "description": "Is the user an administrator"
+    },
+    "language": {
+      "type": "string",
+      "description": "User locale"
+    },
+    "last_login": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "location": {
+      "type": "string",
+      "description": "the user's location"
+    },
+    "login": {
+      "type": "string",
+      "description": "login of the user, same as `username`"
+    },
+    "login_name": {
+      "type": "string",
+      "description": "identifier of the user, provided by the external authenticator (if configured)"
+    },
+    "prohibit_login": {
+      "type": "boolean",
+      "description": "Is user login prohibited"
+    },
+    "restricted": {
+      "type": "boolean",
+      "description": "Is user restricted"
+    },
+    "source_id": {
+      "type": "integer",
+      "description": "The ID of the user's Authentication Source",
+      "format": "int64"
+    },
+    "starred_repos_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "visibility": {
+      "type": "string",
+      "description": "User visibility level option: public, limited, private"
+    },
+    "website": {
+      "type": "string",
+      "description": "the user's website"
+    }
+  }
+}

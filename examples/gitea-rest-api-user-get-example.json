@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/users/{username}",
+    "operationId": "userGet",
+    "summary": "Get a user",
+    "tags": [
+      "user"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

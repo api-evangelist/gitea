@@ -1,0 +1,31 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/user/repos",
+    "operationId": "createCurrentUserRepo",
+    "summary": "Create a repository",
+    "tags": [
+      "repository",
+      "user"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "name": "hello-world",
+      "description": "A sample repository",
+      "private": false,
+      "auto_init": true,
+      "default_branch": "main",
+      "license": "MIT",
+      "gitignores": "Go"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

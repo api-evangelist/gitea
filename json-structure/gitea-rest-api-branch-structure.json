@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-branch-structure.json",
+  "name": "Branch",
+  "description": "JSON Structure description of the Gitea Branch entity.",
+  "type": "object",
+  "properties": {
+    "commit": {
+      "type": "string"
+    },
+    "effective_branch_protection_name": {
+      "type": "string",
+      "description": "EffectiveBranchProtectionName is the name of the effective branch protection rule"
+    },
+    "enable_status_check": {
+      "type": "boolean",
+      "description": "EnableStatusCheck indicates if status checks are enabled"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name is the branch name"
+    },
+    "protected": {
+      "type": "boolean",
+      "description": "Protected indicates if the branch is protected"
+    },
+    "required_approvals": {
+      "type": "integer",
+      "description": "RequiredApprovals is the number of required approvals for pull requests",
+      "format": "int64"
+    },
+    "status_check_contexts": {
+      "type": "array",
+      "description": "StatusCheckContexts contains the list of required status check contexts"
+    },
+    "user_can_merge": {
+      "type": "boolean",
+      "description": "UserCanMerge indicates if the current user can merge to this branch"
+    },
+    "user_can_push": {
+      "type": "boolean",
+      "description": "UserCanPush indicates if the current user can push to this branch"
+    }
+  }
+}

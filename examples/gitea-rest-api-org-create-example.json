@@ -1,0 +1,26 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/orgs",
+    "operationId": "orgCreate",
+    "summary": "Create an organization",
+    "tags": [
+      "organization"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "username": "acme",
+      "full_name": "Acme Corp",
+      "visibility": "public"
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

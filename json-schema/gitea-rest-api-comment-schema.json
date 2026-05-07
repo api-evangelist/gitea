@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-comment-schema.json",
+  "title": "Comment",
+  "description": "Comment represents a comment on a commit or issue",
+  "type": "object",
+  "properties": {
+    "assets": {
+      "description": "Attachments contains files attached to the comment",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Attachment"
+      },
+      "x-go-name": "Attachments"
+    },
+    "body": {
+      "description": "Body contains the comment text content",
+      "type": "string",
+      "x-go-name": "Body"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Created"
+    },
+    "html_url": {
+      "description": "HTMLURL is the web URL for viewing the comment",
+      "type": "string",
+      "x-go-name": "HTMLURL"
+    },
+    "id": {
+      "description": "ID is the unique identifier for the comment",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ID"
+    },
+    "issue_url": {
+      "description": "IssueURL is the API URL for the issue",
+      "type": "string",
+      "x-go-name": "IssueURL"
+    },
+    "original_author": {
+      "description": "OriginalAuthor is the original author name (for imported comments)",
+      "type": "string",
+      "x-go-name": "OriginalAuthor"
+    },
+    "original_author_id": {
+      "description": "OriginalAuthorID is the original author ID (for imported comments)",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "OriginalAuthorID"
+    },
+    "pull_request_url": {
+      "description": "PRURL is the API URL for the pull request (if applicable)",
+      "type": "string",
+      "x-go-name": "PRURL"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Updated"
+    },
+    "user": {
+      "$ref": "#/$defs/User"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs",
+  "$defs": {
+    "User": {
+      "description": "User represents a user",
+      "type": "object",
+      "properties": {
+        "active": {
+          "description": "Is user active",
+          "type": "boolean",
+          "x-go-name": "IsActive"
+        },
+        "avatar_url": {
+          "description": "URL to the user's avatar",
+          "type": "string",
+          "x-go-name": "AvatarURL"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "description": {
+          "description": "the user's description",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "x-go-name": "Email"
+        },
+        "followers_count": {
+          "description": "user counts",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Followers"
+        },
+        "following_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Following"
+        },
+        "full_name": {
+          "description": "the user's full name",
+          "type": "string",
+          "x-go-name": "FullName"
+        },
+        "html_url": {
+          "description": "URL to the user's gitea page",
+          "type": "string",
+          "x-go-name": "HTMLURL"
+        },
+        "id": {
+          "description": "the user's id",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "is_admin": {
+          "description": "Is the user an administrator",
+          "type": "boolean",
+          "x-go-name": "IsAdmin"
+        },
+        "language": {
+          "description": "User locale",
+          "type": "string",
+          "x-go-name": "Language"
+        },
+        "last_login": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastLogin"
+        },
+        "location": {
+          "description": "the user's location",
+          "type": "string",
+          "x-go-name": "Location"
+        },
+        "login": {
+          "description": "login of the user, same as `username`",
+          "type": "string",
+          "x-go-name": "UserName"
+        },
+        "login_name": {
+          "description": "identifier of the user, provided by the external authenticator (if configured)",
+          "type": "string",
+          "default": "empty",
+          "x-go-name": "LoginName"
+        },
+        "prohibit_login": {
+          "description": "Is user login prohibited",
+          "type": "boolean",
+          "x-go-name": "ProhibitLogin"
+        },
+        "restricted": {
+          "description": "Is user restricted",
+          "type": "boolean",
+          "x-go-name": "Restricted"
+        },
+        "source_id": {
+          "description": "The ID of the user's Authentication Source",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SourceID"
+        },
+        "starred_repos_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "StarredRepos"
+        },
+        "visibility": {
+          "description": "User visibility level option: public, limited, private",
+          "type": "string",
+          "x-go-name": "Visibility"
+        },
+        "website": {
+          "description": "the user's website",
+          "type": "string",
+          "x-go-name": "Website"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "Attachment": {
+      "description": "Attachment a generic attachment",
+      "type": "object",
+      "properties": {
+        "browser_download_url": {
+          "description": "DownloadURL is the URL to download the attachment",
+          "type": "string",
+          "x-go-name": "DownloadURL"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "download_count": {
+          "description": "DownloadCount is the number of times the attachment has been downloaded",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "DownloadCount"
+        },
+        "id": {
+          "description": "ID is the unique identifier for the attachment",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "description": "Name is the filename of the attachment",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "size": {
+          "description": "Size is the file size in bytes",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Size"
+        },
+        "uuid": {
+          "description": "UUID is the unique identifier for the attachment file",
+          "type": "string",
+          "x-go-name": "UUID"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    }
+  }
+}

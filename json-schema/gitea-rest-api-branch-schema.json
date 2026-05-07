@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-branch-schema.json",
+  "title": "Branch",
+  "description": "Branch represents a repository branch",
+  "type": "object",
+  "properties": {
+    "commit": {
+      "$ref": "#/$defs/PayloadCommit"
+    },
+    "effective_branch_protection_name": {
+      "description": "EffectiveBranchProtectionName is the name of the effective branch protection rule",
+      "type": "string",
+      "x-go-name": "EffectiveBranchProtectionName"
+    },
+    "enable_status_check": {
+      "description": "EnableStatusCheck indicates if status checks are enabled",
+      "type": "boolean",
+      "x-go-name": "EnableStatusCheck"
+    },
+    "name": {
+      "description": "Name is the branch name",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "protected": {
+      "description": "Protected indicates if the branch is protected",
+      "type": "boolean",
+      "x-go-name": "Protected"
+    },
+    "required_approvals": {
+      "description": "RequiredApprovals is the number of required approvals for pull requests",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "RequiredApprovals"
+    },
+    "status_check_contexts": {
+      "description": "StatusCheckContexts contains the list of required status check contexts",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "StatusCheckContexts"
+    },
+    "user_can_merge": {
+      "description": "UserCanMerge indicates if the current user can merge to this branch",
+      "type": "boolean",
+      "x-go-name": "UserCanMerge"
+    },
+    "user_can_push": {
+      "description": "UserCanPush indicates if the current user can push to this branch",
+      "type": "boolean",
+      "x-go-name": "UserCanPush"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs",
+  "$defs": {
+    "PayloadCommit": {
+      "description": "PayloadCommit represents a commit",
+      "type": "object",
+      "properties": {
+        "added": {
+          "description": "List of files added in this commit",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Added"
+        },
+        "author": {
+          "$ref": "#/$defs/PayloadUser"
+        },
+        "committer": {
+          "$ref": "#/$defs/PayloadUser"
+        },
+        "id": {
+          "description": "sha1 hash of the commit",
+          "type": "string",
+          "x-go-name": "ID"
+        },
+        "message": {
+          "description": "The commit message",
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "modified": {
+          "description": "List of files modified in this commit",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Modified"
+        },
+        "removed": {
+          "description": "List of files removed in this commit",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Removed"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Timestamp"
+        },
+        "url": {
+          "description": "The URL to view this commit",
+          "type": "string",
+          "x-go-name": "URL"
+        },
+        "verification": {
+          "$ref": "#/$defs/PayloadCommitVerification"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "PayloadCommitVerification": {
+      "description": "PayloadCommitVerification represents the GPG verification of a commit",
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The signed payload content",
+          "type": "string",
+          "x-go-name": "Payload"
+        },
+        "reason": {
+          "description": "The reason for the verification status",
+          "type": "string",
+          "x-go-name": "Reason"
+        },
+        "signature": {
+          "description": "The GPG signature of the commit",
+          "type": "string",
+          "x-go-name": "Signature"
+        },
+        "signer": {
+          "$ref": "#/$defs/PayloadUser"
+        },
+        "verified": {
+          "description": "Whether the commit signature is verified",
+          "type": "boolean",
+          "x-go-name": "Verified"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "PayloadUser": {
+      "description": "PayloadUser represents the author or committer of a commit",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "Full name of the commit author",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "username": {
+          "description": "username of the user",
+          "type": "string",
+          "x-go-name": "UserName"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    }
+  }
+}

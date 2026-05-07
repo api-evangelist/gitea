@@ -1,0 +1,179 @@
+extends:
+  - spectral:oas
+
+# Spectral linting rules for the Gitea REST API.
+# Captures conventions observed in the Gitea Swagger 2.0 / OpenAPI 3.0
+# specification and Gitea's documented best practices.
+rules:
+  gitea-info-contact:
+    description: API contact information must be present.
+    severity: error
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  gitea-info-license:
+    description: API license must be declared (Gitea is MIT).
+    severity: warn
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  gitea-server-https:
+    description: Production servers must use HTTPS.
+    severity: error
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  gitea-base-path-versioned:
+    description: Base path must include /api/v1 to match Gitea's documented API surface.
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/api/v1"
+
+  gitea-auth-required:
+    description: Security schemes must be declared (Gitea supports BasicAuth, Token, AccessToken, AuthorizationHeaderToken, TOTPHeader, SudoHeader, SudoParam).
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+
+  gitea-operation-id:
+    description: Every operation must declare a unique operationId (camelCase).
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  gitea-operation-id-camelcase:
+    description: operationId must be camelCase.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  gitea-operation-tags:
+    description: Every operation must declare at least one tag (admin, repository, issue, organization, user, package, notification, miscellaneous, settings).
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          minItems: 1
+
+  gitea-operation-summary:
+    description: Every operation must include a Title Case summary.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  gitea-summary-title-case:
+    description: Operation summaries should be Title Case.
+    severity: hint
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  gitea-error-responses:
+    description: Mutating operations should declare 4xx error responses.
+    severity: warn
+    given: "$.paths[*][post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: [ "400" ]
+            - required: [ "401" ]
+            - required: [ "403" ]
+            - required: [ "404" ]
+            - required: [ "422" ]
+
+  gitea-list-pagination:
+    description: List operations should support page and limit query parameters (Gitea pagination convention).
+    severity: hint
+    given: "$.paths[*].get.parameters[?(@.in == 'query')].name"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - page
+          - limit
+          - q
+          - state
+          - type
+          - sort
+          - order
+          - since
+          - before
+          - owner
+          - repo
+          - org
+          - user
+          - team
+          - kind
+          - mode
+          - access_token
+          - sudo
+          - private
+          - includeDesc
+          - all
+          - tags
+          - exclusive
+          - include
+          - milestones
+          - keyword
+          - first_only
+
+  gitea-path-naming:
+    description: Path segments must be lowercase and use snake_case for static segments and {camelCase} for parameters; Gitea uses lowercase REST resources (e.g. /repos, /orgs, /users).
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/.*"
+
+  gitea-no-trailing-slash:
+    description: Paths must not end with a trailing slash.
+    severity: warn
+    given: "$.paths"
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: ".+/$"
+
+  gitea-schema-required:
+    description: Definition / schema fields with required arrays should reference real properties only.
+    severity: warn
+    given: "$.components.schemas[*]"
+    then:
+      function: truthy
+      field: type
+
+  gitea-deprecated-marked:
+    description: Deprecated operations should be flagged with x-deprecated or deprecated:true and have a replacement note in description.
+    severity: hint
+    given: "$.paths[*][get,post,put,patch,delete][?(@.deprecated == true)]"
+    then:
+      field: description
+      function: truthy

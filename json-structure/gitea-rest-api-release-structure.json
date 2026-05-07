@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-release-structure.json",
+  "name": "Release",
+  "description": "JSON Structure description of the Gitea Release entity.",
+  "type": "object",
+  "properties": {
+    "assets": {
+      "type": "array",
+      "description": "The files attached to the release"
+    },
+    "author": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "description": "The release notes or description"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "draft": {
+      "type": "boolean",
+      "description": "Whether the release is a draft"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "The HTML URL to view the release"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the release",
+      "format": "int64"
+    },
+    "name": {
+      "type": "string",
+      "description": "The display title of the release"
+    },
+    "prerelease": {
+      "type": "boolean",
+      "description": "Whether the release is a prerelease"
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tag_name": {
+      "type": "string",
+      "description": "The name of the git tag associated with the release"
+    },
+    "tarball_url": {
+      "type": "string",
+      "description": "The URL to download the tarball archive"
+    },
+    "target_commitish": {
+      "type": "string",
+      "description": "The target commitish for the release"
+    },
+    "upload_url": {
+      "type": "string",
+      "description": "The URL template for uploading release assets"
+    },
+    "url": {
+      "type": "string",
+      "description": "The API URL of the release"
+    },
+    "zipball_url": {
+      "type": "string",
+      "description": "The URL to download the zip archive"
+    }
+  }
+}

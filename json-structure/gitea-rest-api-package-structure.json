@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-package-structure.json",
+  "name": "Package",
+  "description": "JSON Structure description of the Gitea Package entity.",
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "creator": {
+      "type": "string"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "The HTML URL to view the package"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the package",
+      "format": "int64"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the package"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "repository": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "description": "The type of the package (e.g., npm, maven, docker)"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version of the package"
+    }
+  }
+}

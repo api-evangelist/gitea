@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-organization-schema.json",
+  "title": "Organization",
+  "description": "Organization represents an organization",
+  "type": "object",
+  "properties": {
+    "avatar_url": {
+      "description": "The URL of the organization's avatar",
+      "type": "string",
+      "x-go-name": "AvatarURL"
+    },
+    "description": {
+      "description": "The description of the organization",
+      "type": "string",
+      "x-go-name": "Description"
+    },
+    "email": {
+      "description": "The email address of the organization",
+      "type": "string",
+      "x-go-name": "Email"
+    },
+    "full_name": {
+      "description": "The full display name of the organization",
+      "type": "string",
+      "x-go-name": "FullName"
+    },
+    "id": {
+      "description": "The unique identifier of the organization",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ID"
+    },
+    "location": {
+      "description": "The location of the organization",
+      "type": "string",
+      "x-go-name": "Location"
+    },
+    "name": {
+      "description": "The name of the organization",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "repo_admin_change_team_access": {
+      "description": "Whether repository administrators can change team access",
+      "type": "boolean",
+      "x-go-name": "RepoAdminChangeTeamAccess"
+    },
+    "username": {
+      "description": "username of the organization\ndeprecated",
+      "type": "string",
+      "x-go-name": "UserName"
+    },
+    "visibility": {
+      "description": "The visibility level of the organization (public, limited, private)",
+      "type": "string",
+      "x-go-name": "Visibility"
+    },
+    "website": {
+      "description": "The website URL of the organization",
+      "type": "string",
+      "x-go-name": "Website"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs"
+}

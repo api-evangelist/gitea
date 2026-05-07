@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-team-structure.json",
+  "name": "Team",
+  "description": "JSON Structure description of the Gitea Team entity.",
+  "type": "object",
+  "properties": {
+    "can_create_org_repo": {
+      "type": "boolean",
+      "description": "Whether the team can create repositories in the organization"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the team"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the team",
+      "format": "int64"
+    },
+    "includes_all_repositories": {
+      "type": "boolean",
+      "description": "Whether the team has access to all repositories in the organization"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the team"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "permission": {
+      "type": "string"
+    },
+    "units": {
+      "type": "array",
+      "example": [
+        "repo.code",
+        "repo.issues",
+        "repo.ext_issues",
+        "repo.wiki",
+        "repo.pulls",
+        "repo.releases",
+        "repo.projects",
+        "repo.ext_wiki"
+      ]
+    },
+    "units_map": {
+      "type": "object",
+      "example": {
+        "repo.code": "read",
+        "repo.ext_issues": "none",
+        "repo.ext_wiki": "none",
+        "repo.issues": "write",
+        "repo.projects": "none",
+        "repo.pulls": "owner",
+        "repo.releases": "none",
+        "repo.wiki": "admin"
+      }
+    }
+  }
+}

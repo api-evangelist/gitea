@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/packages/{owner}",
+    "operationId": "listPackages",
+    "summary": "Gets all packages of an owner",
+    "tags": [
+      "package"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

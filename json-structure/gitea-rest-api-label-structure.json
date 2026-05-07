@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-label-structure.json",
+  "name": "Label",
+  "description": "JSON Structure description of the Gitea Label entity.",
+  "type": "object",
+  "properties": {
+    "color": {
+      "type": "string",
+      "example": "00aabb"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description provides additional context about the label's purpose"
+    },
+    "exclusive": {
+      "type": "boolean",
+      "example": false
+    },
+    "id": {
+      "type": "integer",
+      "description": "ID is the unique identifier for the label",
+      "format": "int64"
+    },
+    "is_archived": {
+      "type": "boolean",
+      "example": false
+    },
+    "name": {
+      "type": "string",
+      "description": "Name is the display name of the label"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL is the API endpoint for accessing this label"
+    }
+  }
+}

@@ -1,0 +1,219 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Gitea
+providerId: gitea
+created: '2026-05-06'
+modified: '2026-05-06'
+tags:
+  - Git
+  - Source Control
+  - DevOps
+  - CI/CD
+  - Code Hosting
+  - Open Source
+  - Self Hosted
+  - Package Registry
+description: >-
+  Machine-readable plans and pricing definition for Gitea, covering the
+  free open-source distribution, the commercial Gitea Enterprise
+  self-managed edition, and the Gitea Cloud single-tenant managed
+  hosting offering. Prices reflect publicly listed values from
+  about.gitea.com/pricing/ and about.gitea.com/products/cloud at the
+  modified date; specific Cloud instance tier prices ("Basic / Standard
+  / Pro / Plus / Extra / Max / Ultra") are not listed publicly and are
+  marked TBD.
+plans:
+  - id: gitea-open-source
+    name: Gitea (Open Source)
+    type: free
+    description: >-
+      Free, MIT-licensed self-hosted Gitea distribution. Unlimited
+      users, repositories, and packages. Community support only.
+      Customer is responsible for hosting, scaling, and maintenance.
+    entries:
+      - label: Users
+        description: No software-imposed user limit
+        name: users
+        type: quota
+        metric: users
+        limit: -1
+        timeFrame: perpetual
+        geo: self-hosted
+        domains:
+          - https://github.com/go-gitea/gitea
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Repositories
+        description: No software-imposed repository limit
+        name: repositories
+        type: quota
+        metric: repositories
+        limit: -1
+        timeFrame: perpetual
+        geo: self-hosted
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: API Requests
+        description: REST API requests are not metered in the OSS distribution; subject only to operator-configured rate limits.
+        name: api_requests
+        type: quota
+        metric: requests
+        limit: -1
+        timeFrame: perpetual
+        geo: self-hosted
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Self-Hosted Distribution
+      - name: Git Hosting
+      - name: Issue Tracking
+      - name: Pull Requests And Code Review
+      - name: Project Boards
+      - name: Gitea Actions CI/CD
+      - name: Package Registry (24 Formats)
+      - name: REST API (~300 Endpoints)
+      - name: Webhooks
+      - name: Mirroring And Migration
+      - name: Community Support (Forum / Discord)
+      - name: Gitea REST API
+      - name: Gitea Actions API
+      - name: Gitea Package Registry
+      - name: Gitea Webhooks
+
+  - id: gitea-enterprise
+    name: Gitea Enterprise
+    type: paid
+    description: >-
+      Commercial self-managed edition. Adds SAML SSO, audit logs,
+      Kubernetes auto-scaling Actions runners, priority email/online
+      support with SLA, installation/upgrade assistance, and emergency
+      telephone/remote support. Listed pricing is $9.50 - $19 per user
+      per month with a 1-year commitment for online payment. Discounts
+      are available for non-profits and small companies.
+    entries:
+      - label: Per-User Subscription (Annual Commitment)
+        description: Per-user license priced between $9.50 and $19 / user / month with a 12-month minimum commitment.
+        name: per_user_license
+        type: subscription
+        metric: users
+        limit: -1
+        timeFrame: month
+        geo: self-hosted
+        domains:
+          - https://about.gitea.com/products/enterprise
+        unit: 1
+        price: '9.50-19.00'
+        userMultiplied: true
+      - label: Free Trial
+        description: 30-day free trial of Gitea Enterprise
+        name: trial
+        type: trial
+        metric: days
+        limit: 30
+        timeFrame: trial
+        geo: self-hosted
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: All Open Source Features
+      - name: SAML SSO Integration
+      - name: Audit Logs
+      - name: Kubernetes AutoScaling Runners
+      - name: Priority Email And Online Support
+      - name: SLA-backed Support
+      - name: Installation / Upgrade Assistance
+      - name: Emergency Telephone / Remote Support
+      - name: 30-Day Free Trial
+      - name: Gitea REST API
+      - name: Gitea Actions API
+      - name: Gitea Package Registry
+      - name: Gitea Webhooks
+
+  - id: gitea-cloud
+    name: Gitea Cloud
+    type: paid
+    description: >-
+      Single-tenant fully-managed Gitea hosted by CommitGo. Region-
+      based deployment (including a Frankfurt EU region) with automatic
+      scaling, upgrades, backups, and 24x7 availability. SOC 2 Type 2
+      certified. Cloud Release 13 introduced Extra, Max, and Ultra
+      instances with no user limits and open self-registration. A 50%
+      discount applies to all instance types except Extra, Max, and
+      Ultra. Specific tier prices are not publicly listed; sign in at
+      cloud.gitea.com to see current values.
+    entries:
+      - label: Cloud Subscription
+        description: Recurring subscription for a managed Gitea Cloud instance, priced per tier and region. See cloud.gitea.com for current values.
+        name: cloud_subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: regional
+        domains:
+          - https://cloud.gitea.com/
+        unit: 1
+        price: TBD
+        userMultiplied: false
+      - label: Free Trial
+        description: 30-day free trial for instances with fewer than 20 users
+        name: trial
+        type: trial
+        metric: days
+        limit: 30
+        timeFrame: trial
+        geo: regional
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Object Storage Add-On
+        description: Additional Object Storage capacity add-on pack for storage-intensive workflows (LFS, packages).
+        name: object_storage_addon
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: regional
+        unit: 1
+        price: TBD
+        userMultiplied: false
+      - label: Network Traffic
+        description: Inbound traffic is unlimited and free; outbound traffic includes a high-speed quota with reduced speed only after quota exhaustion.
+        name: network_traffic
+        type: quota
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: regional
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: All Open Source And Enterprise Features
+      - name: Single-Tenant Managed Hosting
+      - name: Region Selection (Including EU / Frankfurt)
+      - name: Automatic Scaling, Upgrades, And Backups
+      - name: 24x7 Availability
+      - name: SOC 2 Type 2 Compliance
+      - name: Two-Factor Authentication
+      - name: Public Repository Anonymous View / Download
+      - name: Open Self-Registration (Extra / Max / Ultra Tiers)
+      - name: IP Allow / Block Lists
+      - name: Email Domain Allow / Block Lists
+      - name: Object Storage Add-On Packs
+      - name: Unlimited Inbound Network Traffic
+      - name: 30-Day Free Trial (<20 Users)
+      - name: Gitea REST API
+      - name: Gitea Actions API
+      - name: Gitea Package Registry
+      - name: Gitea Webhooks
+      - name: Gitea Cloud Management API
+
+maintainers:
+  - FN: Kin Lane
+    email: kinlane@gmail.com

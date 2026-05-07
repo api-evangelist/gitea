@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/orgs/{org}/repos",
+    "operationId": "orgListRepos",
+    "summary": "List an organization's repos",
+    "tags": [
+      "organization"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

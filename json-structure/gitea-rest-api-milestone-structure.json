@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-milestone-structure.json",
+  "name": "Milestone",
+  "description": "JSON Structure description of the Gitea Milestone entity.",
+  "type": "object",
+  "properties": {
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "closed_issues": {
+      "type": "integer",
+      "description": "ClosedIssues is the number of closed issues in this milestone",
+      "format": "int64"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description provides details about the milestone"
+    },
+    "due_on": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "id": {
+      "type": "integer",
+      "description": "ID is the unique identifier for the milestone",
+      "format": "int64"
+    },
+    "open_issues": {
+      "type": "integer",
+      "description": "OpenIssues is the number of open issues in this milestone",
+      "format": "int64"
+    },
+    "state": {
+      "type": "string",
+      "description": "State indicates if the milestone is open or closed\nopen StateOpen  StateOpen pr is opened\nclosed StateClosed  StateClosed pr is closed"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title is the title of the milestone"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

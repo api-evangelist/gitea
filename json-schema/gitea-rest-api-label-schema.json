@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-label-schema.json",
+  "title": "Label",
+  "description": "Label a label to an issue or a pr",
+  "type": "object",
+  "properties": {
+    "color": {
+      "type": "string",
+      "x-go-name": "Color",
+      "example": "00aabb"
+    },
+    "description": {
+      "description": "Description provides additional context about the label's purpose",
+      "type": "string",
+      "x-go-name": "Description"
+    },
+    "exclusive": {
+      "type": "boolean",
+      "x-go-name": "Exclusive",
+      "example": false
+    },
+    "id": {
+      "description": "ID is the unique identifier for the label",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ID"
+    },
+    "is_archived": {
+      "type": "boolean",
+      "x-go-name": "IsArchived",
+      "example": false
+    },
+    "name": {
+      "description": "Name is the display name of the label",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "url": {
+      "description": "URL is the API endpoint for accessing this label",
+      "type": "string",
+      "x-go-name": "URL"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs"
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-milestone-schema.json",
+  "title": "Milestone",
+  "description": "Milestone milestone is a collection of issues on one repository",
+  "type": "object",
+  "properties": {
+    "closed_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Closed"
+    },
+    "closed_issues": {
+      "description": "ClosedIssues is the number of closed issues in this milestone",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ClosedIssues"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Created"
+    },
+    "description": {
+      "description": "Description provides details about the milestone",
+      "type": "string",
+      "x-go-name": "Description"
+    },
+    "due_on": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Deadline"
+    },
+    "id": {
+      "description": "ID is the unique identifier for the milestone",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ID"
+    },
+    "open_issues": {
+      "description": "OpenIssues is the number of open issues in this milestone",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "OpenIssues"
+    },
+    "state": {
+      "description": "State indicates if the milestone is open or closed\nopen StateOpen  StateOpen pr is opened\nclosed StateClosed  StateClosed pr is closed",
+      "type": "string",
+      "enum": [
+        "open",
+        "closed"
+      ],
+      "x-go-enum-desc": "open StateOpen  StateOpen pr is opened\nclosed StateClosed  StateClosed pr is closed",
+      "x-go-name": "State"
+    },
+    "title": {
+      "description": "Title is the title of the milestone",
+      "type": "string",
+      "x-go-name": "Title"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Updated"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs"
+}

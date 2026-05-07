@@ -1,0 +1,27 @@
+{
+  "operation": {
+    "method": "PATCH",
+    "path": "/repos/{owner}/{repo}",
+    "operationId": "repoEdit",
+    "summary": "Edit a repository's properties. Only fields that are set will be changed.",
+    "tags": [
+      "repository"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "description": "Updated",
+      "private": false,
+      "has_issues": true,
+      "archived": false
+    }
+  },
+  "response": {
+    "status": 204,
+    "body": {}
+  }
+}

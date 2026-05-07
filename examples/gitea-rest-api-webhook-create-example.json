@@ -1,0 +1,32 @@
+{
+  "operation": {
+    "method": "POST",
+    "path": "/repos/{owner}/{repo}/hooks",
+    "operationId": "repoCreateHook",
+    "summary": "Create a hook",
+    "tags": [
+      "repository"
+    ]
+  },
+  "request": {
+    "headers": {
+      "Authorization": "token abc123",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "type": "gitea",
+      "config": {
+        "content_type": "json",
+        "url": "https://example.com/hook"
+      },
+      "events": [
+        "push"
+      ],
+      "active": true
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {}
+  }
+}

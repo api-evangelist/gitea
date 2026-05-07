@@ -1,13 +1,483 @@
 aid: gitea
-url: https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml
 name: Gitea
-type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-description: 'Self-hosted Git service with REST API for teams and developers.'
+url: https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml
 created: '2026-05-06'
 modified: '2026-05-06'
+type: Index
+access: 3rd-Party
+position: Consumer
 specificationVersion: '0.19'
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+x-type: opensource
 tags:
-  - API
-url-source: https://about.gitea.com/
-apis: []
+  - Git
+  - Source Control
+  - DevOps
+  - CI/CD
+  - Code Hosting
+  - Open Source
+  - Self Hosted
+  - Package Registry
+  - Issue Tracking
+  - Pull Requests
+description: >-
+  Gitea is an open-source, self-hosted Git service and all-in-one DevOps
+  platform written in Go and licensed under the MIT License. It provides
+  Git hosting, code review, team collaboration, an integrated package
+  registry across 24+ formats, issue tracking, project boards, and
+  GitHub-Actions-compatible CI/CD via Gitea Actions. Gitea ships with a
+  comprehensive Swagger 2.0 / OpenAPI-described REST API at
+  /api/v1/ exposing roughly 300 operations across repositories,
+  users, organizations, issues, packages, notifications, admin, and
+  miscellaneous tags. The project is governed by CommitGo, Inc., which
+  also offers Gitea Enterprise (self-managed, with SSO, audit logs and
+  Kubernetes auto-scaling runners) and Gitea Cloud (single-tenant
+  fully-managed hosting in multiple regions).
+apis:
+  - aid: gitea:gitea-rest-api
+    name: Gitea REST API
+    tags:
+      - REST
+      - Git
+      - Code Hosting
+      - DevOps
+    humanURL: https://docs.gitea.com/api/
+    baseURL: https://gitea.com/api/v1
+    properties:
+      - url: https://docs.gitea.com/api/
+        type: Documentation
+      - url: https://docs.gitea.com/api/1.26/
+        type: APIReference
+      - url: https://demo.gitea.com/api/swagger
+        type: Swagger
+      - url: https://demo.gitea.com/swagger.v1.json
+        type: OpenAPI
+      - url: openapi/gitea-rest-api-openapi-original.yml
+        type: OpenAPI
+      - url: openapi/gitea-rest-api-openapi.yml
+        type: OpenAPI
+      - url: https://docs.gitea.com/development/api-usage
+        type: GettingStarted
+      - url: https://docs.gitea.com/development/oauth2-provider
+        type: Authentication
+      - url: json-schema/gitea-rest-api-repository-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-issue-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-pullrequest-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-branch-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-commit-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-release-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-hook-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-organization-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-team-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-user-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-notificationthread-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-package-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-label-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-milestone-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-tag-schema.json
+        type: JSONSchema
+      - url: json-schema/gitea-rest-api-comment-schema.json
+        type: JSONSchema
+      - url: json-structure/gitea-rest-api-repository-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-issue-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-pullrequest-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-branch-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-commit-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-release-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-hook-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-organization-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-team-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-user-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-notificationthread-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-package-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-label-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-milestone-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-tag-structure.json
+        type: JSONStructure
+      - url: json-structure/gitea-rest-api-comment-structure.json
+        type: JSONStructure
+      - url: examples/gitea-rest-api-repo-get-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-repo-update-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-issues-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-issue-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-pulls-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-pull-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-branches-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-commits-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-release-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-webhook-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-org-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-org-repos-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-user-get-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-user-repo-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-admin-user-create-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-notifications-list-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-packages-list-owner-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-repository-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-issue-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-pullrequest-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-release-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-hook-example.json
+        type: CodeExamples
+      - url: examples/gitea-rest-api-package-example.json
+        type: CodeExamples
+    description: >-
+      Swagger 2.0-described REST API exposed by every Gitea instance at
+      /api/v1/. Approximately 300 operations cover repository, branch,
+      commit, pull request, issue, milestone, label, release, webhook,
+      organization, team, user, package, notification, admin and
+      miscellaneous functionality. Authentication is supported via
+      BasicAuth, personal access tokens (Token / AccessToken /
+      AuthorizationHeaderToken), OAuth2 bearer tokens, optional sudo
+      headers/parameters, and TOTP. The same API surface is shipped with
+      Gitea Enterprise and Gitea Cloud.
+  - aid: gitea:gitea-actions-api
+    name: Gitea Actions API
+    tags:
+      - CI/CD
+      - Workflows
+      - Automation
+    humanURL: https://docs.gitea.com/usage/actions/overview
+    baseURL: https://gitea.com/api/v1
+    properties:
+      - url: https://docs.gitea.com/usage/actions/overview
+        type: Documentation
+      - url: https://docs.gitea.com/usage/actions/quickstart
+        type: Quickstart
+      - url: https://docs.gitea.com/usage/actions/comparison
+        type: APIReference
+      - url: https://gitea.com/gitea/act_runner
+        type: GitHubRepository
+    description: >-
+      GitHub-Actions-compatible workflow engine embedded in Gitea. The
+      Actions API surface is exposed under the main REST API
+      (/repos/{owner}/{repo}/actions/* and /admin/actions/*) for
+      managing workflows, runs, jobs, runners, and secrets. Actions
+      runners are deployed via the Go-based act_runner project.
+  - aid: gitea:gitea-package-registry
+    name: Gitea Package Registry
+    tags:
+      - Packages
+      - Registry
+      - Artifacts
+    humanURL: https://docs.gitea.com/usage/packages/overview
+    baseURL: https://gitea.com/api/packages
+    properties:
+      - url: https://docs.gitea.com/usage/packages/overview
+        type: Documentation
+      - url: https://docs.gitea.com/usage/packages/cargo
+        type: APIReference
+      - url: https://docs.gitea.com/usage/packages/container
+        type: APIReference
+      - url: https://docs.gitea.com/usage/packages/helm
+        type: APIReference
+    description: >-
+      Multi-format package registry built into Gitea exposing client
+      protocols for 24 ecosystems including Cargo, Composer, Conan,
+      Conda, Container (OCI), CRAN, Debian, Generic, Go, Helm, Maven,
+      npm, NuGet, Pub, PyPI, RPM, RubyGems, Swift, Terraform, Vagrant,
+      Alpine, Arch, Chef, and more. Packages are scoped per user or
+      organization and addressable under /api/packages/{owner}/{type}.
+  - aid: gitea:gitea-webhooks
+    name: Gitea Webhooks
+    tags:
+      - Webhooks
+      - Events
+      - Eventing
+    humanURL: https://docs.gitea.com/usage/webhooks
+    properties:
+      - url: https://docs.gitea.com/usage/webhooks
+        type: Documentation
+      - url: https://docs.gitea.com/usage/webhooks#event-information
+        type: APIReference
+    description: >-
+      Outbound HTTP webhook system delivering JSON event payloads for
+      pushes, pull requests, issues, releases, package events, and more.
+      Webhooks are configurable per repository, organization or
+      instance-wide and are managed through the REST API.
+  - aid: gitea:gitea-cloud-management-api
+    name: Gitea Cloud Management API
+    tags:
+      - Cloud
+      - Management
+      - Hosted
+    humanURL: https://about.gitea.com/products/cloud
+    baseURL: https://cloud.gitea.com
+    properties:
+      - url: https://about.gitea.com/products/cloud
+        type: Documentation
+      - url: https://about.gitea.com/products/gitea-cloud-pricing/
+        type: Pricing
+      - url: https://cloud.gitea.com/
+        type: Console
+    description: >-
+      Gitea Cloud management plane for provisioning and operating
+      single-tenant managed Gitea instances. Each provisioned instance
+      exposes the same REST API at /api/v1/. The management plane
+      itself does not currently publish a separate machine-readable
+      OpenAPI definition; provisioning is performed via the
+      cloud.gitea.com web console.
+common:
+  - type: Website
+    url: https://about.gitea.com/
+  - type: Documentation
+    url: https://docs.gitea.com/
+  - type: APIReference
+    url: https://docs.gitea.com/api/
+  - type: Blog
+    url: https://blog.gitea.com/
+  - type: GitHubOrganization
+    url: https://github.com/go-gitea
+  - type: GitHubRepository
+    url: https://github.com/go-gitea/gitea
+  - type: SignUp
+    url: https://cloud.gitea.com/
+  - type: Pricing
+    url: https://about.gitea.com/pricing/
+  - type: Plans
+    url: plans/gitea-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/gitea-rate-limits.yml
+  - type: FinOps
+    url: finops/gitea-finops.yml
+  - type: TermsOfService
+    url: https://about.gitea.com/legal/terms-of-service
+  - type: PrivacyPolicy
+    url: https://about.gitea.com/legal/privacy-policy
+  - type: Support
+    url: https://forum.gitea.com/
+  - type: FAQ
+    url: https://about.gitea.com/about/faq
+  - type: ReleaseNotes
+    url: https://blog.gitea.com/
+  - type: ChangeLog
+    url: https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md
+  - type: StatusPage
+    url: https://status.gitea.com/
+  - type: Security
+    url: https://docs.gitea.com/administration/security
+  - type: Compliance
+    url: https://about.gitea.com/products/cloud
+  - type: SDK
+    url: https://gitea.com/gitea/go-sdk
+    name: Gitea Go SDK
+  - type: SDK
+    url: https://www.npmjs.com/package/gitea-js
+    name: gitea-js (TypeScript / JavaScript SDK)
+  - type: SDK
+    url: https://pypi.org/project/py-gitea/
+    name: py-gitea (Python SDK)
+  - type: SDK
+    url: https://github.com/hypermodeinc/gitea4j
+    name: Gitea Java Client
+  - type: CLI
+    url: https://gitea.com/gitea/tea
+    name: Tea CLI
+  - type: CLI
+    url: https://gitea.com/gitea/runner
+    name: act_runner (Gitea Actions Runner)
+  - type: GitHubRepository
+    url: https://github.com/go-gitea/terraform-provider-gitea
+    name: Terraform Provider for Gitea
+  - type: GitHubRepository
+    url: https://gitea.com/gitea/helm-gitea
+    name: Helm Chart for Gitea
+  - type: GitHubRepository
+    url: https://gitea.com/gitea/helm-actions
+    name: Helm Chart for Gitea Actions
+  - type: Resources
+    url: https://gitea.com/gitea/awesome-gitea
+    name: Awesome Gitea (curated list)
+  - type: Hub
+    url: https://discord.gg/gitea
+    name: Gitea Discord Community
+  - type: Forum
+    url: https://forum.gitea.com/
+    name: Gitea Community Forum
+  - type: NaftikoCapability
+    url: capabilities/gitea-capabilities.yml
+  - type: SpectralRules
+    url: rules/gitea-rules.yml
+  - type: JSONLD
+    url: json-ld/gitea-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/gitea-vocabulary.yml
+  - type: Features
+    data:
+      - name: Git Repository Hosting
+        description: >-
+          Self-hosted Git remote with HTTPS and SSH transport, granular
+          repository visibility (public, private, internal), and full
+          repository CRUD over the REST API.
+      - name: Pull Requests And Code Review
+        description: >-
+          Branch-based pull requests with reviewers, required approvals,
+          status checks, draft state, conflict detection, and inline
+          review comments.
+      - name: Issue Tracking And Projects
+        description: >-
+          Built-in issue tracker with labels, milestones, assignees,
+          dependencies, and Kanban-style project boards at repo and org
+          scope.
+      - name: Gitea Actions CI/CD
+        description: >-
+          Native, GitHub-Actions-compatible workflow engine driven by
+          the act_runner agent. Supports matrix builds, secrets, and
+          autoscaling runners on Kubernetes (Enterprise).
+      - name: Package Registry
+        description: >-
+          Multi-format package registry covering 24 ecosystems including
+          Container (OCI), Maven, npm, NuGet, PyPI, Helm, Cargo,
+          Terraform, and Generic uploads.
+      - name: Webhooks And Events
+        description: >-
+          Outgoing webhooks for repository, issue, pull request,
+          release, and package events with optional secret signing.
+      - name: Comprehensive REST API
+        description: >-
+          Approximately 300 endpoints under /api/v1/ described by a
+          Swagger 2.0 specification with multiple authentication
+          schemes.
+      - name: Authentication And SSO
+        description: >-
+          Supports BasicAuth, personal access tokens, OAuth2 with PKCE,
+          OpenID Connect, LDAP, SMTP, PAM, SAML SSO (Enterprise), and
+          two-factor authentication.
+      - name: Multi-Database Storage
+        description: >-
+          Pluggable storage backend supporting SQLite, MySQL,
+          PostgreSQL, TiDB, and MS SQL.
+      - name: Mirroring And Migration
+        description: >-
+          Pull and push mirrors plus one-shot migration import from
+          GitHub, GitLab, Bitbucket, Gitea, and other sources.
+  - type: UseCases
+    data:
+      - name: Self-Hosted Source Control
+        description: >-
+          Run a private Git server inside a corporate or air-gapped
+          network, retaining full data ownership.
+      - name: Internal Developer Platform
+        description: >-
+          Combine Git, Actions, packages, and projects to build an
+          internal developer platform without stitching together
+          multiple SaaS vendors.
+      - name: GitHub Actions Compatible CI/CD
+        description: >-
+          Reuse existing GitHub Actions workflows on a self-hosted or
+          cloud runner without depending on github.com.
+      - name: Multi-Format Artifact Registry
+        description: >-
+          Use Gitea as a single artifact registry for OCI containers,
+          language packages, and generic binaries.
+      - name: Regulated And Sovereign Hosting
+        description: >-
+          Single-tenant Gitea Cloud regions provide data-residency
+          options for regulated industries and EU customers.
+  - type: Integrations
+    data:
+      - name: Gitea Actions / GitHub Actions Marketplace
+        description: >-
+          GitHub-compatible workflow ecosystem; most public Actions run
+          unmodified on Gitea Actions runners.
+      - name: Drone CI
+        description: >-
+          First-class integration with Drone for repository-driven
+          continuous delivery pipelines.
+      - name: Jenkins
+        description: >-
+          Webhooks and credentials make Gitea a drop-in source for
+          Jenkins multibranch pipelines.
+      - name: Terraform
+        description: >-
+          Official Terraform provider (terraform-provider-gitea) and a
+          Terraform module package registry endpoint.
+      - name: Kubernetes
+        description: >-
+          Helm charts and operator-friendly deployment, plus Gitea
+          Enterprise Kubernetes auto-scaling runners.
+      - name: Argo CD / Flux
+        description: >-
+          GitOps controllers can use a Gitea repository as the source
+          of truth for cluster state.
+      - name: Discord And Slack
+        description: >-
+          Outbound webhook templates for Discord, Slack, and Microsoft
+          Teams notifications.
+      - name: Tea CLI
+        description: >-
+          Official command-line client for browsing and managing
+          repositories, issues, pull requests, and releases.
+  - type: Solutions
+    data:
+      - name: Gitea (Open Source)
+        description: >-
+          Free, MIT-licensed self-hosted edition with the complete
+          feature set and unlimited users.
+      - name: Gitea Enterprise
+        description: >-
+          Commercial self-hosted edition adding SAML SSO, audit logs,
+          Kubernetes auto-scaling runners, priority SLA support, and
+          installation/upgrade assistance.
+      - name: Gitea Cloud
+        description: >-
+          Single-tenant fully-managed Gitea hosted by CommitGo with
+          choice of regions (including a Frankfurt EU region), 24x7
+          availability, and SOC 2 Type 2 certification.
+      - name: Gitea Actions Runner (act_runner)
+        description: >-
+          Stand-alone runner agent for executing Gitea Actions
+          workflows on customer infrastructure.
+maintainers:
+  - FN: Kin Lane
+    email: kinlane@gmail.com
+    url: https://kinlane.com

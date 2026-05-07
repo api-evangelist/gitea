@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-pullrequest-structure.json",
+  "name": "PullRequest",
+  "description": "JSON Structure description of the Gitea PullRequest entity.",
+  "type": "object",
+  "properties": {
+    "additions": {
+      "type": "integer",
+      "description": "The number of lines added in the pull request",
+      "format": "int64"
+    },
+    "allow_maintainer_edit": {
+      "type": "boolean",
+      "description": "Whether maintainers can edit the pull request"
+    },
+    "assignee": {
+      "type": "string"
+    },
+    "assignees": {
+      "type": "array",
+      "description": "The list of users assigned to the pull request"
+    },
+    "base": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string",
+      "description": "The description body of the pull request"
+    },
+    "changed_files": {
+      "type": "integer",
+      "description": "The number of files changed in the pull request",
+      "format": "int64"
+    },
+    "closed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "comments": {
+      "type": "integer",
+      "description": "The number of comments on the pull request",
+      "format": "int64"
+    },
+    "content_version": {
+      "type": "integer",
+      "description": "The version of the pull request content for optimistic locking",
+      "format": "int64"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "deletions": {
+      "type": "integer",
+      "description": "The number of lines deleted in the pull request",
+      "format": "int64"
+    },
+    "diff_url": {
+      "type": "string",
+      "description": "The URL to download the diff patch"
+    },
+    "draft": {
+      "type": "boolean",
+      "description": "Whether the pull request is a draft"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "head": {
+      "type": "string"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "The HTML URL to view the pull request"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the pull request",
+      "format": "int64"
+    },
+    "is_locked": {
+      "type": "boolean",
+      "description": "Whether the pull request conversation is locked"
+    },
+    "labels": {
+      "type": "array",
+      "description": "The labels attached to the pull request"
+    },
+    "merge_base": {
+      "type": "string",
+      "description": "The merge base commit SHA"
+    },
+    "merge_commit_sha": {
+      "type": "string",
+      "description": "The SHA of the merge commit"
+    },
+    "mergeable": {
+      "type": "boolean",
+      "description": "Whether the pull request can be merged"
+    },
+    "merged": {
+      "type": "boolean",
+      "description": "Whether the pull request has been merged"
+    },
+    "merged_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "merged_by": {
+      "type": "string"
+    },
+    "milestone": {
+      "type": "string"
+    },
+    "number": {
+      "type": "integer",
+      "description": "The pull request number",
+      "format": "int64"
+    },
+    "patch_url": {
+      "type": "string",
+      "description": "The URL to download the patch file"
+    },
+    "pin_order": {
+      "type": "integer",
+      "description": "The pin order for the pull request",
+      "format": "int64"
+    },
+    "requested_reviewers": {
+      "type": "array",
+      "description": "The users requested to review the pull request"
+    },
+    "requested_reviewers_teams": {
+      "type": "array",
+      "description": "The teams requested to review the pull request"
+    },
+    "review_comments": {
+      "type": "integer",
+      "description": "number of review comments made on the diff of a PR review (not including comments on commits or issues in a PR)",
+      "format": "int64"
+    },
+    "state": {
+      "type": "string",
+      "description": "The current state of the pull request\nopen StateOpen  StateOpen pr is opened\nclosed StateClosed  StateClosed pr is closed"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the pull request"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "url": {
+      "type": "string",
+      "description": "The API URL of the pull request"
+    },
+    "user": {
+      "type": "string"
+    }
+  }
+}

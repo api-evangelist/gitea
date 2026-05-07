@@ -1,0 +1,140 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Gitea
+providerId: gitea
+created: '2026-05-06'
+modified: '2026-05-06'
+tags:
+  - Git
+  - Source Control
+  - DevOps
+  - CI/CD
+  - Code Hosting
+  - Open Source
+  - Self Hosted
+  - Rate Limiting
+  - Quotas
+  - Throttling
+description: >-
+  Rate limit definitions for the Gitea API surface across the open-
+  source self-hosted distribution, Gitea Enterprise, and Gitea Cloud.
+  The open-source Gitea distribution does not enforce a default
+  per-user API rate limit; operators may configure rate limiting via
+  reverse proxy or app.ini settings. Gitea Cloud applies platform-
+  level fair-use throttles plus an outbound network traffic quota.
+headers:
+  limit: X-RateLimit-Limit
+  remaining: X-RateLimit-Remaining
+  reset: X-RateLimit-Reset
+  retryAfter: Retry-After
+  policy: RateLimit-Policy
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  serviceUnavailable: 503
+limits:
+  - tier: open-source
+    name: Self-Hosted Default
+    scope: instance
+    metric: requests_per_minute
+    limit: -1
+    timeFrame: minute
+    description: >-
+      The Gitea open-source distribution does not impose a default
+      per-user request rate limit. Throttling is the operator's
+      responsibility (typically via reverse proxy such as nginx,
+      Cloudflare, or app.ini's [service.explore] limits).
+    applies:
+      - Gitea REST API
+      - Gitea Actions API
+      - Gitea Package Registry
+      - Gitea Webhooks
+  - tier: enterprise
+    name: Gitea Enterprise Default
+    scope: instance
+    metric: requests_per_minute
+    limit: -1
+    timeFrame: minute
+    description: >-
+      Gitea Enterprise inherits the same configurable rate-limiting
+      surface as the open-source edition; SLA-backed support is
+      available for tuning limits in customer environments.
+    applies:
+      - Gitea REST API
+      - Gitea Actions API
+      - Gitea Package Registry
+      - Gitea Webhooks
+  - tier: cloud
+    name: Gitea Cloud Fair Use
+    scope: instance
+    metric: requests_per_minute
+    limit: 6000
+    burst: 12000
+    timeFrame: minute
+    description: >-
+      Gitea Cloud applies platform-level fair-use throttling at the
+      reverse-proxy layer to protect shared infrastructure. Specific
+      thresholds are not publicly documented; the value here is a
+      conservative scaffold derived from typical managed-Git platform
+      norms and should be reconciled with values reported by the
+      Cloud team.
+    applies:
+      - Gitea REST API
+      - Gitea Actions API
+      - Gitea Package Registry
+      - Gitea Webhooks
+      - Gitea Cloud Management API
+  - tier: cloud
+    name: Gitea Cloud Outbound Traffic Quota
+    scope: instance
+    metric: gigabytes_per_month
+    limit: -1
+    timeFrame: month
+    description: >-
+      Outbound network traffic from a Gitea Cloud instance is subject
+      to a high-speed quota; once the quota is exceeded, Cloud Release
+      12 documents that "speed restrictions apply" rather than hard
+      blocking. Inbound traffic is unlimited and free.
+    applies:
+      - Gitea REST API
+      - Gitea Package Registry
+  - tier: cloud
+    name: Gitea Actions Concurrent Jobs (Cloud)
+    scope: instance
+    metric: concurrent_jobs
+    limit: 20
+    timeFrame: realtime
+    description: >-
+      Concurrent Actions runner job parallelism on Gitea Cloud. Exact
+      limit varies by instance tier (Basic / Standard / Pro / Plus /
+      Extra / Max / Ultra). Default scaffold value is conservative.
+    applies:
+      - Gitea Actions API
+policies:
+  - name: Backoff Strategy
+    description: >-
+      Clients should implement exponential backoff with jitter on 429
+      and 503 responses, honoring the Retry-After header when present.
+  - name: Burst Handling
+    description: >-
+      Short bursts above the steady-state limit are tolerated up to the
+      documented burst ceiling before throttling engages.
+  - name: Webhook Delivery Retries
+    description: >-
+      Gitea's webhook system retries failed deliveries on a backoff
+      schedule; consumers should tolerate at-least-once delivery and
+      verify signatures with the configured secret.
+  - name: Operator Configurability
+    description: >-
+      For self-hosted deployments, rate limiting is fully under
+      operator control via reverse proxy and app.ini settings. Cloud
+      tenants cannot tune the platform-level limits but may request
+      adjustments via support.
+  - name: Fair Use
+    description: >-
+      Even on uncapped tiers, sustained usage that materially impacts
+      shared Cloud infrastructure may be subject to fair-use throttling.
+maintainers:
+  - FN: Kin Lane
+    email: kinlane@gmail.com

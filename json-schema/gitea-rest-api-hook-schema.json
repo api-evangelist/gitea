@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-hook-schema.json",
+  "title": "Hook",
+  "description": "Hook a hook is a web hook when one repository changed",
+  "type": "object",
+  "properties": {
+    "active": {
+      "description": "Whether the webhook is active and will be triggered",
+      "type": "boolean",
+      "x-go-name": "Active"
+    },
+    "authorization_header": {
+      "description": "Authorization header to include in webhook requests",
+      "type": "string",
+      "x-go-name": "AuthorizationHeader"
+    },
+    "branch_filter": {
+      "description": "Branch filter pattern to determine which branches trigger the webhook",
+      "type": "string",
+      "x-go-name": "BranchFilter"
+    },
+    "config": {
+      "description": "Configuration settings for the webhook",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-name": "Config"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Created"
+    },
+    "events": {
+      "description": "List of events that trigger this webhook",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Events"
+    },
+    "id": {
+      "description": "The unique identifier of the webhook",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "ID"
+    },
+    "name": {
+      "description": "Optional human-readable name for the webhook",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "type": {
+      "description": "The type of the webhook (e.g., gitea, slack, discord)",
+      "type": "string",
+      "x-go-name": "Type"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Updated"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs"
+}

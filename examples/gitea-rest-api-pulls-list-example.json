@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/repos/{owner}/{repo}/pulls",
+    "operationId": "repoListPullRequests",
+    "summary": "List a repo's pull requests",
+    "tags": [
+      "repository"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

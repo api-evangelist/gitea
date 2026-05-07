@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-repository-structure.json",
+  "name": "Repository",
+  "description": "JSON Structure description of the Gitea Repository entity.",
+  "type": "object",
+  "properties": {
+    "allow_fast_forward_only_merge": {
+      "type": "boolean"
+    },
+    "allow_manual_merge": {
+      "type": "boolean"
+    },
+    "allow_merge_commits": {
+      "type": "boolean"
+    },
+    "allow_rebase": {
+      "type": "boolean"
+    },
+    "allow_rebase_explicit": {
+      "type": "boolean"
+    },
+    "allow_rebase_update": {
+      "type": "boolean"
+    },
+    "allow_squash_merge": {
+      "type": "boolean"
+    },
+    "archived": {
+      "type": "boolean"
+    },
+    "archived_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "autodetect_manual_merge": {
+      "type": "boolean"
+    },
+    "avatar_url": {
+      "type": "string"
+    },
+    "branch_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "clone_url": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "default_allow_maintainer_edit": {
+      "type": "boolean"
+    },
+    "default_branch": {
+      "type": "string"
+    },
+    "default_delete_branch_after_merge": {
+      "type": "boolean"
+    },
+    "default_merge_style": {
+      "type": "string"
+    },
+    "default_target_branch": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "empty": {
+      "type": "boolean"
+    },
+    "external_tracker": {
+      "type": "string"
+    },
+    "external_wiki": {
+      "type": "string"
+    },
+    "fork": {
+      "type": "boolean"
+    },
+    "forks_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "has_actions": {
+      "type": "boolean"
+    },
+    "has_code": {
+      "type": "boolean"
+    },
+    "has_issues": {
+      "type": "boolean"
+    },
+    "has_packages": {
+      "type": "boolean"
+    },
+    "has_projects": {
+      "type": "boolean"
+    },
+    "has_pull_requests": {
+      "type": "boolean"
+    },
+    "has_releases": {
+      "type": "boolean"
+    },
+    "has_wiki": {
+      "type": "boolean"
+    },
+    "html_url": {
+      "type": "string"
+    },
+    "id": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "ignore_whitespace_conflicts": {
+      "type": "boolean"
+    },
+    "internal": {
+      "type": "boolean"
+    },
+    "internal_tracker": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "languages_url": {
+      "type": "string"
+    },
+    "licenses": {
+      "type": "array"
+    },
+    "link": {
+      "type": "string"
+    },
+    "mirror": {
+      "type": "boolean"
+    },
+    "mirror_interval": {
+      "type": "string"
+    },
+    "mirror_updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "object_format_name": {
+      "type": "string",
+      "description": "ObjectFormatName of the underlying git repository"
+    },
+    "open_issues_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "open_pr_counter": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "original_url": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "string"
+    },
+    "permissions": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "projects_mode": {
+      "type": "string"
+    },
+    "release_counter": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "repo_transfer": {
+      "type": "string"
+    },
+    "size": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "ssh_url": {
+      "type": "string"
+    },
+    "stars_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "template": {
+      "type": "boolean"
+    },
+    "topics": {
+      "type": "array"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "url": {
+      "type": "string"
+    },
+    "watchers_count": {
+      "type": "integer",
+      "format": "int64"
+    },
+    "website": {
+      "type": "string"
+    }
+  }
+}

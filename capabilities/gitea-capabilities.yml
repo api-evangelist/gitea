@@ -1,0 +1,332 @@
+# Naftiko capabilities profile for Gitea.
+# Capabilities are derived from the Gitea Swagger 2.0 specification at
+# https://demo.gitea.com/swagger.v1.json (basePath /api/v1, ~300 operations
+# across admin, issue, miscellaneous, notification, organization, package,
+# repository, settings, and user tags).
+provider: gitea
+name: Gitea
+description: >-
+  Gitea is an open-source, self-hosted Git service and DevOps platform with
+  a comprehensive REST API exposing repositories, issues, pull requests,
+  organizations, users, packages, notifications, webhooks, and CI/CD via
+  Gitea Actions.
+capabilities:
+  # Repository capabilities
+  - id: gitea.repo.list
+    name: List Repositories
+    description: List repositories visible to the authenticated user.
+    inputs:
+      - token
+      - page
+      - limit
+    outputs:
+      - repositories
+  - id: gitea.repo.get
+    name: Get Repository
+    description: Fetch a single repository by owner and name.
+    inputs:
+      - owner
+      - repo
+    outputs:
+      - repository
+  - id: gitea.repo.create
+    name: Create Repository
+    description: Create a new repository under the authenticated user or an organization.
+    inputs:
+      - token
+      - name
+      - description
+      - private
+      - auto_init
+    outputs:
+      - repository
+  - id: gitea.repo.update
+    name: Update Repository Settings
+    description: Patch repository settings such as description, visibility, default branch, and feature flags.
+    inputs:
+      - owner
+      - repo
+      - patch
+    outputs:
+      - repository
+  - id: gitea.repo.delete
+    name: Delete Repository
+    description: Permanently delete a repository.
+    inputs:
+      - owner
+      - repo
+    outputs:
+      - status
+  - id: gitea.repo.fork
+    name: Fork Repository
+    description: Create a fork of a repository in a target user or organization.
+    inputs:
+      - owner
+      - repo
+      - target
+    outputs:
+      - repository
+  - id: gitea.repo.transfer
+    name: Transfer Repository Ownership
+    description: Transfer a repository to a new owner (user or organization).
+    inputs:
+      - owner
+      - repo
+      - new_owner
+    outputs:
+      - status
+
+  # Branches and commits
+  - id: gitea.branch.list
+    name: List Branches
+    description: List branches for a repository.
+    inputs:
+      - owner
+      - repo
+    outputs:
+      - branches
+  - id: gitea.branch.protect
+    name: Configure Branch Protection
+    description: Create or update a branch protection rule.
+    inputs:
+      - owner
+      - repo
+      - branch
+      - rule
+    outputs:
+      - protection
+  - id: gitea.commit.list
+    name: List Commits
+    description: List commits on a branch with optional filters.
+    inputs:
+      - owner
+      - repo
+      - sha
+      - path
+      - since
+      - until
+    outputs:
+      - commits
+
+  # Issues and pull requests
+  - id: gitea.issue.list
+    name: List Issues
+    description: List issues in a repository.
+    inputs:
+      - owner
+      - repo
+      - state
+      - labels
+    outputs:
+      - issues
+  - id: gitea.issue.create
+    name: Create Issue
+    description: Open a new issue.
+    inputs:
+      - owner
+      - repo
+      - title
+      - body
+      - labels
+      - assignees
+    outputs:
+      - issue
+  - id: gitea.issue.comment
+    name: Comment On Issue
+    description: Add a comment to an existing issue or pull request.
+    inputs:
+      - owner
+      - repo
+      - index
+      - body
+    outputs:
+      - comment
+  - id: gitea.pull.list
+    name: List Pull Requests
+    description: List pull requests for a repository.
+    inputs:
+      - owner
+      - repo
+      - state
+    outputs:
+      - pulls
+  - id: gitea.pull.create
+    name: Open Pull Request
+    description: Open a new pull request from a head branch into a base branch.
+    inputs:
+      - owner
+      - repo
+      - head
+      - base
+      - title
+    outputs:
+      - pull
+  - id: gitea.pull.merge
+    name: Merge Pull Request
+    description: Merge a pull request using the configured merge strategy.
+    inputs:
+      - owner
+      - repo
+      - index
+      - merge_strategy
+    outputs:
+      - status
+
+  # Releases and webhooks
+  - id: gitea.release.create
+    name: Create Release
+    description: Publish a release tied to a tag.
+    inputs:
+      - owner
+      - repo
+      - tag_name
+      - name
+      - body
+      - draft
+      - prerelease
+    outputs:
+      - release
+  - id: gitea.release.upload-asset
+    name: Upload Release Asset
+    description: Attach a binary asset to an existing release.
+    inputs:
+      - owner
+      - repo
+      - release_id
+      - file
+    outputs:
+      - attachment
+  - id: gitea.hook.create
+    name: Create Webhook
+    description: Configure an outbound webhook on a repository, organization, or instance-wide.
+    inputs:
+      - scope
+      - target
+      - url
+      - secret
+      - events
+    outputs:
+      - hook
+
+  # Organizations and teams
+  - id: gitea.org.list
+    name: List Organizations
+    description: List organizations visible to the authenticated user.
+    inputs:
+      - token
+    outputs:
+      - organizations
+  - id: gitea.org.create
+    name: Create Organization
+    description: Create a new organization.
+    inputs:
+      - username
+      - full_name
+      - visibility
+    outputs:
+      - organization
+  - id: gitea.team.create
+    name: Create Team
+    description: Create a team within an organization.
+    inputs:
+      - org
+      - name
+      - permission
+      - units
+    outputs:
+      - team
+
+  # Users
+  - id: gitea.user.search
+    name: Search Users
+    description: Search Gitea users.
+    inputs:
+      - q
+      - limit
+    outputs:
+      - users
+  - id: gitea.user.get
+    name: Get User
+    description: Get a user's public profile by username.
+    inputs:
+      - username
+    outputs:
+      - user
+  - id: gitea.user.token.create
+    name: Create Personal Access Token
+    description: Create a new personal access token for the authenticated user.
+    inputs:
+      - name
+      - scopes
+    outputs:
+      - token
+
+  # Notifications
+  - id: gitea.notification.list
+    name: List Notifications
+    description: List notification threads for the authenticated user.
+    inputs:
+      - all
+      - status_types
+      - subject_type
+    outputs:
+      - threads
+  - id: gitea.notification.mark-read
+    name: Mark Notifications As Read
+    description: Mark one or more notification threads as read.
+    inputs:
+      - thread_id
+    outputs:
+      - status
+
+  # Packages
+  - id: gitea.package.list
+    name: List Packages
+    description: List packages owned by a user or organization.
+    inputs:
+      - owner
+      - type
+    outputs:
+      - packages
+  - id: gitea.package.delete
+    name: Delete Package Version
+    description: Delete a specific package version from the registry.
+    inputs:
+      - owner
+      - type
+      - name
+      - version
+    outputs:
+      - status
+
+  # Admin
+  - id: gitea.admin.user.create
+    name: Create User (Admin)
+    description: Create a new user account as an instance administrator.
+    inputs:
+      - username
+      - email
+      - password
+    outputs:
+      - user
+  - id: gitea.admin.runner.register
+    name: Register Actions Runner
+    description: Register a new Gitea Actions runner.
+    inputs:
+      - name
+      - labels
+      - registration_token
+    outputs:
+      - runner
+  - id: gitea.settings.api.get
+    name: Get Instance API Settings
+    description: Retrieve instance-level API configuration (limits, default features).
+    inputs: []
+    outputs:
+      - settings
+  - id: gitea.misc.version
+    name: Get Server Version
+    description: Return the running Gitea version string.
+    inputs: []
+    outputs:
+      - version

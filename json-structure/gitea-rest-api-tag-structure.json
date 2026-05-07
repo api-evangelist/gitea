@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-tag-structure.json",
+  "name": "Tag",
+  "description": "JSON Structure description of the Gitea Tag entity.",
+  "type": "object",
+  "properties": {
+    "commit": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "description": "The ID (SHA) of the tag"
+    },
+    "message": {
+      "type": "string",
+      "description": "The message associated with the tag"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the tag"
+    },
+    "tarball_url": {
+      "type": "string",
+      "description": "The URL to download the tarball archive"
+    },
+    "zipball_url": {
+      "type": "string",
+      "description": "The URL to download the zipball archive"
+    }
+  }
+}

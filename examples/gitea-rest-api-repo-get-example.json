@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/repos/{owner}/{repo}",
+    "operationId": "repoGet",
+    "summary": "Get a repository",
+    "tags": [
+      "repository"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

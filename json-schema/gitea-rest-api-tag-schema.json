@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-tag-schema.json",
+  "title": "Tag",
+  "description": "Tag represents a repository tag",
+  "type": "object",
+  "properties": {
+    "commit": {
+      "$ref": "#/$defs/CommitMeta"
+    },
+    "id": {
+      "description": "The ID (SHA) of the tag",
+      "type": "string",
+      "x-go-name": "ID"
+    },
+    "message": {
+      "description": "The message associated with the tag",
+      "type": "string",
+      "x-go-name": "Message"
+    },
+    "name": {
+      "description": "The name of the tag",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "tarball_url": {
+      "description": "The URL to download the tarball archive",
+      "type": "string",
+      "x-go-name": "TarballURL"
+    },
+    "zipball_url": {
+      "description": "The URL to download the zipball archive",
+      "type": "string",
+      "x-go-name": "ZipballURL"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs",
+  "$defs": {
+    "CommitMeta": {
+      "type": "object",
+      "title": "CommitMeta contains meta information of a commit in terms of API.",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "sha": {
+          "description": "SHA is the commit SHA hash",
+          "type": "string",
+          "x-go-name": "SHA"
+        },
+        "url": {
+          "description": "URL is the API URL for the commit",
+          "type": "string",
+          "x-go-name": "URL"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    }
+  }
+}

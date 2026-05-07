@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/repos/{owner}/{repo}/issues",
+    "operationId": "issueListIssues",
+    "summary": "List a repository's issues",
+    "tags": [
+      "issue"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

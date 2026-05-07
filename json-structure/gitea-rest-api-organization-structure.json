@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-organization-structure.json",
+  "name": "Organization",
+  "description": "JSON Structure description of the Gitea Organization entity.",
+  "type": "object",
+  "properties": {
+    "avatar_url": {
+      "type": "string",
+      "description": "The URL of the organization's avatar"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the organization"
+    },
+    "email": {
+      "type": "string",
+      "description": "The email address of the organization"
+    },
+    "full_name": {
+      "type": "string",
+      "description": "The full display name of the organization"
+    },
+    "id": {
+      "type": "integer",
+      "description": "The unique identifier of the organization",
+      "format": "int64"
+    },
+    "location": {
+      "type": "string",
+      "description": "The location of the organization"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the organization"
+    },
+    "repo_admin_change_team_access": {
+      "type": "boolean",
+      "description": "Whether repository administrators can change team access"
+    },
+    "username": {
+      "type": "string",
+      "description": "username of the organization\ndeprecated"
+    },
+    "visibility": {
+      "type": "string",
+      "description": "The visibility level of the organization (public, limited, private)"
+    },
+    "website": {
+      "type": "string",
+      "description": "The website URL of the organization"
+    }
+  }
+}

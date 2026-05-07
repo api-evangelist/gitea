@@ -1,0 +1,348 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/main/json-schema/gitea-rest-api-commit-schema.json",
+  "title": "Commit contains information generated from a Git commit.",
+  "description": "Gitea Commit entity as defined in the Gitea Swagger 2.0 specification.",
+  "type": "object",
+  "properties": {
+    "author": {
+      "$ref": "#/$defs/User"
+    },
+    "commit": {
+      "$ref": "#/$defs/RepoCommit"
+    },
+    "committer": {
+      "$ref": "#/$defs/User"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "x-go-name": "Created"
+    },
+    "files": {
+      "description": "Files contains information about files affected by the commit",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommitAffectedFiles"
+      },
+      "x-go-name": "Files"
+    },
+    "html_url": {
+      "description": "HTMLURL is the web URL for viewing the commit",
+      "type": "string",
+      "x-go-name": "HTMLURL"
+    },
+    "parents": {
+      "description": "Parents contains the parent commit information",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommitMeta"
+      },
+      "x-go-name": "Parents"
+    },
+    "sha": {
+      "description": "SHA is the commit SHA hash",
+      "type": "string",
+      "x-go-name": "SHA"
+    },
+    "stats": {
+      "$ref": "#/$defs/CommitStats"
+    },
+    "url": {
+      "description": "URL is the API URL for the commit",
+      "type": "string",
+      "x-go-name": "URL"
+    }
+  },
+  "x-go-package": "code.gitea.io/gitea/modules/structs",
+  "$defs": {
+    "CommitUser": {
+      "type": "object",
+      "title": "CommitUser contains information of a user in the context of a commit.",
+      "properties": {
+        "date": {
+          "description": "Date is the commit date in string format",
+          "type": "string",
+          "x-go-name": "Date"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "Name is the person's name",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "PayloadCommitVerification": {
+      "description": "PayloadCommitVerification represents the GPG verification of a commit",
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The signed payload content",
+          "type": "string",
+          "x-go-name": "Payload"
+        },
+        "reason": {
+          "description": "The reason for the verification status",
+          "type": "string",
+          "x-go-name": "Reason"
+        },
+        "signature": {
+          "description": "The GPG signature of the commit",
+          "type": "string",
+          "x-go-name": "Signature"
+        },
+        "signer": {
+          "$ref": "#/$defs/PayloadUser"
+        },
+        "verified": {
+          "description": "Whether the commit signature is verified",
+          "type": "boolean",
+          "x-go-name": "Verified"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "User": {
+      "description": "User represents a user",
+      "type": "object",
+      "properties": {
+        "active": {
+          "description": "Is user active",
+          "type": "boolean",
+          "x-go-name": "IsActive"
+        },
+        "avatar_url": {
+          "description": "URL to the user's avatar",
+          "type": "string",
+          "x-go-name": "AvatarURL"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "description": {
+          "description": "the user's description",
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "x-go-name": "Email"
+        },
+        "followers_count": {
+          "description": "user counts",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Followers"
+        },
+        "following_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Following"
+        },
+        "full_name": {
+          "description": "the user's full name",
+          "type": "string",
+          "x-go-name": "FullName"
+        },
+        "html_url": {
+          "description": "URL to the user's gitea page",
+          "type": "string",
+          "x-go-name": "HTMLURL"
+        },
+        "id": {
+          "description": "the user's id",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "is_admin": {
+          "description": "Is the user an administrator",
+          "type": "boolean",
+          "x-go-name": "IsAdmin"
+        },
+        "language": {
+          "description": "User locale",
+          "type": "string",
+          "x-go-name": "Language"
+        },
+        "last_login": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "LastLogin"
+        },
+        "location": {
+          "description": "the user's location",
+          "type": "string",
+          "x-go-name": "Location"
+        },
+        "login": {
+          "description": "login of the user, same as `username`",
+          "type": "string",
+          "x-go-name": "UserName"
+        },
+        "login_name": {
+          "description": "identifier of the user, provided by the external authenticator (if configured)",
+          "type": "string",
+          "default": "empty",
+          "x-go-name": "LoginName"
+        },
+        "prohibit_login": {
+          "description": "Is user login prohibited",
+          "type": "boolean",
+          "x-go-name": "ProhibitLogin"
+        },
+        "restricted": {
+          "description": "Is user restricted",
+          "type": "boolean",
+          "x-go-name": "Restricted"
+        },
+        "source_id": {
+          "description": "The ID of the user's Authentication Source",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "SourceID"
+        },
+        "starred_repos_count": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "StarredRepos"
+        },
+        "visibility": {
+          "description": "User visibility level option: public, limited, private",
+          "type": "string",
+          "x-go-name": "Visibility"
+        },
+        "website": {
+          "description": "the user's website",
+          "type": "string",
+          "x-go-name": "Website"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "CommitAffectedFiles": {
+      "description": "CommitAffectedFiles store information about files affected by the commit",
+      "type": "object",
+      "properties": {
+        "filename": {
+          "description": "Filename is the path of the affected file",
+          "type": "string",
+          "x-go-name": "Filename"
+        },
+        "status": {
+          "description": "Status indicates how the file was affected (added, modified, deleted)",
+          "type": "string",
+          "x-go-name": "Status"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "CommitStats": {
+      "description": "CommitStats is statistics for a RepoCommit",
+      "type": "object",
+      "properties": {
+        "additions": {
+          "description": "Additions is the number of lines added",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Additions"
+        },
+        "deletions": {
+          "description": "Deletions is the number of lines deleted",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Deletions"
+        },
+        "total": {
+          "description": "Total is the total number of lines changed",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Total"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "RepoCommit": {
+      "type": "object",
+      "title": "RepoCommit contains information of a commit in the context of a repository.",
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/CommitUser"
+        },
+        "committer": {
+          "$ref": "#/$defs/CommitUser"
+        },
+        "message": {
+          "description": "Message is the commit message",
+          "type": "string",
+          "x-go-name": "Message"
+        },
+        "tree": {
+          "$ref": "#/$defs/CommitMeta"
+        },
+        "url": {
+          "description": "URL is the API URL for the commit",
+          "type": "string",
+          "x-go-name": "URL"
+        },
+        "verification": {
+          "$ref": "#/$defs/PayloadCommitVerification"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "PayloadUser": {
+      "description": "PayloadUser represents the author or committer of a commit",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "x-go-name": "Email"
+        },
+        "name": {
+          "description": "Full name of the commit author",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "username": {
+          "description": "username of the user",
+          "type": "string",
+          "x-go-name": "UserName"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    },
+    "CommitMeta": {
+      "type": "object",
+      "title": "CommitMeta contains meta information of a commit in terms of API.",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "Created"
+        },
+        "sha": {
+          "description": "SHA is the commit SHA hash",
+          "type": "string",
+          "x-go-name": "SHA"
+        },
+        "url": {
+          "description": "URL is the API URL for the commit",
+          "type": "string",
+          "x-go-name": "URL"
+        }
+      },
+      "x-go-package": "code.gitea.io/gitea/modules/structs"
+    }
+  }
+}

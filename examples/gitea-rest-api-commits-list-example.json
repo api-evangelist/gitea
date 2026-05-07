@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/repos/{owner}/{repo}/commits",
+    "operationId": "repoGetAllCommits",
+    "summary": "Get a list of all commits from a repository",
+    "tags": [
+      "repository"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

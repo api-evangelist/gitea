@@ -1,0 +1,15 @@
+{
+  "operation": {
+    "method": "GET",
+    "path": "/repos/{owner}/{repo}/branches",
+    "operationId": "repoListBranches",
+    "summary": "List a repository's branches",
+    "tags": [
+      "repository"
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": {}
+  }
+}

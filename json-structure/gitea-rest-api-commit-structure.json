@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-commit-structure.json",
+  "name": "Commit",
+  "description": "JSON Structure description of the Gitea Commit entity.",
+  "type": "object",
+  "properties": {
+    "author": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "string"
+    },
+    "committer": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "files": {
+      "type": "array",
+      "description": "Files contains information about files affected by the commit"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "HTMLURL is the web URL for viewing the commit"
+    },
+    "parents": {
+      "type": "array",
+      "description": "Parents contains the parent commit information"
+    },
+    "sha": {
+      "type": "string",
+      "description": "SHA is the commit SHA hash"
+    },
+    "stats": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL is the API URL for the commit"
+    }
+  }
+}

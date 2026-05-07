@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/json-structure/gitea-rest-api-comment-structure.json",
+  "name": "Comment",
+  "description": "JSON Structure description of the Gitea Comment entity.",
+  "type": "object",
+  "properties": {
+    "assets": {
+      "type": "array",
+      "description": "Attachments contains files attached to the comment"
+    },
+    "body": {
+      "type": "string",
+      "description": "Body contains the comment text content"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "html_url": {
+      "type": "string",
+      "description": "HTMLURL is the web URL for viewing the comment"
+    },
+    "id": {
+      "type": "integer",
+      "description": "ID is the unique identifier for the comment",
+      "format": "int64"
+    },
+    "issue_url": {
+      "type": "string",
+      "description": "IssueURL is the API URL for the issue"
+    },
+    "original_author": {
+      "type": "string",
+      "description": "OriginalAuthor is the original author name (for imported comments)"
+    },
+    "original_author_id": {
+      "type": "integer",
+      "description": "OriginalAuthorID is the original author ID (for imported comments)",
+      "format": "int64"
+    },
+    "pull_request_url": {
+      "type": "string",
+      "description": "PRURL is the API URL for the pull request (if applicable)"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user": {
+      "type": "string"
+    }
+  }
+}
