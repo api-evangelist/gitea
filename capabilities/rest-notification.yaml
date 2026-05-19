@@ -1,0 +1,447 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gitea API — notification
+  description: 'Gitea API — notification. 7 operations. Lead operation: List Users''s Notification Threads. Self-contained
+    Naftiko capability covering one Gitea business surface.'
+  tags:
+  - Gitea
+  - notification
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GITEA_API_KEY: GITEA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-notification
+    baseUri: https://gitea.com/api/v1
+    description: Gitea API — notification business capability. Self-contained, no shared references.
+    resources:
+    - name: notifications
+      path: /notifications
+      operations:
+      - name: notifygetlist
+        method: GET
+        description: List Users's Notification Threads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: all
+          in: query
+          type: boolean
+          description: If true, show notifications marked as read. Default value is false
+        - name: status-types
+          in: query
+          type: array
+          description: 'Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults
+            to unread & pinned.'
+        - name: subject-type
+          in: query
+          type: array
+          description: filter notifications by subject type
+        - name: since
+          in: query
+          type: string
+          description: Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
+        - name: before
+          in: query
+          type: string
+          description: Only show notifications updated before the given time. This is a timestamp in RFC 3339 format
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: notifyreadlist
+        method: PUT
+        description: Mark Notification Threads as Read, Pinned or Unread
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: last_read_at
+          in: query
+          type: string
+          description: Describes the last point that notifications were checked. Anything updated since this time will not
+            be updated.
+        - name: all
+          in: query
+          type: string
+          description: If true, mark all notifications on this repo. Default value is false
+        - name: status-types
+          in: query
+          type: array
+          description: 'Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults
+            to unread.'
+        - name: to-status
+          in: query
+          type: string
+          description: Status to mark notifications as, Defaults to read.
+    - name: notifications-new
+      path: /notifications/new
+      operations:
+      - name: notifynewavailable
+        method: GET
+        description: Check if Unread Notifications Exist
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: notifications-threads-id
+      path: /notifications/threads/{id}
+      operations:
+      - name: notifygetthread
+        method: GET
+        description: Get Notification Thread by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: id of notification thread
+          required: true
+      - name: notifyreadthread
+        method: PATCH
+        description: Mark Notification Thread as Read by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: id of notification thread
+          required: true
+        - name: to-status
+          in: query
+          type: string
+          description: Status to mark notifications as
+    - name: repos-owner-repo-notifications
+      path: /repos/{owner}/{repo}/notifications
+      operations:
+      - name: notifygetrepolist
+        method: GET
+        description: List Users's Notification Threads on a Specific Repo
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: all
+          in: query
+          type: boolean
+          description: If true, show notifications marked as read. Default value is false
+        - name: status-types
+          in: query
+          type: array
+          description: 'Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults
+            to unread & pinned'
+        - name: subject-type
+          in: query
+          type: array
+          description: filter notifications by subject type
+        - name: since
+          in: query
+          type: string
+          description: Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
+        - name: before
+          in: query
+          type: string
+          description: Only show notifications updated before the given time. This is a timestamp in RFC 3339 format
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: notifyreadrepolist
+        method: PUT
+        description: Mark Notification Threads as Read, Pinned or Unread on a Specific Repo
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: all
+          in: query
+          type: string
+          description: If true, mark all notifications on this repo. Default value is false
+        - name: status-types
+          in: query
+          type: array
+          description: 'Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults
+            to unread.'
+        - name: to-status
+          in: query
+          type: string
+          description: Status to mark notifications as. Defaults to read.
+        - name: last_read_at
+          in: query
+          type: string
+          description: Describes the last point that notifications were checked. Anything updated since this time will not
+            be updated.
+    authentication:
+      type: apikey
+      key: access_token
+      value: '{{env.GITEA_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: rest-notification-rest
+    port: 8080
+    description: REST adapter for Gitea API — notification. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/notifications
+      name: notifications
+      description: REST surface for notifications.
+      operations:
+      - method: GET
+        name: notifygetlist
+        description: List Users's Notification Threads
+        call: rest-notification.notifygetlist
+        with:
+          all: rest.all
+          status-types: rest.status-types
+          subject-type: rest.subject-type
+          since: rest.since
+          before: rest.before
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: notifyreadlist
+        description: Mark Notification Threads as Read, Pinned or Unread
+        call: rest-notification.notifyreadlist
+        with:
+          last_read_at: rest.last_read_at
+          all: rest.all
+          status-types: rest.status-types
+          to-status: rest.to-status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/new
+      name: notifications-new
+      description: REST surface for notifications-new.
+      operations:
+      - method: GET
+        name: notifynewavailable
+        description: Check if Unread Notifications Exist
+        call: rest-notification.notifynewavailable
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/notifications/threads/{id}
+      name: notifications-threads-id
+      description: REST surface for notifications-threads-id.
+      operations:
+      - method: GET
+        name: notifygetthread
+        description: Get Notification Thread by ID
+        call: rest-notification.notifygetthread
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: notifyreadthread
+        description: Mark Notification Thread as Read by ID
+        call: rest-notification.notifyreadthread
+        with:
+          id: rest.id
+          to-status: rest.to-status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/notifications
+      name: repos-owner-repo-notifications
+      description: REST surface for repos-owner-repo-notifications.
+      operations:
+      - method: GET
+        name: notifygetrepolist
+        description: List Users's Notification Threads on a Specific Repo
+        call: rest-notification.notifygetrepolist
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          all: rest.all
+          status-types: rest.status-types
+          subject-type: rest.subject-type
+          since: rest.since
+          before: rest.before
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: notifyreadrepolist
+        description: Mark Notification Threads as Read, Pinned or Unread on a Specific Repo
+        call: rest-notification.notifyreadrepolist
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          all: rest.all
+          status-types: rest.status-types
+          to-status: rest.to-status
+          last_read_at: rest.last_read_at
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-notification-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gitea API — notification. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-users-s-notification-threads
+      description: List Users's Notification Threads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifygetlist
+      with:
+        all: tools.all
+        status-types: tools.status-types
+        subject-type: tools.subject-type
+        since: tools.since
+        before: tools.before
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-notification-threads-read-pinned
+      description: Mark Notification Threads as Read, Pinned or Unread
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifyreadlist
+      with:
+        last_read_at: tools.last_read_at
+        all: tools.all
+        status-types: tools.status-types
+        to-status: tools.to-status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-if-unread-notifications-exist
+      description: Check if Unread Notifications Exist
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifynewavailable
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-notification-thread-id
+      description: Get Notification Thread by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifygetthread
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-notification-thread-read-id
+      description: Mark Notification Thread as Read by ID
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifyreadthread
+      with:
+        id: tools.id
+        to-status: tools.to-status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-users-s-notification-threads-specific
+      description: List Users's Notification Threads on a Specific Repo
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifygetrepolist
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        all: tools.all
+        status-types: tools.status-types
+        subject-type: tools.subject-type
+        since: tools.since
+        before: tools.before
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-notification-threads-read-pinned-2
+      description: Mark Notification Threads as Read, Pinned or Unread on a Specific Repo
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-notification.notifyreadrepolist
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        all: tools.all
+        status-types: tools.status-types
+        to-status: tools.to-status
+        last_read_at: tools.last_read_at
+      outputParameters:
+      - type: object
+        mapping: $.

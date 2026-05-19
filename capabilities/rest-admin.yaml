@@ -1,0 +1,1559 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gitea API — admin
+  description: 'Gitea API — admin. 32 operations. Lead operation: Lists All Jobs. Self-contained Naftiko capability covering
+    one Gitea business surface.'
+  tags:
+  - Gitea
+  - admin
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GITEA_API_KEY: GITEA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-admin
+    baseUri: https://gitea.com/api/v1
+    description: Gitea API — admin business capability. Self-contained, no shared references.
+    resources:
+    - name: admin-actions-jobs
+      path: /admin/actions/jobs
+      operations:
+      - name: listadminworkflowjobs
+        method: GET
+        description: Lists All Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: workflow status (pending, queued, in_progress, failure, success, skipped)
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-actions-runners
+      path: /admin/actions/runners
+      operations:
+      - name: getadminrunners
+        method: GET
+        description: Get All Runners
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: disabled
+          in: query
+          type: boolean
+          description: filter by disabled status (true or false)
+    - name: admin-actions-runners-registration-token
+      path: /admin/actions/runners/registration-token
+      operations:
+      - name: admincreaterunnerregistrationtoken
+        method: POST
+        description: Get a Global Actions Runner Registration Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: admin-actions-runners-runner_id
+      path: /admin/actions/runners/{runner_id}
+      operations:
+      - name: getadminrunner
+        method: GET
+        description: Get a Global Runner
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runner_id
+          in: path
+          type: string
+          description: id of the runner
+          required: true
+      - name: deleteadminrunner
+        method: DELETE
+        description: Delete a Global Runner
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runner_id
+          in: path
+          type: string
+          description: id of the runner
+          required: true
+      - name: updateadminrunner
+        method: PATCH
+        description: Update a Global Runner
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: runner_id
+          in: path
+          type: string
+          description: id of the runner
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-actions-runs
+      path: /admin/actions/runs
+      operations:
+      - name: listadminworkflowruns
+        method: GET
+        description: Lists All Runs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: event
+          in: query
+          type: string
+          description: workflow event name
+        - name: branch
+          in: query
+          type: string
+          description: workflow branch
+        - name: status
+          in: query
+          type: string
+          description: workflow status (pending, queued, in_progress, failure, success, skipped)
+        - name: actor
+          in: query
+          type: string
+          description: triggered by user
+        - name: head_sha
+          in: query
+          type: string
+          description: triggering sha of the workflow run
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-cron
+      path: /admin/cron
+      operations:
+      - name: admincronlist
+        method: GET
+        description: List Cron Tasks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-cron-task
+      path: /admin/cron/{task}
+      operations:
+      - name: admincronrun
+        method: POST
+        description: Run Cron Task
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task
+          in: path
+          type: string
+          description: task to run
+          required: true
+    - name: admin-emails
+      path: /admin/emails
+      operations:
+      - name: admingetallemails
+        method: GET
+        description: List All Emails
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-emails-search
+      path: /admin/emails/search
+      operations:
+      - name: adminsearchemails
+        method: GET
+        description: Search All Emails
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: keyword
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-hooks
+      path: /admin/hooks
+      operations:
+      - name: adminlisthooks
+        method: GET
+        description: List System's Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+        - name: type
+          in: query
+          type: string
+          description: system, default or both kinds of webhooks
+      - name: admincreatehook
+        method: POST
+        description: Create a Hook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin-hooks-id
+      path: /admin/hooks/{id}
+      operations:
+      - name: admingethook
+        method: GET
+        description: Get a Hook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: id of the hook to get
+          required: true
+      - name: admindeletehook
+        method: DELETE
+        description: Delete a Hook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: id of the hook to delete
+          required: true
+      - name: adminedithook
+        method: PATCH
+        description: Update a Hook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: integer
+          description: id of the hook to update
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-orgs
+      path: /admin/orgs
+      operations:
+      - name: admingetallorgs
+        method: GET
+        description: List All Organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: admin-unadopted
+      path: /admin/unadopted
+      operations:
+      - name: adminunadoptedlist
+        method: GET
+        description: List Unadopted Repositories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+        - name: pattern
+          in: query
+          type: string
+          description: pattern of repositories to search for
+    - name: admin-unadopted-owner-repo
+      path: /admin/unadopted/{owner}/{repo}
+      operations:
+      - name: adminadoptrepository
+        method: POST
+        description: Adopt Unadopted Files as a Repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+      - name: admindeleteunadoptedrepository
+        method: DELETE
+        description: Delete Unadopted Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+    - name: admin-users
+      path: /admin/users
+      operations:
+      - name: adminsearchusers
+        method: GET
+        description: Search Users According Filter Conditions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: source_id
+          in: query
+          type: integer
+          description: ID of the user's login source to search for
+        - name: login_name
+          in: query
+          type: string
+          description: identifier of the user, provided by the external authenticator
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+        - name: sort
+          in: query
+          type: string
+          description: sort users by attribute. Supported values are "name", "created", "updated" and "id". Default is "name"
+        - name: order
+          in: query
+          type: string
+          description: sort order, either "asc" (ascending) or "desc" (descending). Default is "asc", ignored if "sort" is
+            not specified.
+        - name: q
+          in: query
+          type: string
+          description: search term (username, full name, email)
+        - name: visibility
+          in: query
+          type: string
+          description: visibility filter. Supported values are "public", "limited" and "private".
+        - name: is_active
+          in: query
+          type: boolean
+          description: filter active users
+        - name: is_admin
+          in: query
+          type: boolean
+          description: filter admin users
+        - name: is_restricted
+          in: query
+          type: boolean
+          description: filter restricted users
+        - name: is_2fa_enabled
+          in: query
+          type: boolean
+          description: filter 2FA enabled users
+        - name: is_prohibit_login
+          in: query
+          type: boolean
+          description: filter login prohibited users
+      - name: admincreateuser
+        method: POST
+        description: Create a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-users-username
+      path: /admin/users/{username}
+      operations:
+      - name: admindeleteuser
+        method: DELETE
+        description: Delete a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user to delete
+          required: true
+        - name: purge
+          in: query
+          type: boolean
+          description: purge the user from the system completely
+      - name: adminedituser
+        method: PATCH
+        description: Edit an Existing User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user whose data is to be edited
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-users-username-badges
+      path: /admin/users/{username}/badges
+      operations:
+      - name: adminlistuserbadges
+        method: GET
+        description: List a User's Badges
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user whose badges are to be listed
+          required: true
+      - name: adminadduserbadges
+        method: POST
+        description: Add a Badge to a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user to whom a badge is to be added
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: admindeleteuserbadges
+        method: DELETE
+        description: Remove a Badge from a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user whose badge is to be deleted
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-users-username-keys
+      path: /admin/users/{username}/keys
+      operations:
+      - name: admincreatepublickey
+        method: POST
+        description: Add a Public Key on Behalf of a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user who is to receive a public key
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: admin-users-username-keys-id
+      path: /admin/users/{username}/keys/{id}
+      operations:
+      - name: admindeleteuserpublickey
+        method: DELETE
+        description: Delete a User's Public Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user whose public key is to be deleted
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the key to delete
+          required: true
+    - name: admin-users-username-orgs
+      path: /admin/users/{username}/orgs
+      operations:
+      - name: admincreateorg
+        method: POST
+        description: Create an Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user who will own the created organization
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin-users-username-rename
+      path: /admin/users/{username}/rename
+      operations:
+      - name: adminrenameuser
+        method: POST
+        description: Rename a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: current username of the user
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin-users-username-repos
+      path: /admin/users/{username}/repos
+      operations:
+      - name: admincreaterepo
+        method: POST
+        description: Create a Repository on Behalf of a User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: username
+          in: path
+          type: string
+          description: username of the user who will own the created repository
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: access_token
+      value: '{{env.GITEA_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: rest-admin-rest
+    port: 8080
+    description: REST adapter for Gitea API — admin. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/admin/actions/jobs
+      name: admin-actions-jobs
+      description: REST surface for admin-actions-jobs.
+      operations:
+      - method: GET
+        name: listadminworkflowjobs
+        description: Lists All Jobs
+        call: rest-admin.listadminworkflowjobs
+        with:
+          status: rest.status
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/actions/runners
+      name: admin-actions-runners
+      description: REST surface for admin-actions-runners.
+      operations:
+      - method: GET
+        name: getadminrunners
+        description: Get All Runners
+        call: rest-admin.getadminrunners
+        with:
+          disabled: rest.disabled
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/actions/runners/registration-token
+      name: admin-actions-runners-registration-token
+      description: REST surface for admin-actions-runners-registration-token.
+      operations:
+      - method: POST
+        name: admincreaterunnerregistrationtoken
+        description: Get a Global Actions Runner Registration Token
+        call: rest-admin.admincreaterunnerregistrationtoken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/actions/runners/{runner-id}
+      name: admin-actions-runners-runner-id
+      description: REST surface for admin-actions-runners-runner_id.
+      operations:
+      - method: GET
+        name: getadminrunner
+        description: Get a Global Runner
+        call: rest-admin.getadminrunner
+        with:
+          runner_id: rest.runner_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteadminrunner
+        description: Delete a Global Runner
+        call: rest-admin.deleteadminrunner
+        with:
+          runner_id: rest.runner_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateadminrunner
+        description: Update a Global Runner
+        call: rest-admin.updateadminrunner
+        with:
+          runner_id: rest.runner_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/actions/runs
+      name: admin-actions-runs
+      description: REST surface for admin-actions-runs.
+      operations:
+      - method: GET
+        name: listadminworkflowruns
+        description: Lists All Runs
+        call: rest-admin.listadminworkflowruns
+        with:
+          event: rest.event
+          branch: rest.branch
+          status: rest.status
+          actor: rest.actor
+          head_sha: rest.head_sha
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/cron
+      name: admin-cron
+      description: REST surface for admin-cron.
+      operations:
+      - method: GET
+        name: admincronlist
+        description: List Cron Tasks
+        call: rest-admin.admincronlist
+        with:
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/cron/{task}
+      name: admin-cron-task
+      description: REST surface for admin-cron-task.
+      operations:
+      - method: POST
+        name: admincronrun
+        description: Run Cron Task
+        call: rest-admin.admincronrun
+        with:
+          task: rest.task
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/emails
+      name: admin-emails
+      description: REST surface for admin-emails.
+      operations:
+      - method: GET
+        name: admingetallemails
+        description: List All Emails
+        call: rest-admin.admingetallemails
+        with:
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/emails/search
+      name: admin-emails-search
+      description: REST surface for admin-emails-search.
+      operations:
+      - method: GET
+        name: adminsearchemails
+        description: Search All Emails
+        call: rest-admin.adminsearchemails
+        with:
+          q: rest.q
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/hooks
+      name: admin-hooks
+      description: REST surface for admin-hooks.
+      operations:
+      - method: GET
+        name: adminlisthooks
+        description: List System's Webhooks
+        call: rest-admin.adminlisthooks
+        with:
+          page: rest.page
+          limit: rest.limit
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: admincreatehook
+        description: Create a Hook
+        call: rest-admin.admincreatehook
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/hooks/{id}
+      name: admin-hooks-id
+      description: REST surface for admin-hooks-id.
+      operations:
+      - method: GET
+        name: admingethook
+        description: Get a Hook
+        call: rest-admin.admingethook
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: admindeletehook
+        description: Delete a Hook
+        call: rest-admin.admindeletehook
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: adminedithook
+        description: Update a Hook
+        call: rest-admin.adminedithook
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/orgs
+      name: admin-orgs
+      description: REST surface for admin-orgs.
+      operations:
+      - method: GET
+        name: admingetallorgs
+        description: List All Organizations
+        call: rest-admin.admingetallorgs
+        with:
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/unadopted
+      name: admin-unadopted
+      description: REST surface for admin-unadopted.
+      operations:
+      - method: GET
+        name: adminunadoptedlist
+        description: List Unadopted Repositories
+        call: rest-admin.adminunadoptedlist
+        with:
+          page: rest.page
+          limit: rest.limit
+          pattern: rest.pattern
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/unadopted/{owner}/{repo}
+      name: admin-unadopted-owner-repo
+      description: REST surface for admin-unadopted-owner-repo.
+      operations:
+      - method: POST
+        name: adminadoptrepository
+        description: Adopt Unadopted Files as a Repository
+        call: rest-admin.adminadoptrepository
+        with:
+          owner: rest.owner
+          repo: rest.repo
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: admindeleteunadoptedrepository
+        description: Delete Unadopted Files
+        call: rest-admin.admindeleteunadoptedrepository
+        with:
+          owner: rest.owner
+          repo: rest.repo
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users
+      name: admin-users
+      description: REST surface for admin-users.
+      operations:
+      - method: GET
+        name: adminsearchusers
+        description: Search Users According Filter Conditions
+        call: rest-admin.adminsearchusers
+        with:
+          source_id: rest.source_id
+          login_name: rest.login_name
+          page: rest.page
+          limit: rest.limit
+          sort: rest.sort
+          order: rest.order
+          q: rest.q
+          visibility: rest.visibility
+          is_active: rest.is_active
+          is_admin: rest.is_admin
+          is_restricted: rest.is_restricted
+          is_2fa_enabled: rest.is_2fa_enabled
+          is_prohibit_login: rest.is_prohibit_login
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: admincreateuser
+        description: Create a User
+        call: rest-admin.admincreateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}
+      name: admin-users-username
+      description: REST surface for admin-users-username.
+      operations:
+      - method: DELETE
+        name: admindeleteuser
+        description: Delete a User
+        call: rest-admin.admindeleteuser
+        with:
+          username: rest.username
+          purge: rest.purge
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: adminedituser
+        description: Edit an Existing User
+        call: rest-admin.adminedituser
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/badges
+      name: admin-users-username-badges
+      description: REST surface for admin-users-username-badges.
+      operations:
+      - method: GET
+        name: adminlistuserbadges
+        description: List a User's Badges
+        call: rest-admin.adminlistuserbadges
+        with:
+          username: rest.username
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: adminadduserbadges
+        description: Add a Badge to a User
+        call: rest-admin.adminadduserbadges
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: admindeleteuserbadges
+        description: Remove a Badge from a User
+        call: rest-admin.admindeleteuserbadges
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/keys
+      name: admin-users-username-keys
+      description: REST surface for admin-users-username-keys.
+      operations:
+      - method: POST
+        name: admincreatepublickey
+        description: Add a Public Key on Behalf of a User
+        call: rest-admin.admincreatepublickey
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/keys/{id}
+      name: admin-users-username-keys-id
+      description: REST surface for admin-users-username-keys-id.
+      operations:
+      - method: DELETE
+        name: admindeleteuserpublickey
+        description: Delete a User's Public Key
+        call: rest-admin.admindeleteuserpublickey
+        with:
+          username: rest.username
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/orgs
+      name: admin-users-username-orgs
+      description: REST surface for admin-users-username-orgs.
+      operations:
+      - method: POST
+        name: admincreateorg
+        description: Create an Organization
+        call: rest-admin.admincreateorg
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/rename
+      name: admin-users-username-rename
+      description: REST surface for admin-users-username-rename.
+      operations:
+      - method: POST
+        name: adminrenameuser
+        description: Rename a User
+        call: rest-admin.adminrenameuser
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{username}/repos
+      name: admin-users-username-repos
+      description: REST surface for admin-users-username-repos.
+      operations:
+      - method: POST
+        name: admincreaterepo
+        description: Create a Repository on Behalf of a User
+        call: rest-admin.admincreaterepo
+        with:
+          username: rest.username
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-admin-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gitea API — admin. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: lists-all-jobs
+      description: Lists All Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.listadminworkflowjobs
+      with:
+        status: tools.status
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-runners
+      description: Get All Runners
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.getadminrunners
+      with:
+        disabled: tools.disabled
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-global-actions-runner-registration
+      description: Get a Global Actions Runner Registration Token
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreaterunnerregistrationtoken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-global-runner
+      description: Get a Global Runner
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.getadminrunner
+      with:
+        runner_id: tools.runner_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-global-runner
+      description: Delete a Global Runner
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.deleteadminrunner
+      with:
+        runner_id: tools.runner_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-global-runner
+      description: Update a Global Runner
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-admin.updateadminrunner
+      with:
+        runner_id: tools.runner_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lists-all-runs
+      description: Lists All Runs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.listadminworkflowruns
+      with:
+        event: tools.event
+        branch: tools.branch
+        status: tools.status
+        actor: tools.actor
+        head_sha: tools.head_sha
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-cron-tasks
+      description: List Cron Tasks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.admincronlist
+      with:
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: run-cron-task
+      description: Run Cron Task
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincronrun
+      with:
+        task: tools.task
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-emails
+      description: List All Emails
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.admingetallemails
+      with:
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-all-emails
+      description: Search All Emails
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminsearchemails
+      with:
+        q: tools.q
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-system-s-webhooks
+      description: List System's Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminlisthooks
+      with:
+        page: tools.page
+        limit: tools.limit
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-hook
+      description: Create a Hook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreatehook
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-hook
+      description: Get a Hook
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.admingethook
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-hook
+      description: Delete a Hook
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.admindeletehook
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-hook
+      description: Update a Hook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminedithook
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-organizations
+      description: List All Organizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.admingetallorgs
+      with:
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-unadopted-repositories
+      description: List Unadopted Repositories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminunadoptedlist
+      with:
+        page: tools.page
+        limit: tools.limit
+        pattern: tools.pattern
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: adopt-unadopted-files-repository
+      description: Adopt Unadopted Files as a Repository
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.adminadoptrepository
+      with:
+        owner: tools.owner
+        repo: tools.repo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-unadopted-files
+      description: Delete Unadopted Files
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.admindeleteunadoptedrepository
+      with:
+        owner: tools.owner
+        repo: tools.repo
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-users-according-filter-conditions
+      description: Search Users According Filter Conditions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminsearchusers
+      with:
+        source_id: tools.source_id
+        login_name: tools.login_name
+        page: tools.page
+        limit: tools.limit
+        sort: tools.sort
+        order: tools.order
+        q: tools.q
+        visibility: tools.visibility
+        is_active: tools.is_active
+        is_admin: tools.is_admin
+        is_restricted: tools.is_restricted
+        is_2fa_enabled: tools.is_2fa_enabled
+        is_prohibit_login: tools.is_prohibit_login
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user
+      description: Create a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user
+      description: Delete a User
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.admindeleteuser
+      with:
+        username: tools.username
+        purge: tools.purge
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-existing-user
+      description: Edit an Existing User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminedituser
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-user-s-badges
+      description: List a User's Badges
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-admin.adminlistuserbadges
+      with:
+        username: tools.username
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-badge-user
+      description: Add a Badge to a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.adminadduserbadges
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-badge-user
+      description: Remove a Badge from a User
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.admindeleteuserbadges
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-public-key-behalf-user
+      description: Add a Public Key on Behalf of a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreatepublickey
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-s-public-key
+      description: Delete a User's Public Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-admin.admindeleteuserpublickey
+      with:
+        username: tools.username
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-organization
+      description: Create an Organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreateorg
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rename-user
+      description: Rename a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.adminrenameuser
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-repository-behalf-user
+      description: Create a Repository on Behalf of a User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-admin.admincreaterepo
+      with:
+        username: tools.username
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

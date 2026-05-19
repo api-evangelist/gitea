@@ -1,0 +1,4229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Gitea API — issue
+  description: 'Gitea API — issue. 69 operations. Lead operation: Search for Issues Across the Repositories That the User
+    Has Access To. Self-contained Naftiko capability covering one Gitea business surface.'
+  tags:
+  - Gitea
+  - issue
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GITEA_API_KEY: GITEA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-issue
+    baseUri: https://gitea.com/api/v1
+    description: Gitea API — issue business capability. Self-contained, no shared references.
+    resources:
+    - name: repos-issues-search
+      path: /repos/issues/search
+      operations:
+      - name: issuesearchissues
+        method: GET
+        description: Search for Issues Across the Repositories That the User Has Access To
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: state
+          in: query
+          type: string
+          description: State of the issue
+        - name: labels
+          in: query
+          type: string
+          description: Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent
+            labels are discarded.
+        - name: milestones
+          in: query
+          type: string
+          description: Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent
+            milestones are discarded.
+        - name: q
+          in: query
+          type: string
+          description: Search string
+        - name: type
+          in: query
+          type: string
+          description: Filter by issue type
+        - name: since
+          in: query
+          type: string
+          description: Only show issues updated after the given time (RFC 3339 format)
+        - name: before
+          in: query
+          type: string
+          description: Only show issues updated before the given time (RFC 3339 format)
+        - name: assigned
+          in: query
+          type: boolean
+          description: Filter issues or pulls assigned to the authenticated user
+        - name: created
+          in: query
+          type: boolean
+          description: Filter issues or pulls created by the authenticated user
+        - name: mentioned
+          in: query
+          type: boolean
+          description: Filter issues or pulls mentioning the authenticated user
+        - name: review_requested
+          in: query
+          type: boolean
+          description: Filter pull requests where the authenticated user's review was requested
+        - name: reviewed
+          in: query
+          type: boolean
+          description: Filter pull requests reviewed by the authenticated user
+        - name: owner
+          in: query
+          type: string
+          description: Filter by repository owner
+        - name: created_by
+          in: query
+          type: string
+          description: Only show items which were created by the given user
+        - name: team
+          in: query
+          type: string
+          description: Filter by team (requires organization owner parameter)
+        - name: page
+          in: query
+          type: integer
+          description: Page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: Number of items per page
+    - name: repos-owner-repo-issues
+      path: /repos/{owner}/{repo}/issues
+      operations:
+      - name: issuelistissues
+        method: GET
+        description: List a Repository's Issues
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: state
+          in: query
+          type: string
+          description: whether issue is open or closed
+        - name: labels
+          in: query
+          type: string
+          description: comma separated list of label names. Fetch only issues that have any of this label names. Non existent
+            labels are discarded.
+        - name: q
+          in: query
+          type: string
+          description: search string
+        - name: type
+          in: query
+          type: string
+          description: filter by type (issues / pulls) if set
+        - name: milestones
+          in: query
+          type: string
+          description: 'comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues
+            that have any of this milestones. Non existent milestones '
+        - name: since
+          in: query
+          type: string
+          description: Only show items updated after the given time. This is a timestamp in RFC 3339 format
+        - name: before
+          in: query
+          type: string
+          description: Only show items updated before the given time. This is a timestamp in RFC 3339 format
+        - name: created_by
+          in: query
+          type: string
+          description: Only show items which were created by the given user
+        - name: assigned_by
+          in: query
+          type: string
+          description: Only show items for which the given user is assigned
+        - name: mentioned_by
+          in: query
+          type: string
+          description: Only show items in which the given user was mentioned
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuecreateissue
+        method: POST
+        description: Create an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-comments
+      path: /repos/{owner}/{repo}/issues/comments
+      operations:
+      - name: issuegetrepocomments
+        method: GET
+        description: List All Comments in a Repository
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: since
+          in: query
+          type: string
+          description: if provided, only comments updated since the provided time are returned.
+        - name: before
+          in: query
+          type: string
+          description: if provided, only comments updated before the provided time are returned.
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: repos-owner-repo-issues-comments-id
+      path: /repos/{owner}/{repo}/issues/comments/{id}
+      operations:
+      - name: issuegetcomment
+        method: GET
+        description: Get a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+      - name: issuedeletecomment
+        method: DELETE
+        description: Delete a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of comment to delete
+          required: true
+      - name: issueeditcomment
+        method: PATCH
+        description: Edit a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-comments-id-assets
+      path: /repos/{owner}/{repo}/issues/comments/{id}/assets
+      operations:
+      - name: issuelistissuecommentattachments
+        method: GET
+        description: List Comment's Attachments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+      - name: issuecreateissuecommentattachment
+        method: POST
+        description: Create a Comment Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: name of the attachment
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-comments-id-assets-attachment_id
+      path: /repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment_id}
+      operations:
+      - name: issuegetissuecommentattachment
+        method: GET
+        description: Get a Comment Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to get
+          required: true
+      - name: issuedeleteissuecommentattachment
+        method: DELETE
+        description: Delete a Comment Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to delete
+          required: true
+      - name: issueeditissuecommentattachment
+        method: PATCH
+        description: Edit a Comment Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-comments-id-reactions
+      path: /repos/{owner}/{repo}/issues/comments/{id}/reactions
+      operations:
+      - name: issuegetcommentreactions
+        method: GET
+        description: Get a List of Reactions from a Comment of an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment to edit
+          required: true
+      - name: issuepostcommentreaction
+        method: POST
+        description: Add a Reaction to a Comment of an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issuedeletecommentreaction
+        method: DELETE
+        description: Remove a Reaction from a Comment of an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index
+      path: /repos/{owner}/{repo}/issues/{index}
+      operations:
+      - name: issuegetissue
+        method: GET
+        description: Get an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to get
+          required: true
+      - name: issuedelete
+        method: DELETE
+        description: Delete an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of issue to delete
+          required: true
+      - name: issueeditissue
+        method: PATCH
+        description: Edit an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-assets
+      path: /repos/{owner}/{repo}/issues/{index}/assets
+      operations:
+      - name: issuelistissueattachments
+        method: GET
+        description: List Issue's Attachments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+      - name: issuecreateissueattachment
+        method: POST
+        description: Create an Issue Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: name of the attachment
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-assets-attachment_id
+      path: /repos/{owner}/{repo}/issues/{index}/assets/{attachment_id}
+      operations:
+      - name: issuegetissueattachment
+        method: GET
+        description: Get an Issue Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to get
+          required: true
+      - name: issuedeleteissueattachment
+        method: DELETE
+        description: Delete an Issue Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to delete
+          required: true
+      - name: issueeditissueattachment
+        method: PATCH
+        description: Edit an Issue Attachment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: attachment_id
+          in: path
+          type: integer
+          description: id of the attachment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-blocks
+      path: /repos/{owner}/{repo}/issues/{index}/blocks
+      operations:
+      - name: issuelistblocks
+        method: GET
+        description: List Issues That Are Blocked by This Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuecreateissueblocking
+        method: POST
+        description: Block the Issue Given in the Body by the Issue in Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueremoveissueblocking
+        method: DELETE
+        description: Unblock the Issue Given in the Body by the Issue in Path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-comments
+      path: /repos/{owner}/{repo}/issues/{index}/comments
+      operations:
+      - name: issuegetcomments
+        method: GET
+        description: List All Comments on an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: since
+          in: query
+          type: string
+          description: if provided, only comments updated since the specified time are returned.
+        - name: before
+          in: query
+          type: string
+          description: if provided, only comments updated before the provided time are returned.
+      - name: issuecreatecomment
+        method: POST
+        description: Add a Comment to an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-comments-id
+      path: /repos/{owner}/{repo}/issues/{index}/comments/{id}
+      operations:
+      - name: issuedeletecommentdeprecated
+        method: DELETE
+        description: Delete a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: this parameter is ignored
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of comment to delete
+          required: true
+      - name: issueeditcommentdeprecated
+        method: PATCH
+        description: Edit a Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: this parameter is ignored
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the comment to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-deadline
+      path: /repos/{owner}/{repo}/issues/{index}/deadline
+      operations:
+      - name: issueeditissuedeadline
+        method: POST
+        description: Set an Issue Deadline. if Set to Null, the Deadline Is Deleted. if Using Deadline Only the Date Will
+          Be Taken Into Account, and Time of Day Ignored.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to create or update a deadline on
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-dependencies
+      path: /repos/{owner}/{repo}/issues/{index}/dependencies
+      operations:
+      - name: issuelistissuedependencies
+        method: GET
+        description: List an Issue's Dependencies, I.e All Issues That Block This Issue.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuecreateissuedependencies
+        method: POST
+        description: Make the Issue in the URL Depend on the Issue in the Form.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueremoveissuedependencies
+        method: DELETE
+        description: Remove an Issue Dependency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: string
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-labels
+      path: /repos/{owner}/{repo}/issues/{index}/labels
+      operations:
+      - name: issuegetlabels
+        method: GET
+        description: Get an Issue's Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+      - name: issuereplacelabels
+        method: PUT
+        description: Replace an Issue's Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueaddlabel
+        method: POST
+        description: Add a Label to an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueclearlabels
+        method: DELETE
+        description: Remove All Labels from an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+    - name: repos-owner-repo-issues-index-labels-id
+      path: /repos/{owner}/{repo}/issues/{index}/labels/{id}
+      operations:
+      - name: issueremovelabel
+        method: DELETE
+        description: Remove a Label from an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the label to remove
+          required: true
+    - name: repos-owner-repo-issues-index-lock
+      path: /repos/{owner}/{repo}/issues/{index}/lock
+      operations:
+      - name: issuelockissue
+        method: PUT
+        description: Lock an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueunlockissue
+        method: DELETE
+        description: Unlock an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+    - name: repos-owner-repo-issues-index-pin
+      path: /repos/{owner}/{repo}/issues/{index}/pin
+      operations:
+      - name: pinissue
+        method: POST
+        description: Pin an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of issue to pin
+          required: true
+      - name: unpinissue
+        method: DELETE
+        description: Unpin an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of issue to unpin
+          required: true
+    - name: repos-owner-repo-issues-index-pin-position
+      path: /repos/{owner}/{repo}/issues/{index}/pin/{position}
+      operations:
+      - name: moveissuepin
+        method: PATCH
+        description: Moves the Pin to the Given Position
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of issue
+          required: true
+        - name: position
+          in: path
+          type: integer
+          description: the new position
+          required: true
+    - name: repos-owner-repo-issues-index-reactions
+      path: /repos/{owner}/{repo}/issues/{index}/reactions
+      operations:
+      - name: issuegetissuereactions
+        method: GET
+        description: Get a List Reactions of an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuepostissuereaction
+        method: POST
+        description: Add a Reaction to an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issuedeleteissuereaction
+        method: DELETE
+        description: Remove a Reaction from an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-issues-index-stopwatch-delete
+      path: /repos/{owner}/{repo}/issues/{index}/stopwatch/delete
+      operations:
+      - name: issuedeletestopwatch
+        method: DELETE
+        description: Delete an Issue's Existing Stopwatch.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to stop the stopwatch on
+          required: true
+    - name: repos-owner-repo-issues-index-stopwatch-start
+      path: /repos/{owner}/{repo}/issues/{index}/stopwatch/start
+      operations:
+      - name: issuestartstopwatch
+        method: POST
+        description: Start Stopwatch on an Issue.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to create the stopwatch on
+          required: true
+    - name: repos-owner-repo-issues-index-stopwatch-stop
+      path: /repos/{owner}/{repo}/issues/{index}/stopwatch/stop
+      operations:
+      - name: issuestopstopwatch
+        method: POST
+        description: Stop an Issue's Existing Stopwatch.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to stop the stopwatch on
+          required: true
+    - name: repos-owner-repo-issues-index-subscriptions
+      path: /repos/{owner}/{repo}/issues/{index}/subscriptions
+      operations:
+      - name: issuesubscriptions
+        method: GET
+        description: Get Users Who Subscribed on an Issue.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+    - name: repos-owner-repo-issues-index-subscriptions-check
+      path: /repos/{owner}/{repo}/issues/{index}/subscriptions/check
+      operations:
+      - name: issuechecksubscription
+        method: GET
+        description: Check if User Is Subscribed to an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+    - name: repos-owner-repo-issues-index-subscriptions-user
+      path: /repos/{owner}/{repo}/issues/{index}/subscriptions/{user}
+      operations:
+      - name: issueaddsubscription
+        method: PUT
+        description: Subscribe User to Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: user
+          in: path
+          type: string
+          description: username of the user to subscribe the issue to
+          required: true
+      - name: issuedeletesubscription
+        method: DELETE
+        description: Unsubscribe User from Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: user
+          in: path
+          type: string
+          description: username of the user to unsubscribe from an issue
+          required: true
+    - name: repos-owner-repo-issues-index-timeline
+      path: /repos/{owner}/{repo}/issues/{index}/timeline
+      operations:
+      - name: issuegetcommentsandtimeline
+        method: GET
+        description: List All Comments and Events on an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: since
+          in: query
+          type: string
+          description: if provided, only comments updated since the specified time are returned.
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+        - name: before
+          in: query
+          type: string
+          description: if provided, only comments updated before the provided time are returned.
+    - name: repos-owner-repo-issues-index-times
+      path: /repos/{owner}/{repo}/issues/{index}/times
+      operations:
+      - name: issuetrackedtimes
+        method: GET
+        description: List an Issue's Tracked Times
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: user
+          in: query
+          type: string
+          description: optional filter by user (available for issue managers)
+        - name: since
+          in: query
+          type: string
+          description: Only show times updated after the given time. This is a timestamp in RFC 3339 format
+        - name: before
+          in: query
+          type: string
+          description: Only show times updated before the given time. This is a timestamp in RFC 3339 format
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issueaddtime
+        method: POST
+        description: Add Tracked Time to a Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: issueresettime
+        method: DELETE
+        description: Reset a Tracked Time of an Issue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue to add tracked time to
+          required: true
+    - name: repos-owner-repo-issues-index-times-id
+      path: /repos/{owner}/{repo}/issues/{index}/times/{id}
+      operations:
+      - name: issuedeletetime
+        method: DELETE
+        description: Delete Specific Tracked Time
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: index
+          in: path
+          type: integer
+          description: index of the issue
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of time to delete
+          required: true
+    - name: repos-owner-repo-labels
+      path: /repos/{owner}/{repo}/labels
+      operations:
+      - name: issuelistlabels
+        method: GET
+        description: Get All of a Repository's Labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuecreatelabel
+        method: POST
+        description: Create a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-labels-id
+      path: /repos/{owner}/{repo}/labels/{id}
+      operations:
+      - name: issuegetlabel
+        method: GET
+        description: Get a Single Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the label to get
+          required: true
+      - name: issuedeletelabel
+        method: DELETE
+        description: Delete a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the label to delete
+          required: true
+      - name: issueeditlabel
+        method: PATCH
+        description: Update a Label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: integer
+          description: id of the label to edit
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-milestones
+      path: /repos/{owner}/{repo}/milestones
+      operations:
+      - name: issuegetmilestoneslist
+        method: GET
+        description: Get All of a Repository's Opened Milestones
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: state
+          in: query
+          type: string
+          description: Milestone state, Recognized values are open, closed and all. Defaults to "open"
+        - name: name
+          in: query
+          type: string
+          description: filter by milestone name
+        - name: page
+          in: query
+          type: integer
+          description: page number of results to return (1-based)
+        - name: limit
+          in: query
+          type: integer
+          description: page size of results
+      - name: issuecreatemilestone
+        method: POST
+        description: Create a Milestone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: repos-owner-repo-milestones-id
+      path: /repos/{owner}/{repo}/milestones/{id}
+      operations:
+      - name: issuegetmilestone
+        method: GET
+        description: Get a Milestone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: the milestone to get, identified by ID and if not available by name
+          required: true
+      - name: issuedeletemilestone
+        method: DELETE
+        description: Delete a Milestone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: the milestone to delete, identified by ID and if not available by name
+          required: true
+      - name: issueeditmilestone
+        method: PATCH
+        description: Update a Milestone
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: owner of the repo
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: name of the repo
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: the milestone to edit, identified by ID and if not available by name
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: access_token
+      value: '{{env.GITEA_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: rest-issue-rest
+    port: 8080
+    description: REST adapter for Gitea API — issue. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/repos/issues/search
+      name: repos-issues-search
+      description: REST surface for repos-issues-search.
+      operations:
+      - method: GET
+        name: issuesearchissues
+        description: Search for Issues Across the Repositories That the User Has Access To
+        call: rest-issue.issuesearchissues
+        with:
+          state: rest.state
+          labels: rest.labels
+          milestones: rest.milestones
+          q: rest.q
+          type: rest.type
+          since: rest.since
+          before: rest.before
+          assigned: rest.assigned
+          created: rest.created
+          mentioned: rest.mentioned
+          review_requested: rest.review_requested
+          reviewed: rest.reviewed
+          owner: rest.owner
+          created_by: rest.created_by
+          team: rest.team
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues
+      name: repos-owner-repo-issues
+      description: REST surface for repos-owner-repo-issues.
+      operations:
+      - method: GET
+        name: issuelistissues
+        description: List a Repository's Issues
+        call: rest-issue.issuelistissues
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          state: rest.state
+          labels: rest.labels
+          q: rest.q
+          type: rest.type
+          milestones: rest.milestones
+          since: rest.since
+          before: rest.before
+          created_by: rest.created_by
+          assigned_by: rest.assigned_by
+          mentioned_by: rest.mentioned_by
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreateissue
+        description: Create an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+        call: rest-issue.issuecreateissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/comments
+      name: repos-owner-repo-issues-comments
+      description: REST surface for repos-owner-repo-issues-comments.
+      operations:
+      - method: GET
+        name: issuegetrepocomments
+        description: List All Comments in a Repository
+        call: rest-issue.issuegetrepocomments
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          since: rest.since
+          before: rest.before
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/comments/{id}
+      name: repos-owner-repo-issues-comments-id
+      description: REST surface for repos-owner-repo-issues-comments-id.
+      operations:
+      - method: GET
+        name: issuegetcomment
+        description: Get a Comment
+        call: rest-issue.issuegetcomment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeletecomment
+        description: Delete a Comment
+        call: rest-issue.issuedeletecomment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditcomment
+        description: Edit a Comment
+        call: rest-issue.issueeditcomment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/comments/{id}/assets
+      name: repos-owner-repo-issues-comments-id-assets
+      description: REST surface for repos-owner-repo-issues-comments-id-assets.
+      operations:
+      - method: GET
+        name: issuelistissuecommentattachments
+        description: List Comment's Attachments
+        call: rest-issue.issuelistissuecommentattachments
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreateissuecommentattachment
+        description: Create a Comment Attachment
+        call: rest-issue.issuecreateissuecommentattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          name: rest.name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/comments/{id}/assets/{attachment-id}
+      name: repos-owner-repo-issues-comments-id-assets-attachment-id
+      description: REST surface for repos-owner-repo-issues-comments-id-assets-attachment_id.
+      operations:
+      - method: GET
+        name: issuegetissuecommentattachment
+        description: Get a Comment Attachment
+        call: rest-issue.issuegetissuecommentattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          attachment_id: rest.attachment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeleteissuecommentattachment
+        description: Delete a Comment Attachment
+        call: rest-issue.issuedeleteissuecommentattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          attachment_id: rest.attachment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditissuecommentattachment
+        description: Edit a Comment Attachment
+        call: rest-issue.issueeditissuecommentattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          attachment_id: rest.attachment_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/comments/{id}/reactions
+      name: repos-owner-repo-issues-comments-id-reactions
+      description: REST surface for repos-owner-repo-issues-comments-id-reactions.
+      operations:
+      - method: GET
+        name: issuegetcommentreactions
+        description: Get a List of Reactions from a Comment of an Issue
+        call: rest-issue.issuegetcommentreactions
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuepostcommentreaction
+        description: Add a Reaction to a Comment of an Issue
+        call: rest-issue.issuepostcommentreaction
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeletecommentreaction
+        description: Remove a Reaction from a Comment of an Issue
+        call: rest-issue.issuedeletecommentreaction
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}
+      name: repos-owner-repo-issues-index
+      description: REST surface for repos-owner-repo-issues-index.
+      operations:
+      - method: GET
+        name: issuegetissue
+        description: Get an Issue
+        call: rest-issue.issuegetissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedelete
+        description: Delete an Issue
+        call: rest-issue.issuedelete
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditissue
+        description: Edit an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+        call: rest-issue.issueeditissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/assets
+      name: repos-owner-repo-issues-index-assets
+      description: REST surface for repos-owner-repo-issues-index-assets.
+      operations:
+      - method: GET
+        name: issuelistissueattachments
+        description: List Issue's Attachments
+        call: rest-issue.issuelistissueattachments
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreateissueattachment
+        description: Create an Issue Attachment
+        call: rest-issue.issuecreateissueattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          name: rest.name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/assets/{attachment-id}
+      name: repos-owner-repo-issues-index-assets-attachment-id
+      description: REST surface for repos-owner-repo-issues-index-assets-attachment_id.
+      operations:
+      - method: GET
+        name: issuegetissueattachment
+        description: Get an Issue Attachment
+        call: rest-issue.issuegetissueattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          attachment_id: rest.attachment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeleteissueattachment
+        description: Delete an Issue Attachment
+        call: rest-issue.issuedeleteissueattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          attachment_id: rest.attachment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditissueattachment
+        description: Edit an Issue Attachment
+        call: rest-issue.issueeditissueattachment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          attachment_id: rest.attachment_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/blocks
+      name: repos-owner-repo-issues-index-blocks
+      description: REST surface for repos-owner-repo-issues-index-blocks.
+      operations:
+      - method: GET
+        name: issuelistblocks
+        description: List Issues That Are Blocked by This Issue
+        call: rest-issue.issuelistblocks
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreateissueblocking
+        description: Block the Issue Given in the Body by the Issue in Path
+        call: rest-issue.issuecreateissueblocking
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issueremoveissueblocking
+        description: Unblock the Issue Given in the Body by the Issue in Path
+        call: rest-issue.issueremoveissueblocking
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/comments
+      name: repos-owner-repo-issues-index-comments
+      description: REST surface for repos-owner-repo-issues-index-comments.
+      operations:
+      - method: GET
+        name: issuegetcomments
+        description: List All Comments on an Issue
+        call: rest-issue.issuegetcomments
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          since: rest.since
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreatecomment
+        description: Add a Comment to an Issue
+        call: rest-issue.issuecreatecomment
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/comments/{id}
+      name: repos-owner-repo-issues-index-comments-id
+      description: REST surface for repos-owner-repo-issues-index-comments-id.
+      operations:
+      - method: DELETE
+        name: issuedeletecommentdeprecated
+        description: Delete a Comment
+        call: rest-issue.issuedeletecommentdeprecated
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditcommentdeprecated
+        description: Edit a Comment
+        call: rest-issue.issueeditcommentdeprecated
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/deadline
+      name: repos-owner-repo-issues-index-deadline
+      description: REST surface for repos-owner-repo-issues-index-deadline.
+      operations:
+      - method: POST
+        name: issueeditissuedeadline
+        description: Set an Issue Deadline. if Set to Null, the Deadline Is Deleted. if Using Deadline Only the Date Will
+          Be Taken Into Account, and Time of Day Ignored.
+        call: rest-issue.issueeditissuedeadline
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/dependencies
+      name: repos-owner-repo-issues-index-dependencies
+      description: REST surface for repos-owner-repo-issues-index-dependencies.
+      operations:
+      - method: GET
+        name: issuelistissuedependencies
+        description: List an Issue's Dependencies, I.e All Issues That Block This Issue.
+        call: rest-issue.issuelistissuedependencies
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreateissuedependencies
+        description: Make the Issue in the URL Depend on the Issue in the Form.
+        call: rest-issue.issuecreateissuedependencies
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issueremoveissuedependencies
+        description: Remove an Issue Dependency
+        call: rest-issue.issueremoveissuedependencies
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/labels
+      name: repos-owner-repo-issues-index-labels
+      description: REST surface for repos-owner-repo-issues-index-labels.
+      operations:
+      - method: GET
+        name: issuegetlabels
+        description: Get an Issue's Labels
+        call: rest-issue.issuegetlabels
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: issuereplacelabels
+        description: Replace an Issue's Labels
+        call: rest-issue.issuereplacelabels
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issueaddlabel
+        description: Add a Label to an Issue
+        call: rest-issue.issueaddlabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issueclearlabels
+        description: Remove All Labels from an Issue
+        call: rest-issue.issueclearlabels
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/labels/{id}
+      name: repos-owner-repo-issues-index-labels-id
+      description: REST surface for repos-owner-repo-issues-index-labels-id.
+      operations:
+      - method: DELETE
+        name: issueremovelabel
+        description: Remove a Label from an Issue
+        call: rest-issue.issueremovelabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/lock
+      name: repos-owner-repo-issues-index-lock
+      description: REST surface for repos-owner-repo-issues-index-lock.
+      operations:
+      - method: PUT
+        name: issuelockissue
+        description: Lock an Issue
+        call: rest-issue.issuelockissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issueunlockissue
+        description: Unlock an Issue
+        call: rest-issue.issueunlockissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/pin
+      name: repos-owner-repo-issues-index-pin
+      description: REST surface for repos-owner-repo-issues-index-pin.
+      operations:
+      - method: POST
+        name: pinissue
+        description: Pin an Issue
+        call: rest-issue.pinissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unpinissue
+        description: Unpin an Issue
+        call: rest-issue.unpinissue
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/pin/{position}
+      name: repos-owner-repo-issues-index-pin-position
+      description: REST surface for repos-owner-repo-issues-index-pin-position.
+      operations:
+      - method: PATCH
+        name: moveissuepin
+        description: Moves the Pin to the Given Position
+        call: rest-issue.moveissuepin
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          position: rest.position
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/reactions
+      name: repos-owner-repo-issues-index-reactions
+      description: REST surface for repos-owner-repo-issues-index-reactions.
+      operations:
+      - method: GET
+        name: issuegetissuereactions
+        description: Get a List Reactions of an Issue
+        call: rest-issue.issuegetissuereactions
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuepostissuereaction
+        description: Add a Reaction to an Issue
+        call: rest-issue.issuepostissuereaction
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeleteissuereaction
+        description: Remove a Reaction from an Issue
+        call: rest-issue.issuedeleteissuereaction
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/stopwatch/delete
+      name: repos-owner-repo-issues-index-stopwatch-delete
+      description: REST surface for repos-owner-repo-issues-index-stopwatch-delete.
+      operations:
+      - method: DELETE
+        name: issuedeletestopwatch
+        description: Delete an Issue's Existing Stopwatch.
+        call: rest-issue.issuedeletestopwatch
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/stopwatch/start
+      name: repos-owner-repo-issues-index-stopwatch-start
+      description: REST surface for repos-owner-repo-issues-index-stopwatch-start.
+      operations:
+      - method: POST
+        name: issuestartstopwatch
+        description: Start Stopwatch on an Issue.
+        call: rest-issue.issuestartstopwatch
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/stopwatch/stop
+      name: repos-owner-repo-issues-index-stopwatch-stop
+      description: REST surface for repos-owner-repo-issues-index-stopwatch-stop.
+      operations:
+      - method: POST
+        name: issuestopstopwatch
+        description: Stop an Issue's Existing Stopwatch.
+        call: rest-issue.issuestopstopwatch
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/subscriptions
+      name: repos-owner-repo-issues-index-subscriptions
+      description: REST surface for repos-owner-repo-issues-index-subscriptions.
+      operations:
+      - method: GET
+        name: issuesubscriptions
+        description: Get Users Who Subscribed on an Issue.
+        call: rest-issue.issuesubscriptions
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/subscriptions/check
+      name: repos-owner-repo-issues-index-subscriptions-check
+      description: REST surface for repos-owner-repo-issues-index-subscriptions-check.
+      operations:
+      - method: GET
+        name: issuechecksubscription
+        description: Check if User Is Subscribed to an Issue
+        call: rest-issue.issuechecksubscription
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/subscriptions/{user}
+      name: repos-owner-repo-issues-index-subscriptions-user
+      description: REST surface for repos-owner-repo-issues-index-subscriptions-user.
+      operations:
+      - method: PUT
+        name: issueaddsubscription
+        description: Subscribe User to Issue
+        call: rest-issue.issueaddsubscription
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeletesubscription
+        description: Unsubscribe User from Issue
+        call: rest-issue.issuedeletesubscription
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          user: rest.user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/timeline
+      name: repos-owner-repo-issues-index-timeline
+      description: REST surface for repos-owner-repo-issues-index-timeline.
+      operations:
+      - method: GET
+        name: issuegetcommentsandtimeline
+        description: List All Comments and Events on an Issue
+        call: rest-issue.issuegetcommentsandtimeline
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          since: rest.since
+          page: rest.page
+          limit: rest.limit
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/times
+      name: repos-owner-repo-issues-index-times
+      description: REST surface for repos-owner-repo-issues-index-times.
+      operations:
+      - method: GET
+        name: issuetrackedtimes
+        description: List an Issue's Tracked Times
+        call: rest-issue.issuetrackedtimes
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          user: rest.user
+          since: rest.since
+          before: rest.before
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issueaddtime
+        description: Add Tracked Time to a Issue
+        call: rest-issue.issueaddtime
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issueresettime
+        description: Reset a Tracked Time of an Issue
+        call: rest-issue.issueresettime
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/issues/{index}/times/{id}
+      name: repos-owner-repo-issues-index-times-id
+      description: REST surface for repos-owner-repo-issues-index-times-id.
+      operations:
+      - method: DELETE
+        name: issuedeletetime
+        description: Delete Specific Tracked Time
+        call: rest-issue.issuedeletetime
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          index: rest.index
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/labels
+      name: repos-owner-repo-labels
+      description: REST surface for repos-owner-repo-labels.
+      operations:
+      - method: GET
+        name: issuelistlabels
+        description: Get All of a Repository's Labels
+        call: rest-issue.issuelistlabels
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreatelabel
+        description: Create a Label
+        call: rest-issue.issuecreatelabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/labels/{id}
+      name: repos-owner-repo-labels-id
+      description: REST surface for repos-owner-repo-labels-id.
+      operations:
+      - method: GET
+        name: issuegetlabel
+        description: Get a Single Label
+        call: rest-issue.issuegetlabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeletelabel
+        description: Delete a Label
+        call: rest-issue.issuedeletelabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditlabel
+        description: Update a Label
+        call: rest-issue.issueeditlabel
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/milestones
+      name: repos-owner-repo-milestones
+      description: REST surface for repos-owner-repo-milestones.
+      operations:
+      - method: GET
+        name: issuegetmilestoneslist
+        description: Get All of a Repository's Opened Milestones
+        call: rest-issue.issuegetmilestoneslist
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          state: rest.state
+          name: rest.name
+          page: rest.page
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: issuecreatemilestone
+        description: Create a Milestone
+        call: rest-issue.issuecreatemilestone
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/repos/{owner}/{repo}/milestones/{id}
+      name: repos-owner-repo-milestones-id
+      description: REST surface for repos-owner-repo-milestones-id.
+      operations:
+      - method: GET
+        name: issuegetmilestone
+        description: Get a Milestone
+        call: rest-issue.issuegetmilestone
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: issuedeletemilestone
+        description: Delete a Milestone
+        call: rest-issue.issuedeletemilestone
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: issueeditmilestone
+        description: Update a Milestone
+        call: rest-issue.issueeditmilestone
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-issue-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Gitea API — issue. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: search-issues-across-repositories-that
+      description: Search for Issues Across the Repositories That the User Has Access To
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuesearchissues
+      with:
+        state: tools.state
+        labels: tools.labels
+        milestones: tools.milestones
+        q: tools.q
+        type: tools.type
+        since: tools.since
+        before: tools.before
+        assigned: tools.assigned
+        created: tools.created
+        mentioned: tools.mentioned
+        review_requested: tools.review_requested
+        reviewed: tools.reviewed
+        owner: tools.owner
+        created_by: tools.created_by
+        team: tools.team
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-repository-s-issues
+      description: List a Repository's Issues
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistissues
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        state: tools.state
+        labels: tools.labels
+        q: tools.q
+        type: tools.type
+        milestones: tools.milestones
+        since: tools.since
+        before: tools.before
+        created_by: tools.created_by
+        assigned_by: tools.assigned_by
+        mentioned_by: tools.mentioned_by
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-issue-if-using-deadline
+      description: Create an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreateissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-comments-repository
+      description: List All Comments in a Repository
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetrepocomments
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        since: tools.since
+        before: tools.before
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-comment
+      description: Get a Comment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetcomment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-comment
+      description: Delete a Comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletecomment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-comment
+      description: Edit a Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditcomment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-comment-s-attachments
+      description: List Comment's Attachments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistissuecommentattachments
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-comment-attachment
+      description: Create a Comment Attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreateissuecommentattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-comment-attachment
+      description: Get a Comment Attachment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetissuecommentattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        attachment_id: tools.attachment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-comment-attachment
+      description: Delete a Comment Attachment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeleteissuecommentattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        attachment_id: tools.attachment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-comment-attachment
+      description: Edit a Comment Attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditissuecommentattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        attachment_id: tools.attachment_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-reactions-comment-issue
+      description: Get a List of Reactions from a Comment of an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetcommentreactions
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-reaction-comment-issue
+      description: Add a Reaction to a Comment of an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuepostcommentreaction
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-reaction-comment-issue
+      description: Remove a Reaction from a Comment of an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletecommentreaction
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-issue
+      description: Get an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-issue
+      description: Delete an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedelete
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-issue-if-using-deadline
+      description: Edit an Issue. if Using Deadline Only the Date Will Be Taken Into Account, and Time of Day Ignored.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-issue-s-attachments
+      description: List Issue's Attachments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistissueattachments
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-issue-attachment
+      description: Create an Issue Attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreateissueattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-issue-attachment
+      description: Get an Issue Attachment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetissueattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        attachment_id: tools.attachment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-issue-attachment
+      description: Delete an Issue Attachment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeleteissueattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        attachment_id: tools.attachment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-issue-attachment
+      description: Edit an Issue Attachment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditissueattachment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        attachment_id: tools.attachment_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-issues-that-are-blocked
+      description: List Issues That Are Blocked by This Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistblocks
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: block-issue-given-body-issue
+      description: Block the Issue Given in the Body by the Issue in Path
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreateissueblocking
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unblock-issue-given-body-issue
+      description: Unblock the Issue Given in the Body by the Issue in Path
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueremoveissueblocking
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-comments-issue
+      description: List All Comments on an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetcomments
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        since: tools.since
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-comment-issue
+      description: Add a Comment to an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreatecomment
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-comment-2
+      description: Delete a Comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletecommentdeprecated
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: edit-comment-2
+      description: Edit a Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditcommentdeprecated
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-issue-deadline-if-set
+      description: Set an Issue Deadline. if Set to Null, the Deadline Is Deleted. if Using Deadline Only the Date Will Be
+        Taken Into Account, and Time of Day Ignored.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issueeditissuedeadline
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-issue-s-dependencies-i-e-all
+      description: List an Issue's Dependencies, I.e All Issues That Block This Issue.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistissuedependencies
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: make-issue-url-depend-issue
+      description: Make the Issue in the URL Depend on the Issue in the Form.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreateissuedependencies
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-issue-dependency
+      description: Remove an Issue Dependency
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueremoveissuedependencies
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-issue-s-labels
+      description: Get an Issue's Labels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetlabels
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-issue-s-labels
+      description: Replace an Issue's Labels
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuereplacelabels
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-label-issue
+      description: Add a Label to an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issueaddlabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-all-labels-issue
+      description: Remove All Labels from an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueclearlabels
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-label-issue
+      description: Remove a Label from an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueremovelabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lock-issue
+      description: Lock an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelockissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlock-issue
+      description: Unlock an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueunlockissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pin-issue
+      description: Pin an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.pinissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unpin-issue
+      description: Unpin an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.unpinissue
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: moves-pin-given-position
+      description: Moves the Pin to the Given Position
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.moveissuepin
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        position: tools.position
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-list-reactions-issue
+      description: Get a List Reactions of an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetissuereactions
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-reaction-issue
+      description: Add a Reaction to an Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuepostissuereaction
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-reaction-issue
+      description: Remove a Reaction from an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeleteissuereaction
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-issue-s-existing-stopwatch
+      description: Delete an Issue's Existing Stopwatch.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletestopwatch
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: start-stopwatch-issue
+      description: Start Stopwatch on an Issue.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuestartstopwatch
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: stop-issue-s-existing-stopwatch
+      description: Stop an Issue's Existing Stopwatch.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuestopstopwatch
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-users-who-subscribed-issue
+      description: Get Users Who Subscribed on an Issue.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuesubscriptions
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-if-user-is-subscribed
+      description: Check if User Is Subscribed to an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuechecksubscription
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: subscribe-user-issue
+      description: Subscribe User to Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueaddsubscription
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unsubscribe-user-issue
+      description: Unsubscribe User from Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletesubscription
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        user: tools.user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-comments-and-events
+      description: List All Comments and Events on an Issue
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetcommentsandtimeline
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        since: tools.since
+        page: tools.page
+        limit: tools.limit
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-issue-s-tracked-times
+      description: List an Issue's Tracked Times
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuetrackedtimes
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        user: tools.user
+        since: tools.since
+        before: tools.before
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-tracked-time-issue
+      description: Add Tracked Time to a Issue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issueaddtime
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: reset-tracked-time-issue
+      description: Reset a Tracked Time of an Issue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issueresettime
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-specific-tracked-time
+      description: Delete Specific Tracked Time
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletetime
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        index: tools.index
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-repository-s-labels
+      description: Get All of a Repository's Labels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuelistlabels
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-label
+      description: Create a Label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreatelabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-single-label
+      description: Get a Single Label
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetlabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-label
+      description: Delete a Label
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletelabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-label
+      description: Update a Label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditlabel
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-repository-s-opened-milestones
+      description: Get All of a Repository's Opened Milestones
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetmilestoneslist
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        state: tools.state
+        name: tools.name
+        page: tools.page
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-milestone
+      description: Create a Milestone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rest-issue.issuecreatemilestone
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-milestone
+      description: Get a Milestone
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-issue.issuegetmilestone
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-milestone
+      description: Delete a Milestone
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rest-issue.issuedeletemilestone
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-milestone
+      description: Update a Milestone
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rest-issue.issueeditmilestone
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
