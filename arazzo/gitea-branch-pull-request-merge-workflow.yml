@@ -1,0 +1,131 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Feature Branch To Merged Pull Request
+  summary: Create a feature branch, open a pull request, and merge it.
+  description: >-
+    Models the core Gitea contribution loop. The workflow creates a new branch
+    off a base branch, opens a pull request from that branch back into the base,
+    and then merges the pull request using the requested merge strategy. Each
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: branch-pull-request-merge
+  summary: Create a branch, open a pull request, and merge it.
+  description: >-
+    Creates a feature branch from a base branch, opens a pull request targeting
+    the base branch, and merges it.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - newBranch
+    - baseBranch
+    - prTitle
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      newBranch:
+        type: string
+        description: Name of the feature branch to create.
+      baseBranch:
+        type: string
+        description: Existing branch the feature branch is created from and merged back into.
+      prTitle:
+        type: string
+        description: Title of the pull request.
+      prBody:
+        type: string
+        description: Description body for the pull request.
+      mergeStyle:
+        type: string
+        description: Merge strategy (merge, rebase, rebase-merge, squash, fast-forward-only).
+  steps:
+  - stepId: createBranch
+    description: Create a new feature branch from the base branch.
+    operationId: repoCreateBranch
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        new_branch_name: $inputs.newBranch
+        old_ref_name: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      branchName: $response.body#/name
+  - stepId: createPullRequest
+    description: Open a pull request from the new feature branch into the base branch.
+    operationId: repoCreatePullRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.prTitle
+        body: $inputs.prBody
+        head: $inputs.newBranch
+        base: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prNumber: $response.body#/number
+      prId: $response.body#/id
+      prUrl: $response.body#/html_url
+  - stepId: mergePullRequest
+    description: Merge the pull request using the requested merge strategy.
+    operationId: repoMergePullRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $steps.createPullRequest.outputs.prNumber
+    requestBody:
+      contentType: application/json
+      payload:
+        do: $inputs.mergeStyle
+        delete_branch_after_merge: true
+    successCriteria:
+    - condition: $statusCode == 200
+  outputs:
+    branchName: $steps.createBranch.outputs.branchName
+    prNumber: $steps.createPullRequest.outputs.prNumber
+    prUrl: $steps.createPullRequest.outputs.prUrl

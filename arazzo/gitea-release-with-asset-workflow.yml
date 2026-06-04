@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Publish Release With Asset
+  summary: Create a release on a tag and upload a binary asset to it.
+  description: >-
+    Automates a software release on Gitea. The workflow creates a release tied
+    to a git tag and then uploads a build artifact as a release asset using a
+    multipart upload. Each step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: release-with-asset
+  summary: Create a release and upload an asset to it.
+  description: >-
+    Creates a release for a tag, then uploads a build artifact as a named
+    attachment on that release.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - tagName
+    - attachmentName
+    - attachment
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      tagName:
+        type: string
+        description: Existing or new git tag the release is created for.
+      releaseName:
+        type: string
+        description: Display title of the release.
+      releaseBody:
+        type: string
+        description: Release notes shown on the release page.
+      targetCommitish:
+        type: string
+        description: Branch or commit the tag is created from when it does not yet exist.
+      attachmentName:
+        type: string
+        description: File name to store the uploaded asset under.
+      attachment:
+        type: string
+        description: The asset file contents to upload.
+  steps:
+  - stepId: createRelease
+    description: Create a release for the supplied tag.
+    operationId: repoCreateRelease
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        tag_name: $inputs.tagName
+        name: $inputs.releaseName
+        body: $inputs.releaseBody
+        target_commitish: $inputs.targetCommitish
+        draft: false
+        prerelease: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      releaseId: $response.body#/id
+      releaseUrl: $response.body#/html_url
+      uploadUrl: $response.body#/upload_url
+  - stepId: uploadAsset
+    description: Upload a build artifact as a named attachment on the release.
+    operationId: repoCreateReleaseAttachment
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: id
+      in: path
+      value: $steps.createRelease.outputs.releaseId
+    - name: name
+      in: query
+      value: $inputs.attachmentName
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        attachment: $inputs.attachment
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      attachmentId: $response.body#/id
+      browserDownloadUrl: $response.body#/browser_download_url
+  outputs:
+    releaseId: $steps.createRelease.outputs.releaseId
+    releaseUrl: $steps.createRelease.outputs.releaseUrl
+    attachmentId: $steps.uploadAsset.outputs.attachmentId

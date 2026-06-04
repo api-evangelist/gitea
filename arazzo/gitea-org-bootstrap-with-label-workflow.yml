@@ -1,0 +1,110 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Bootstrap Organization With Shared Label
+  summary: Create an organization, add a repository, and create an org-wide label.
+  description: >-
+    Stands up an organization with a shared triage label on Gitea. The workflow
+    creates an organization, creates a repository owned by that organization,
+    and creates an organization-level label that is available across the org's
+    repositories. Each step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: org-bootstrap-with-label
+  summary: Create an org, a repo in it, and an org-wide label.
+  description: >-
+    Creates an organization, creates a repository under it, then creates an
+    organization-level label.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - orgUsername
+    - repoName
+    - labelName
+    - labelColor
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      orgUsername:
+        type: string
+        description: Username (slug) of the organization to create.
+      orgFullName:
+        type: string
+        description: Display name of the organization.
+      repoName:
+        type: string
+        description: Name of the repository to create under the organization.
+      labelName:
+        type: string
+        description: Name of the organization-level label.
+      labelColor:
+        type: string
+        description: Hex color for the label, e.g. "#00aabb".
+  steps:
+  - stepId: createOrg
+    description: Create a new organization.
+    operationId: orgCreate
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    requestBody:
+      contentType: application/json
+      payload:
+        username: $inputs.orgUsername
+        full_name: $inputs.orgFullName
+        visibility: public
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      orgId: $response.body#/id
+  - stepId: createOrgRepo
+    description: Create a repository owned by the new organization.
+    operationId: createOrgRepo
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: org
+      in: path
+      value: $inputs.orgUsername
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.repoName
+        auto_init: true
+        private: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      repoId: $response.body#/id
+      repoFullName: $response.body#/full_name
+  - stepId: createOrgLabel
+    description: Create an organization-level label shared across the org's repos.
+    operationId: orgCreateLabel
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: org
+      in: path
+      value: $inputs.orgUsername
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.labelName
+        color: $inputs.labelColor
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      labelId: $response.body#/id
+  outputs:
+    orgId: $steps.createOrg.outputs.orgId
+    repoId: $steps.createOrgRepo.outputs.repoId
+    labelId: $steps.createOrgLabel.outputs.labelId

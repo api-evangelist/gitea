@@ -1,0 +1,103 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Create Label And Apply To Issue
+  summary: Create a repository label and apply it to an existing issue.
+  description: >-
+    Sets up issue triage on Gitea. The workflow creates a new label in a
+    repository and then applies that label to an existing issue by its id. Each
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: label-create-and-apply
+  summary: Create a label and apply it to an issue.
+  description: >-
+    Creates a repository label, then applies it to the target issue by label id.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - issueIndex
+    - labelName
+    - labelColor
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      issueIndex:
+        type: integer
+        description: Index (number) of the issue to label.
+      labelName:
+        type: string
+        description: Name of the label to create.
+      labelColor:
+        type: string
+        description: Hex color for the label, e.g. "#00aabb".
+      labelDescription:
+        type: string
+        description: Optional description of the label's purpose.
+  steps:
+  - stepId: createLabel
+    description: Create a new label in the repository.
+    operationId: issueCreateLabel
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.labelName
+        color: $inputs.labelColor
+        description: $inputs.labelDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      labelId: $response.body#/id
+      labelUrl: $response.body#/url
+  - stepId: applyLabel
+    description: Apply the newly created label to the target issue.
+    operationId: issueAddLabel
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $inputs.issueIndex
+    requestBody:
+      contentType: application/json
+      payload:
+        labels:
+        - $steps.createLabel.outputs.labelId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      appliedLabels: $response.body
+  outputs:
+    labelId: $steps.createLabel.outputs.labelId
+    appliedLabels: $steps.applyLabel.outputs.appliedLabels

@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Open And Triage Pull Request
+  summary: Open a pull request and then triage it with assignees and labels.
+  description: >-
+    Opens a pull request and routes it for review on Gitea. The workflow opens
+    the pull request from a head branch into a base branch and then edits it to
+    set assignees and labels so the right people are notified. Each step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: open-and-triage-pull-request
+  summary: Open a pull request and triage it with assignees and labels.
+  description: >-
+    Opens a pull request, then edits it to attach assignees and label ids for
+    triage.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - headBranch
+    - baseBranch
+    - prTitle
+    - assignees
+    - labelIds
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      headBranch:
+        type: string
+        description: Head branch the changes come from.
+      baseBranch:
+        type: string
+        description: Base branch the pull request targets.
+      prTitle:
+        type: string
+        description: Title of the pull request.
+      prBody:
+        type: string
+        description: Description body for the pull request.
+      assignees:
+        type: array
+        description: Usernames to assign to the pull request.
+        items:
+          type: string
+      labelIds:
+        type: array
+        description: Label ids to attach to the pull request.
+        items:
+          type: integer
+  steps:
+  - stepId: openPullRequest
+    description: Open a pull request from the head branch into the base branch.
+    operationId: repoCreatePullRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.prTitle
+        body: $inputs.prBody
+        head: $inputs.headBranch
+        base: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prNumber: $response.body#/number
+      prUrl: $response.body#/html_url
+  - stepId: triagePullRequest
+    description: Edit the pull request to attach assignees and labels.
+    operationId: repoEditPullRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $steps.openPullRequest.outputs.prNumber
+    requestBody:
+      contentType: application/json
+      payload:
+        assignees: $inputs.assignees
+        labels: $inputs.labelIds
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prState: $response.body#/state
+  outputs:
+    prNumber: $steps.openPullRequest.outputs.prNumber
+    prUrl: $steps.openPullRequest.outputs.prUrl
+    prState: $steps.triagePullRequest.outputs.prState

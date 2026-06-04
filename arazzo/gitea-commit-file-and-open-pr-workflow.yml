@@ -1,0 +1,142 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Commit File On New Branch And Open Pull Request
+  summary: Create a branch, commit a new file to it, and open a pull request.
+  description: >-
+    Automates a content change proposal on Gitea. The workflow creates a new
+    branch, commits a new file onto that branch, and opens a pull request that
+    proposes merging the change back into the base branch. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: commit-file-and-open-pr
+  summary: Create a branch, commit a file, and open a pull request.
+  description: >-
+    Creates a feature branch, commits a base64-encoded file to it, then opens a
+    pull request targeting the base branch.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - newBranch
+    - baseBranch
+    - filepath
+    - contentBase64
+    - prTitle
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      newBranch:
+        type: string
+        description: Feature branch to create and commit onto.
+      baseBranch:
+        type: string
+        description: Existing branch the feature branch is created from and merged into.
+      filepath:
+        type: string
+        description: Path of the file to create in the repository.
+      contentBase64:
+        type: string
+        description: Base64-encoded file content.
+      commitMessage:
+        type: string
+        description: Commit message for the new file.
+      prTitle:
+        type: string
+        description: Title of the pull request.
+      prBody:
+        type: string
+        description: Description body for the pull request.
+  steps:
+  - stepId: createBranch
+    description: Create a feature branch from the base branch.
+    operationId: repoCreateBranch
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        new_branch_name: $inputs.newBranch
+        old_ref_name: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      branchName: $response.body#/name
+  - stepId: commitFile
+    description: Commit a new base64-encoded file onto the feature branch.
+    operationId: repoCreateFile
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: filepath
+      in: path
+      value: $inputs.filepath
+    requestBody:
+      contentType: application/json
+      payload:
+        content: $inputs.contentBase64
+        message: $inputs.commitMessage
+        branch: $inputs.newBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      commitSha: $response.body#/commit/sha
+  - stepId: openPullRequest
+    description: Open a pull request from the feature branch into the base branch.
+    operationId: repoCreatePullRequest
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.prTitle
+        body: $inputs.prBody
+        head: $inputs.newBranch
+        base: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      prNumber: $response.body#/number
+      prUrl: $response.body#/html_url
+  outputs:
+    branchName: $steps.createBranch.outputs.branchName
+    commitSha: $steps.commitFile.outputs.commitSha
+    prNumber: $steps.openPullRequest.outputs.prNumber
+    prUrl: $steps.openPullRequest.outputs.prUrl

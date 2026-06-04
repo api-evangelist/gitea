@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Sync Mirror And Confirm Branch
+  summary: Confirm a repository is a mirror, trigger a sync, and verify a branch.
+  description: >-
+    Refreshes a mirrored repository on Gitea and confirms the result. The
+    workflow reads the repository to confirm it is a mirror, triggers a
+    mirror-sync to pull the latest from upstream, and then verifies a branch is
+    present after the sync. Each step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: mirror-sync
+  summary: Confirm a repo is a mirror, sync it, and verify a branch.
+  description: >-
+    Reads the repository to confirm it is a mirror, triggers a mirror-sync, then
+    looks up a branch and retries until it is returned.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - branch
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the mirrored repository.
+      branch:
+        type: string
+        description: Branch to verify is present after the sync.
+  steps:
+  - stepId: getRepo
+    description: Read the repository to confirm it is a mirror before syncing.
+    operationId: repoGet
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      isMirror: $response.body#/mirror
+    onSuccess:
+    - name: repoIsMirror
+      type: goto
+      stepId: syncMirror
+      criteria:
+      - context: $response.body
+        condition: $.mirror == true
+        type: jsonpath
+    - name: notAMirror
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.mirror == false
+        type: jsonpath
+  - stepId: syncMirror
+    description: Trigger a mirror-sync to pull the latest from upstream.
+    operationId: repoMirrorSync
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    successCriteria:
+    - condition: $statusCode == 200
+  - stepId: verifyBranch
+    description: Look up the branch and retry until it is returned after the sync.
+    operationId: repoGetBranch
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: branch
+      in: path
+      value: $inputs.branch
+    successCriteria:
+    - condition: $statusCode == 200
+    onFailure:
+    - name: retryBranchLookup
+      type: retry
+      retryAfter: 3
+      retryLimit: 5
+      stepId: verifyBranch
+    outputs:
+      commitId: $response.body#/commit/id
+  outputs:
+    isMirror: $steps.getRepo.outputs.isMirror
+    commitId: $steps.verifyBranch.outputs.commitId

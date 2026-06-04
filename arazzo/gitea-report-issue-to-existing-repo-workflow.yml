@@ -1,0 +1,119 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Report Issue To Existing Repository
+  summary: Confirm a repository exists, open an issue in it, and comment on it.
+  description: >-
+    Safely files a bug report against an existing Gitea repository. The workflow
+    first reads the repository to confirm it exists and is reachable, opens an
+    issue describing the problem, and posts a follow-up comment with reproduction
+    details. Each step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: report-issue-to-existing-repo
+  summary: Confirm a repo exists, open an issue, and comment on it.
+  description: >-
+    Reads the repository to confirm it exists, opens an issue, then posts a
+    follow-up comment on that issue.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - issueTitle
+    - issueBody
+    - commentBody
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      issueTitle:
+        type: string
+        description: Title of the issue to open.
+      issueBody:
+        type: string
+        description: Body text describing the problem.
+      commentBody:
+        type: string
+        description: Follow-up comment with reproduction details.
+  steps:
+  - stepId: getRepo
+    description: Read the repository to confirm it exists before filing an issue.
+    operationId: repoGet
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      repoId: $response.body#/id
+      hasIssues: $response.body#/has_issues
+  - stepId: openIssue
+    description: Open an issue describing the problem.
+    operationId: issueCreateIssue
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.issueTitle
+        body: $inputs.issueBody
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      issueNumber: $response.body#/number
+      issueUrl: $response.body#/html_url
+  - stepId: addDetails
+    description: Post a follow-up comment with reproduction details.
+    operationId: issueCreateComment
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $steps.openIssue.outputs.issueNumber
+    requestBody:
+      contentType: application/json
+      payload:
+        body: $inputs.commentBody
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      commentId: $response.body#/id
+  outputs:
+    repoId: $steps.getRepo.outputs.repoId
+    issueNumber: $steps.openIssue.outputs.issueNumber
+    commentId: $steps.addDetails.outputs.commentId

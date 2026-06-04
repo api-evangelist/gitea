@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Create Release And Verify By Tag
+  summary: Create a release and confirm it by looking it up by its tag.
+  description: >-
+    Creates a release and verifies it is queryable by tag before downstream
+    automation relies on it. The workflow creates a release for a tag and then
+    looks the release up by that tag, retrying until the lookup succeeds. Each
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: release-and-verify-by-tag
+  summary: Create a release and verify it by tag lookup.
+  description: >-
+    Creates a release for a tag, then looks up the release by tag and retries
+    until it is returned.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - tagName
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      tagName:
+        type: string
+        description: Git tag the release is created for and looked up by.
+      releaseName:
+        type: string
+        description: Display title of the release.
+      releaseBody:
+        type: string
+        description: Release notes for the release.
+  steps:
+  - stepId: createRelease
+    description: Create a release for the supplied tag.
+    operationId: repoCreateRelease
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        tag_name: $inputs.tagName
+        name: $inputs.releaseName
+        body: $inputs.releaseBody
+        draft: false
+        prerelease: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      releaseId: $response.body#/id
+  - stepId: verifyByTag
+    description: Look up the release by tag, retrying until it is returned.
+    operationId: repoGetReleaseByTag
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: tag
+      in: path
+      value: $inputs.tagName
+    successCriteria:
+    - condition: $statusCode == 200
+    - condition: $response.body#/id == $steps.createRelease.outputs.releaseId
+    onFailure:
+    - name: retryTagLookup
+      type: retry
+      retryAfter: 2
+      retryLimit: 5
+      stepId: verifyByTag
+    outputs:
+      releaseUrl: $response.body#/html_url
+      tagName: $response.body#/tag_name
+  outputs:
+    releaseId: $steps.createRelease.outputs.releaseId
+    releaseUrl: $steps.verifyByTag.outputs.releaseUrl

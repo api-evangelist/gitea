@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Create Branch And Await Availability
+  summary: Create a branch and poll until it is retrievable from the repository.
+  description: >-
+    Creates a branch and then confirms it has become available before any
+    downstream automation depends on it. The workflow creates the branch and
+    retries a branch lookup until the branch is returned, which is useful right
+    after repository creation when branch indexing can lag. Each step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-branch-and-await
+  summary: Create a branch and poll until it is retrievable.
+  description: >-
+    Creates a branch from a base ref, then polls the branch lookup endpoint and
+    retries until the branch is returned with a 200 response.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - newBranch
+    - baseBranch
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      newBranch:
+        type: string
+        description: Name of the branch to create.
+      baseBranch:
+        type: string
+        description: Existing branch or ref to create the new branch from.
+  steps:
+  - stepId: createBranch
+    description: Create a new branch from the supplied base ref.
+    operationId: repoCreateBranch
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        new_branch_name: $inputs.newBranch
+        old_ref_name: $inputs.baseBranch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      branchName: $response.body#/name
+  - stepId: awaitBranch
+    description: >-
+      Look up the branch and retry until the repository returns it, confirming
+      the branch is fully available.
+    operationId: repoGetBranch
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: branch
+      in: path
+      value: $steps.createBranch.outputs.branchName
+    successCriteria:
+    - condition: $statusCode == 200
+    onFailure:
+    - name: retryBranchLookup
+      type: retry
+      retryAfter: 2
+      retryLimit: 5
+      stepId: awaitBranch
+    outputs:
+      commitId: $response.body#/commit/id
+      protected: $response.body#/protected
+  outputs:
+    branchName: $steps.createBranch.outputs.branchName
+    commitId: $steps.awaitBranch.outputs.commitId

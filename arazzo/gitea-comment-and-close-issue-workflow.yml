@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Comment And Close Issue
+  summary: Post a closing comment on an issue and then close it.
+  description: >-
+    Wraps up work on a Gitea issue. The workflow first confirms the issue is
+    currently open, posts a closing comment that explains the resolution, and
+    then transitions the issue to the closed state. Each step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: comment-and-close-issue
+  summary: Confirm an issue is open, comment on it, and close it.
+  description: >-
+    Reads the issue to confirm it is open, posts a resolution comment, then
+    edits the issue state to closed. If the issue is already closed the flow
+    ends without changes.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - issueIndex
+    - commentBody
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      issueIndex:
+        type: integer
+        description: Index (number) of the issue to close.
+      commentBody:
+        type: string
+        description: Closing comment text.
+  steps:
+  - stepId: getIssue
+    description: Read the issue to confirm its current state before closing it.
+    operationId: issueGetIssue
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $inputs.issueIndex
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/state
+    onSuccess:
+    - name: issueOpen
+      type: goto
+      stepId: commentIssue
+      criteria:
+      - context: $response.body
+        condition: $.state == "open"
+        type: jsonpath
+    - name: issueAlreadyClosed
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.state == "closed"
+        type: jsonpath
+  - stepId: commentIssue
+    description: Post the closing comment that documents the resolution.
+    operationId: issueCreateComment
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $inputs.issueIndex
+    requestBody:
+      contentType: application/json
+      payload:
+        body: $inputs.commentBody
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      commentId: $response.body#/id
+  - stepId: closeIssue
+    description: Transition the issue to the closed state.
+    operationId: issueEditIssue
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: index
+      in: path
+      value: $inputs.issueIndex
+    requestBody:
+      contentType: application/json
+      payload:
+        state: closed
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      finalState: $response.body#/state
+  outputs:
+    commentId: $steps.commentIssue.outputs.commentId
+    finalState: $steps.closeIssue.outputs.finalState

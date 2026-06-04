@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Create Repository With A Labeled Issue
+  summary: Create a repository, create a label in it, and open a pre-labeled issue.
+  description: >-
+    Bootstraps a repository with its first classified issue on Gitea. The
+    workflow creates a repository for the authenticated user, creates a label in
+    it, and opens an issue that is tagged with that label at creation time. Each
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: repo-with-labeled-issue
+  summary: Create a repo, create a label, and open a pre-labeled issue.
+  description: >-
+    Creates a repository, creates a label in it, then opens an issue that
+    carries the new label from creation.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repoName
+    - labelName
+    - labelColor
+    - issueTitle
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Username that owns the new repository (the authenticated user).
+      repoName:
+        type: string
+        description: Name of the repository to create.
+      labelName:
+        type: string
+        description: Name of the label to create.
+      labelColor:
+        type: string
+        description: Hex color for the label, e.g. "#00aabb".
+      issueTitle:
+        type: string
+        description: Title of the issue to open.
+      issueBody:
+        type: string
+        description: Body text for the issue.
+  steps:
+  - stepId: createRepo
+    description: Create a repository for the authenticated user.
+    operationId: createCurrentUserRepo
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.repoName
+        auto_init: true
+        private: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      repoId: $response.body#/id
+      repoFullName: $response.body#/full_name
+  - stepId: createLabel
+    description: Create a label in the new repository.
+    operationId: issueCreateLabel
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repoName
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.labelName
+        color: $inputs.labelColor
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      labelId: $response.body#/id
+  - stepId: createLabeledIssue
+    description: Open an issue that carries the new label from creation.
+    operationId: issueCreateIssue
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repoName
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.issueTitle
+        body: $inputs.issueBody
+        labels:
+        - $steps.createLabel.outputs.labelId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      issueNumber: $response.body#/number
+      issueUrl: $response.body#/html_url
+  outputs:
+    repoId: $steps.createRepo.outputs.repoId
+    labelId: $steps.createLabel.outputs.labelId
+    issueNumber: $steps.createLabeledIssue.outputs.issueNumber
+    issueUrl: $steps.createLabeledIssue.outputs.issueUrl

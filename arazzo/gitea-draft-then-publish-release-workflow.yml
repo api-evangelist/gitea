@@ -1,0 +1,137 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Draft Then Publish Release
+  summary: Create a draft release, attach an asset, then publish the release.
+  description: >-
+    Produces a reviewed release on Gitea. The workflow first creates the release
+    as a draft so it is not visible to consumers, uploads a build artifact to
+    it, and then edits the release to clear the draft flag and publish it. Each
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: draft-then-publish-release
+  summary: Create a draft release, attach an asset, then publish it.
+  description: >-
+    Creates a draft release, uploads an asset to it, then edits the release to
+    publish it by clearing the draft flag.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repo
+    - tagName
+    - attachmentName
+    - attachment
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Owner of the repository.
+      repo:
+        type: string
+        description: Name of the repository.
+      tagName:
+        type: string
+        description: Git tag the release is created for.
+      releaseName:
+        type: string
+        description: Display title of the release.
+      releaseBody:
+        type: string
+        description: Release notes for the release.
+      attachmentName:
+        type: string
+        description: File name to store the uploaded asset under.
+      attachment:
+        type: string
+        description: The asset file contents to upload.
+  steps:
+  - stepId: createDraft
+    description: Create the release as a draft so it is not yet public.
+    operationId: repoCreateRelease
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    requestBody:
+      contentType: application/json
+      payload:
+        tag_name: $inputs.tagName
+        name: $inputs.releaseName
+        body: $inputs.releaseBody
+        draft: true
+        prerelease: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      releaseId: $response.body#/id
+  - stepId: uploadAsset
+    description: Upload a build artifact to the draft release.
+    operationId: repoCreateReleaseAttachment
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: id
+      in: path
+      value: $steps.createDraft.outputs.releaseId
+    - name: name
+      in: query
+      value: $inputs.attachmentName
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        attachment: $inputs.attachment
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      attachmentId: $response.body#/id
+  - stepId: publishRelease
+    description: Edit the release to clear the draft flag and publish it.
+    operationId: repoEditRelease
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repo
+    - name: id
+      in: path
+      value: $steps.createDraft.outputs.releaseId
+    requestBody:
+      contentType: application/json
+      payload:
+        draft: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      releaseUrl: $response.body#/html_url
+      isDraft: $response.body#/draft
+  outputs:
+    releaseId: $steps.createDraft.outputs.releaseId
+    attachmentId: $steps.uploadAsset.outputs.attachmentId
+    releaseUrl: $steps.publishRelease.outputs.releaseUrl

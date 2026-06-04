@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: Gitea Bootstrap Repository With Tracking Issue
+  summary: Create a repository, open a tracking issue in it, and add a kickoff comment.
+  description: >-
+    A common project bootstrap pattern on Gitea. The workflow creates a new
+    repository for the authenticated user, opens a tracking issue inside that
+    repository, and then posts a kickoff comment on the issue. Each step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: giteaApi
+  url: ../openapi/gitea-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bootstrap-repo-with-tracking-issue
+  summary: Create a repo, open a tracking issue, and add a kickoff comment.
+  description: >-
+    Creates a repository for the authenticated user, opens an issue to track the
+    work, then comments on that issue with a kickoff note.
+  inputs:
+    type: object
+    required:
+    - authToken
+    - owner
+    - repoName
+    - issueTitle
+    properties:
+      authToken:
+        type: string
+        description: Authorization header value, e.g. "token <personal-access-token>".
+      owner:
+        type: string
+        description: Username that owns the new repository (the authenticated user).
+      repoName:
+        type: string
+        description: Name of the repository to create.
+      repoDescription:
+        type: string
+        description: Optional description for the new repository.
+      issueTitle:
+        type: string
+        description: Title of the tracking issue to open.
+      issueBody:
+        type: string
+        description: Body text for the tracking issue.
+      commentBody:
+        type: string
+        description: Body text for the kickoff comment on the issue.
+  steps:
+  - stepId: createRepo
+    description: >-
+      Create a new repository for the authenticated user, auto-initialized so it
+      has a default branch and README.
+    operationId: createCurrentUserRepo
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.repoName
+        description: $inputs.repoDescription
+        auto_init: true
+        private: false
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      repoId: $response.body#/id
+      repoFullName: $response.body#/full_name
+      defaultBranch: $response.body#/default_branch
+  - stepId: createIssue
+    description: Open a tracking issue inside the newly created repository.
+    operationId: issueCreateIssue
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repoName
+    requestBody:
+      contentType: application/json
+      payload:
+        title: $inputs.issueTitle
+        body: $inputs.issueBody
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      issueNumber: $response.body#/number
+      issueId: $response.body#/id
+      issueUrl: $response.body#/html_url
+  - stepId: commentIssue
+    description: Post a kickoff comment on the tracking issue.
+    operationId: issueCreateComment
+    parameters:
+    - name: Authorization
+      in: header
+      value: $inputs.authToken
+    - name: owner
+      in: path
+      value: $inputs.owner
+    - name: repo
+      in: path
+      value: $inputs.repoName
+    - name: index
+      in: path
+      value: $steps.createIssue.outputs.issueNumber
+    requestBody:
+      contentType: application/json
+      payload:
+        body: $inputs.commentBody
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      commentId: $response.body#/id
+      commentUrl: $response.body#/html_url
+  outputs:
+    repoId: $steps.createRepo.outputs.repoId
+    repoFullName: $steps.createRepo.outputs.repoFullName
+    issueNumber: $steps.createIssue.outputs.issueNumber
+    commentId: $steps.commentIssue.outputs.commentId
