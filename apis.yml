@@ -183,7 +183,7 @@ apis:
       - url: https://docs.gitea.com/usage/actions/overview
         type: Documentation
       - url: https://docs.gitea.com/usage/actions/quickstart
-        type: Quickstart
+        type: GettingStarted
       - url: https://docs.gitea.com/usage/actions/comparison
         type: APIReference
       - url: https://gitea.com/gitea/act_runner
@@ -252,66 +252,63 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/gitea/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/gitea-bootstrap-repo-with-tracking-issue-workflow.yml
-        name: Gitea Bootstrap Repository With Tracking Issue
-        summary: Create a repository, open a tracking issue in it, and add a kickoff comment.
-      - url: arazzo/gitea-branch-pull-request-merge-workflow.yml
-        name: Gitea Feature Branch To Merged Pull Request
-        summary: Create a feature branch, open a pull request, and merge it.
-      - url: arazzo/gitea-comment-and-close-issue-workflow.yml
-        name: Gitea Comment And Close Issue
-        summary: Post a closing comment on an issue and then close it.
-      - url: arazzo/gitea-commit-file-and-open-pr-workflow.yml
-        name: Gitea Commit File On New Branch And Open Pull Request
-        summary: Create a branch, commit a new file to it, and open a pull request.
-      - url: arazzo/gitea-create-branch-and-await-workflow.yml
-        name: Gitea Create Branch And Await Availability
-        summary: Create a branch and poll until it is retrievable from the repository.
-      - url: arazzo/gitea-draft-then-publish-release-workflow.yml
-        name: Gitea Draft Then Publish Release
-        summary: Create a draft release, attach an asset, then publish the release.
-      - url: arazzo/gitea-label-create-and-apply-workflow.yml
-        name: Gitea Create Label And Apply To Issue
-        summary: Create a repository label and apply it to an existing issue.
-      - url: arazzo/gitea-milestone-with-issue-workflow.yml
-        name: Gitea Create Milestone With Tracked Issue
-        summary: Create a milestone and open an issue assigned to that milestone.
-      - url: arazzo/gitea-mirror-sync-workflow.yml
-        name: Gitea Sync Mirror And Confirm Branch
-        summary: Confirm a repository is a mirror, trigger a sync, and verify a branch.
-      - url: arazzo/gitea-open-and-triage-pull-request-workflow.yml
-        name: Gitea Open And Triage Pull Request
-        summary: Open a pull request and then triage it with assignees and labels.
-      - url: arazzo/gitea-org-bootstrap-with-label-workflow.yml
-        name: Gitea Bootstrap Organization With Shared Label
-        summary: Create an organization, add a repository, and create an org-wide label.
-      - url: arazzo/gitea-org-repo-with-webhook-workflow.yml
-        name: Gitea Provision Organization Repository With Webhook
-        summary: Create an organization, add a repository to it, and register a webhook.
-      - url: arazzo/gitea-org-with-webhook-workflow.yml
-        name: Gitea Create Organization With Webhook
-        summary: Create an organization and register an organization-level webhook.
-      - url: arazzo/gitea-release-and-verify-by-tag-workflow.yml
-        name: Gitea Create Release And Verify By Tag
-        summary: Create a release and confirm it by looking it up by its tag.
-      - url: arazzo/gitea-release-with-asset-workflow.yml
-        name: Gitea Publish Release With Asset
-        summary: Create a release on a tag and upload a binary asset to it.
-      - url: arazzo/gitea-repo-with-labeled-issue-workflow.yml
-        name: Gitea Create Repository With A Labeled Issue
-        summary: Create a repository, create a label in it, and open a pre-labeled issue.
-      - url: arazzo/gitea-repo-with-webhook-workflow.yml
-        name: Gitea Create Repository With Webhook
-        summary: Create a repository for the authenticated user and register a webhook.
-      - url: arazzo/gitea-report-issue-to-existing-repo-workflow.yml
-        name: Gitea Report Issue To Existing Repository
-        summary: Confirm a repository exists, open an issue in it, and comment on it.
-      - url: arazzo/gitea-sprint-issue-setup-workflow.yml
-        name: Gitea Sprint Issue Setup
-        summary: Create a milestone and label, open an issue under them, and apply the label.
+  - type: Arazzo
+    url: arazzo/gitea-bootstrap-repo-with-tracking-issue-workflow.yml
+    name: Gitea Bootstrap Repository With Tracking Issue
+  - type: Arazzo
+    url: arazzo/gitea-branch-pull-request-merge-workflow.yml
+    name: Gitea Feature Branch To Merged Pull Request
+  - type: Arazzo
+    url: arazzo/gitea-comment-and-close-issue-workflow.yml
+    name: Gitea Comment And Close Issue
+  - type: Arazzo
+    url: arazzo/gitea-commit-file-and-open-pr-workflow.yml
+    name: Gitea Commit File On New Branch And Open Pull Request
+  - type: Arazzo
+    url: arazzo/gitea-create-branch-and-await-workflow.yml
+    name: Gitea Create Branch And Await Availability
+  - type: Arazzo
+    url: arazzo/gitea-draft-then-publish-release-workflow.yml
+    name: Gitea Draft Then Publish Release
+  - type: Arazzo
+    url: arazzo/gitea-label-create-and-apply-workflow.yml
+    name: Gitea Create Label And Apply To Issue
+  - type: Arazzo
+    url: arazzo/gitea-milestone-with-issue-workflow.yml
+    name: Gitea Create Milestone With Tracked Issue
+  - type: Arazzo
+    url: arazzo/gitea-mirror-sync-workflow.yml
+    name: Gitea Sync Mirror And Confirm Branch
+  - type: Arazzo
+    url: arazzo/gitea-open-and-triage-pull-request-workflow.yml
+    name: Gitea Open And Triage Pull Request
+  - type: Arazzo
+    url: arazzo/gitea-org-bootstrap-with-label-workflow.yml
+    name: Gitea Bootstrap Organization With Shared Label
+  - type: Arazzo
+    url: arazzo/gitea-org-repo-with-webhook-workflow.yml
+    name: Gitea Provision Organization Repository With Webhook
+  - type: Arazzo
+    url: arazzo/gitea-org-with-webhook-workflow.yml
+    name: Gitea Create Organization With Webhook
+  - type: Arazzo
+    url: arazzo/gitea-release-and-verify-by-tag-workflow.yml
+    name: Gitea Create Release And Verify By Tag
+  - type: Arazzo
+    url: arazzo/gitea-release-with-asset-workflow.yml
+    name: Gitea Publish Release With Asset
+  - type: Arazzo
+    url: arazzo/gitea-repo-with-labeled-issue-workflow.yml
+    name: Gitea Create Repository With A Labeled Issue
+  - type: Arazzo
+    url: arazzo/gitea-repo-with-webhook-workflow.yml
+    name: Gitea Create Repository With Webhook
+  - type: Arazzo
+    url: arazzo/gitea-report-issue-to-existing-repo-workflow.yml
+    name: Gitea Report Issue To Existing Repository
+  - type: Arazzo
+    url: arazzo/gitea-sprint-issue-setup-workflow.yml
+    name: Gitea Sprint Issue Setup
   - type: Website
     url: https://about.gitea.com/
   - type: Documentation
@@ -324,7 +321,7 @@ common:
     url: https://github.com/go-gitea
   - type: GitHubRepository
     url: https://github.com/go-gitea/gitea
-  - type: SignUp
+  - type: Signup
     url: https://cloud.gitea.com/
   - type: Pricing
     url: https://about.gitea.com/pricing/
@@ -352,16 +349,16 @@ common:
     url: https://docs.gitea.com/administration/security
   - type: Compliance
     url: https://about.gitea.com/products/cloud
-  - type: SDK
+  - type: SDKs
     url: https://gitea.com/gitea/go-sdk
     name: Gitea Go SDK
-  - type: SDK
+  - type: SDKs
     url: https://www.npmjs.com/package/gitea-js
     name: gitea-js (TypeScript / JavaScript SDK)
-  - type: SDK
+  - type: SDKs
     url: https://pypi.org/project/py-gitea/
     name: py-gitea (Python SDK)
-  - type: SDK
+  - type: SDKs
     url: https://github.com/hypermodeinc/gitea4j
     name: Gitea Java Client
   - type: CLI
@@ -385,7 +382,7 @@ common:
   - type: Hub
     url: https://discord.gg/gitea
     name: Gitea Discord Community
-  - type: Forum
+  - type: Forums
     url: https://forum.gitea.com/
     name: Gitea Community Forum
   - type: SpectralRules
