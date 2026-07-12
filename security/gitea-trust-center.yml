@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://about.gitea.com/security/
+url: https://about.gitea.com/security/
+certifications:
+- SOC 2
+evidence:
+- source: https://about.gitea.com/security/
+  keywords:
+  - soc 2
+  - soc2

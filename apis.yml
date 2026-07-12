@@ -250,6 +250,14 @@ apis:
       provisioned instance exposes the same REST API at /api/v1/. The management plane itself does not currently publish
       a separate machine-readable OpenAPI definition; provisioning is performed via the cloud.gitea.com web console.
 common:
+  - type: TrustCenter
+    url: security/gitea-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/gitea-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/gitea-domain-security.yml
+  - type: Authentication
+    url: authentication/gitea-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/gitea/overview
   - type: Arazzo
