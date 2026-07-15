@@ -250,6 +250,8 @@ apis:
       provisioned instance exposes the same REST API at /api/v1/. The management plane itself does not currently publish
       a separate machine-readable OpenAPI definition; provisioning is performed via the cloud.gitea.com web console.
 common:
+  - type: AgenticAccess
+    url: agentic-access/gitea-agentic-access.yml
   - type: TrustCenter
     url: security/gitea-trust-center.yml
   - type: VulnerabilityDisclosure
