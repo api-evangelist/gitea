@@ -1,0 +1,88 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://gitea.com/gitea/gitea-mcp
+docs: https://about.gitea.com/resources/tutorials/gitea-mcp-server/
+official: true
+server:
+  name: gitea-mcp
+  vendor: Gitea (CommitGo, Inc.)
+  version: 1.3.0
+  license: MIT
+  language: go
+  transports:
+    - stdio
+    - sse
+    - http
+  hosted: false
+  note: >-
+    Self-run binary that connects to any Gitea instance. Requires a Gitea host URL
+    (--host) and a personal access token (--token) from Settings > Applications.
+  install:
+    - go run gitea.com/gitea/gitea-mcp@latest
+    - docker.gitea.com/gitea-mcp-server
+    - binary releases from https://gitea.com/gitea/gitea-mcp/releases
+tool_categories:
+  - User & Auth
+  - Repository
+  - Branches
+  - Commits & Files
+  - Issues
+  - Pull Requests
+  - Organization
+  - Releases
+  - Tags
+  - Actions (workflows/secrets/variables)
+  - Wiki
+  - Service
+tools:
+  - name: get_my_user_info
+    description: Get the authenticated user's information.
+  - name: search_users
+    description: Search users.
+  - name: create_repo
+    description: Create a repository.
+  - name: fork_repo
+    description: Fork a repository.
+  - name: list_my_repos
+    description: List the authenticated user's repositories.
+  - name: search_repos
+    description: Search repositories.
+  - name: create_branch
+    description: Create a branch.
+  - name: delete_branch
+    description: Delete a branch.
+  - name: list_branches
+    description: List branches in a repository.
+  - name: list_repo_commits
+    description: List commits in a repository.
+  - name: get_file_content
+    description: Get the content of a file.
+  - name: create_file
+    description: Create a file.
+  - name: update_file
+    description: Update a file.
+  - name: delete_file
+    description: Delete a file.
+  - name: get_issue_by_index
+    description: Get an issue by its index.
+  - name: list_repo_issues
+    description: List issues in a repository.
+  - name: create_issue
+    description: Create an issue.
+  - name: create_issue_comment
+    description: Comment on an issue.
+  - name: get_pull_request_by_index
+    description: Get a pull request by its index.
+  - name: list_repo_pull_requests
+    description: List pull requests in a repository.
+  - name: create_pull_request
+    description: Create a pull request.
+  - name: search_org_teams
+    description: Search organization teams.
+  - name: get_gitea_mcp_server_version
+    description: Get the running gitea-mcp server version.
+note: >-
+  Tool list captured from the official tutorial (24 named tools); the repository
+  advertises ~45 tools across releases and versions/tags/wiki/actions categories.
+  See the source repo for the authoritative, version-current set.

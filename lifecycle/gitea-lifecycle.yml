@@ -1,0 +1,43 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://docs.gitea.com/api/, https://blog.gitea.com/,
+  https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md,
+  openapi/gitea-rest-api-openapi-original.yml
+versioning:
+  scheme: uri-path
+  api_path: /api/v1
+  current: v1
+  product_release: semver
+  current_product_version: 1.26.x
+  note: >-
+    The REST API is versioned in the path as /api/v1 and has been stable across
+    Gitea product releases. The docs mirror per product version (e.g.
+    docs.gitea.com/api/1.26/). Server version is discoverable via GET /api/v1/version.
+  docs: https://docs.gitea.com/api/1.26/
+deprecation:
+  policy_url: https://blog.gitea.com/
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Deprecations are announced in release blog posts / CHANGELOG rather than via
+    RFC 8594 Sunset/Deprecation headers. Deprecated query-parameter auth
+    (token=, access_token=) is flagged for removal in favor of the Authorization
+    header token.
+sla:
+  url: https://about.gitea.com/products/cloud
+  note: SLA applies to Gitea Cloud / Enterprise; self-hosted has no vendor SLA.
+status_page: https://status.gitea.com/
+changelog:
+  docs: https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md
+  artifact: changelog/gitea-changelog.yml
+deprecated_operations:
+  - openapi/gitea-rest-api-openapi-original.yml#createOrgRepoDeprecated
+  - openapi/gitea-rest-api-openapi-original.yml#issueDeleteCommentDeprecated
+  - openapi/gitea-rest-api-openapi-original.yml#issueEditCommentDeprecated
+  - openapi/gitea-rest-api-openapi-original.yml#userTrackedTimes
+deprecated_auth:
+  - scheme: Token (token= query param)
+    note: Deprecated for removal; use AuthorizationHeaderToken.
+  - scheme: AccessToken (access_token= query param)
+    note: Deprecated for removal; use AuthorizationHeaderToken.

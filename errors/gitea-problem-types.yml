@@ -1,0 +1,65 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/gitea-rest-api-openapi-original.yml
+format: custom
+envelope:
+  note: >-
+    Gitea does not use RFC 9457 application/problem+json. Error responses carry a
+    `message` (and often `url`) field describing the error; several reusable
+    response objects expose these via response headers. Success/empty operations
+    return empty bodies.
+  fields:
+    - name: message
+      description: Human-readable error message.
+    - name: url
+      description: URL to relevant Gitea documentation for the error.
+problems:
+  - status: 400
+    ref: "#/responses/error"
+    name: APIError
+    title: Bad request
+    description: APIError is the generic error format response (message, url).
+  - status: 403
+    ref: "#/responses/forbidden"
+    name: APIForbiddenError
+    title: Forbidden
+    description: The token/user lacks permission for the operation.
+  - status: 404
+    ref: "#/responses/notFound"
+    name: APINotFound
+    title: Not found
+    description: The requested resource does not exist (empty body).
+  - status: 409
+    ref: "#/responses/conflict"
+    name: APIConflict
+    title: Conflict
+    description: The request conflicts with the current state (empty body).
+  - status: 422
+    ref: "#/responses/validationError"
+    name: APIValidationError
+    title: Validation error
+    description: Input validation failed (message, url headers).
+  - status: 422
+    ref: "#/responses/invalidTopicsError"
+    name: APIInvalidTopicsError
+    title: Invalid topics
+    description: One or more repository topics are invalid (invalidTopics[], message).
+  - status: 409
+    ref: "#/responses/repoArchivedError"
+    name: APIRepoArchivedError
+    title: Repository archived
+    description: Raised when an archived repository is modified (message, url).
+  - status: 204
+    ref: "#/responses/empty"
+    name: APIEmpty
+    title: Empty response
+    description: Successful operation with no response body.
+usage_counts:
+  notFound: 368
+  error: 137
+  forbidden: 119
+  empty: 112
+  validationError: 87
+  repoArchivedError: 31
+  conflict: 5
+  invalidTopicsError: 3

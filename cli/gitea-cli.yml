@@ -1,0 +1,61 @@
+generated: '2026-06-20'
+method: searched
+source: https://gitea.com/gitea/tea, https://docs.gitea.com/
+official: true
+cli:
+  name: tea
+  description: The official command-line client for Gitea.
+  version: 0.14.2
+  released: '2026-06-26'
+  license: MIT
+  language: go
+  built_with: Go 1.25.0, Gitea SDK v0.21.0
+  binary_package: packages/gitea-packages.yml#tea
+install:
+  - method: homebrew
+    command: brew install tea
+  - method: arch
+    command: pacman -S tea
+  - method: alpine
+    command: apk add tea
+  - method: msys2
+    note: Windows via MSYS2
+  - method: binary
+    url: https://dl.gitea.com/tea/
+  - method: docker
+    note: Docker Hub image
+  - method: source
+    command: make install
+auth:
+  commands: [login, logout]
+  note: >-
+    `tea login add` stores server URL + token; supports multiple named logins
+    across Gitea instances.
+command_groups:
+  - group: entities
+    commands:
+      - issues
+      - pulls
+      - labels
+      - milestones
+      - releases
+      - times
+      - organizations
+      - repos
+      - branches
+      - actions
+      - comment
+      - webhooks
+  - group: helpers
+    commands:
+      - open
+      - notifications
+      - clone
+  - group: setup
+    commands:
+      - login
+      - logout
+  - group: misc
+    commands:
+      - whoami
+      - admin

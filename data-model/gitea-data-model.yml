@@ -1,0 +1,123 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/gitea-rest-api-openapi-original.yml, json-schema/
+note: >-
+  Entity-relationship graph derived from the Gitea Swagger 2.0 definitions and
+  the repo's json-schema/ set. Relationships reflect id/owner-reference fields
+  and path nesting (/repos/{owner}/{repo}/...). Gitea uses integer ids and
+  human-readable owner/repo/index path segments rather than opaque id-prefixes.
+entities:
+  - name: user
+    id: id (int); addressed by username
+    schema: json-schema/gitea-rest-api-user-schema.json
+    relationships:
+      - has_many: repository (via owner)
+      - has_many: organization (via membership)
+      - has_many: public_key
+      - has_many: gpg_key
+  - name: organization
+    id: id (int); addressed by name
+    schema: json-schema/gitea-rest-api-organization-schema.json
+    relationships:
+      - has_many: repository (via owner)
+      - has_many: team
+      - has_many: member (user)
+  - name: team
+    id: id (int)
+    schema: json-schema/gitea-rest-api-team-schema.json
+    relationships:
+      - belongs_to: organization (via organization)
+      - has_many: member (user)
+      - has_many: repository
+  - name: repository
+    id: id (int); addressed by {owner}/{repo}
+    schema: json-schema/gitea-rest-api-repository-schema.json
+    relationships:
+      - belongs_to: user_or_organization (via owner)
+      - has_many: branch
+      - has_many: commit
+      - has_many: issue
+      - has_many: pull_request
+      - has_many: release
+      - has_many: hook (webhook)
+      - has_many: label
+      - has_many: milestone
+      - has_many: tag
+      - has_many: collaborator (user)
+  - name: branch
+    id: name
+    schema: json-schema/gitea-rest-api-branch-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: commit (via commit)
+  - name: commit
+    id: sha
+    schema: json-schema/gitea-rest-api-commit-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: author (user)
+  - name: issue
+    id: id (int); addressed by index
+    schema: json-schema/gitea-rest-api-issue-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: milestone (via milestone)
+      - has_many: label
+      - has_many: comment
+      - has_one: assignee (user)
+  - name: pull_request
+    id: id (int); addressed by index
+    schema: json-schema/gitea-rest-api-pullrequest-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: base (branch)
+      - has_one: head (branch)
+      - has_many: review
+      - has_many: comment
+      - has_one: milestone
+  - name: comment
+    id: id (int)
+    schema: json-schema/gitea-rest-api-comment-schema.json
+    relationships:
+      - belongs_to: issue
+      - has_one: user
+  - name: label
+    id: id (int)
+    schema: json-schema/gitea-rest-api-label-schema.json
+    relationships:
+      - belongs_to: repository_or_organization
+  - name: milestone
+    id: id (int)
+    schema: json-schema/gitea-rest-api-milestone-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_many: issue
+  - name: release
+    id: id (int)
+    schema: json-schema/gitea-rest-api-release-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: tag (via tag_name)
+      - has_many: attachment (asset)
+  - name: tag
+    id: name
+    schema: json-schema/gitea-rest-api-tag-schema.json
+    relationships:
+      - belongs_to: repository
+      - has_one: commit
+  - name: hook
+    id: id (int)
+    schema: json-schema/gitea-rest-api-hook-schema.json
+    relationships:
+      - belongs_to: repository_or_organization
+  - name: notification_thread
+    id: id (int)
+    schema: json-schema/gitea-rest-api-notificationthread-schema.json
+    relationships:
+      - belongs_to: user
+      - has_one: subject (issue/pull_request)
+  - name: package
+    id: id (int); addressed by {owner}/{type}/{name}/{version}
+    schema: json-schema/gitea-rest-api-package-schema.json
+    relationships:
+      - belongs_to: user_or_organization (via owner)

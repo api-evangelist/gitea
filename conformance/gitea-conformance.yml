@@ -1,0 +1,51 @@
+generated: '2026-06-20'
+method: derived
+source: >-
+  openapi/gitea-rest-api-openapi-original.yml,
+  well-known/gitea-openid-configuration.json,
+  https://docs.gitea.com/development/oauth2-provider
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      Gitea is an OAuth2 provider (authorization_code + refresh_token grants,
+      PKCE plain/S256) with authorize/token/introspect endpoints.
+  - id: oidc
+    conforms: true
+    evidence: >-
+      Live /.well-known/openid-configuration with issuer, jwks_uri, userinfo and
+      RS256 id_token signing; scopes openid/profile/email/groups.
+  - id: pkce
+    conforms: true
+    evidence: code_challenge_methods_supported [plain, S256]
+  - id: oauth2-token-introspection
+    conforms: true
+    evidence: introspection_endpoint /login/oauth/introspect (RFC 7662)
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: /.well-known/security.txt served with Contact + Policy
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom {message, url} envelope delivered via response headers,
+      not application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      page + limit query params; responses carry Link and X-Total-Count headers.
+  - id: idempotency-keys
+    conforms: false
+    evidence: No Idempotency-Key header documented; safety relies on HTTP method semantics.
+  - id: scim
+    conforms: false
+  - id: fhir
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: json-api
+    conforms: false
+  - id: openapi
+    conforms: true
+    evidence: Ships a Swagger 2.0 / OpenAPI description at /swagger.v1.json on every instance.

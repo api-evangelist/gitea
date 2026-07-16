@@ -1,0 +1,49 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://docs.gitea.com/development/api-usage,
+  openapi/gitea-rest-api-openapi-original.yml
+authentication:
+  styles:
+    - Authorization header token ("token <PAT>")
+    - OAuth2/OIDC bearer ("Authorization: bearer <token>")
+    - HTTP Basic auth
+    - SSH signature (HTTP signatures with SSH public keys/certificates)
+  deprecated: [token= query param, access_token= query param]
+  two_factor:
+    header: X-Gitea-OTP
+    note: 6-digit TOTP code, required with Basic auth when 2FA is enabled.
+  sudo:
+    header: Sudo
+    param: sudo
+    note: Admins can act on behalf of another user by username.
+  see: authentication/gitea-authentication.yml
+pagination:
+  style: page-number
+  params:
+    page: 1-based page number
+    limit: page size
+  response_headers:
+    - Link
+    - X-Total-Count
+idempotency:
+  supported: false
+  note: No Idempotency-Key header; rely on HTTP method semantics.
+versioning:
+  style: uri-path
+  value: /api/v1
+  see: lifecycle/gitea-lifecycle.yml
+error_envelope:
+  format: custom
+  fields: [message, url]
+  note: Not RFC 9457; message/url delivered on body or response headers.
+  see: errors/gitea-problem-types.yml
+rate_limiting:
+  signaling: none-standard
+  note: >-
+    Core Gitea does not document API rate-limit response headers; per-instance
+    limits may be enforced by the operator or a fronting proxy.
+  see: rate-limits/gitea-rate-limits.yml
+content_types:
+  consumes: [application/json]
+  produces: [application/json]

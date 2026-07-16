@@ -1,0 +1,50 @@
+# Gitea
+
+> Gitea is an open-source, self-hosted Git service and all-in-one DevOps platform written in Go (MIT licensed). It offers Git hosting, code review, issue tracking, project boards, a 24+ format package registry, and GitHub-Actions-compatible CI/CD (Gitea Actions). Every instance ships a Swagger 2.0 REST API at /api/v1/ (~300 operations). CommitGo, Inc. offers Gitea Enterprise and single-tenant Gitea Cloud.
+
+## APIs
+
+- [Gitea REST API](https://docs.gitea.com/api/): ~300-operation Swagger 2.0 API at /api/v1 (repos, users, orgs, issues, PRs, packages, notifications, admin).
+- [Gitea Actions API](https://docs.gitea.com/usage/actions/overview): GitHub-Actions-compatible workflow/runs/jobs/runners/secrets under /repos/{owner}/{repo}/actions/*.
+- [Gitea Package Registry](https://docs.gitea.com/usage/packages/overview): multi-format registry (Cargo, Container/OCI, Maven, npm, NuGet, PyPI, Helm, ...) under /api/packages/{owner}/{type}.
+- [Gitea Webhooks](https://docs.gitea.com/usage/webhooks): outbound JSON event delivery for push/PR/issue/release/package events.
+- [Gitea Cloud Management](https://about.gitea.com/products/cloud): managed single-tenant instance provisioning console.
+
+## Specs
+
+- [OpenAPI (harvested)](openapi/gitea-rest-api-openapi-original.yml)
+- [OpenAPI (enhanced)](openapi/gitea-rest-api-openapi.yml)
+- [Live Swagger](https://demo.gitea.com/swagger.v1.json)
+- [OpenAPI Overlay](overlays/gitea-rest-api-overlay.yaml)
+- [gRPC runner protocol](grpc/gitea-runner-v1-services.proto)
+
+## Authentication & Access
+
+- [Authentication profile](authentication/gitea-authentication.yml): token header, OAuth2/OIDC bearer, Basic, Sudo, TOTP.
+- [OAuth2 / OIDC + PAT scopes](scopes/gitea-scopes.yml)
+- [OAuth2 provider docs](https://docs.gitea.com/development/oauth2-provider)
+- [OpenID configuration](well-known/gitea-openid-configuration.json)
+- [security.txt](well-known/gitea-security.txt)
+
+## Agent & Tooling
+
+- [Official MCP server](https://gitea.com/gitea/gitea-mcp) — [manifest](mcp/gitea-mcp.yml)
+- [Tea CLI](cli/gitea-cli.yml)
+- [Packages / SDKs](packages/gitea-packages.yml)
+
+## Reference
+
+- [Conventions](conventions/gitea-conventions.yml)
+- [Error catalog](errors/gitea-problem-types.yml)
+- [Conformance](conformance/gitea-conformance.yml)
+- [Lifecycle & versioning](lifecycle/gitea-lifecycle.yml)
+- [Changelog](changelog/gitea-changelog.yml)
+- [Data model](data-model/gitea-data-model.yml)
+
+## Docs
+
+- [Documentation](https://docs.gitea.com/)
+- [API usage guide](https://docs.gitea.com/development/api-usage)
+- [Blog / release notes](https://blog.gitea.com/)
+- [Status page](https://status.gitea.com/)
+- [GitHub organization](https://github.com/go-gitea)

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package ping.v1;
+
+import "ping/v1/messages.proto";
+
+service PingService {
+  rpc Ping(PingRequest) returns (PingResponse);
+}

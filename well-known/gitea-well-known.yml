@@ -1,0 +1,21 @@
+generated: '2026-06-20'
+method: searched
+host: https://gitea.com
+note: >-
+  Probed against the public gitea.com flagship instance. Every self-hosted Gitea
+  instance serves the same /.well-known surface. security.txt is Gitea-generated
+  and points at the project SECURITY.md.
+documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: gitea-security.txt
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: gitea-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 000
+    note: not served (no dedicated RFC 8414 endpoint; use openid-configuration)
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404

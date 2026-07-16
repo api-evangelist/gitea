@@ -1,0 +1,47 @@
+generated: '2026-06-20'
+method: searched
+source: https://blog.gitea.com/, https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md
+docs: https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md
+scheme: semver
+channel: release-blog
+current_version: 1.26.4
+note: >-
+  Gitea publishes dated release announcements on blog.gitea.com and a full
+  CHANGELOG.md in the repository. Patch releases roll up bug/security fixes;
+  minor releases (1.x.0) add features. The Actions runner (act_runner / runner)
+  versions independently. Recent entries mirror blogs/ in this repo.
+entries:
+  - version: 1.26.3 / 1.26.4
+    date: '2026-06-21'
+    type: patch
+    highlights: Combined bug-fix and security patch releases for the 1.26 line.
+  - version: 1.26.2
+    date: '2026-05-20'
+    type: patch
+    highlights: Bug fixes for the 1.26 line.
+  - version: 1.26.1
+    date: '2026-04-21'
+    type: patch
+    highlights: Follow-up fixes to the 1.26.0 feature release.
+  - version: 1.26.0
+    date: '2026-04-18'
+    type: minor
+    breaking: false
+    highlights: Feature release opening the 1.26 series.
+  - version: 1.25.5
+    date: '2026-03-16'
+    type: patch
+    highlights: Maintenance release on the 1.25 line.
+  - version: 1.25.0
+    date: '2025-10-29'
+    type: minor
+    highlights: Feature release opening the 1.25 series.
+runner_entries:
+  - version: runner 2.0.0
+    date: '2026-06-30'
+    type: major
+    highlights: Major release of the Gitea Actions runner (act_runner).
+  - version: runner 1.0.0
+    date: '2026-05-05'
+    type: major
+    highlights: First stable 1.0 release of the Gitea Actions runner.

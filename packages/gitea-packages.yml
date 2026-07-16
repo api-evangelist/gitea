@@ -1,0 +1,58 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://docs.gitea.com/api/, https://gitea.com/gitea, registries (pkg.go.dev,
+  npm, PyPI)
+packages:
+  - language: go
+    registry: pkg.go.dev
+    name: code.gitea.io/sdk/gitea
+    url: https://pkg.go.dev/code.gitea.io/sdk/gitea
+    install: go get code.gitea.io/sdk/gitea
+    source: https://gitea.com/gitea/go-sdk
+    official: true
+    description: Official Gitea SDK for Go, maintained by the Gitea Authors.
+  - language: go
+    registry: pkg.go.dev
+    name: gitea.com/gitea/tea
+    url: https://gitea.com/gitea/tea
+    install: go install gitea.com/gitea/tea@latest
+    official: true
+    description: Tea, the official command-line client for Gitea (binary; command surface in cli/).
+  - language: go
+    registry: pkg.go.dev
+    name: gitea.com/gitea/gitea-mcp
+    url: https://pkg.go.dev/gitea.com/gitea/gitea-mcp
+    install: go install gitea.com/gitea/gitea-mcp@latest
+    source: https://gitea.com/gitea/gitea-mcp
+    official: true
+    description: Official Gitea MCP server binary (tool surface in mcp/).
+  - language: go
+    registry: pkg.go.dev
+    name: gitea.com/gitea/act_runner
+    url: https://gitea.com/gitea/act_runner
+    install: go install gitea.com/gitea/act_runner@latest
+    official: true
+    description: Official Gitea Actions runner agent (Go). Communicates via the gRPC runner protocol in grpc/.
+  - language: javascript
+    registry: npm
+    name: gitea-js
+    url: https://www.npmjs.com/package/gitea-js
+    install: npm install gitea-js
+    source: https://github.com/anbraten/gitea-js
+    official: false
+    description: Community TypeScript/JavaScript client generated from the Gitea OpenAPI (by anbraten).
+  - language: python
+    registry: pypi
+    name: py-gitea
+    url: https://pypi.org/project/py-gitea/
+    install: pip install py-gitea
+    official: false
+    description: Community Python wrapper for the Gitea API.
+  - language: java
+    registry: github
+    name: gitea4j
+    url: https://github.com/hypermodeinc/gitea4j
+    install: "See repository (Maven/Gradle)"
+    official: false
+    description: Community Java client for the Gitea API.

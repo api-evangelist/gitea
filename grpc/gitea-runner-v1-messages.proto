@@ -1,0 +1,134 @@
+syntax = "proto3";
+
+package runner.v1;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message RegisterRequest {
+  string name = 1;
+  string token = 2;
+  repeated string agent_labels = 3 [deprecated = true];
+  repeated string custom_labels = 4 [deprecated = true];
+  string version = 5;
+  repeated string labels = 6;
+  bool ephemeral = 7;
+  repeated string capabilities = 8; // Capability flags the runner advertises (e.g. "cancelling").
+}
+
+message RegisterResponse {
+  Runner runner = 1;
+}
+
+message DeclareRequest {
+  string version = 1;
+  repeated string labels = 2;
+  repeated string capabilities = 3; // Capability flags the runner advertises (e.g. "cancelling").
+}
+
+message DeclareResponse {
+  Runner runner = 1;
+}
+
+message FetchTaskRequest {
+  int64 tasks_version = 1; // Runner use `tasks_version` to compare with Gitea and detemine whether new tasks may exist.
+}
+
+message FetchTaskResponse {
+  Task task = 1;
+  int64 tasks_version = 2; // Gitea informs the Runner of the latest version of tasks through `tasks_version`.
+}
+
+message UpdateTaskRequest {
+  TaskState state = 1;
+  map<string, string> outputs = 2; // The outputs of the task. Since the outputs may be large, the client does not need to send all outputs every time, only the unsent outputs.
+}
+
+message UpdateTaskResponse {
+  TaskState state = 1;
+  repeated string sent_outputs = 2; // The keys of the outputs that have been sent, not only the ones that have been sent this time, but also those that have been sent before.
+}
+
+message UpdateLogRequest {
+  int64 task_id = 1;
+  int64 index = 2; // The actual index of the first line.
+  repeated LogRow rows = 3;
+  bool no_more = 4; // No more logs.
+}
+
+message UpdateLogResponse {
+  int64 ack_index = 1; // If all lines are received, should be index + length(lines).
+}
+
+// Runner Payload
+message Runner {
+  int64 id = 1;
+  string uuid = 2;
+  string token = 3;
+  string name = 4;
+  RunnerStatus status = 5;
+  repeated string agent_labels = 6 [deprecated = true];
+  repeated string custom_labels = 7 [deprecated = true];
+  string version = 8;
+  repeated string labels = 9;
+  bool ephemeral = 10;
+}
+
+// RunnerStatus runner all status
+enum RunnerStatus {
+  RUNNER_STATUS_UNSPECIFIED = 0;
+  RUNNER_STATUS_IDLE = 1;
+  RUNNER_STATUS_ACTIVE = 2;
+  RUNNER_STATUS_OFFLINE = 3;
+}
+
+// The result of a task or a step, see https://docs.github.com/en/actions/learn-github-actions/contexts#jobs-context .
+enum Result {
+  RESULT_UNSPECIFIED = 0;
+  RESULT_SUCCESS = 1;
+  RESULT_FAILURE = 2;
+  RESULT_CANCELLED = 3;
+  RESULT_SKIPPED = 4;
+}
+
+// Task represents a task.
+message Task {
+  int64 id = 1; // A unique number for each workflow run, unlike run_id or job_id, task_id never be reused.
+  optional bytes workflow_payload = 2; // The content of the expanded workflow yaml file.
+  optional google.protobuf.Struct context = 3; // See https://docs.github.com/en/actions/learn-github-actions/contexts#github-context .
+  map<string, string> secrets = 4; // See https://docs.github.com/en/actions/learn-github-actions/contexts#secrets-context .
+  string machine = 5 [deprecated = true]; // Unused.
+  map<string, TaskNeed> needs = 6; // See https://docs.github.com/en/actions/learn-github-actions/contexts#needs-context .
+  map<string, string> vars = 7; // See https://docs.github.com/en/actions/learn-github-actions/contexts#vars-context .
+}
+
+// TaskNeed represents a task need.
+message TaskNeed {
+  map<string, string> outputs = 1; // The set of outputs of a job that the current job depends on.
+  Result result = 2; // The result of a job that the current job depends on. Possible values are success, failure, cancelled, or skipped.
+}
+
+// TaskState represents the state of a task.
+message TaskState {
+  int64 id = 1;
+  Result result = 2;
+  google.protobuf.Timestamp started_at = 3;
+  google.protobuf.Timestamp stopped_at = 4;
+  repeated StepState steps = 5;
+}
+
+// TaskState represents the state of a step.
+message StepState {
+  int64 id = 1;
+  Result result = 2;
+  google.protobuf.Timestamp started_at = 3;
+  google.protobuf.Timestamp stopped_at = 4;
+  int64 log_index = 5; // Where the first line log of the step.
+  int64 log_length = 6; // How many logs the step has.
+}
+
+// LogRow represents a row of logs.
+message LogRow {
+  google.protobuf.Timestamp time = 1;
+  string content = 2;
+}

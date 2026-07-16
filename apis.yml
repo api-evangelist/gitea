@@ -2,7 +2,7 @@ aid: gitea
 name: Gitea
 url: https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml
 created: '2026-05-06'
-modified: '2026-05-19'
+modified: '2026-06-20'
 type: Index
 access: 3rd-Party
 position: Consumer
@@ -260,6 +260,44 @@ common:
     url: security/gitea-domain-security.yml
   - type: Authentication
     url: authentication/gitea-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gitea-scopes.yml
+  - type: Packages
+    url: packages/gitea-packages.yml
+  - type: WellKnown
+    url: well-known/gitea-well-known.yml
+  - type: SecurityTxt
+    url: well-known/gitea-security.txt
+  - type: MCPServer
+    url: mcp/gitea-mcp.yml
+  - type: LLMsTxt
+    url: llms/gitea-llms.txt
+  - type: Overlay
+    url: overlays/gitea-rest-api-overlay.yaml
+  - type: Protobuf
+    url: grpc/gitea-runner-v1-services.proto
+    name: Gitea Actions Runner Service (gRPC)
+  - type: Protobuf
+    url: grpc/gitea-runner-v1-messages.proto
+    name: Gitea Actions Runner Messages (gRPC)
+  - type: Protobuf
+    url: grpc/gitea-ping-v1-services.proto
+    name: Gitea Ping Service (gRPC)
+  - type: Conformance
+    url: conformance/gitea-conformance.yml
+  - type: ErrorCatalog
+    url: errors/gitea-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/gitea-lifecycle.yml
+  - type: Conventions
+    url: conventions/gitea-conventions.yml
+  - type: ChangeLog
+    url: changelog/gitea-changelog.yml
+  - type: CLI
+    url: cli/gitea-cli.yml
+    name: Tea CLI command surface
+  - type: DataModel
+    url: data-model/gitea-data-model.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/gitea/overview
   - type: Arazzo

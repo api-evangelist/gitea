@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package runner.v1;
+
+import "runner/v1/messages.proto";
+
+service RunnerService {
+  // Register register a new runner in server.
+  rpc Register(RegisterRequest) returns (RegisterResponse) {}
+  // Declare declare runner's version and labels to Gitea before starting fetching task.
+  rpc Declare(DeclareRequest) returns (DeclareResponse) {}
+  // FetchTask requests the next available task for execution.
+  rpc FetchTask(FetchTaskRequest) returns (FetchTaskResponse) {}
+  // UpdateTask updates the task status.
+  rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse) {}
+  // UpdateLog uploads log of the task.
+  rpc UpdateLog(UpdateLogRequest) returns (UpdateLogResponse) {}
+}

@@ -1,0 +1,50 @@
+generated: '2026-06-20'
+method: searched
+source: well-known/gitea-openid-configuration.json
+docs: https://docs.gitea.com/development/oauth2-provider
+note: >-
+  Gitea exposes two distinct scope systems. (1) OAuth2 / OpenID Connect provider
+  scopes returned in the live openid-configuration. (2) Personal Access Token
+  (PAT) permission scopes, formatted <read|write>:<category>, plus a special
+  `all` scope. The Swagger 2.0 spec declares only apiKey/basic securityDefinitions
+  (no oauth2 flow object), so these scopes are documented rather than derivable
+  from the spec.
+schemes:
+  - name: OpenIDConnect
+    type: openIdConnect
+    issuer: https://gitea.com
+    authorizationUrl: https://gitea.com/login/oauth/authorize
+    tokenUrl: https://gitea.com/login/oauth/access_token
+    userinfoUrl: https://gitea.com/login/oauth/userinfo
+    introspectionUrl: https://gitea.com/login/oauth/introspect
+    jwksUri: https://gitea.com/login/oauth/keys
+    grantTypes: [authorization_code, refresh_token]
+    pkce: [plain, S256]
+    source: well-known/gitea-openid-configuration.json
+oidc_scopes:
+  - scope: openid
+    description: OpenID Connect authentication; issue an ID token.
+  - scope: profile
+    description: Access to the user's profile claims (name, preferred_username, picture, website, locale).
+  - scope: email
+    description: Access to the user's email and email_verified claims.
+  - scope: groups
+    description: Access to the user's group membership claim.
+pat_scope_categories:
+  note: >-
+    Each category is grantable at read or write level, e.g. read:repository,
+    write:issue. The `all` scope grants read+write across every category.
+  levels: [read, write]
+  categories:
+    - activitypub
+    - admin
+    - issue
+    - misc
+    - notification
+    - organization
+    - package
+    - repository
+    - user
+  special:
+    - scope: all
+      description: Grants both read and write permission across all categories.
