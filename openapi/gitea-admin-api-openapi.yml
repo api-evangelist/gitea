@@ -1,0 +1,2303 @@
+swagger: '2.0'
+info:
+  description: This documentation describes the Gitea API.
+  title: Gitea admin API
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+  version: 1.27.0+dev-89-gf52b6f3315
+basePath: /api/v1
+schemes:
+- https
+- http
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- BasicAuth: []
+- Token: []
+- AccessToken: []
+- AuthorizationHeaderToken: []
+- SudoParam: []
+- SudoHeader: []
+- TOTPHeader: []
+tags:
+- name: admin
+paths:
+  /admin/actions/jobs:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Lists all jobs
+      operationId: listAdminWorkflowJobs
+      parameters:
+      - type: string
+        description: workflow status (pending, queued, in_progress, failure, success, skipped)
+        name: status
+        in: query
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/WorkflowJobsList'
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+  /admin/actions/runners:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Get all runners
+      operationId: getAdminRunners
+      parameters:
+      - type: boolean
+        description: filter by disabled status (true or false)
+        name: disabled
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/RunnerList'
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+  /admin/actions/runners/registration-token:
+    post:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Get a global actions runner registration token
+      operationId: adminCreateRunnerRegistrationToken
+      responses:
+        '200':
+          $ref: '#/responses/RegistrationToken'
+  /admin/actions/runners/{runner_id}:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Get a global runner
+      operationId: getAdminRunner
+      parameters:
+      - type: string
+        description: id of the runner
+        name: runner_id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/Runner'
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Delete a global runner
+      operationId: deleteAdminRunner
+      parameters:
+      - type: string
+        description: id of the runner
+        name: runner_id
+        in: path
+        required: true
+      responses:
+        '204':
+          description: runner has been deleted
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+    patch:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Update a global runner
+      operationId: updateAdminRunner
+      parameters:
+      - type: string
+        description: id of the runner
+        name: runner_id
+        in: path
+        required: true
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/EditActionRunnerOption'
+      responses:
+        '200':
+          $ref: '#/responses/Runner'
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/actions/runs:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Lists all runs
+      operationId: listAdminWorkflowRuns
+      parameters:
+      - type: string
+        description: workflow event name
+        name: event
+        in: query
+      - type: string
+        description: workflow branch
+        name: branch
+        in: query
+      - type: string
+        description: workflow status (pending, queued, in_progress, failure, success, skipped)
+        name: status
+        in: query
+      - type: string
+        description: triggered by user
+        name: actor
+        in: query
+      - type: string
+        description: triggering sha of the workflow run
+        name: head_sha
+        in: query
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/WorkflowRunsList'
+        '400':
+          $ref: '#/responses/error'
+        '404':
+          $ref: '#/responses/notFound'
+  /admin/cron:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List cron tasks
+      operationId: adminCronList
+      parameters:
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/CronList'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/cron/{task}:
+    post:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Run cron task
+      operationId: adminCronRun
+      parameters:
+      - type: string
+        description: task to run
+        name: task
+        in: path
+        required: true
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '404':
+          $ref: '#/responses/notFound'
+  /admin/emails:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List all emails
+      operationId: adminGetAllEmails
+      parameters:
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/EmailList'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/emails/search:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Search all emails
+      operationId: adminSearchEmails
+      parameters:
+      - type: string
+        description: keyword
+        name: q
+        in: query
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/EmailList'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/hooks:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List system's webhooks
+      operationId: adminListHooks
+      parameters:
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      - enum:
+        - system
+        - default
+        - all
+        type: string
+        default: system
+        description: system, default or both kinds of webhooks
+        name: type
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/HookList'
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Create a hook
+      operationId: adminCreateHook
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateHookOption'
+      responses:
+        '201':
+          $ref: '#/responses/Hook'
+  /admin/hooks/{id}:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Get a hook
+      operationId: adminGetHook
+      parameters:
+      - type: integer
+        format: int64
+        description: id of the hook to get
+        name: id
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/Hook'
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Delete a hook
+      operationId: adminDeleteHook
+      parameters:
+      - type: integer
+        format: int64
+        description: id of the hook to delete
+        name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+    patch:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Update a hook
+      operationId: adminEditHook
+      parameters:
+      - type: integer
+        format: int64
+        description: id of the hook to update
+        name: id
+        in: path
+        required: true
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/EditHookOption'
+      responses:
+        '200':
+          $ref: '#/responses/Hook'
+  /admin/orgs:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List all organizations
+      operationId: adminGetAllOrgs
+      parameters:
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/OrganizationList'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/unadopted:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List unadopted repositories
+      operationId: adminUnadoptedList
+      parameters:
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      - type: string
+        description: pattern of repositories to search for
+        name: pattern
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/StringSlice'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/unadopted/{owner}/{repo}:
+    post:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Adopt unadopted files as a repository
+      operationId: adminAdoptRepository
+      parameters:
+      - type: string
+        description: owner of the repo
+        name: owner
+        in: path
+        required: true
+      - type: string
+        description: name of the repo
+        name: repo
+        in: path
+        required: true
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+        '404':
+          $ref: '#/responses/notFound'
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Delete unadopted files
+      operationId: adminDeleteUnadoptedRepository
+      parameters:
+      - type: string
+        description: owner of the repo
+        name: owner
+        in: path
+        required: true
+      - type: string
+        description: name of the repo
+        name: repo
+        in: path
+        required: true
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+  /admin/users:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Search users according filter conditions
+      operationId: adminSearchUsers
+      parameters:
+      - type: integer
+        format: int64
+        description: ID of the user's login source to search for
+        name: source_id
+        in: query
+      - type: string
+        description: identifier of the user, provided by the external authenticator
+        name: login_name
+        in: query
+      - type: integer
+        description: page number of results to return (1-based)
+        name: page
+        in: query
+      - type: integer
+        description: page size of results
+        name: limit
+        in: query
+      - type: string
+        description: sort users by attribute. Supported values are "name", "created", "updated" and "id". Default is "name"
+        name: sort
+        in: query
+      - type: string
+        description: sort order, either "asc" (ascending) or "desc" (descending). Default is "asc", ignored if "sort" is not specified.
+        name: order
+        in: query
+      - type: string
+        description: search term (username, full name, email)
+        name: q
+        in: query
+      - type: string
+        description: visibility filter. Supported values are "public", "limited" and "private".
+        name: visibility
+        in: query
+      - type: boolean
+        description: filter active users
+        name: is_active
+        in: query
+      - type: boolean
+        description: filter admin users
+        name: is_admin
+        in: query
+      - type: boolean
+        description: filter restricted users
+        name: is_restricted
+        in: query
+      - type: boolean
+        description: filter 2FA enabled users
+        name: is_2fa_enabled
+        in: query
+      - type: boolean
+        description: filter login prohibited users
+        name: is_prohibit_login
+        in: query
+      responses:
+        '200':
+          $ref: '#/responses/UserList'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Create a user
+      operationId: adminCreateUser
+      parameters:
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/CreateUserOption'
+      responses:
+        '201':
+          $ref: '#/responses/User'
+        '400':
+          $ref: '#/responses/error'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}:
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Delete a user
+      operationId: adminDeleteUser
+      parameters:
+      - type: string
+        description: username of the user to delete
+        name: username
+        in: path
+        required: true
+      - type: boolean
+        description: purge the user from the system completely
+        name: purge
+        in: query
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+        '404':
+          $ref: '#/responses/notFound'
+        '422':
+          $ref: '#/responses/validationError'
+    patch:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Edit an existing user
+      operationId: adminEditUser
+      parameters:
+      - type: string
+        description: username of the user whose data is to be edited
+        name: username
+        in: path
+        required: true
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/EditUserOption'
+      responses:
+        '200':
+          $ref: '#/responses/User'
+        '400':
+          $ref: '#/responses/error'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}/badges:
+    get:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: List a user's badges
+      operationId: adminListUserBadges
+      parameters:
+      - type: string
+        description: username of the user whose badges are to be listed
+        name: username
+        in: path
+        required: true
+      responses:
+        '200':
+          $ref: '#/responses/BadgeList'
+        '404':
+          $ref: '#/responses/notFound'
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Add a badge to a user
+      operationId: adminAddUserBadges
+      parameters:
+      - type: string
+        description: username of the user to whom a badge is to be added
+        name: username
+        in: path
+        required: true
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/UserBadgeOption'
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Remove a badge from a user
+      operationId: adminDeleteUserBadges
+      parameters:
+      - type: string
+        description: username of the user whose badge is to be deleted
+        name: username
+        in: path
+        required: true
+      - name: body
+        in: body
+        schema:
+          $ref: '#/definitions/UserBadgeOption'
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}/keys:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Add a public key on behalf of a user
+      operationId: adminCreatePublicKey
+      parameters:
+      - type: string
+        description: username of the user who is to receive a public key
+        name: username
+        in: path
+        required: true
+      - name: key
+        in: body
+        schema:
+          $ref: '#/definitions/CreateKeyOption'
+      responses:
+        '201':
+          $ref: '#/responses/PublicKey'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}/keys/{id}:
+    delete:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Delete a user's public key
+      operationId: adminDeleteUserPublicKey
+      parameters:
+      - type: string
+        description: username of the user whose public key is to be deleted
+        name: username
+        in: path
+        required: true
+      - type: integer
+        format: int64
+        description: id of the key to delete
+        name: id
+        in: path
+        required: true
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+        '404':
+          $ref: '#/responses/notFound'
+  /admin/users/{username}/orgs:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Create an organization
+      operationId: adminCreateOrg
+      parameters:
+      - type: string
+        description: username of the user who will own the created organization
+        name: username
+        in: path
+        required: true
+      - name: organization
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateOrgOption'
+      responses:
+        '201':
+          $ref: '#/responses/Organization'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}/rename:
+    post:
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Rename a user
+      operationId: adminRenameUser
+      parameters:
+      - type: string
+        description: current username of the user
+        name: username
+        in: path
+        required: true
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/RenameUserOption'
+      responses:
+        '204':
+          $ref: '#/responses/empty'
+        '403':
+          $ref: '#/responses/forbidden'
+        '422':
+          $ref: '#/responses/validationError'
+  /admin/users/{username}/repos:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - admin
+      summary: Create a repository on behalf of a user
+      operationId: adminCreateRepo
+      parameters:
+      - type: string
+        description: username of the user who will own the created repository
+        name: username
+        in: path
+        required: true
+      - name: repository
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/CreateRepoOption'
+      responses:
+        '201':
+          $ref: '#/responses/Repository'
+        '400':
+          $ref: '#/responses/error'
+        '403':
+          $ref: '#/responses/forbidden'
+        '404':
+          $ref: '#/responses/notFound'
+        '409':
+          $ref: '#/responses/error'
+        '422':
+          $ref: '#/responses/validationError'
+definitions:
+  UserBadgeOption:
+    description: UserBadgeOption options for link between users and badges
+    type: object
+    properties:
+      badge_slugs:
+        type: array
+        items:
+          type: string
+        x-go-name: BadgeSlugs
+        example:
+        - badge1
+        - badge2
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionRunnersResponse:
+    description: ActionRunnersResponse returns Runners
+    type: object
+    properties:
+      runners:
+        type: array
+        items:
+          $ref: '#/definitions/ActionRunner'
+        x-go-name: Entries
+      total_count:
+        type: integer
+        format: int64
+        x-go-name: TotalCount
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionRunner:
+    description: ActionRunner represents a Runner
+    type: object
+    properties:
+      busy:
+        type: boolean
+        x-go-name: Busy
+      disabled:
+        type: boolean
+        x-go-name: Disabled
+      ephemeral:
+        type: boolean
+        x-go-name: Ephemeral
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      labels:
+        type: array
+        items:
+          $ref: '#/definitions/ActionRunnerLabel'
+        x-go-name: Labels
+      name:
+        type: string
+        x-go-name: Name
+      status:
+        type: string
+        x-go-name: Status
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateHookOption:
+    description: CreateHookOption options when create a hook
+    type: object
+    required:
+    - type
+    - config
+    properties:
+      active:
+        type: boolean
+        default: false
+        x-go-name: Active
+      authorization_header:
+        description: Authorization header to include in webhook requests
+        type: string
+        x-go-name: AuthorizationHeader
+      branch_filter:
+        description: Branch filter pattern to determine which branches trigger the webhook
+        type: string
+        x-go-name: BranchFilter
+      config:
+        $ref: '#/definitions/CreateHookOptionConfig'
+      events:
+        description: List of events that will trigger this webhook
+        type: array
+        items:
+          type: string
+        x-go-name: Events
+      name:
+        description: Optional human-readable name for the webhook
+        type: string
+        x-go-name: Name
+      type:
+        type: string
+        enum:
+        - dingtalk
+        - discord
+        - gitea
+        - gogs
+        - msteams
+        - slack
+        - telegram
+        - feishu
+        - wechatwork
+        - packagist
+        x-go-name: Type
+    x-go-package: code.gitea.io/gitea/modules/structs
+  PublicKey:
+    description: PublicKey publickey is a user key to push code to repository
+    type: object
+    properties:
+      created_at:
+        type: string
+        format: date-time
+        x-go-name: Created
+      fingerprint:
+        description: Fingerprint is the key's fingerprint
+        type: string
+        x-go-name: Fingerprint
+      id:
+        description: ID is the unique identifier for the public key
+        type: integer
+        format: int64
+        x-go-name: ID
+      key:
+        description: Key contains the actual SSH public key content
+        type: string
+        x-go-name: Key
+      key_type:
+        description: KeyType indicates the type of the SSH key
+        type: string
+        x-go-name: KeyType
+      last_used_at:
+        description: Updated is the time when the key was last used
+        type: string
+        format: date-time
+        x-go-name: Updated
+      read_only:
+        description: ReadOnly indicates if the key has read-only access
+        type: boolean
+        x-go-name: ReadOnly
+      title:
+        description: Title is the human-readable name for the key
+        type: string
+        x-go-name: Title
+      url:
+        description: URL is the API URL for this key
+        type: string
+        x-go-name: URL
+      user:
+        $ref: '#/definitions/User'
+    x-go-package: code.gitea.io/gitea/modules/structs
+  User:
+    description: User represents a user
+    type: object
+    properties:
+      active:
+        description: Is user active
+        type: boolean
+        x-go-name: IsActive
+      avatar_url:
+        description: URL to the user's avatar
+        type: string
+        x-go-name: AvatarURL
+      created:
+        type: string
+        format: date-time
+        x-go-name: Created
+      description:
+        description: the user's description
+        type: string
+        x-go-name: Description
+      email:
+        type: string
+        format: email
+        x-go-name: Email
+      followers_count:
+        description: user counts
+        type: integer
+        format: int64
+        x-go-name: Followers
+      following_count:
+        type: integer
+        format: int64
+        x-go-name: Following
+      full_name:
+        description: the user's full name
+        type: string
+        x-go-name: FullName
+      html_url:
+        description: URL to the user's gitea page
+        type: string
+        x-go-name: HTMLURL
+      id:
+        description: the user's id
+        type: integer
+        format: int64
+        x-go-name: ID
+      is_admin:
+        description: Is the user an administrator
+        type: boolean
+        x-go-name: IsAdmin
+      language:
+        description: User locale
+        type: string
+        x-go-name: Language
+      last_login:
+        type: string
+        format: date-time
+        x-go-name: LastLogin
+      location:
+        description: the user's location
+        type: string
+        x-go-name: Location
+      login:
+        description: login of the user, same as `username`
+        type: string
+        x-go-name: UserName
+      login_name:
+        description: identifier of the user, provided by the external authenticator (if configured)
+        type: string
+        default: empty
+        x-go-name: LoginName
+      prohibit_login:
+        description: Is user login prohibited
+        type: boolean
+        x-go-name: ProhibitLogin
+      restricted:
+        description: Is user restricted
+        type: boolean
+        x-go-name: Restricted
+      source_id:
+        description: The ID of the user's Authentication Source
+        type: integer
+        format: int64
+        x-go-name: SourceID
+      starred_repos_count:
+        type: integer
+        format: int64
+        x-go-name: StarredRepos
+      visibility:
+        description: 'User visibility level option: public, limited, private'
+        type: string
+        x-go-name: Visibility
+      website:
+        description: the user's website
+        type: string
+        x-go-name: Website
+    x-go-package: code.gitea.io/gitea/modules/structs
+  RenameUserOption:
+    description: RenameUserOption options when renaming a user
+    type: object
+    required:
+    - new_username
+    properties:
+      new_username:
+        description: New username for this user. This name cannot be in use yet by any other user.
+        type: string
+        uniqueItems: true
+        x-go-name: NewName
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Email:
+    description: Email an email address belonging to a user
+    type: object
+    properties:
+      email:
+        type: string
+        format: email
+        x-go-name: Email
+      primary:
+        description: Whether this is the primary email address
+        type: boolean
+        x-go-name: Primary
+      user_id:
+        description: The unique identifier of the user who owns this email
+        type: integer
+        format: int64
+        x-go-name: UserID
+      username:
+        description: username of the user
+        type: string
+        x-go-name: UserName
+      verified:
+        description: Whether the email address has been verified
+        type: boolean
+        x-go-name: Verified
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionWorkflowJobsResponse:
+    description: ActionWorkflowJobsResponse returns ActionWorkflowJobs
+    type: object
+    properties:
+      jobs:
+        type: array
+        items:
+          $ref: '#/definitions/ActionWorkflowJob'
+        x-go-name: Entries
+      total_count:
+        type: integer
+        format: int64
+        x-go-name: TotalCount
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Cron:
+    description: Cron represents a Cron task
+    type: object
+    properties:
+      exec_times:
+        description: The total number of times this cron task has been executed
+        type: integer
+        format: int64
+        x-go-name: ExecTimes
+      name:
+        description: The name of the cron task
+        type: string
+        x-go-name: Name
+      next:
+        description: The next scheduled execution time
+        type: string
+        format: date-time
+        x-go-name: Next
+      prev:
+        description: The previous execution time
+        type: string
+        format: date-time
+        x-go-name: Prev
+      schedule:
+        description: The cron schedule expression (e.g., "0 0 * * *")
+        type: string
+        x-go-name: Schedule
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Hook:
+    description: Hook a hook is a web hook when one repository changed
+    type: object
+    properties:
+      active:
+        description: Whether the webhook is active and will be triggered
+        type: boolean
+        x-go-name: Active
+      authorization_header:
+        description: Authorization header to include in webhook requests
+        type: string
+        x-go-name: AuthorizationHeader
+      branch_filter:
+        description: Branch filter pattern to determine which branches trigger the webhook
+        type: string
+        x-go-name: BranchFilter
+      config:
+        description: Configuration settings for the webhook
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: Config
+      created_at:
+        type: string
+        format: date-time
+        x-go-name: Created
+      events:
+        description: List of events that trigger this webhook
+        type: array
+        items:
+          type: string
+        x-go-name: Events
+      id:
+        description: The unique identifier of the webhook
+        type: integer
+        format: int64
+        x-go-name: ID
+      name:
+        description: Optional human-readable name for the webhook
+        type: string
+        x-go-name: Name
+      type:
+        description: The type of the webhook (e.g., gitea, slack, discord)
+        type: string
+        x-go-name: Type
+      updated_at:
+        type: string
+        format: date-time
+        x-go-name: Updated
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionRunnerLabel:
+    description: ActionRunnerLabel represents a Runner Label
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      name:
+        type: string
+        x-go-name: Name
+      type:
+        type: string
+        x-go-name: Type
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateOrgOption:
+    description: CreateOrgOption options for creating an organization
+    type: object
+    required:
+    - username
+    properties:
+      description:
+        description: The description of the organization
+        type: string
+        x-go-name: Description
+      email:
+        description: The email address of the organization
+        type: string
+        x-go-name: Email
+      full_name:
+        description: The full display name of the organization
+        type: string
+        x-go-name: FullName
+      location:
+        description: The location of the organization
+        type: string
+        x-go-name: Location
+      repo_admin_change_team_access:
+        description: Whether repository administrators can change team access
+        type: boolean
+        x-go-name: RepoAdminChangeTeamAccess
+      username:
+        description: username of the organization
+        type: string
+        x-go-name: UserName
+      visibility:
+        description: possible values are `public` (default), `limited` or `private`
+        type: string
+        enum:
+        - public
+        - limited
+        - private
+        x-go-name: Visibility
+      website:
+        description: The website URL of the organization
+        type: string
+        x-go-name: Website
+    x-go-package: code.gitea.io/gitea/modules/structs
+  RepoTransfer:
+    description: RepoTransfer represents a pending repo transfer
+    type: object
+    properties:
+      doer:
+        $ref: '#/definitions/User'
+      recipient:
+        $ref: '#/definitions/User'
+      teams:
+        type: array
+        items:
+          $ref: '#/definitions/Team'
+        x-go-name: Teams
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateUserOption:
+    description: CreateUserOption create user options
+    type: object
+    required:
+    - username
+    - email
+    properties:
+      created_at:
+        description: 'For explicitly setting the user creation timestamp. Useful when users are
+
+          migrated from other systems. When omitted, the user''s creation timestamp
+
+          will be set to "now".'
+        type: string
+        format: date-time
+        x-go-name: Created
+      email:
+        type: string
+        format: email
+        x-go-name: Email
+      full_name:
+        description: The full display name of the user
+        type: string
+        x-go-name: FullName
+      login_name:
+        description: identifier of the user, provided by the external authenticator (if configured)
+        type: string
+        default: empty
+        x-go-name: LoginName
+      must_change_password:
+        description: Whether the user must change password on first login
+        type: boolean
+        x-go-name: MustChangePassword
+      password:
+        description: The plain text password for the user
+        type: string
+        x-go-name: Password
+      restricted:
+        description: Whether the user has restricted access privileges
+        type: boolean
+        x-go-name: Restricted
+      send_notify:
+        description: Whether to send welcome notification email to the user
+        type: boolean
+        x-go-name: SendNotify
+      source_id:
+        description: The authentication source ID to associate with the user
+        type: integer
+        format: int64
+        x-go-name: SourceID
+      username:
+        description: username of the user
+        type: string
+        x-go-name: Username
+      visibility:
+        description: 'User visibility level: public, limited, or private'
+        type: string
+        x-go-name: Visibility
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionWorkflowStep:
+    description: ActionWorkflowStep represents a step of a WorkflowJob
+    type: object
+    properties:
+      completed_at:
+        type: string
+        format: date-time
+        x-go-name: CompletedAt
+      conclusion:
+        type: string
+        x-go-name: Conclusion
+      name:
+        type: string
+        x-go-name: Name
+      number:
+        type: integer
+        format: int64
+        x-go-name: Number
+      started_at:
+        type: string
+        format: date-time
+        x-go-name: StartedAt
+      status:
+        type: string
+        x-go-name: Status
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionWorkflowJob:
+    description: ActionWorkflowJob represents a WorkflowJob
+    type: object
+    properties:
+      completed_at:
+        type: string
+        format: date-time
+        x-go-name: CompletedAt
+      conclusion:
+        type: string
+        x-go-name: Conclusion
+      created_at:
+        type: string
+        format: date-time
+        x-go-name: CreatedAt
+      head_branch:
+        type: string
+        x-go-name: HeadBranch
+      head_sha:
+        type: string
+        x-go-name: HeadSha
+      html_url:
+        type: string
+        x-go-name: HTMLURL
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      labels:
+        type: array
+        items:
+          type: string
+        x-go-name: Labels
+      name:
+        type: string
+        x-go-name: Name
+      run_attempt:
+        type: integer
+        format: int64
+        x-go-name: RunAttempt
+      run_id:
+        type: integer
+        format: int64
+        x-go-name: RunID
+      run_url:
+        type: string
+        x-go-name: RunURL
+      runner_id:
+        type: integer
+        format: int64
+        x-go-name: RunnerID
+      runner_name:
+        type: string
+        x-go-name: RunnerName
+      started_at:
+        type: string
+        format: date-time
+        x-go-name: StartedAt
+      status:
+        type: string
+        x-go-name: Status
+      steps:
+        type: array
+        items:
+          $ref: '#/definitions/ActionWorkflowStep'
+        x-go-name: Steps
+      url:
+        type: string
+        x-go-name: URL
+    x-go-package: code.gitea.io/gitea/modules/structs
+  InternalTracker:
+    description: InternalTracker represents settings for internal tracker
+    type: object
+    properties:
+      allow_only_contributors_to_track_time:
+        description: Let only contributors track time (Built-in issue tracker)
+        type: boolean
+        x-go-name: AllowOnlyContributorsToTrackTime
+      enable_issue_dependencies:
+        description: Enable dependencies for issues and pull requests (Built-in issue tracker)
+        type: boolean
+        x-go-name: EnableIssueDependencies
+      enable_time_tracker:
+        description: Enable time tracking (Built-in issue tracker)
+        type: boolean
+        x-go-name: EnableTimeTracker
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Team:
+    description: Team represents a team in an organization
+    type: object
+    properties:
+      can_create_org_repo:
+        description: Whether the team can create repositories in the organization
+        type: boolean
+        x-go-name: CanCreateOrgRepo
+      description:
+        description: The description of the team
+        type: string
+        x-go-name: Description
+      id:
+        description: The unique identifier of the team
+        type: integer
+        format: int64
+        x-go-name: ID
+      includes_all_repositories:
+        description: Whether the team has access to all repositories in the organization
+        type: boolean
+        x-go-name: IncludesAllRepositories
+      name:
+        description: The name of the team
+        type: string
+        x-go-name: Name
+      organization:
+        $ref: '#/definitions/Organization'
+      permission:
+        type: string
+        enum:
+        - none
+        - read
+        - write
+        - admin
+        - owner
+        x-go-name: Permission
+      units:
+        type: array
+        items:
+          type: string
+        x-go-name: Units
+        example:
+        - repo.code
+        - repo.issues
+        - repo.ext_issues
+        - repo.wiki
+        - repo.pulls
+        - repo.releases
+        - repo.projects
+        - repo.ext_wiki
+      units_map:
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: UnitsMap
+        example:
+          repo.code: read
+          repo.ext_issues: none
+          repo.ext_wiki: none
+          repo.issues: write
+          repo.projects: none
+          repo.pulls: owner
+          repo.releases: none
+          repo.wiki: admin
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateRepoOption:
+    description: CreateRepoOption options when creating repository
+    type: object
+    required:
+    - name
+    properties:
+      auto_init:
+        description: Whether the repository should be auto-initialized?
+        type: boolean
+        x-go-name: AutoInit
+      default_branch:
+        description: DefaultBranch of the repository (used when initializes and in template)
+        type: string
+        x-go-name: DefaultBranch
+      description:
+        description: Description of the repository to create
+        type: string
+        x-go-name: Description
+      gitignores:
+        description: Gitignores to use
+        type: string
+        x-go-name: Gitignores
+      issue_labels:
+        description: Label-Set to use
+        type: string
+        x-go-name: IssueLabels
+      license:
+        description: License to use
+        type: string
+        x-go-name: License
+      name:
+        description: Name of the repository to create
+        type: string
+        uniqueItems: true
+        x-go-name: Name
+      object_format_name:
+        description: ObjectFormatName of the underlying git repository, empty string for default (sha1)
+        type: string
+        enum:
+        - sha1
+        - sha256
+        x-go-name: ObjectFormatName
+      private:
+        description: Whether the repository is private
+        type: boolean
+        x-go-name: Private
+      readme:
+        description: Readme of the repository to create
+        type: string
+        x-go-name: Readme
+      template:
+        description: Whether the repository is template
+        type: boolean
+        x-go-name: Template
+      trust_model:
+        description: TrustModel of the repository
+        type: string
+        enum:
+        - default
+        - collaborator
+        - committer
+        - collaboratorcommitter
+        x-go-name: TrustModel
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Permission:
+    description: Permission represents a set of permissions
+    type: object
+    properties:
+      admin:
+        type: boolean
+        x-go-name: Admin
+      pull:
+        type: boolean
+        x-go-name: Pull
+      push:
+        type: boolean
+        x-go-name: Push
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionWorkflowRunsResponse:
+    description: ActionWorkflowRunsResponse returns ActionWorkflowRuns
+    type: object
+    properties:
+      total_count:
+        type: integer
+        format: int64
+        x-go-name: TotalCount
+      workflow_runs:
+        type: array
+        items:
+          $ref: '#/definitions/ActionWorkflowRun'
+        x-go-name: Entries
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateHookOptionConfig:
+    description: 'CreateHookOptionConfig has all config options in it
+
+      required are "content_type" and "url" Required'
+    type: object
+    additionalProperties:
+      type: string
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ActionWorkflowRun:
+    description: ActionWorkflowRun represents a WorkflowRun
+    type: object
+    properties:
+      actor:
+        $ref: '#/definitions/User'
+      completed_at:
+        type: string
+        format: date-time
+        x-go-name: CompletedAt
+      conclusion:
+        type: string
+        x-go-name: Conclusion
+      display_title:
+        type: string
+        x-go-name: DisplayTitle
+      event:
+        type: string
+        x-go-name: Event
+      head_branch:
+        type: string
+        x-go-name: HeadBranch
+      head_repository:
+        $ref: '#/definitions/Repository'
+      head_sha:
+        type: string
+        x-go-name: HeadSha
+      html_url:
+        type: string
+        x-go-name: HTMLURL
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      path:
+        type: string
+        x-go-name: Path
+      repository:
+        $ref: '#/definitions/Repository'
+      repository_id:
+        type: integer
+        format: int64
+        x-go-name: RepositoryID
+      run_attempt:
+        type: integer
+        format: int64
+        x-go-name: RunAttempt
+      run_number:
+        type: integer
+        format: int64
+        x-go-name: RunNumber
+      started_at:
+        type: string
+        format: date-time
+        x-go-name: StartedAt
+      status:
+        type: string
+        x-go-name: Status
+      trigger_actor:
+        $ref: '#/definitions/User'
+      url:
+        type: string
+        x-go-name: URL
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ExternalWiki:
+    description: ExternalWiki represents setting for external wiki
+    type: object
+    properties:
+      external_wiki_url:
+        description: URL of external wiki.
+        type: string
+        x-go-name: ExternalWikiURL
+    x-go-package: code.gitea.io/gitea/modules/structs
+  EditActionRunnerOption:
+    type: object
+    title: EditActionRunnerOption represents the editable fields for a runner.
+    required:
+    - disabled
+    properties:
+      disabled:
+        type: boolean
+        x-go-name: Disabled
+    x-go-package: code.gitea.io/gitea/modules/structs
+  EditHookOption:
+    description: EditHookOption options when modify one hook
+    type: object
+    properties:
+      active:
+        description: Whether the webhook is active and will be triggered
+        type: boolean
+        x-go-name: Active
+      authorization_header:
+        description: Authorization header to include in webhook requests
+        type: string
+        x-go-name: AuthorizationHeader
+      branch_filter:
+        description: Branch filter pattern to determine which branches trigger the webhook
+        type: string
+        x-go-name: BranchFilter
+      config:
+        description: Configuration settings for the webhook
+        type: object
+        additionalProperties:
+          type: string
+        x-go-name: Config
+      events:
+        description: List of events that trigger this webhook
+        type: array
+        items:
+          type: string
+        x-go-name: Events
+      name:
+        description: Optional human-readable name
+        type: string
+        x-go-name: Name
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Organization:
+    description: Organization represents an organization
+    type: object
+    properties:
+      avatar_url:
+        description: The URL of the organization's avatar
+        type: string
+        x-go-name: AvatarURL
+      description:
+        description: The description of the organization
+        type: string
+        x-go-name: Description
+      email:
+        description: The email address of the organization
+        type: string
+        x-go-name: Email
+      full_name:
+        description: The full display name of the organization
+        type: string
+        x-go-name: FullName
+      id:
+        description: The unique identifier of the organization
+        type: integer
+        format: int64
+        x-go-name: ID
+      location:
+        description: The location of the organization
+        type: string
+        x-go-name: Location
+      name:
+        description: The name of the organization
+        type: string
+        x-go-name: Name
+      repo_admin_change_team_access:
+        description: Whether repository administrators can change team access
+        type: boolean
+        x-go-name: RepoAdminChangeTeamAccess
+      username:
+        description: 'username of the organization
+
+          deprecated'
+        type: string
+        x-go-name: UserName
+      visibility:
+        description: The visibility level of the organization (public, limited, private)
+        type: string
+        x-go-name: Visibility
+      website:
+        description: The website URL of the organization
+        type: string
+        x-go-name: Website
+    x-go-package: code.gitea.io/gitea/modules/structs
+  ExternalTracker:
+    description: ExternalTracker represents settings for external tracker
+    type: object
+    properties:
+      external_tracker_format:
+        description: External Issue Tracker URL Format. Use the placeholders {user}, {repo} and {index} for the username, repository name and issue index.
+        type: string
+        x-go-name: ExternalTrackerFormat
+      external_tracker_regexp_pattern:
+        description: External Issue Tracker issue regular expression
+        type: string
+        x-go-name: ExternalTrackerRegexpPattern
+      external_tracker_style:
+        description: External Issue Tracker Number Format, either `numeric`, `alphanumeric`, or `regexp`
+        type: string
+        x-go-name: ExternalTrackerStyle
+      external_tracker_url:
+        description: URL of external issue tracker.
+        type: string
+        x-go-name: ExternalTrackerURL
+    x-go-package: code.gitea.io/gitea/modules/structs
+  CreateKeyOption:
+    description: CreateKeyOption options when creating a key
+    type: object
+    required:
+    - title
+    - key
+    properties:
+      key:
+        description: An armored SSH key to add
+        type: string
+        uniqueItems: true
+        x-go-name: Key
+      read_only:
+        description: Describe if the key has only read access or read/write
+        type: boolean
+        x-go-name: ReadOnly
+      title:
+        description: Title of the key to add
+        type: string
+        uniqueItems: true
+        x-go-name: Title
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Repository:
+    description: Repository represents a repository
+    type: object
+    properties:
+      allow_fast_forward_only_merge:
+        type: boolean
+        x-go-name: AllowFastForwardOnly
+      allow_manual_merge:
+        type: boolean
+        x-go-name: AllowManualMerge
+      allow_merge_commits:
+        type: boolean
+        x-go-name: AllowMerge
+      allow_rebase:
+        type: boolean
+        x-go-name: AllowRebase
+      allow_rebase_explicit:
+        type: boolean
+        x-go-name: AllowRebaseMerge
+      allow_rebase_update:
+        type: boolean
+        x-go-name: AllowRebaseUpdate
+      allow_squash_merge:
+        type: boolean
+        x-go-name: AllowSquash
+      archived:
+        type: boolean
+        x-go-name: Archived
+      archived_at:
+        type: string
+        format: date-time
+        x-go-name: ArchivedAt
+      autodetect_manual_merge:
+        type: boolean
+        x-go-name: AutodetectManualMerge
+      avatar_url:
+        type: string
+        x-go-name: AvatarURL
+      branch_count:
+        type: integer
+        format: int64
+        x-go-name: BranchCount
+      clone_url:
+        type: string
+        x-go-name: CloneURL
+      created_at:
+        type: string
+        format: date-time
+        x-go-name: Created
+      default_allow_maintainer_edit:
+        type: boolean
+        x-go-name: DefaultAllowMaintainerEdit
+      default_branch:
+        type: string
+        x-go-name: DefaultBranch
+      default_delete_branch_after_merge:
+        type: boolean
+        x-go-name: DefaultDeleteBranchAfterMerge
+      default_merge_style:
+        type: string
+        x-go-name: DefaultMergeStyle
+      default_target_branch:
+        type: string
+        x-go-name: DefaultTargetBranch
+      description:
+        type: string
+        x-go-name: Description
+      empty:
+        type: boolean
+        x-go-name: Empty
+      external_tracker:
+        $ref: '#/definitions/ExternalTracker'
+      external_wiki:
+        $ref: '#/definitions/ExternalWiki'
+      fork:
+        type: boolean
+        x-go-name: Fork
+      forks_count:
+        type: integer
+        format: int64
+        x-go-name: Forks
+      full_name:
+        type: string
+        x-go-name: FullName
+      has_actions:
+        type: boolean
+        x-go-name: HasActions
+      has_code:
+        type: boolean
+        x-go-name: HasCode
+      has_issues:
+        type: boolean
+        x-go-name: HasIssues
+      has_packages:
+        type: boolean
+        x-go-name: HasPackages
+      has_projects:
+        type: boolean
+        x-go-name: HasProjects
+      has_pull_requests:
+        type: boolean
+        x-go-name: HasPullRequests
+      has_releases:
+        type: boolean
+        x-go-name: HasReleases
+      has_wiki:
+        type: boolean
+        x-go-name: HasWiki
+      html_url:
+        type: string
+        x-go-name: HTMLURL
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      ignore_whitespace_conflicts:
+        type: boolean
+        x-go-name: IgnoreWhitespaceConflicts
+      internal:
+        type: boolean
+        x-go-name: Internal
+      internal_tracker:
+        $ref: '#/definitions/InternalTracker'
+      language:
+        type: string
+        x-go-name: Language
+      languages_url:
+        type: string
+        x-go-name: LanguagesURL
+      licenses:
+        type: array
+        items:
+          type: string
+        x-go-name: Licenses
+      link:
+        type: string
+        x-go-name: Link
+      mirror:
+        type: boolean
+        x-go-name: Mirror
+      mirror_interval:
+        type: string
+        x-go-name: MirrorInterval
+      mirror_updated:
+        type: string
+        format: date-time
+        x-go-name: MirrorUpdated
+      name:
+        type: string
+        x-go-name: Name
+      object_format_name:
+        description: ObjectFormatName of the underlying git repository
+        type: string
+        enum:
+        - sha1
+        - sha256
+        x-go-name: ObjectFormatName
+      open_issues_count:
+        type: integer
+        format: int64
+        x-go-name: OpenIssues
+      open_pr_counter:
+        type: integer
+        format: int64
+        x-go-name: OpenPulls
+      original_url:
+        type: string
+        x-go-name: OriginalURL
+      owner:
+        $ref: '#/definitions/User'
+      parent:
+        $ref: '#/definitions/Repository'
+      permissions:
+        $ref: '#/definitions/Permission'
+      private:
+        type: boolean
+        x-go-name: Private
+      projects_mode:
+        type: string
+        x-go-name: ProjectsMode
+      release_counter:
+        type: integer
+        format: int64
+        x-go-name: Releases
+      repo_transfer:
+        $ref: '#/definitions/RepoTransfer'
+      size:
+        type: integer
+        format: int64
+        x-go-name: Size
+      ssh_url:
+        type: string
+        x-go-name: SSHURL
+      stars_count:
+        type: integer
+        format: int64
+        x-go-name: Stars
+      template:
+        type: boolean
+        x-go-name: Template
+      topics:
+        type: array
+        items:
+          type: string
+        x-go-name: Topics
+      updated_at:
+        type: string
+        format: date-time
+        x-go-name: Updated
+      url:
+        type: string
+        x-go-name: URL
+      watchers_count:
+        type: integer
+        format: int64
+        x-go-name: Watchers
+      website:
+        type: string
+        x-go-name: Website
+    x-go-package: code.gitea.io/gitea/modules/structs
+  EditUserOption:
+    description: EditUserOption edit user options
+    type: object
+    required:
+    - source_id
+    - login_name
+    properties:
+      active:
+        description: Whether the user account is active
+        type: boolean
+        x-go-name: Active
+      admin:
+        description: Whether the user has administrator privileges
+        type: boolean
+        x-go-name: Admin
+      allow_create_organization:
+        description: Whether the user can create organizations
+        type: boolean
+        x-go-name: AllowCreateOrganization
+      allow_git_hook:
+        description: Whether the user can use Git hooks
+        type: boolean
+        x-go-name: AllowGitHook
+      allow_import_local:
+        description: Whether the user can import local repositories
+        type: boolean
+        x-go-name: AllowImportLocal
+      description:
+        description: The user's personal description or bio
+        type: string
+        x-go-name: Description
+      email:
+        type: string
+        format: email
+        x-go-name: Email
+      full_name:
+        description: The full display name of the user
+        type: string
+        x-go-name: FullName
+      location:
+        description: The user's location or address
+        type: string
+        x-go-name: Location
+      login_name:
+        description: identifier of the user, provided by the external authenticator (if configured)
+        type: string
+        default: empty
+        x-go-name: LoginName
+      max_repo_creation:
+        description: Maximum number of repositories the user can create
+        type: integer
+        format: int64
+        x-go-name: MaxRepoCreation
+      must_change_password:
+        description: Whether the user must change password on next login
+        type: boolean
+        x-go-name: MustChangePassword
+      password:
+        description: The plain text password for the user
+        type: string
+        x-go-name: Password
+      prohibit_login:
+        description: Whether the user is prohibited from logging in
+        type: boolean
+        x-go-name: ProhibitLogin
+      restricted:
+        description: Whether the user has restricted access privileges
+        type: boolean
+        x-go-name: Restricted
+      source_id:
+        type: integer
+        format: int64
+        x-go-name: SourceID
+      visibility:
+        description: 'User visibility level: public, limited, or private'
+        type: string
+        x-go-name: Visibility
+      website:
+        description: The user's personal website URL
+        type: string
+        x-go-name: Website
+    x-go-package: code.gitea.io/gitea/modules/structs
+  Badge:
+    description: Badge represents a user badge
+    type: object
+    properties:
+      description:
+        type: string
+        x-go-name: Description
+      id:
+        type: integer
+        format: int64
+        x-go-name: ID
+      image_url:
+        type: string
+        x-go-name: ImageURL
+      slug:
+        type: string
+        x-go-name: Slug
+    x-go-package: code.gitea.io/gitea/modules/structs
+responses:
+  Repository:
+    description: Repository
+    schema:
+      $ref: '#/definitions/Repository'
+  BadgeList:
+    description: BadgeList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Badge'
+  EmailList:
+    description: EmailList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Email'
+  PublicKey:
+    description: PublicKey
+    schema:
+      $ref: '#/definitions/PublicKey'
+  Runner:
+    description: Runner
+    schema:
+      $ref: '#/definitions/ActionRunner'
+  CronList:
+    description: CronList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Cron'
+  error:
+    description: APIError is error format response
+    headers:
+      message:
+        type: string
+      url:
+        type: string
+  validationError:
+    description: APIValidationError is error format response related to input validation
+    headers:
+      message:
+        type: string
+      url:
+        type: string
+  RegistrationToken:
+    description: RegistrationToken is response related to registration token
+    headers:
+      token:
+        type: string
+  Hook:
+    description: Hook
+    schema:
+      $ref: '#/definitions/Hook'
+  RunnerList:
+    description: RunnerList
+    schema:
+      $ref: '#/definitions/ActionRunnersResponse'
+  WorkflowJobsList:
+    description: WorkflowJobsList
+    schema:
+      $ref: '#/definitions/ActionWorkflowJobsResponse'
+  StringSlice:
+    description: StringSlice
+    schema:
+      type: array
+      items:
+        type: string
+  notFound:
+    description: APINotFound is a not found empty response
+  empty:
+    description: APIEmpty is an empty response
+  Organization:
+    description: Organization
+    schema:
+      $ref: '#/definitions/Organization'
+  User:
+    description: User
+    schema:
+      $ref: '#/definitions/User'
+  WorkflowRunsList:
+    description: WorkflowRunsList
+    schema:
+      $ref: '#/definitions/ActionWorkflowRunsResponse'
+  UserList:
+    description: UserList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/User'
+  OrganizationList:
+    description: OrganizationList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Organization'
+  HookList:
+    description: HookList
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Hook'
+  forbidden:
+    description: APIForbiddenError is a forbidden error response
+    headers:
+      message:
+        type: string
+      url:
+        type: string
+securityDefinitions:
+  AccessToken:
+    description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
+    type: apiKey
+    name: access_token
+    in: query
+  AuthorizationHeaderToken:
+    description: API tokens must be prepended with "token" followed by a space.
+    type: apiKey
+    name: Authorization
+    in: header
+  BasicAuth:
+    type: basic
+  SudoHeader:
+    description: Sudo API request as the user provided as the key. Admin privileges are required.
+    type: apiKey
+    name: Sudo
+    in: header
+  SudoParam:
+    description: Sudo API request as the user provided as the key. Admin privileges are required.
+    type: apiKey
+    name: sudo
+    in: query
+  TOTPHeader:
+    description: Must be used in combination with BasicAuth if two-factor authentication is enabled.
+    type: apiKey
+    name: X-GITEA-OTP
+    in: header
+  Token:
+    description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
+    type: apiKey
+    name: token
+    in: query

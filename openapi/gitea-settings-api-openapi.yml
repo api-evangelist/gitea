@@ -1,0 +1,225 @@
+swagger: '2.0'
+info:
+  description: This documentation describes the Gitea API.
+  title: Gitea admin settings API
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/MIT
+  version: 1.27.0+dev-89-gf52b6f3315
+basePath: /api/v1
+schemes:
+- https
+- http
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- BasicAuth: []
+- Token: []
+- AccessToken: []
+- AuthorizationHeaderToken: []
+- SudoParam: []
+- SudoHeader: []
+- TOTPHeader: []
+tags:
+- name: settings
+paths:
+  /settings/api:
+    get:
+      produces:
+      - application/json
+      tags:
+      - settings
+      summary: Get instance's global settings for api
+      operationId: getGeneralAPISettings
+      responses:
+        '200':
+          $ref: '#/responses/GeneralAPISettings'
+  /settings/attachment:
+    get:
+      produces:
+      - application/json
+      tags:
+      - settings
+      summary: Get instance's global settings for Attachment
+      operationId: getGeneralAttachmentSettings
+      responses:
+        '200':
+          $ref: '#/responses/GeneralAttachmentSettings'
+  /settings/repository:
+    get:
+      produces:
+      - application/json
+      tags:
+      - settings
+      summary: Get instance's global settings for repositories
+      operationId: getGeneralRepositorySettings
+      responses:
+        '200':
+          $ref: '#/responses/GeneralRepoSettings'
+  /settings/ui:
+    get:
+      produces:
+      - application/json
+      tags:
+      - settings
+      summary: Get instance's global settings for ui
+      operationId: getGeneralUISettings
+      responses:
+        '200':
+          $ref: '#/responses/GeneralUISettings'
+definitions:
+  GeneralUISettings:
+    description: GeneralUISettings contains global ui settings exposed by API
+    type: object
+    properties:
+      allowed_reactions:
+        description: AllowedReactions contains the list of allowed emoji reactions
+        type: array
+        items:
+          type: string
+        x-go-name: AllowedReactions
+      custom_emojis:
+        description: CustomEmojis contains the list of custom emojis
+        type: array
+        items:
+          type: string
+        x-go-name: CustomEmojis
+      default_theme:
+        description: DefaultTheme is the default UI theme
+        type: string
+        x-go-name: DefaultTheme
+    x-go-package: code.gitea.io/gitea/modules/structs
+  GeneralRepoSettings:
+    description: GeneralRepoSettings contains global repository settings exposed by API
+    type: object
+    properties:
+      http_git_disabled:
+        description: HTTPGitDisabled indicates if HTTP Git operations are disabled
+        type: boolean
+        x-go-name: HTTPGitDisabled
+      lfs_disabled:
+        description: LFSDisabled indicates if Git LFS support is disabled
+        type: boolean
+        x-go-name: LFSDisabled
+      migrations_disabled:
+        description: MigrationsDisabled indicates if repository migrations are disabled
+        type: boolean
+        x-go-name: MigrationsDisabled
+      mirrors_disabled:
+        description: MirrorsDisabled indicates if repository mirroring is disabled
+        type: boolean
+        x-go-name: MirrorsDisabled
+      stars_disabled:
+        description: StarsDisabled indicates if repository starring is disabled
+        type: boolean
+        x-go-name: StarsDisabled
+      time_tracking_disabled:
+        description: TimeTrackingDisabled indicates if time tracking is disabled
+        type: boolean
+        x-go-name: TimeTrackingDisabled
+    x-go-package: code.gitea.io/gitea/modules/structs
+  GeneralAPISettings:
+    description: GeneralAPISettings contains global api settings exposed by it
+    type: object
+    properties:
+      default_git_trees_per_page:
+        description: DefaultGitTreesPerPage is the default number of Git tree items per page
+        type: integer
+        format: int64
+        x-go-name: DefaultGitTreesPerPage
+      default_max_blob_size:
+        description: DefaultMaxBlobSize is the default maximum blob size for API responses
+        type: integer
+        format: int64
+        x-go-name: DefaultMaxBlobSize
+      default_max_response_size:
+        description: DefaultMaxResponseSize is the default maximum response size
+        type: integer
+        format: int64
+        x-go-name: DefaultMaxResponseSize
+      default_paging_num:
+        description: DefaultPagingNum is the default number of items per page
+        type: integer
+        format: int64
+        x-go-name: DefaultPagingNum
+      max_response_items:
+        description: MaxResponseItems is the maximum number of items returned in API responses
+        type: integer
+        format: int64
+        x-go-name: MaxResponseItems
+    x-go-package: code.gitea.io/gitea/modules/structs
+  GeneralAttachmentSettings:
+    description: GeneralAttachmentSettings contains global Attachment settings exposed by API
+    type: object
+    properties:
+      allowed_types:
+        description: AllowedTypes contains the allowed file types for attachments
+        type: string
+        x-go-name: AllowedTypes
+      enabled:
+        description: Enabled indicates if file attachments are enabled
+        type: boolean
+        x-go-name: Enabled
+      max_files:
+        description: MaxFiles is the maximum number of files per attachment
+        type: integer
+        format: int64
+        x-go-name: MaxFiles
+      max_size:
+        description: MaxSize is the maximum size for individual attachments
+        type: integer
+        format: int64
+        x-go-name: MaxSize
+    x-go-package: code.gitea.io/gitea/modules/structs
+responses:
+  GeneralAPISettings:
+    description: GeneralAPISettings
+    schema:
+      $ref: '#/definitions/GeneralAPISettings'
+  GeneralAttachmentSettings:
+    description: GeneralAttachmentSettings
+    schema:
+      $ref: '#/definitions/GeneralAttachmentSettings'
+  GeneralUISettings:
+    description: GeneralUISettings
+    schema:
+      $ref: '#/definitions/GeneralUISettings'
+  GeneralRepoSettings:
+    description: GeneralRepoSettings
+    schema:
+      $ref: '#/definitions/GeneralRepoSettings'
+securityDefinitions:
+  AccessToken:
+    description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
+    type: apiKey
+    name: access_token
+    in: query
+  AuthorizationHeaderToken:
+    description: API tokens must be prepended with "token" followed by a space.
+    type: apiKey
+    name: Authorization
+    in: header
+  BasicAuth:
+    type: basic
+  SudoHeader:
+    description: Sudo API request as the user provided as the key. Admin privileges are required.
+    type: apiKey
+    name: Sudo
+    in: header
+  SudoParam:
+    description: Sudo API request as the user provided as the key. Admin privileges are required.
+    type: apiKey
+    name: sudo
+    in: query
+  TOTPHeader:
+    description: Must be used in combination with BasicAuth if two-factor authentication is enabled.
+    type: apiKey
+    name: X-GITEA-OTP
+    in: header
+  Token:
+    description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
+    type: apiKey
+    name: token
+    in: query
