@@ -1,13 +1,26 @@
 aid: gitea
 name: Gitea
 url: https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 created: '2026-05-06'
 modified: '2026-06-20'
 type: Index
 access: 3rd-Party
 position: Consumer
 specificationVersion: '0.19'
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gitea.png
 kind: opensource
 tags:
   - Git
@@ -29,226 +42,1255 @@ description: >-
   governed by CommitGo, Inc., which also offers Gitea Enterprise (self-managed, with SSO, audit logs and Kubernetes
   auto-scaling runners) and Gitea Cloud (single-tenant fully-managed hosting in multiple regions).
 apis:
-  - aid: gitea:gitea-rest-api
-    name: Gitea REST API
-    tags:
-      - REST
-      - Git
-      - Code Hosting
-      - DevOps
-    humanURL: https://docs.gitea.com/api/
-    baseURL: https://gitea.com/api/v1
-    properties:
-      - url: https://docs.gitea.com/api/
-        type: Documentation
-      - url: https://docs.gitea.com/api/1.26/
-        type: APIReference
-      - url: https://demo.gitea.com/api/swagger
-        type: Swagger
-      - url: https://demo.gitea.com/swagger.v1.json
-        type: OpenAPI
-      - url: openapi/gitea-rest-api-openapi-original.yml
-        type: OpenAPI
-      - url: openapi/gitea-rest-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.gitea.com/development/api-usage
-        type: GettingStarted
-      - url: https://docs.gitea.com/development/oauth2-provider
-        type: Authentication
-      - url: json-schema/gitea-rest-api-repository-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-issue-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-pullrequest-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-branch-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-commit-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-release-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-hook-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-organization-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-team-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-user-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-notificationthread-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-package-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-label-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-milestone-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-tag-schema.json
-        type: JSONSchema
-      - url: json-schema/gitea-rest-api-comment-schema.json
-        type: JSONSchema
-      - url: json-structure/gitea-rest-api-repository-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-issue-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-pullrequest-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-branch-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-commit-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-release-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-hook-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-organization-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-team-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-user-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-notificationthread-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-package-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-label-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-milestone-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-tag-structure.json
-        type: JSONStructure
-      - url: json-structure/gitea-rest-api-comment-structure.json
-        type: JSONStructure
-      - url: examples/gitea-rest-api-repo-get-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-repo-update-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-issues-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-issue-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-pulls-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-pull-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-branches-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-commits-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-release-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-webhook-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-org-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-org-repos-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-user-get-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-user-repo-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-admin-user-create-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-notifications-list-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-packages-list-owner-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-repository-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-issue-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-pullrequest-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-release-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-hook-example.json
-        type: CodeExamples
-      - url: examples/gitea-rest-api-package-example.json
-        type: CodeExamples
-    description: >-
-      Swagger 2.0-described REST API exposed by every Gitea instance at /api/v1/. Approximately 300 operations cover
-      repository, branch, commit, pull request, issue, milestone, label, release, webhook, organization, team, user,
-      package, notification, admin and miscellaneous functionality. Authentication is supported via BasicAuth, personal
-      access tokens (Token / AccessToken / AuthorizationHeaderToken), OAuth2 bearer tokens, optional sudo
-      headers/parameters, and TOTP. The same API surface is shipped with Gitea Enterprise and Gitea Cloud.
-  - aid: gitea:gitea-actions-api
-    name: Gitea Actions API
-    tags:
-      - CI/CD
-      - Workflows
-      - Automation
-    humanURL: https://docs.gitea.com/usage/actions/overview
-    baseURL: https://gitea.com/api/v1
-    properties:
-      - url: https://docs.gitea.com/usage/actions/overview
-        type: Documentation
-      - url: https://docs.gitea.com/usage/actions/quickstart
-        type: GettingStarted
-      - url: https://docs.gitea.com/usage/actions/comparison
-        type: APIReference
-      - url: https://gitea.com/gitea/act_runner
-        type: GitHubRepository
-    description: >-
-      GitHub-Actions-compatible workflow engine embedded in Gitea. The Actions API surface is exposed under the main
-      REST API (/repos/{owner}/{repo}/actions/* and /admin/actions/*) for managing workflows, runs, jobs, runners, and
-      secrets. Actions runners are deployed via the Go-based act_runner project.
-  - aid: gitea:gitea-package-registry
-    name: Gitea Package Registry
-    tags:
-      - Packages
-      - Registry
-      - Artifacts
-    humanURL: https://docs.gitea.com/usage/packages/overview
-    baseURL: https://gitea.com/api/packages
-    properties:
-      - url: https://docs.gitea.com/usage/packages/overview
-        type: Documentation
-      - url: https://docs.gitea.com/usage/packages/cargo
-        type: APIReference
-      - url: https://docs.gitea.com/usage/packages/container
-        type: APIReference
-      - url: https://docs.gitea.com/usage/packages/helm
-        type: APIReference
-    description: >-
-      Multi-format package registry built into Gitea exposing client protocols for 24 ecosystems including Cargo,
-      Composer, Conan, Conda, Container (OCI), CRAN, Debian, Generic, Go, Helm, Maven, npm, NuGet, Pub, PyPI, RPM,
-      RubyGems, Swift, Terraform, Vagrant, Alpine, Arch, Chef, and more. Packages are scoped per user or organization
-      and addressable under /api/packages/{owner}/{type}.
-  - aid: gitea:gitea-webhooks
-    name: Gitea Webhooks
-    tags:
-      - Webhooks
-      - Events
-      - Eventing
-    humanURL: https://docs.gitea.com/usage/webhooks
-    properties:
-      - url: https://docs.gitea.com/usage/webhooks
-        type: Documentation
-      - url: https://docs.gitea.com/usage/webhooks#event-information
-        type: APIReference
-    description: >-
-      Outbound HTTP webhook system delivering JSON event payloads for pushes, pull requests, issues, releases, package
-      events, and more. Webhooks are configurable per repository, organization or instance-wide and are managed through
-      the REST API.
-  - aid: gitea:gitea-cloud-management-api
-    name: Gitea Cloud Management API
-    tags:
-      - Cloud
-      - Management
-      - Hosted
-    humanURL: https://about.gitea.com/products/cloud
-    baseURL: https://cloud.gitea.com
-    properties:
-      - url: https://about.gitea.com/products/cloud
-        type: Documentation
-      - url: https://about.gitea.com/products/gitea-cloud-pricing/
-        type: Pricing
-      - url: https://cloud.gitea.com/
-        type: Console
-    description: >-
-      Gitea Cloud management plane for provisioning and operating single-tenant managed Gitea instances. Each
-      provisioned instance exposes the same REST API at /api/v1/. The management plane itself does not currently publish
-      a separate machine-readable OpenAPI definition; provisioning is performed via the cloud.gitea.com web console.
+- aid: gitea:gitea-actions-api
+  name: Gitea Actions API
+  tags:
+  - CI/CD
+  - Workflows
+  - Automation
+  humanURL: https://docs.gitea.com/usage/actions/overview
+  baseURL: https://gitea.com/api/v1
+  properties:
+  - url: https://docs.gitea.com/usage/actions/overview
+    type: Documentation
+  - url: https://docs.gitea.com/usage/actions/quickstart
+    type: GettingStarted
+  - url: https://docs.gitea.com/usage/actions/comparison
+    type: APIReference
+  - url: https://gitea.com/gitea/act_runner
+    type: GitHubRepository
+  description: >-
+    GitHub-Actions-compatible workflow engine embedded in Gitea. The Actions API surface is exposed under
+    the main REST API (/repos/{owner}/{repo}/actions/* and /admin/actions/*) for managing workflows, runs,
+    jobs, runners, and secrets. Actions runners are deployed via the Go-based act_runner project.
+- aid: gitea:gitea-package-registry
+  name: Gitea Package Registry
+  tags:
+  - Packages
+  - Registry
+  - Artifacts
+  humanURL: https://docs.gitea.com/usage/packages/overview
+  baseURL: https://gitea.com/api/packages
+  properties:
+  - url: https://docs.gitea.com/usage/packages/overview
+    type: Documentation
+  - url: https://docs.gitea.com/usage/packages/cargo
+    type: APIReference
+  - url: https://docs.gitea.com/usage/packages/container
+    type: APIReference
+  - url: https://docs.gitea.com/usage/packages/helm
+    type: APIReference
+  description: >-
+    Multi-format package registry built into Gitea exposing client protocols for 24 ecosystems including
+    Cargo, Composer, Conan, Conda, Container (OCI), CRAN, Debian, Generic, Go, Helm, Maven, npm, NuGet,
+    Pub, PyPI, RPM, RubyGems, Swift, Terraform, Vagrant, Alpine, Arch, Chef, and more. Packages are scoped
+    per user or organization and addressable under /api/packages/{owner}/{type}.
+- aid: gitea:gitea-webhooks
+  name: Gitea Webhooks
+  tags:
+  - Webhooks
+  - Events
+  - Eventing
+  humanURL: https://docs.gitea.com/usage/webhooks
+  properties:
+  - url: https://docs.gitea.com/usage/webhooks
+    type: Documentation
+  - url: https://docs.gitea.com/usage/webhooks#event-information
+    type: APIReference
+  description: >-
+    Outbound HTTP webhook system delivering JSON event payloads for pushes, pull requests, issues, releases,
+    package events, and more. Webhooks are configurable per repository, organization or instance-wide
+    and are managed through the REST API.
+- aid: gitea:gitea-cloud-management-api
+  name: Gitea Cloud Management API
+  tags:
+  - Cloud
+  - Management
+  - Hosted
+  humanURL: https://about.gitea.com/products/cloud
+  baseURL: https://cloud.gitea.com
+  properties:
+  - url: https://about.gitea.com/products/cloud
+    type: Documentation
+  - url: https://about.gitea.com/products/gitea-cloud-pricing/
+    type: Pricing
+  - url: https://cloud.gitea.com/
+    type: Console
+  description: >-
+    Gitea Cloud management plane for provisioning and operating single-tenant managed Gitea instances.
+    Each provisioned instance exposes the same REST API at /api/v1/. The management plane itself does
+    not currently publish a separate machine-readable OpenAPI definition; provisioning is performed via
+    the cloud.gitea.com web console.
+- aid: gitea:gitea-admin-api
+  name: Gitea admin API
+  description: The admin API from Gitea — 22 operation(s) for admin.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-admin-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-issue-api
+  name: Gitea issue API
+  description: The issue API from Gitea — 34 operation(s) for issue.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - issue
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-issue-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-miscellaneous-api
+  name: Gitea miscellaneous API
+  description: The miscellaneous API from Gitea — 12 operation(s) for miscellaneous.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - miscellaneous
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-miscellaneous-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-notification-api
+  name: Gitea notification API
+  description: The notification API from Gitea — 4 operation(s) for notification.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - notification
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-notification-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-organization-api
+  name: Gitea organization API
+  description: The organization API from Gitea — 37 operation(s) for organization.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - organization
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-organization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-package-api
+  name: Gitea package API
+  description: The package API from Gitea — 7 operation(s) for package.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - package
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-package-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-repository-api
+  name: Gitea repository API
+  description: The repository API from Gitea — 133 operation(s) for repository.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - repository
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-repository-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-settings-api
+  name: Gitea settings API
+  description: The settings API from Gitea — 4 operation(s) for settings.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - settings
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
+- aid: gitea:gitea-user-api
+  name: Gitea user API
+  description: The user API from Gitea — 48 operation(s) for user.
+  humanURL: https://docs.gitea.com/api/
+  baseURL: https://gitea.com/api/v1
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/gitea-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.gitea.com/api/
+  - type: APIReference
+    url: https://docs.gitea.com/api/1.26/
+  - type: Swagger
+    url: https://demo.gitea.com/api/swagger
+  - type: GettingStarted
+    url: https://docs.gitea.com/development/api-usage
+  - type: Authentication
+    url: https://docs.gitea.com/development/oauth2-provider
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-repository-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-issue-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-pullrequest-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-branch-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-commit-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-release-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-hook-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-organization-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-team-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-user-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-notificationthread-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-package-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-label-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-milestone-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-tag-schema.json
+  - type: JSONSchema
+    url: json-schema/gitea-rest-api-comment-schema.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-repository-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-issue-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-pullrequest-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-branch-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-commit-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-release-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-hook-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-organization-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-team-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-user-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-notificationthread-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-package-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-label-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-milestone-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-tag-structure.json
+  - type: JSONStructure
+    url: json-structure/gitea-rest-api-comment-structure.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repo-update-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issues-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pulls-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pull-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-branches-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-commits-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-webhook-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-org-repos-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-get-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-user-repo-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-admin-user-create-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-notifications-list-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-packages-list-owner-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-repository-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-issue-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-pullrequest-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-release-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-hook-example.json
+  - type: CodeExamples
+    url: examples/gitea-rest-api-package-example.json
 common:
   - type: AgenticAccess
     url: agentic-access/gitea-agentic-access.yml
