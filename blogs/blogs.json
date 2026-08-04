@@ -2,13 +2,6 @@
   "repo": "gitea",
   "feeds": [
     {
-      "source": "https://blog.gitea.com/index.xml",
-      "feed_url": "https://blog.gitea.com/index.xml",
-      "title": "",
-      "saved": 0,
-      "method": "feed"
-    },
-    {
       "source": "https://docs.gitea.com/api/",
       "feed_url": "https://docs.gitea.com/api/",
       "title": "",
@@ -16,6 +9,6 @@
       "method": "none"
     }
   ],
-  "post_count": 24,
-  "fetched": "2026-07-11T11:50:51Z"
+  "post_count": 25,
+  "fetched": "2026-08-01T15:49:00Z"
 }

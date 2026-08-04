@@ -1,0 +1,30 @@
+{
+  "provider": "gitea",
+  "sources": [
+    "gitea-admin-api-openapi.yml",
+    "gitea-issue-api-openapi.yml",
+    "gitea-miscellaneous-api-openapi.yml",
+    "gitea-notification-api-openapi.yml",
+    "gitea-organization-api-openapi.yml",
+    "gitea-package-api-openapi.yml",
+    "gitea-repository-api-openapi.yml",
+    "gitea-settings-api-openapi.yml",
+    "gitea-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "gitea-admin-api-openapi.yml",
+    "gitea-issue-api-openapi.yml",
+    "gitea-miscellaneous-api-openapi.yml",
+    "gitea-notification-api-openapi.yml",
+    "gitea-organization-api-openapi.yml",
+    "gitea-package-api-openapi.yml",
+    "gitea-repository-api-openapi.yml",
+    "gitea-settings-api-openapi.yml",
+    "gitea-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
