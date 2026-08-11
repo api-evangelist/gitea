@@ -1292,6 +1292,19 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 common:
+  - type: IssueTracker
+    url: https://github.com/go-gitea/gitea/issues
+  - type: Releases
+    url: https://github.com/go-gitea/gitea/releases
+  - type: SecurityPolicy
+    url: https://github.com/go-gitea/gitea/blob/main/SECURITY.md
+  - type: CodeOfConduct
+    url: https://github.com/go-gitea/gitea/blob/main/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/go-gitea/gitea/blob/main/CONTRIBUTING.md
+  - type: License
+    name: MIT
+    url: https://github.com/go-gitea/gitea/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/gitea-agentic-access.yml
   - type: TrustCenter
