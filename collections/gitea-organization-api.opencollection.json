@@ -1,0 +1,1769 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin organization API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "organization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a repository in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/org/:org/repos",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of organization"
+              }
+            ]
+          },
+          "docs": "Create a repository in an organization"
+        },
+        {
+          "info": {
+            "name": "Get list of organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get list of organizations"
+        },
+        {
+          "info": {
+            "name": "Create an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs"
+          },
+          "docs": "Create an organization"
+        },
+        {
+          "info": {
+            "name": "Get an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization to get"
+              }
+            ]
+          },
+          "docs": "Get an organization"
+        },
+        {
+          "info": {
+            "name": "Edit an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/orgs/:org",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization to edit"
+              }
+            ]
+          },
+          "docs": "Edit an organization"
+        },
+        {
+          "info": {
+            "name": "Delete an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "organization that is to be deleted"
+              }
+            ]
+          },
+          "docs": "Delete an organization"
+        },
+        {
+          "info": {
+            "name": "Get org-level workflow jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/jobs",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get org-level workflow jobs"
+        },
+        {
+          "info": {
+            "name": "Get org-level runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/runners",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "disabled",
+                "value": "",
+                "type": "query",
+                "description": "filter by disabled status (true or false)"
+              }
+            ]
+          },
+          "docs": "Get org-level runners"
+        },
+        {
+          "info": {
+            "name": "Get an organization's actions runner registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/actions/runners/registration-token",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Get an organization's actions runner registration token"
+        },
+        {
+          "info": {
+            "name": "Get an org-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Get an org-level runner"
+        },
+        {
+          "info": {
+            "name": "Update an org-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/orgs/:org/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Update an org-level runner"
+        },
+        {
+          "info": {
+            "name": "Delete an org-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Delete an org-level runner"
+        },
+        {
+          "info": {
+            "name": "Get org-level workflow runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/runs",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "workflow event name"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "workflow branch"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "actor",
+                "value": "",
+                "type": "query",
+                "description": "triggered by user"
+              },
+              {
+                "name": "head_sha",
+                "value": "",
+                "type": "query",
+                "description": "triggering sha of the workflow run"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get org-level workflow runs"
+        },
+        {
+          "info": {
+            "name": "List an organization's actions secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/secrets",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's actions secrets"
+        },
+        {
+          "info": {
+            "name": "Create or Update a secret value in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/orgs/:org/actions/secrets/:secretname",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of organization"
+              },
+              {
+                "name": "secretname",
+                "value": "",
+                "type": "path",
+                "description": "name of the secret"
+              }
+            ]
+          },
+          "docs": "Create or Update a secret value in an organization"
+        },
+        {
+          "info": {
+            "name": "Delete a secret in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/actions/secrets/:secretname",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of organization"
+              },
+              {
+                "name": "secretname",
+                "value": "",
+                "type": "path",
+                "description": "name of the secret"
+              }
+            ]
+          },
+          "docs": "Delete a secret in an organization"
+        },
+        {
+          "info": {
+            "name": "Get an org-level variables list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/variables",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get an org-level variables list"
+        },
+        {
+          "info": {
+            "name": "Get an org-level variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Get an org-level variable"
+        },
+        {
+          "info": {
+            "name": "Create an org-level variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Create an org-level variable"
+        },
+        {
+          "info": {
+            "name": "Update an org-level variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/orgs/:org/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Update an org-level variable"
+        },
+        {
+          "info": {
+            "name": "Delete an org-level variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Delete an org-level variable"
+        },
+        {
+          "info": {
+            "name": "List an organization's activity feeds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/activities/feeds",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the org"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "the date of the activities to be found"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's activity feeds"
+        },
+        {
+          "info": {
+            "name": "Update Avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/avatar",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Update Avatar"
+        },
+        {
+          "info": {
+            "name": "Delete Avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/avatar",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Delete Avatar"
+        },
+        {
+          "info": {
+            "name": "List users blocked by the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/blocks",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List users blocked by the organization"
+        },
+        {
+          "info": {
+            "name": "Check if a user is blocked by the organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/blocks/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to check"
+              }
+            ]
+          },
+          "docs": "Check if a user is blocked by the organization"
+        },
+        {
+          "info": {
+            "name": "Block a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/orgs/:org/blocks/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to block"
+              },
+              {
+                "name": "note",
+                "value": "",
+                "type": "query",
+                "description": "optional note for the block"
+              }
+            ]
+          },
+          "docs": "Block a user"
+        },
+        {
+          "info": {
+            "name": "Unblock a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/blocks/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to unblock"
+              }
+            ]
+          },
+          "docs": "Unblock a user"
+        },
+        {
+          "info": {
+            "name": "List an organization's webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/hooks",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's webhooks"
+        },
+        {
+          "info": {
+            "name": "Create a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/hooks",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Create a hook"
+        },
+        {
+          "info": {
+            "name": "Get a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/hooks/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to get"
+              }
+            ]
+          },
+          "docs": "Get a hook"
+        },
+        {
+          "info": {
+            "name": "Update a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/orgs/:org/hooks/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to update"
+              }
+            ]
+          },
+          "docs": "Update a hook"
+        },
+        {
+          "info": {
+            "name": "Delete a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/hooks/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to delete"
+              }
+            ]
+          },
+          "docs": "Delete a hook"
+        },
+        {
+          "info": {
+            "name": "List an organization's labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/labels",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's labels"
+        },
+        {
+          "info": {
+            "name": "Create a label for an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/labels",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Create a label for an organization"
+        },
+        {
+          "info": {
+            "name": "Get a single label",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/labels/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to get"
+              }
+            ]
+          },
+          "docs": "Get a single label"
+        },
+        {
+          "info": {
+            "name": "Update a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/orgs/:org/labels/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to edit"
+              }
+            ]
+          },
+          "docs": "Update a label"
+        },
+        {
+          "info": {
+            "name": "Delete a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/labels/:id",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to delete"
+              }
+            ]
+          },
+          "docs": "Delete a label"
+        },
+        {
+          "info": {
+            "name": "List an organization's members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/members",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's members"
+        },
+        {
+          "info": {
+            "name": "Check if a user is a member of an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/members/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to check for an organization membership"
+              }
+            ]
+          },
+          "docs": "Check if a user is a member of an organization"
+        },
+        {
+          "info": {
+            "name": "Remove a member from an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/members/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to remove from the organization"
+              }
+            ]
+          },
+          "docs": "Remove a member from an organization"
+        },
+        {
+          "info": {
+            "name": "List an organization's public members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/public_members",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's public members"
+        },
+        {
+          "info": {
+            "name": "Check if a user is a public member of an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/public_members/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to check for a public organization membership"
+              }
+            ]
+          },
+          "docs": "Check if a user is a public member of an organization"
+        },
+        {
+          "info": {
+            "name": "Publicize a user's membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/orgs/:org/public_members/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose membership is to be publicized"
+              }
+            ]
+          },
+          "docs": "Publicize a user's membership"
+        },
+        {
+          "info": {
+            "name": "Conceal a user's membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/public_members/:username",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose membership is to be concealed"
+              }
+            ]
+          },
+          "docs": "Conceal a user's membership"
+        },
+        {
+          "info": {
+            "name": "Rename an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/rename",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "existing org name"
+              }
+            ]
+          },
+          "docs": "Rename an organization"
+        },
+        {
+          "info": {
+            "name": "List an organization's repos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/repos",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's repos"
+        },
+        {
+          "info": {
+            "name": "Create a repository in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/repos",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of organization"
+              }
+            ]
+          },
+          "docs": "Create a repository in an organization"
+        },
+        {
+          "info": {
+            "name": "Delete all repositories in an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/orgs/:org/repos",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Delete all repositories in an organization"
+        },
+        {
+          "info": {
+            "name": "List an organization's teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/teams",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an organization's teams"
+        },
+        {
+          "info": {
+            "name": "Create a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/orgs/:org/teams",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Create a team"
+        },
+        {
+          "info": {
+            "name": "Search for teams within an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/orgs/:org/teams/search",
+            "params": [
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "keywords to search"
+              },
+              {
+                "name": "include_desc",
+                "value": "",
+                "type": "query",
+                "description": "include search within team description (defaults to true)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Search for teams within an organization"
+        },
+        {
+          "info": {
+            "name": "Get a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team to get"
+              }
+            ]
+          },
+          "docs": "Get a team"
+        },
+        {
+          "info": {
+            "name": "Edit a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team to edit"
+              }
+            ]
+          },
+          "docs": "Edit a team"
+        },
+        {
+          "info": {
+            "name": "Delete a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/teams/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team to delete"
+              }
+            ]
+          },
+          "docs": "Delete a team"
+        },
+        {
+          "info": {
+            "name": "List a team's activity feeds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id/activities/feeds",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "the date of the activities to be found"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a team's activity feeds"
+        },
+        {
+          "info": {
+            "name": "List a team's members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id/members",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a team's members"
+        },
+        {
+          "info": {
+            "name": "List a particular member of team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id/members/:username",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose data is to be listed"
+              }
+            ]
+          },
+          "docs": "List a particular member of team"
+        },
+        {
+          "info": {
+            "name": "Add a team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/teams/:id/members/:username",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to add to a team"
+              }
+            ]
+          },
+          "docs": "Add a team member"
+        },
+        {
+          "info": {
+            "name": "Remove a team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/teams/:id/members/:username",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to remove from a team"
+              }
+            ]
+          },
+          "docs": "Remove a team member"
+        },
+        {
+          "info": {
+            "name": "List a team's repos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id/repos",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a team's repos"
+        },
+        {
+          "info": {
+            "name": "List a particular repo of team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/teams/:id/repos/:org/:repo",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "organization that owns the repo to list"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo to list"
+              }
+            ]
+          },
+          "docs": "List a particular repo of team"
+        },
+        {
+          "info": {
+            "name": "Add a repository to a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/teams/:id/repos/:org/:repo",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "organization that owns the repo to add"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo to add"
+              }
+            ]
+          },
+          "docs": "Add a repository to a team"
+        },
+        {
+          "info": {
+            "name": "Remove a repository from a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/teams/:id/repos/:org/:repo",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the team"
+              },
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "organization that owns the repo to remove"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo to remove"
+              }
+            ]
+          },
+          "docs": "This does not delete the repository, it only removes the repository from the team."
+        },
+        {
+          "info": {
+            "name": "List the current user's organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/orgs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the current user's organizations"
+        },
+        {
+          "info": {
+            "name": "List a user's organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/orgs",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose organizations are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a user's organizations"
+        },
+        {
+          "info": {
+            "name": "Get user permissions in organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/orgs/:org/permissions",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose permissions are to be obtained"
+              },
+              {
+                "name": "org",
+                "value": "",
+                "type": "path",
+                "description": "name of the organization"
+              }
+            ]
+          },
+          "docs": "Get user permissions in organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

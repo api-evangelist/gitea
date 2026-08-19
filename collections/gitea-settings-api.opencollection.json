@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin settings API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get instance's global settings for api",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/settings/api"
+          },
+          "docs": "Get instance's global settings for api"
+        },
+        {
+          "info": {
+            "name": "Get instance's global settings for Attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/settings/attachment"
+          },
+          "docs": "Get instance's global settings for Attachment"
+        },
+        {
+          "info": {
+            "name": "Get instance's global settings for repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/settings/repository"
+          },
+          "docs": "Get instance's global settings for repositories"
+        },
+        {
+          "info": {
+            "name": "Get instance's global settings for ui",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/settings/ui"
+          },
+          "docs": "Get instance's global settings for ui"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

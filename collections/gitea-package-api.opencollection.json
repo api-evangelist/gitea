@@ -1,0 +1,345 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin package API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "package",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets all packages of an owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/packages/:owner",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the packages"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "package type filter"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "name filter"
+              }
+            ]
+          },
+          "docs": "Gets all packages of an owner"
+        },
+        {
+          "info": {
+            "name": "Gets all versions of a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Gets all versions of a package"
+        },
+        {
+          "info": {
+            "name": "Delete a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              }
+            ]
+          },
+          "docs": "Delete a package"
+        },
+        {
+          "info": {
+            "name": "Gets the latest version of a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/-/latest",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              }
+            ]
+          },
+          "docs": "Gets the latest version of a package"
+        },
+        {
+          "info": {
+            "name": "Link a package to a repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/-/link/:repo_name",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              },
+              {
+                "name": "repo_name",
+                "value": "",
+                "type": "path",
+                "description": "name of the repository to link."
+              }
+            ]
+          },
+          "docs": "Link a package to a repository"
+        },
+        {
+          "info": {
+            "name": "Unlink a package from a repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/-/unlink",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              }
+            ]
+          },
+          "docs": "Unlink a package from a repository"
+        },
+        {
+          "info": {
+            "name": "Gets a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/:version",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "version of the package"
+              }
+            ]
+          },
+          "docs": "Gets a package"
+        },
+        {
+          "info": {
+            "name": "Delete a package version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/:version",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "version of the package"
+              }
+            ]
+          },
+          "docs": "Delete a package version"
+        },
+        {
+          "info": {
+            "name": "Gets all files of a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/packages/:owner/:type/:name/:version/files",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the package"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "type of the package"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the package"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "version of the package"
+              }
+            ]
+          },
+          "docs": "Gets all files of a package"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

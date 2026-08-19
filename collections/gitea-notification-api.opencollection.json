@@ -1,0 +1,281 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin notification API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "notification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List users's notification threads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/notifications",
+            "params": [
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "If true, show notifications marked as read. Default value is false"
+              },
+              {
+                "name": "status-types",
+                "value": "",
+                "type": "query",
+                "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned."
+              },
+              {
+                "name": "subject-type",
+                "value": "",
+                "type": "query",
+                "description": "filter notifications by subject type"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show notifications updated after the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show notifications updated before the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List users's notification threads"
+        },
+        {
+          "info": {
+            "name": "Mark notification threads as read, pinned or unread",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/notifications",
+            "params": [
+              {
+                "name": "last_read_at",
+                "value": "",
+                "type": "query",
+                "description": "Describes the last point that notifications were checked. Anything updated since this time will not be updated."
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "If true, mark all notifications on this repo. Default value is false"
+              },
+              {
+                "name": "status-types",
+                "value": "",
+                "type": "query",
+                "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+              },
+              {
+                "name": "to-status",
+                "value": "",
+                "type": "query",
+                "description": "Status to mark notifications as, Defaults to read."
+              }
+            ]
+          },
+          "docs": "Mark notification threads as read, pinned or unread"
+        },
+        {
+          "info": {
+            "name": "Check if unread notifications exist",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/notifications/new"
+          },
+          "docs": "Check if unread notifications exist"
+        },
+        {
+          "info": {
+            "name": "Get notification thread by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/notifications/threads/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of notification thread"
+              }
+            ]
+          },
+          "docs": "Get notification thread by ID"
+        },
+        {
+          "info": {
+            "name": "Mark notification thread as read by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/notifications/threads/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of notification thread"
+              },
+              {
+                "name": "to-status",
+                "value": "",
+                "type": "query",
+                "description": "Status to mark notifications as"
+              }
+            ]
+          },
+          "docs": "Mark notification thread as read by ID"
+        },
+        {
+          "info": {
+            "name": "List users's notification threads on a specific repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/notifications",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "If true, show notifications marked as read. Default value is false"
+              },
+              {
+                "name": "status-types",
+                "value": "",
+                "type": "query",
+                "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned"
+              },
+              {
+                "name": "subject-type",
+                "value": "",
+                "type": "query",
+                "description": "filter notifications by subject type"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show notifications updated after the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show notifications updated before the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List users's notification threads on a specific repo"
+        },
+        {
+          "info": {
+            "name": "Mark notification threads as read, pinned or unread on a specific repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/repos/:owner/:repo/notifications",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "all",
+                "value": "",
+                "type": "query",
+                "description": "If true, mark all notifications on this repo. Default value is false"
+              },
+              {
+                "name": "status-types",
+                "value": "",
+                "type": "query",
+                "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+              },
+              {
+                "name": "to-status",
+                "value": "",
+                "type": "query",
+                "description": "Status to mark notifications as. Defaults to read."
+              },
+              {
+                "name": "last_read_at",
+                "value": "",
+                "type": "query",
+                "description": "Describes the last point that notifications were checked. Anything updated since this time will not be updated."
+              }
+            ]
+          },
+          "docs": "Mark notification threads as read, pinned or unread on a specific repo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

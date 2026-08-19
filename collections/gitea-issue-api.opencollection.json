@@ -1,0 +1,2535 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin issue API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "issue",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for issues across the repositories that the user has access to",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/issues/search",
+            "params": [
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State of the issue"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of label names. Fetch only issues that have any of these labels. Non existent labels are discarded."
+              },
+              {
+                "name": "milestones",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of milestone names. Fetch only issues that have any of these milestones. Non existent milestones are discarded."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search string"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by issue type"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show issues updated after the given time (RFC 3339 format)"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show issues updated before the given time (RFC 3339 format)"
+              },
+              {
+                "name": "assigned",
+                "value": "",
+                "type": "query",
+                "description": "Filter issues or pulls assigned to the authenticated user"
+              },
+              {
+                "name": "created",
+                "value": "",
+                "type": "query",
+                "description": "Filter issues or pulls created by the authenticated user"
+              },
+              {
+                "name": "mentioned",
+                "value": "",
+                "type": "query",
+                "description": "Filter issues or pulls mentioning the authenticated user"
+              },
+              {
+                "name": "review_requested",
+                "value": "",
+                "type": "query",
+                "description": "Filter pull requests where the authenticated user's review was requested"
+              },
+              {
+                "name": "reviewed",
+                "value": "",
+                "type": "query",
+                "description": "Filter pull requests reviewed by the authenticated user"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "Filter by repository owner"
+              },
+              {
+                "name": "created_by",
+                "value": "",
+                "type": "query",
+                "description": "Only show items which were created by the given user"
+              },
+              {
+                "name": "team",
+                "value": "",
+                "type": "query",
+                "description": "Filter by team (requires organization owner parameter)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              }
+            ]
+          },
+          "docs": "Search for issues across the repositories that the user has access to"
+        },
+        {
+          "info": {
+            "name": "List a repository's issues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "whether issue is open or closed"
+              },
+              {
+                "name": "labels",
+                "value": "",
+                "type": "query",
+                "description": "comma separated list of label names. Fetch only issues that have any of this label names. Non existent labels are discarded."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search string"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "filter by type (issues / pulls) if set"
+              },
+              {
+                "name": "milestones",
+                "value": "",
+                "type": "query",
+                "description": "comma separated list of milestone names or ids. It uses names and fall back to ids. Fetch only issues that have any of this milestones. Non existent milestones are discarded"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show items updated after the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show items updated before the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "created_by",
+                "value": "",
+                "type": "query",
+                "description": "Only show items which were created by the given user"
+              },
+              {
+                "name": "assigned_by",
+                "value": "",
+                "type": "query",
+                "description": "Only show items for which the given user is assigned"
+              },
+              {
+                "name": "mentioned_by",
+                "value": "",
+                "type": "query",
+                "description": "Only show items in which the given user was mentioned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a repository's issues"
+        },
+        {
+          "info": {
+            "name": "Create an issue. If using deadline only the date will be taken into account, and time of day ignored.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Create an issue. If using deadline only the date will be taken into account, and time of day ignored."
+        },
+        {
+          "info": {
+            "name": "List all comments in a repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated since the provided time are returned."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated before the provided time are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List all comments in a repository"
+        },
+        {
+          "info": {
+            "name": "Get a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              }
+            ]
+          },
+          "docs": "Get a comment"
+        },
+        {
+          "info": {
+            "name": "Edit a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment to edit"
+              }
+            ]
+          },
+          "docs": "Edit a comment"
+        },
+        {
+          "info": {
+            "name": "Delete a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of comment to delete"
+              }
+            ]
+          },
+          "docs": "Delete a comment"
+        },
+        {
+          "info": {
+            "name": "List comment's attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/assets",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              }
+            ]
+          },
+          "docs": "List comment's attachments"
+        },
+        {
+          "info": {
+            "name": "Create a comment attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/assets",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name of the attachment"
+              }
+            ]
+          },
+          "docs": "Create a comment attachment"
+        },
+        {
+          "info": {
+            "name": "Get a comment attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to get"
+              }
+            ]
+          },
+          "docs": "Get a comment attachment"
+        },
+        {
+          "info": {
+            "name": "Edit a comment attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to edit"
+              }
+            ]
+          },
+          "docs": "Edit a comment attachment"
+        },
+        {
+          "info": {
+            "name": "Delete a comment attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to delete"
+              }
+            ]
+          },
+          "docs": "Delete a comment attachment"
+        },
+        {
+          "info": {
+            "name": "Get a list of reactions from a comment of an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment to edit"
+              }
+            ]
+          },
+          "docs": "Get a list of reactions from a comment of an issue"
+        },
+        {
+          "info": {
+            "name": "Add a reaction to a comment of an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment to edit"
+              }
+            ]
+          },
+          "docs": "Add a reaction to a comment of an issue"
+        },
+        {
+          "info": {
+            "name": "Remove a reaction from a comment of an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/comments/:id/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment to edit"
+              }
+            ]
+          },
+          "docs": "Remove a reaction from a comment of an issue"
+        },
+        {
+          "info": {
+            "name": "Get an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to get"
+              }
+            ]
+          },
+          "docs": "Get an issue"
+        },
+        {
+          "info": {
+            "name": "Edit an issue. If using deadline only the date will be taken into account, and time of day ignored.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to edit"
+              }
+            ]
+          },
+          "docs": "Pass `content_version` to enable optimistic locking on body edits.\nIf the version doesn't match the current value, the request fails with 409 Conflict.\n"
+        },
+        {
+          "info": {
+            "name": "Delete an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of issue to delete"
+              }
+            ]
+          },
+          "docs": "Delete an issue"
+        },
+        {
+          "info": {
+            "name": "List issue's attachments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/assets",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "List issue's attachments"
+        },
+        {
+          "info": {
+            "name": "Create an issue attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/assets",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "name of the attachment"
+              }
+            ]
+          },
+          "docs": "Create an issue attachment"
+        },
+        {
+          "info": {
+            "name": "Get an issue attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to get"
+              }
+            ]
+          },
+          "docs": "Get an issue attachment"
+        },
+        {
+          "info": {
+            "name": "Edit an issue attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to edit"
+              }
+            ]
+          },
+          "docs": "Edit an issue attachment"
+        },
+        {
+          "info": {
+            "name": "Delete an issue attachment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/assets/:attachment_id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "attachment_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the attachment to delete"
+              }
+            ]
+          },
+          "docs": "Delete an issue attachment"
+        },
+        {
+          "info": {
+            "name": "List issues that are blocked by this issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/blocks",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List issues that are blocked by this issue"
+        },
+        {
+          "info": {
+            "name": "Block the issue given in the body by the issue in path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/blocks",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Block the issue given in the body by the issue in path"
+        },
+        {
+          "info": {
+            "name": "Unblock the issue given in the body by the issue in path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/blocks",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Unblock the issue given in the body by the issue in path"
+        },
+        {
+          "info": {
+            "name": "List all comments on an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/comments",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated since the specified time are returned."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated before the provided time are returned."
+              }
+            ]
+          },
+          "docs": "List all comments on an issue"
+        },
+        {
+          "info": {
+            "name": "Add a comment to an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/comments",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Add a comment to an issue"
+        },
+        {
+          "info": {
+            "name": "Edit a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/comments/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "this parameter is ignored"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the comment to edit"
+              }
+            ]
+          },
+          "docs": "Edit a comment"
+        },
+        {
+          "info": {
+            "name": "Delete a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/comments/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "this parameter is ignored"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of comment to delete"
+              }
+            ]
+          },
+          "docs": "Delete a comment"
+        },
+        {
+          "info": {
+            "name": "Set an issue deadline. If set to null, the deadline is deleted. If using deadline only the date will be taken into account, and time of day ignored.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/deadline",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to create or update a deadline on"
+              }
+            ]
+          },
+          "docs": "Set an issue deadline. If set to null, the deadline is deleted. If using deadline only the date will be taken into account, and time of day ignored."
+        },
+        {
+          "info": {
+            "name": "List an issue's dependencies, i.e all issues that block this issue.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/dependencies",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an issue's dependencies, i.e all issues that block this issue."
+        },
+        {
+          "info": {
+            "name": "Make the issue in the url depend on the issue in the form.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/dependencies",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Make the issue in the url depend on the issue in the form."
+        },
+        {
+          "info": {
+            "name": "Remove an issue dependency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/dependencies",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Remove an issue dependency"
+        },
+        {
+          "info": {
+            "name": "Get an issue's labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Get an issue's labels"
+        },
+        {
+          "info": {
+            "name": "Add a label to an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Add a label to an issue"
+        },
+        {
+          "info": {
+            "name": "Replace an issue's labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Replace an issue's labels"
+        },
+        {
+          "info": {
+            "name": "Remove all labels from an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Remove all labels from an issue"
+        },
+        {
+          "info": {
+            "name": "Remove a label from an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/labels/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to remove"
+              }
+            ]
+          },
+          "docs": "Remove a label from an issue"
+        },
+        {
+          "info": {
+            "name": "Lock an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/lock",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Lock an issue"
+        },
+        {
+          "info": {
+            "name": "Unlock an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/lock",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Unlock an issue"
+        },
+        {
+          "info": {
+            "name": "Pin an Issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/pin",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of issue to pin"
+              }
+            ]
+          },
+          "docs": "Pin an Issue"
+        },
+        {
+          "info": {
+            "name": "Unpin an Issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/pin",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of issue to unpin"
+              }
+            ]
+          },
+          "docs": "Unpin an Issue"
+        },
+        {
+          "info": {
+            "name": "Moves the Pin to the given Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/pin/:position",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of issue"
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path",
+                "description": "the new position"
+              }
+            ]
+          },
+          "docs": "Moves the Pin to the given Position"
+        },
+        {
+          "info": {
+            "name": "Get a list reactions of an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get a list reactions of an issue"
+        },
+        {
+          "info": {
+            "name": "Add a reaction to an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Add a reaction to an issue"
+        },
+        {
+          "info": {
+            "name": "Remove a reaction from an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/reactions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Remove a reaction from an issue"
+        },
+        {
+          "info": {
+            "name": "Delete an issue's existing stopwatch.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/stopwatch/delete",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to stop the stopwatch on"
+              }
+            ]
+          },
+          "docs": "Delete an issue's existing stopwatch."
+        },
+        {
+          "info": {
+            "name": "Start stopwatch on an issue.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/stopwatch/start",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to create the stopwatch on"
+              }
+            ]
+          },
+          "docs": "Start stopwatch on an issue."
+        },
+        {
+          "info": {
+            "name": "Stop an issue's existing stopwatch.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/stopwatch/stop",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to stop the stopwatch on"
+              }
+            ]
+          },
+          "docs": "Stop an issue's existing stopwatch."
+        },
+        {
+          "info": {
+            "name": "Get users who subscribed on an issue.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/subscriptions",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get users who subscribed on an issue."
+        },
+        {
+          "info": {
+            "name": "Check if user is subscribed to an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/subscriptions/check",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Check if user is subscribed to an issue"
+        },
+        {
+          "info": {
+            "name": "Subscribe user to issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/subscriptions/:user",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to subscribe the issue to"
+              }
+            ]
+          },
+          "docs": "Subscribe user to issue"
+        },
+        {
+          "info": {
+            "name": "Unsubscribe user from issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/subscriptions/:user",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to unsubscribe from an issue"
+              }
+            ]
+          },
+          "docs": "Unsubscribe user from issue"
+        },
+        {
+          "info": {
+            "name": "List all comments and events on an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/timeline",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated since the specified time are returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "if provided, only comments updated before the provided time are returned."
+              }
+            ]
+          },
+          "docs": "List all comments and events on an issue"
+        },
+        {
+          "info": {
+            "name": "List an issue's tracked times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/times",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "optional filter by user (available for issue managers)"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show times updated after the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show times updated before the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List an issue's tracked times"
+        },
+        {
+          "info": {
+            "name": "Add tracked time to a issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/times",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              }
+            ]
+          },
+          "docs": "Add tracked time to a issue"
+        },
+        {
+          "info": {
+            "name": "Reset a tracked time of an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/times",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue to add tracked time to"
+              }
+            ]
+          },
+          "docs": "Reset a tracked time of an issue"
+        },
+        {
+          "info": {
+            "name": "Delete specific tracked time",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/issues/:index/times/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path",
+                "description": "index of the issue"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of time to delete"
+              }
+            ]
+          },
+          "docs": "Delete specific tracked time"
+        },
+        {
+          "info": {
+            "name": "Get all of a repository's labels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get all of a repository's labels"
+        },
+        {
+          "info": {
+            "name": "Create a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/labels",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Create a label"
+        },
+        {
+          "info": {
+            "name": "Get a single label",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/labels/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to get"
+              }
+            ]
+          },
+          "docs": "Get a single label"
+        },
+        {
+          "info": {
+            "name": "Update a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/labels/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to edit"
+              }
+            ]
+          },
+          "docs": "Update a label"
+        },
+        {
+          "info": {
+            "name": "Delete a label",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/labels/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the label to delete"
+              }
+            ]
+          },
+          "docs": "Delete a label"
+        },
+        {
+          "info": {
+            "name": "Get all of a repository's opened milestones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/milestones",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Milestone state, Recognized values are open, closed and all. Defaults to \"open\""
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "filter by milestone name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get all of a repository's opened milestones"
+        },
+        {
+          "info": {
+            "name": "Create a milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/repos/:owner/:repo/milestones",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Create a milestone"
+        },
+        {
+          "info": {
+            "name": "Get a milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/repos/:owner/:repo/milestones/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the milestone to get, identified by ID and if not available by name"
+              }
+            ]
+          },
+          "docs": "Get a milestone"
+        },
+        {
+          "info": {
+            "name": "Update a milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/repos/:owner/:repo/milestones/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the milestone to edit, identified by ID and if not available by name"
+              }
+            ]
+          },
+          "docs": "Update a milestone"
+        },
+        {
+          "info": {
+            "name": "Delete a milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/repos/:owner/:repo/milestones/:id",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "the milestone to delete, identified by ID and if not available by name"
+              }
+            ]
+          },
+          "docs": "Delete a milestone"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

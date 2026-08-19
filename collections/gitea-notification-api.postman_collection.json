@@ -1,0 +1,1214 @@
+{
+  "item": [
+    {
+      "id": "3cd69c7c-9ea1-4041-ada9-bc0abf5e311a",
+      "name": "notification",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c874a3ac-8d50-4a45-a186-d466b352892b",
+          "name": "List users's notification threads",
+          "request": {
+            "name": "List users's notification threads",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<boolean>",
+                  "description": "If true, show notifications marked as read. Default value is false"
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned."
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned."
+                },
+                {
+                  "disabled": false,
+                  "key": "subject-type",
+                  "value": "<string>",
+                  "description": "filter notifications by subject type"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject-type",
+                  "value": "<string>",
+                  "description": "filter notifications by subject type"
+                },
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "<dateTime>",
+                  "description": "Only show notifications updated after the given time. This is a timestamp in RFC 3339 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Only show notifications updated before the given time. This is a timestamp in RFC 3339 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "page number of results to return (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "page size of results"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95be1c99-cc42-467c-8530-eb470c6dacab",
+              "name": "NotificationThreadList",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subject-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subject-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8525,\n    \"pinned\": true,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": false,\n      \"allow_manual_merge\": true,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": false,\n      \"allow_rebase_explicit\": true,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": false,\n      \"archived\": false,\n      \"archived_at\": \"1996-11-07T03:35:13.863Z\",\n      \"autodetect_manual_merge\": true,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 9831,\n      \"clone_url\": \"string\",\n      \"created_at\": \"1972-05-05T04:51:13.190Z\",\n      \"default_allow_maintainer_edit\": true,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": false,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": false,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 8364,\n      \"full_name\": \"string\",\n      \"has_actions\": true,\n      \"has_code\": false,\n      \"has_issues\": true,\n      \"has_packages\": false,\n      \"has_projects\": true,\n      \"has_pull_requests\": false,\n      \"has_releases\": false,\n      \"has_wiki\": false,\n      \"html_url\": \"string\",\n      \"id\": 9644,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": false,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": false\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": false,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"2006-09-29T13:54:11.793Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha256\",\n      \"open_issues_count\": 6753,\n      \"open_pr_counter\": 9841,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": false,\n        \"avatar_url\": \"string\",\n        \"created\": \"1984-09-12T05:17:35.976Z\",\n        \"description\": \"string\",\n        \"email\": \"ZGiJNdIAHbooXK@AIFVJXcfECMvMQYf.sb\",\n        \"followers_count\": 3736,\n        \"following_count\": 4012,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 6911,\n        \"is_admin\": true,\n        \"language\": \"string\",\n        \"last_login\": \"1986-02-15T10:51:26.646Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": true,\n        \"source_id\": 9616,\n        \"starred_repos_count\": 2088,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": false,\n        \"push\": false\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 7142,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"1982-07-27T21:03:17.948Z\",\n          \"description\": \"string\",\n          \"email\": \"t7eQ1850dMA7pj@IXLsPfENSxmMcqOjixxdhZsBL.vvb\",\n          \"followers_count\": 4533,\n          \"following_count\": 7466,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 4874,\n          \"is_admin\": true,\n          \"language\": \"string\",\n          \"last_login\": \"1961-04-15T13:28:28.081Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": false,\n          \"source_id\": 2786,\n          \"starred_repos_count\": 6388,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1997-02-19T05:51:14.268Z\",\n          \"description\": \"string\",\n          \"email\": \"n1valwE@LnzAsYlEjo.yrpj\",\n          \"followers_count\": 5751,\n          \"following_count\": 5490,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 3201,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"2025-10-10T17:44:52.143Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": true,\n          \"source_id\": 1730,\n          \"starred_repos_count\": 3906,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 6672,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 4300,\n      \"template\": false,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"1993-01-19T04:52:45.427Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 3839,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"closed\",\n      \"title\": \"string\",\n      \"type\": \"Issue\",\n      \"url\": \"string\"\n    },\n    \"unread\": true,\n    \"updated_at\": \"2013-12-10T04:13:39.444Z\",\n    \"url\": \"string\"\n  },\n  {\n    \"id\": 8079,\n    \"pinned\": true,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": false,\n      \"allow_manual_merge\": true,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": true,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": false,\n      \"allow_squash_merge\": true,\n      \"archived\": false,\n      \"archived_at\": \"1961-05-30T11:13:04.869Z\",\n      \"autodetect_manual_merge\": false,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 1379,\n      \"clone_url\": \"string\",\n      \"created_at\": \"2003-06-02T13:03:20.097Z\",\n      \"default_allow_maintainer_edit\": true,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": true,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": true,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 3208,\n      \"full_name\": \"string\",\n      \"has_actions\": true,\n      \"has_code\": true,\n      \"has_issues\": false,\n      \"has_packages\": false,\n      \"has_projects\": false,\n      \"has_pull_requests\": false,\n      \"has_releases\": true,\n      \"has_wiki\": true,\n      \"html_url\": \"string\",\n      \"id\": 2404,\n      \"ignore_whitespace_conflicts\": true,\n      \"internal\": true,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": true,\n        \"enable_issue_dependencies\": false,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": true,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"2012-07-23T00:38:30.025Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha1\",\n      \"open_issues_count\": 8395,\n      \"open_pr_counter\": 3921,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"2000-01-22T04:25:23.734Z\",\n        \"description\": \"string\",\n        \"email\": \"y5snP3W-tR7@MmSyOgySbHyqbGwi.io\",\n        \"followers_count\": 3321,\n        \"following_count\": 5379,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 1357,\n        \"is_admin\": true,\n        \"language\": \"string\",\n        \"last_login\": \"2004-12-26T05:28:46.765Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": false,\n        \"source_id\": 644,\n        \"starred_repos_count\": 903,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": false,\n        \"pull\": true,\n        \"push\": true\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 1631,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"2026-01-16T16:10:48.683Z\",\n          \"description\": \"string\",\n          \"email\": \"F0O@VolSQOcajc.wjnq\",\n          \"followers_count\": 8283,\n          \"following_count\": 9061,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 9615,\n          \"is_admin\": true,\n          \"language\": \"string\",\n          \"last_login\": \"1977-02-05T09:41:02.106Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": false,\n          \"source_id\": 8533,\n          \"starred_repos_count\": 4481,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1964-10-02T17:55:56.292Z\",\n          \"description\": \"string\",\n          \"email\": \"Gve4afQ@MtSGEKbYMgHKrvbQeZSTTmqaj.br\",\n          \"followers_count\": 9316,\n          \"following_count\": 6677,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 1661,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1987-02-02T20:54:09.976Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": true,\n          \"source_id\": 1847,\n          \"starred_repos_count\": 3012,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 3931,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 2970,\n      \"template\": false,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"1958-11-30T06:56:33.615Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 6162,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"closed\",\n      \"title\": \"string\",\n      \"type\": \"Repository\",\n      \"url\": \"string\"\n    },\n    \"unread\": false,\n    \"updated_at\": \"2019-01-27T21:59:03.585Z\",\n    \"url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb94a558-083c-4000-85a6-1e13ab57b251",
+          "name": "Mark notification threads as read, pinned or unread",
+          "request": {
+            "name": "Mark notification threads as read, pinned or unread",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last_read_at",
+                  "value": "<dateTime>",
+                  "description": "Describes the last point that notifications were checked. Anything updated since this time will not be updated."
+                },
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<string>",
+                  "description": "If true, mark all notifications on this repo. Default value is false"
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+                },
+                {
+                  "disabled": false,
+                  "key": "to-status",
+                  "value": "<string>",
+                  "description": "Status to mark notifications as, Defaults to read."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f33d6ad2-be5e-4e3a-95e7-e1e7baf1128a",
+              "name": "NotificationThreadList",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last_read_at",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "all",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to-status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Reset Content",
+              "code": 205,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2006,\n    \"pinned\": false,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": true,\n      \"allow_manual_merge\": false,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": true,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": true,\n      \"archived\": false,\n      \"archived_at\": \"1982-10-16T23:29:42.929Z\",\n      \"autodetect_manual_merge\": true,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 3667,\n      \"clone_url\": \"string\",\n      \"created_at\": \"1975-08-02T19:51:33.301Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": false,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": true,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 4389,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": false,\n      \"has_packages\": false,\n      \"has_projects\": true,\n      \"has_pull_requests\": true,\n      \"has_releases\": true,\n      \"has_wiki\": true,\n      \"html_url\": \"string\",\n      \"id\": 9773,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": true,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": true,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1973-08-03T04:25:14.240Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha1\",\n      \"open_issues_count\": 6822,\n      \"open_pr_counter\": 4050,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": false,\n        \"avatar_url\": \"string\",\n        \"created\": \"1953-07-20T16:15:53.415Z\",\n        \"description\": \"string\",\n        \"email\": \"Z7DOir9S76@WHmfAeAmHLXjZZVdntvMSUQYgJAUbpSA.xhf\",\n        \"followers_count\": 191,\n        \"following_count\": 5779,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 5746,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"1972-11-01T08:53:55.452Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": true,\n        \"restricted\": false,\n        \"source_id\": 2207,\n        \"starred_repos_count\": 9856,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": true\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 9650,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1963-03-26T03:05:14.449Z\",\n          \"description\": \"string\",\n          \"email\": \"qD5y0zI4mzPQ8@sLHFBz.yv\",\n          \"followers_count\": 9420,\n          \"following_count\": 9754,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7489,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1958-01-08T11:19:28.147Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": false,\n          \"source_id\": 8357,\n          \"starred_repos_count\": 5043,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"1989-06-17T21:50:30.200Z\",\n          \"description\": \"string\",\n          \"email\": \"nlZMkpF@P.ob\",\n          \"followers_count\": 9196,\n          \"following_count\": 4685,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7034,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"2013-03-07T15:05:27.674Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": true,\n          \"source_id\": 7063,\n          \"starred_repos_count\": 3576,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 5618,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 6738,\n      \"template\": true,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2011-08-10T17:07:18.325Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8829,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Commit\",\n      \"url\": \"string\"\n    },\n    \"unread\": true,\n    \"updated_at\": \"1969-12-17T00:00:34.182Z\",\n    \"url\": \"string\"\n  },\n  {\n    \"id\": 5247,\n    \"pinned\": true,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": false,\n      \"allow_manual_merge\": true,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": false,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": false,\n      \"archived\": true,\n      \"archived_at\": \"2011-10-01T06:29:38.140Z\",\n      \"autodetect_manual_merge\": false,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 9114,\n      \"clone_url\": \"string\",\n      \"created_at\": \"2006-11-27T11:59:54.045Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": true,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": false,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 9367,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": true,\n      \"has_packages\": true,\n      \"has_projects\": false,\n      \"has_pull_requests\": false,\n      \"has_releases\": false,\n      \"has_wiki\": false,\n      \"html_url\": \"string\",\n      \"id\": 1470,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": false,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": false,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1988-06-08T05:57:52.774Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha256\",\n      \"open_issues_count\": 5489,\n      \"open_pr_counter\": 3260,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1994-06-12T19:08:45.249Z\",\n        \"description\": \"string\",\n        \"email\": \"OqWrVMLFB5ySyv@adwEEDSlFIp.of\",\n        \"followers_count\": 105,\n        \"following_count\": 5097,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 7100,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"2021-11-02T17:27:05.262Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": false,\n        \"source_id\": 1553,\n        \"starred_repos_count\": 6050,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": false\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 1706,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"2000-07-10T01:44:32.176Z\",\n          \"description\": \"string\",\n          \"email\": \"YpSaw1Abg@mgWKmifQpAfYkeTWhK.ja\",\n          \"followers_count\": 1036,\n          \"following_count\": 5321,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 2530,\n          \"is_admin\": true,\n          \"language\": \"string\",\n          \"last_login\": \"1966-12-26T05:26:37.783Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": true,\n          \"source_id\": 5664,\n          \"starred_repos_count\": 4407,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1991-08-07T12:59:16.864Z\",\n          \"description\": \"string\",\n          \"email\": \"Ycx5flxUOnb@qreTJJdjVWVNvCIyaJH.qve\",\n          \"followers_count\": 4608,\n          \"following_count\": 7134,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 282,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1957-11-02T02:28:00.709Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": false,\n          \"source_id\": 9163,\n          \"starred_repos_count\": 201,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 1868,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 7191,\n      \"template\": false,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2009-12-28T23:05:09.845Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8484,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Issue\",\n      \"url\": \"string\"\n    },\n    \"unread\": false,\n    \"updated_at\": \"1967-08-02T02:26:54.939Z\",\n    \"url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "038b8ebe-8d6c-4aa4-a789-d60a5675ed28",
+          "name": "Check if unread notifications exist",
+          "request": {
+            "name": "Check if unread notifications exist",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications",
+                "new"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "110c73d3-a75c-429a-8808-ad431298f7c7",
+              "name": "Number of unread notifications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "new"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"new\": 5779\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3ea3df2-97dc-490b-876b-8db84ea0cea8",
+          "name": "Get notification thread by ID",
+          "request": {
+            "name": "Get notification thread by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications",
+                "threads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id of notification thread"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7a9b82c-e4de-4335-b29f-1afcdf86eff5",
+              "name": "NotificationThread",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4961,\n  \"pinned\": true,\n  \"repository\": {\n    \"allow_fast_forward_only_merge\": false,\n    \"allow_manual_merge\": false,\n    \"allow_merge_commits\": true,\n    \"allow_rebase\": true,\n    \"allow_rebase_explicit\": true,\n    \"allow_rebase_update\": true,\n    \"allow_squash_merge\": false,\n    \"archived\": true,\n    \"archived_at\": \"2001-01-13T20:54:25.654Z\",\n    \"autodetect_manual_merge\": true,\n    \"avatar_url\": \"string\",\n    \"branch_count\": 1288,\n    \"clone_url\": \"string\",\n    \"created_at\": \"1973-09-14T16:15:51.381Z\",\n    \"default_allow_maintainer_edit\": false,\n    \"default_branch\": \"string\",\n    \"default_delete_branch_after_merge\": false,\n    \"default_merge_style\": \"string\",\n    \"default_target_branch\": \"string\",\n    \"description\": \"string\",\n    \"empty\": true,\n    \"external_tracker\": {\n      \"external_tracker_format\": \"string\",\n      \"external_tracker_regexp_pattern\": \"string\",\n      \"external_tracker_style\": \"string\",\n      \"external_tracker_url\": \"string\"\n    },\n    \"external_wiki\": {\n      \"external_wiki_url\": \"string\"\n    },\n    \"fork\": true,\n    \"forks_count\": 7627,\n    \"full_name\": \"string\",\n    \"has_actions\": true,\n    \"has_code\": false,\n    \"has_issues\": false,\n    \"has_packages\": false,\n    \"has_projects\": false,\n    \"has_pull_requests\": true,\n    \"has_releases\": false,\n    \"has_wiki\": true,\n    \"html_url\": \"string\",\n    \"id\": 951,\n    \"ignore_whitespace_conflicts\": true,\n    \"internal\": false,\n    \"internal_tracker\": {\n      \"allow_only_contributors_to_track_time\": true,\n      \"enable_issue_dependencies\": false,\n      \"enable_time_tracker\": true\n    },\n    \"language\": \"string\",\n    \"languages_url\": \"string\",\n    \"licenses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"link\": \"string\",\n    \"mirror\": true,\n    \"mirror_interval\": \"string\",\n    \"mirror_updated\": \"2017-01-07T09:02:09.735Z\",\n    \"name\": \"string\",\n    \"object_format_name\": \"sha256\",\n    \"open_issues_count\": 8725,\n    \"open_pr_counter\": 9927,\n    \"original_url\": \"string\",\n    \"owner\": {\n      \"active\": true,\n      \"avatar_url\": \"string\",\n      \"created\": \"2013-04-15T02:24:35.603Z\",\n      \"description\": \"string\",\n      \"email\": \"5gfqnZW6Yng@xYlHEJLDRpiOsiZbuZUH.za\",\n      \"followers_count\": 6531,\n      \"following_count\": 1882,\n      \"full_name\": \"string\",\n      \"html_url\": \"string\",\n      \"id\": 5565,\n      \"is_admin\": false,\n      \"language\": \"string\",\n      \"last_login\": \"1967-01-24T11:17:32.148Z\",\n      \"location\": \"string\",\n      \"login\": \"string\",\n      \"login_name\": \"empty\",\n      \"prohibit_login\": false,\n      \"restricted\": false,\n      \"source_id\": 7748,\n      \"starred_repos_count\": 6740,\n      \"visibility\": \"string\",\n      \"website\": \"string\"\n    },\n    \"parent\": {\n      \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n    },\n    \"permissions\": {\n      \"admin\": false,\n      \"pull\": true,\n      \"push\": true\n    },\n    \"private\": true,\n    \"projects_mode\": \"string\",\n    \"release_counter\": 8086,\n    \"repo_transfer\": {\n      \"doer\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1957-05-26T02:53:26.571Z\",\n        \"description\": \"string\",\n        \"email\": \"7BWov@jnluHuiQggBeihiHVVIzroTxFu.ns\",\n        \"followers_count\": 2391,\n        \"following_count\": 9913,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 7308,\n        \"is_admin\": true,\n        \"language\": \"string\",\n        \"last_login\": \"1986-06-05T00:34:29.452Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": false,\n        \"source_id\": 7636,\n        \"starred_repos_count\": 7646,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"recipient\": {\n        \"active\": false,\n        \"avatar_url\": \"string\",\n        \"created\": \"1988-11-15T06:58:29.228Z\",\n        \"description\": \"string\",\n        \"email\": \"cpdD@EIcQmHoXHYthNbbEFudBtKFcJfYLE.avs\",\n        \"followers_count\": 5607,\n        \"following_count\": 103,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 8272,\n        \"is_admin\": true,\n        \"language\": \"string\",\n        \"last_login\": \"1991-03-25T11:35:09.102Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": true,\n        \"source_id\": 6971,\n        \"starred_repos_count\": 351,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"teams\": [\n        {\n          \"can_create_org_repo\": true,\n          \"description\": \"string\",\n          \"id\": 1218,\n          \"includes_all_repositories\": true,\n          \"name\": \"string\",\n          \"organization\": {\n            \"avatar_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"full_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"repo_admin_change_team_access\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"username\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"visibility\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"website\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"permission\": \"read\",\n          \"units\": [\n            \"repo.code\",\n            \"repo.issues\",\n            \"repo.ext_issues\",\n            \"repo.wiki\",\n            \"repo.pulls\",\n            \"repo.releases\",\n            \"repo.projects\",\n            \"repo.ext_wiki\"\n          ],\n          \"units_map\": {\n            \"repo.code\": \"read\",\n            \"repo.ext_issues\": \"none\",\n            \"repo.ext_wiki\": \"none\",\n            \"repo.issues\": \"write\",\n            \"repo.projects\": \"none\",\n            \"repo.pulls\": \"owner\",\n            \"repo.releases\": \"none\",\n            \"repo.wiki\": \"admin\"\n          }\n        },\n        {\n          \"can_create_org_repo\": true,\n          \"description\": \"string\",\n          \"id\": 3227,\n          \"includes_all_repositories\": true,\n          \"name\": \"string\",\n          \"organization\": {\n            \"avatar_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"full_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"repo_admin_change_team_access\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"username\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"visibility\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"website\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"permission\": \"admin\",\n          \"units\": [\n            \"repo.code\",\n            \"repo.issues\",\n            \"repo.ext_issues\",\n            \"repo.wiki\",\n            \"repo.pulls\",\n            \"repo.releases\",\n            \"repo.projects\",\n            \"repo.ext_wiki\"\n          ],\n          \"units_map\": {\n            \"repo.code\": \"read\",\n            \"repo.ext_issues\": \"none\",\n            \"repo.ext_wiki\": \"none\",\n            \"repo.issues\": \"write\",\n            \"repo.projects\": \"none\",\n            \"repo.pulls\": \"owner\",\n            \"repo.releases\": \"none\",\n            \"repo.wiki\": \"admin\"\n          }\n        }\n      ]\n    },\n    \"size\": 9279,\n    \"ssh_url\": \"string\",\n    \"stars_count\": 6996,\n    \"template\": false,\n    \"topics\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1986-12-31T05:47:57.618Z\",\n    \"url\": \"string\",\n    \"watchers_count\": 1241,\n    \"website\": \"string\"\n  },\n  \"subject\": {\n    \"html_url\": \"string\",\n    \"latest_comment_html_url\": \"string\",\n    \"latest_comment_url\": \"string\",\n    \"state\": \"merged\",\n    \"title\": \"string\",\n    \"type\": \"Pull\",\n    \"url\": \"string\"\n  },\n  \"unread\": false,\n  \"updated_at\": \"1973-07-27T13:24:21.560Z\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eca3b262-973d-42c5-a7a4-5f119b9fa2cd",
+              "name": "APIForbiddenError is a forbidden error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "097541d7-0c0d-4660-b807-a82b14611011",
+              "name": "APINotFound is a not found empty response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2efe3b89-c05e-4bc4-bccc-2df63630bc97",
+          "name": "Mark notification thread as read by ID",
+          "request": {
+            "name": "Mark notification thread as read by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications",
+                "threads",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "to-status",
+                  "value": "read",
+                  "description": "Status to mark notifications as"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) id of notification thread"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b22705f-247f-464c-82c3-383c579c98f6",
+              "name": "NotificationThread",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to-status",
+                      "value": "read"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Reset Content",
+              "code": 205,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4142,\n  \"pinned\": false,\n  \"repository\": {\n    \"allow_fast_forward_only_merge\": true,\n    \"allow_manual_merge\": true,\n    \"allow_merge_commits\": false,\n    \"allow_rebase\": true,\n    \"allow_rebase_explicit\": true,\n    \"allow_rebase_update\": false,\n    \"allow_squash_merge\": false,\n    \"archived\": true,\n    \"archived_at\": \"1999-12-21T09:51:11.085Z\",\n    \"autodetect_manual_merge\": true,\n    \"avatar_url\": \"string\",\n    \"branch_count\": 6380,\n    \"clone_url\": \"string\",\n    \"created_at\": \"1957-09-09T03:30:48.845Z\",\n    \"default_allow_maintainer_edit\": false,\n    \"default_branch\": \"string\",\n    \"default_delete_branch_after_merge\": false,\n    \"default_merge_style\": \"string\",\n    \"default_target_branch\": \"string\",\n    \"description\": \"string\",\n    \"empty\": true,\n    \"external_tracker\": {\n      \"external_tracker_format\": \"string\",\n      \"external_tracker_regexp_pattern\": \"string\",\n      \"external_tracker_style\": \"string\",\n      \"external_tracker_url\": \"string\"\n    },\n    \"external_wiki\": {\n      \"external_wiki_url\": \"string\"\n    },\n    \"fork\": false,\n    \"forks_count\": 4623,\n    \"full_name\": \"string\",\n    \"has_actions\": true,\n    \"has_code\": false,\n    \"has_issues\": false,\n    \"has_packages\": true,\n    \"has_projects\": false,\n    \"has_pull_requests\": true,\n    \"has_releases\": true,\n    \"has_wiki\": true,\n    \"html_url\": \"string\",\n    \"id\": 6358,\n    \"ignore_whitespace_conflicts\": false,\n    \"internal\": true,\n    \"internal_tracker\": {\n      \"allow_only_contributors_to_track_time\": true,\n      \"enable_issue_dependencies\": true,\n      \"enable_time_tracker\": true\n    },\n    \"language\": \"string\",\n    \"languages_url\": \"string\",\n    \"licenses\": [\n      \"string\",\n      \"string\"\n    ],\n    \"link\": \"string\",\n    \"mirror\": true,\n    \"mirror_interval\": \"string\",\n    \"mirror_updated\": \"2019-06-24T00:58:51.224Z\",\n    \"name\": \"string\",\n    \"object_format_name\": \"sha256\",\n    \"open_issues_count\": 5902,\n    \"open_pr_counter\": 5548,\n    \"original_url\": \"string\",\n    \"owner\": {\n      \"active\": true,\n      \"avatar_url\": \"string\",\n      \"created\": \"1980-10-31T18:21:12.206Z\",\n      \"description\": \"string\",\n      \"email\": \"I9vG@IfVoCWfOLvA.osnf\",\n      \"followers_count\": 6143,\n      \"following_count\": 681,\n      \"full_name\": \"string\",\n      \"html_url\": \"string\",\n      \"id\": 2558,\n      \"is_admin\": false,\n      \"language\": \"string\",\n      \"last_login\": \"1949-02-03T16:45:02.451Z\",\n      \"location\": \"string\",\n      \"login\": \"string\",\n      \"login_name\": \"empty\",\n      \"prohibit_login\": true,\n      \"restricted\": false,\n      \"source_id\": 6248,\n      \"starred_repos_count\": 6738,\n      \"visibility\": \"string\",\n      \"website\": \"string\"\n    },\n    \"parent\": {\n      \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n    },\n    \"permissions\": {\n      \"admin\": true,\n      \"pull\": true,\n      \"push\": true\n    },\n    \"private\": false,\n    \"projects_mode\": \"string\",\n    \"release_counter\": 2654,\n    \"repo_transfer\": {\n      \"doer\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1990-02-11T02:09:36.587Z\",\n        \"description\": \"string\",\n        \"email\": \"jcdw@enjQFljJenACHdGJy.gyl\",\n        \"followers_count\": 2071,\n        \"following_count\": 6453,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 6475,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"2005-02-20T07:46:35.299Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": true,\n        \"restricted\": false,\n        \"source_id\": 4227,\n        \"starred_repos_count\": 1231,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"recipient\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1985-06-08T00:24:48.627Z\",\n        \"description\": \"string\",\n        \"email\": \"li3dFmr@CqAojtsopW.eau\",\n        \"followers_count\": 1044,\n        \"following_count\": 1134,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 6494,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"2011-09-12T19:57:43.816Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": true,\n        \"source_id\": 2623,\n        \"starred_repos_count\": 7056,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"teams\": [\n        {\n          \"can_create_org_repo\": true,\n          \"description\": \"string\",\n          \"id\": 6990,\n          \"includes_all_repositories\": true,\n          \"name\": \"string\",\n          \"organization\": {\n            \"avatar_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"full_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"repo_admin_change_team_access\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"username\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"visibility\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"website\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"permission\": \"none\",\n          \"units\": [\n            \"repo.code\",\n            \"repo.issues\",\n            \"repo.ext_issues\",\n            \"repo.wiki\",\n            \"repo.pulls\",\n            \"repo.releases\",\n            \"repo.projects\",\n            \"repo.ext_wiki\"\n          ],\n          \"units_map\": {\n            \"repo.code\": \"read\",\n            \"repo.ext_issues\": \"none\",\n            \"repo.ext_wiki\": \"none\",\n            \"repo.issues\": \"write\",\n            \"repo.projects\": \"none\",\n            \"repo.pulls\": \"owner\",\n            \"repo.releases\": \"none\",\n            \"repo.wiki\": \"admin\"\n          }\n        },\n        {\n          \"can_create_org_repo\": true,\n          \"description\": \"string\",\n          \"id\": 8232,\n          \"includes_all_repositories\": true,\n          \"name\": \"string\",\n          \"organization\": {\n            \"avatar_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"email\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"full_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"location\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"repo_admin_change_team_access\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"username\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"visibility\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"website\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"permission\": \"read\",\n          \"units\": [\n            \"repo.code\",\n            \"repo.issues\",\n            \"repo.ext_issues\",\n            \"repo.wiki\",\n            \"repo.pulls\",\n            \"repo.releases\",\n            \"repo.projects\",\n            \"repo.ext_wiki\"\n          ],\n          \"units_map\": {\n            \"repo.code\": \"read\",\n            \"repo.ext_issues\": \"none\",\n            \"repo.ext_wiki\": \"none\",\n            \"repo.issues\": \"write\",\n            \"repo.projects\": \"none\",\n            \"repo.pulls\": \"owner\",\n            \"repo.releases\": \"none\",\n            \"repo.wiki\": \"admin\"\n          }\n        }\n      ]\n    },\n    \"size\": 5382,\n    \"ssh_url\": \"string\",\n    \"stars_count\": 5333,\n    \"template\": true,\n    \"topics\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"2017-11-01T22:26:00.541Z\",\n    \"url\": \"string\",\n    \"watchers_count\": 9743,\n    \"website\": \"string\"\n  },\n  \"subject\": {\n    \"html_url\": \"string\",\n    \"latest_comment_html_url\": \"string\",\n    \"latest_comment_url\": \"string\",\n    \"state\": \"closed\",\n    \"title\": \"string\",\n    \"type\": \"Commit\",\n    \"url\": \"string\"\n  },\n  \"unread\": true,\n  \"updated_at\": \"1957-05-09T09:14:02.551Z\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd2e4ed4-067c-415b-b461-d9edd4508e98",
+              "name": "APIForbiddenError is a forbidden error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to-status",
+                      "value": "read"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "message",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "222dd1e9-ea6b-423b-b039-5900c9b7297d",
+              "name": "APINotFound is a not found empty response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "threads",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "to-status",
+                      "value": "read"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) id of notification thread"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5086dfa1-9557-4de8-8b20-452236a7efa3",
+          "name": "List users's notification threads on a specific repo",
+          "request": {
+            "name": "List users's notification threads on a specific repo",
+            "description": {},
+            "url": {
+              "path": [
+                "repos",
+                ":owner",
+                ":repo",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<boolean>",
+                  "description": "If true, show notifications marked as read. Default value is false"
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned"
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Show notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread & pinned"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject-type",
+                  "value": "<string>",
+                  "description": "filter notifications by subject type"
+                },
+                {
+                  "disabled": false,
+                  "key": "subject-type",
+                  "value": "<string>",
+                  "description": "filter notifications by subject type"
+                },
+                {
+                  "disabled": false,
+                  "key": "since",
+                  "value": "<dateTime>",
+                  "description": "Only show notifications updated after the given time. This is a timestamp in RFC 3339 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Only show notifications updated before the given time. This is a timestamp in RFC 3339 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "page number of results to return (1-based)"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "page size of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner",
+                  "description": "(Required) owner of the repo"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo",
+                  "description": "(Required) name of the repo"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "960a2cec-3237-4a90-a9a9-d53b431d6e4c",
+              "name": "NotificationThreadList",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subject-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subject-type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner",
+                      "description": "(Required) owner of the repo"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) name of the repo"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2006,\n    \"pinned\": false,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": true,\n      \"allow_manual_merge\": false,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": true,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": true,\n      \"archived\": false,\n      \"archived_at\": \"1982-10-16T23:29:42.929Z\",\n      \"autodetect_manual_merge\": true,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 3667,\n      \"clone_url\": \"string\",\n      \"created_at\": \"1975-08-02T19:51:33.301Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": false,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": true,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 4389,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": false,\n      \"has_packages\": false,\n      \"has_projects\": true,\n      \"has_pull_requests\": true,\n      \"has_releases\": true,\n      \"has_wiki\": true,\n      \"html_url\": \"string\",\n      \"id\": 9773,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": true,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": true,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1973-08-03T04:25:14.240Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha1\",\n      \"open_issues_count\": 6822,\n      \"open_pr_counter\": 4050,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": false,\n        \"avatar_url\": \"string\",\n        \"created\": \"1953-07-20T16:15:53.415Z\",\n        \"description\": \"string\",\n        \"email\": \"Z7DOir9S76@WHmfAeAmHLXjZZVdntvMSUQYgJAUbpSA.xhf\",\n        \"followers_count\": 191,\n        \"following_count\": 5779,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 5746,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"1972-11-01T08:53:55.452Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": true,\n        \"restricted\": false,\n        \"source_id\": 2207,\n        \"starred_repos_count\": 9856,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": true\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 9650,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1963-03-26T03:05:14.449Z\",\n          \"description\": \"string\",\n          \"email\": \"qD5y0zI4mzPQ8@sLHFBz.yv\",\n          \"followers_count\": 9420,\n          \"following_count\": 9754,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7489,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1958-01-08T11:19:28.147Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": false,\n          \"source_id\": 8357,\n          \"starred_repos_count\": 5043,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"1989-06-17T21:50:30.200Z\",\n          \"description\": \"string\",\n          \"email\": \"nlZMkpF@P.ob\",\n          \"followers_count\": 9196,\n          \"following_count\": 4685,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7034,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"2013-03-07T15:05:27.674Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": true,\n          \"source_id\": 7063,\n          \"starred_repos_count\": 3576,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 5618,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 6738,\n      \"template\": true,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2011-08-10T17:07:18.325Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8829,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Commit\",\n      \"url\": \"string\"\n    },\n    \"unread\": true,\n    \"updated_at\": \"1969-12-17T00:00:34.182Z\",\n    \"url\": \"string\"\n  },\n  {\n    \"id\": 5247,\n    \"pinned\": true,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": false,\n      \"allow_manual_merge\": true,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": false,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": false,\n      \"archived\": true,\n      \"archived_at\": \"2011-10-01T06:29:38.140Z\",\n      \"autodetect_manual_merge\": false,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 9114,\n      \"clone_url\": \"string\",\n      \"created_at\": \"2006-11-27T11:59:54.045Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": true,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": false,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 9367,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": true,\n      \"has_packages\": true,\n      \"has_projects\": false,\n      \"has_pull_requests\": false,\n      \"has_releases\": false,\n      \"has_wiki\": false,\n      \"html_url\": \"string\",\n      \"id\": 1470,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": false,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": false,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1988-06-08T05:57:52.774Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha256\",\n      \"open_issues_count\": 5489,\n      \"open_pr_counter\": 3260,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1994-06-12T19:08:45.249Z\",\n        \"description\": \"string\",\n        \"email\": \"OqWrVMLFB5ySyv@adwEEDSlFIp.of\",\n        \"followers_count\": 105,\n        \"following_count\": 5097,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 7100,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"2021-11-02T17:27:05.262Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": false,\n        \"source_id\": 1553,\n        \"starred_repos_count\": 6050,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": false\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 1706,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"2000-07-10T01:44:32.176Z\",\n          \"description\": \"string\",\n          \"email\": \"YpSaw1Abg@mgWKmifQpAfYkeTWhK.ja\",\n          \"followers_count\": 1036,\n          \"following_count\": 5321,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 2530,\n          \"is_admin\": true,\n          \"language\": \"string\",\n          \"last_login\": \"1966-12-26T05:26:37.783Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": true,\n          \"source_id\": 5664,\n          \"starred_repos_count\": 4407,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1991-08-07T12:59:16.864Z\",\n          \"description\": \"string\",\n          \"email\": \"Ycx5flxUOnb@qreTJJdjVWVNvCIyaJH.qve\",\n          \"followers_count\": 4608,\n          \"following_count\": 7134,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 282,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1957-11-02T02:28:00.709Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": false,\n          \"source_id\": 9163,\n          \"starred_repos_count\": 201,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 1868,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 7191,\n      \"template\": false,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2009-12-28T23:05:09.845Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8484,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Issue\",\n      \"url\": \"string\"\n    },\n    \"unread\": false,\n    \"updated_at\": \"1967-08-02T02:26:54.939Z\",\n    \"url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b42bee7-0d54-45ad-867b-724e4d753a52",
+          "name": "Mark notification threads as read, pinned or unread on a specific repo",
+          "request": {
+            "name": "Mark notification threads as read, pinned or unread on a specific repo",
+            "description": {},
+            "url": {
+              "path": [
+                "repos",
+                ":owner",
+                ":repo",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "all",
+                  "value": "<string>",
+                  "description": "If true, mark all notifications on this repo. Default value is false"
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+                },
+                {
+                  "disabled": false,
+                  "key": "status-types",
+                  "value": "<string>",
+                  "description": "Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread."
+                },
+                {
+                  "disabled": false,
+                  "key": "to-status",
+                  "value": "<string>",
+                  "description": "Status to mark notifications as. Defaults to read."
+                },
+                {
+                  "disabled": false,
+                  "key": "last_read_at",
+                  "value": "<dateTime>",
+                  "description": "Describes the last point that notifications were checked. Anything updated since this time will not be updated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner",
+                  "description": "(Required) owner of the repo"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo",
+                  "description": "(Required) name of the repo"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07a504a1-a34e-463d-8120-3bae326139a1",
+              "name": "NotificationThreadList",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "all",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status-types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to-status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "last_read_at",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner",
+                      "description": "(Required) owner of the repo"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) name of the repo"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Reset Content",
+              "code": 205,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 2006,\n    \"pinned\": false,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": true,\n      \"allow_manual_merge\": false,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": true,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": true,\n      \"archived\": false,\n      \"archived_at\": \"1982-10-16T23:29:42.929Z\",\n      \"autodetect_manual_merge\": true,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 3667,\n      \"clone_url\": \"string\",\n      \"created_at\": \"1975-08-02T19:51:33.301Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": false,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": true,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 4389,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": false,\n      \"has_packages\": false,\n      \"has_projects\": true,\n      \"has_pull_requests\": true,\n      \"has_releases\": true,\n      \"has_wiki\": true,\n      \"html_url\": \"string\",\n      \"id\": 9773,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": true,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": true,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1973-08-03T04:25:14.240Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha1\",\n      \"open_issues_count\": 6822,\n      \"open_pr_counter\": 4050,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": false,\n        \"avatar_url\": \"string\",\n        \"created\": \"1953-07-20T16:15:53.415Z\",\n        \"description\": \"string\",\n        \"email\": \"Z7DOir9S76@WHmfAeAmHLXjZZVdntvMSUQYgJAUbpSA.xhf\",\n        \"followers_count\": 191,\n        \"following_count\": 5779,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 5746,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"1972-11-01T08:53:55.452Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": true,\n        \"restricted\": false,\n        \"source_id\": 2207,\n        \"starred_repos_count\": 9856,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": true\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 9650,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1963-03-26T03:05:14.449Z\",\n          \"description\": \"string\",\n          \"email\": \"qD5y0zI4mzPQ8@sLHFBz.yv\",\n          \"followers_count\": 9420,\n          \"following_count\": 9754,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7489,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1958-01-08T11:19:28.147Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": false,\n          \"source_id\": 8357,\n          \"starred_repos_count\": 5043,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"1989-06-17T21:50:30.200Z\",\n          \"description\": \"string\",\n          \"email\": \"nlZMkpF@P.ob\",\n          \"followers_count\": 9196,\n          \"following_count\": 4685,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 7034,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"2013-03-07T15:05:27.674Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": true,\n          \"source_id\": 7063,\n          \"starred_repos_count\": 3576,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 5618,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 6738,\n      \"template\": true,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2011-08-10T17:07:18.325Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8829,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Commit\",\n      \"url\": \"string\"\n    },\n    \"unread\": true,\n    \"updated_at\": \"1969-12-17T00:00:34.182Z\",\n    \"url\": \"string\"\n  },\n  {\n    \"id\": 5247,\n    \"pinned\": true,\n    \"repository\": {\n      \"allow_fast_forward_only_merge\": false,\n      \"allow_manual_merge\": true,\n      \"allow_merge_commits\": false,\n      \"allow_rebase\": false,\n      \"allow_rebase_explicit\": false,\n      \"allow_rebase_update\": true,\n      \"allow_squash_merge\": false,\n      \"archived\": true,\n      \"archived_at\": \"2011-10-01T06:29:38.140Z\",\n      \"autodetect_manual_merge\": false,\n      \"avatar_url\": \"string\",\n      \"branch_count\": 9114,\n      \"clone_url\": \"string\",\n      \"created_at\": \"2006-11-27T11:59:54.045Z\",\n      \"default_allow_maintainer_edit\": false,\n      \"default_branch\": \"string\",\n      \"default_delete_branch_after_merge\": true,\n      \"default_merge_style\": \"string\",\n      \"default_target_branch\": \"string\",\n      \"description\": \"string\",\n      \"empty\": false,\n      \"external_tracker\": {\n        \"external_tracker_format\": \"string\",\n        \"external_tracker_regexp_pattern\": \"string\",\n        \"external_tracker_style\": \"string\",\n        \"external_tracker_url\": \"string\"\n      },\n      \"external_wiki\": {\n        \"external_wiki_url\": \"string\"\n      },\n      \"fork\": false,\n      \"forks_count\": 9367,\n      \"full_name\": \"string\",\n      \"has_actions\": false,\n      \"has_code\": false,\n      \"has_issues\": true,\n      \"has_packages\": true,\n      \"has_projects\": false,\n      \"has_pull_requests\": false,\n      \"has_releases\": false,\n      \"has_wiki\": false,\n      \"html_url\": \"string\",\n      \"id\": 1470,\n      \"ignore_whitespace_conflicts\": false,\n      \"internal\": false,\n      \"internal_tracker\": {\n        \"allow_only_contributors_to_track_time\": false,\n        \"enable_issue_dependencies\": true,\n        \"enable_time_tracker\": true\n      },\n      \"language\": \"string\",\n      \"languages_url\": \"string\",\n      \"licenses\": [\n        \"string\",\n        \"string\"\n      ],\n      \"link\": \"string\",\n      \"mirror\": false,\n      \"mirror_interval\": \"string\",\n      \"mirror_updated\": \"1988-06-08T05:57:52.774Z\",\n      \"name\": \"string\",\n      \"object_format_name\": \"sha256\",\n      \"open_issues_count\": 5489,\n      \"open_pr_counter\": 3260,\n      \"original_url\": \"string\",\n      \"owner\": {\n        \"active\": true,\n        \"avatar_url\": \"string\",\n        \"created\": \"1994-06-12T19:08:45.249Z\",\n        \"description\": \"string\",\n        \"email\": \"OqWrVMLFB5ySyv@adwEEDSlFIp.of\",\n        \"followers_count\": 105,\n        \"following_count\": 5097,\n        \"full_name\": \"string\",\n        \"html_url\": \"string\",\n        \"id\": 7100,\n        \"is_admin\": false,\n        \"language\": \"string\",\n        \"last_login\": \"2021-11-02T17:27:05.262Z\",\n        \"location\": \"string\",\n        \"login\": \"string\",\n        \"login_name\": \"empty\",\n        \"prohibit_login\": false,\n        \"restricted\": false,\n        \"source_id\": 1553,\n        \"starred_repos_count\": 6050,\n        \"visibility\": \"string\",\n        \"website\": \"string\"\n      },\n      \"parent\": {\n        \"value\": \"<Circular reference to #/components/schemas/Repository detected>\"\n      },\n      \"permissions\": {\n        \"admin\": true,\n        \"pull\": true,\n        \"push\": false\n      },\n      \"private\": true,\n      \"projects_mode\": \"string\",\n      \"release_counter\": 1706,\n      \"repo_transfer\": {\n        \"doer\": {\n          \"active\": false,\n          \"avatar_url\": \"string\",\n          \"created\": \"2000-07-10T01:44:32.176Z\",\n          \"description\": \"string\",\n          \"email\": \"YpSaw1Abg@mgWKmifQpAfYkeTWhK.ja\",\n          \"followers_count\": 1036,\n          \"following_count\": 5321,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 2530,\n          \"is_admin\": true,\n          \"language\": \"string\",\n          \"last_login\": \"1966-12-26T05:26:37.783Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": true,\n          \"restricted\": true,\n          \"source_id\": 5664,\n          \"starred_repos_count\": 4407,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"recipient\": {\n          \"active\": true,\n          \"avatar_url\": \"string\",\n          \"created\": \"1991-08-07T12:59:16.864Z\",\n          \"description\": \"string\",\n          \"email\": \"Ycx5flxUOnb@qreTJJdjVWVNvCIyaJH.qve\",\n          \"followers_count\": 4608,\n          \"following_count\": 7134,\n          \"full_name\": \"string\",\n          \"html_url\": \"string\",\n          \"id\": 282,\n          \"is_admin\": false,\n          \"language\": \"string\",\n          \"last_login\": \"1957-11-02T02:28:00.709Z\",\n          \"location\": \"string\",\n          \"login\": \"string\",\n          \"login_name\": \"empty\",\n          \"prohibit_login\": false,\n          \"restricted\": false,\n          \"source_id\": 9163,\n          \"starred_repos_count\": 201,\n          \"visibility\": \"string\",\n          \"website\": \"string\"\n        },\n        \"teams\": [\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"can_create_org_repo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"includes_all_repositories\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"organization\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permission\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"units_map\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"size\": 1868,\n      \"ssh_url\": \"string\",\n      \"stars_count\": 7191,\n      \"template\": false,\n      \"topics\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2009-12-28T23:05:09.845Z\",\n      \"url\": \"string\",\n      \"watchers_count\": 8484,\n      \"website\": \"string\"\n    },\n    \"subject\": {\n      \"html_url\": \"string\",\n      \"latest_comment_html_url\": \"string\",\n      \"latest_comment_url\": \"string\",\n      \"state\": \"open\",\n      \"title\": \"string\",\n      \"type\": \"Issue\",\n      \"url\": \"string\"\n    },\n    \"unread\": false,\n    \"updated_at\": \"1967-08-02T02:26:54.939Z\",\n    \"url\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "949059b1-941b-4991-b645-83a644f0fd4b",
+    "name": "Gitea admin notification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This documentation describes the Gitea API.",
+      "type": "text/plain"
+    }
+  }
+}

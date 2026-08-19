@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin miscellaneous API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "miscellaneous",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a list of all gitignore templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gitignore/templates"
+          },
+          "docs": "Returns a list of all gitignore templates"
+        },
+        {
+          "info": {
+            "name": "Returns information about a gitignore template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/gitignore/templates/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the template"
+              }
+            ]
+          },
+          "docs": "Returns information about a gitignore template"
+        },
+        {
+          "info": {
+            "name": "Returns a list of all label templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/label/templates"
+          },
+          "docs": "Returns a list of all label templates"
+        },
+        {
+          "info": {
+            "name": "Returns all labels in a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/label/templates/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the template"
+              }
+            ]
+          },
+          "docs": "Returns all labels in a template"
+        },
+        {
+          "info": {
+            "name": "Returns a list of all license templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/licenses"
+          },
+          "docs": "Returns a list of all license templates"
+        },
+        {
+          "info": {
+            "name": "Returns information about a license template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/licenses/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "name of the license"
+              }
+            ]
+          },
+          "docs": "Returns information about a license template"
+        },
+        {
+          "info": {
+            "name": "Render a markdown document as HTML",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/markdown"
+          },
+          "docs": "Render a markdown document as HTML"
+        },
+        {
+          "info": {
+            "name": "Render raw markdown as HTML",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/markdown/raw"
+          },
+          "docs": "Render raw markdown as HTML"
+        },
+        {
+          "info": {
+            "name": "Render a markup document as HTML",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/markup"
+          },
+          "docs": "Render a markup document as HTML"
+        },
+        {
+          "info": {
+            "name": "Get default signing-key.gpg",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/signing-key.gpg"
+          },
+          "docs": "Get default signing-key.gpg"
+        },
+        {
+          "info": {
+            "name": "Get default signing-key.pub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/signing-key.pub"
+          },
+          "docs": "Get default signing-key.pub"
+        },
+        {
+          "info": {
+            "name": "Returns the version of the Gitea application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/version"
+          },
+          "docs": "Returns the version of the Gitea application"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

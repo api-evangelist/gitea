@@ -1,0 +1,800 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/actions/jobs",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Lists all jobs"
+        },
+        {
+          "info": {
+            "name": "Get all runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/actions/runners",
+            "params": [
+              {
+                "name": "disabled",
+                "value": "",
+                "type": "query",
+                "description": "filter by disabled status (true or false)"
+              }
+            ]
+          },
+          "docs": "Get all runners"
+        },
+        {
+          "info": {
+            "name": "Get a global actions runner registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/actions/runners/registration-token"
+          },
+          "docs": "Get a global actions runner registration token"
+        },
+        {
+          "info": {
+            "name": "Get a global runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Get a global runner"
+        },
+        {
+          "info": {
+            "name": "Update a global runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/admin/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Update a global runner"
+        },
+        {
+          "info": {
+            "name": "Delete a global runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Delete a global runner"
+        },
+        {
+          "info": {
+            "name": "Lists all runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/actions/runs",
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "workflow event name"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "workflow branch"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "actor",
+                "value": "",
+                "type": "query",
+                "description": "triggered by user"
+              },
+              {
+                "name": "head_sha",
+                "value": "",
+                "type": "query",
+                "description": "triggering sha of the workflow run"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Lists all runs"
+        },
+        {
+          "info": {
+            "name": "List cron tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/cron",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List cron tasks"
+        },
+        {
+          "info": {
+            "name": "Run cron task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/cron/:task",
+            "params": [
+              {
+                "name": "task",
+                "value": "",
+                "type": "path",
+                "description": "task to run"
+              }
+            ]
+          },
+          "docs": "Run cron task"
+        },
+        {
+          "info": {
+            "name": "List all emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/emails",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List all emails"
+        },
+        {
+          "info": {
+            "name": "Search all emails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/emails/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "keyword"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Search all emails"
+        },
+        {
+          "info": {
+            "name": "List system's webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/hooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "system, default or both kinds of webhooks"
+              }
+            ]
+          },
+          "docs": "List system's webhooks"
+        },
+        {
+          "info": {
+            "name": "Create a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/hooks"
+          },
+          "docs": "Create a hook"
+        },
+        {
+          "info": {
+            "name": "Get a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to get"
+              }
+            ]
+          },
+          "docs": "Get a hook"
+        },
+        {
+          "info": {
+            "name": "Update a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/admin/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to update"
+              }
+            ]
+          },
+          "docs": "Update a hook"
+        },
+        {
+          "info": {
+            "name": "Delete a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to delete"
+              }
+            ]
+          },
+          "docs": "Delete a hook"
+        },
+        {
+          "info": {
+            "name": "List all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/orgs",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List all organizations"
+        },
+        {
+          "info": {
+            "name": "List unadopted repositories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/unadopted",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "pattern",
+                "value": "",
+                "type": "query",
+                "description": "pattern of repositories to search for"
+              }
+            ]
+          },
+          "docs": "List unadopted repositories"
+        },
+        {
+          "info": {
+            "name": "Adopt unadopted files as a repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/unadopted/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Adopt unadopted files as a repository"
+        },
+        {
+          "info": {
+            "name": "Delete unadopted files",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/unadopted/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Delete unadopted files"
+        },
+        {
+          "info": {
+            "name": "Search users according filter conditions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/users",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user's login source to search for"
+              },
+              {
+                "name": "login_name",
+                "value": "",
+                "type": "query",
+                "description": "identifier of the user, provided by the external authenticator"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "sort users by attribute. Supported values are \"name\", \"created\", \"updated\" and \"id\". Default is \"name\""
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "sort order, either \"asc\" (ascending) or \"desc\" (descending). Default is \"asc\", ignored if \"sort\" is not specified."
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "search term (username, full name, email)"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "visibility filter. Supported values are \"public\", \"limited\" and \"private\"."
+              },
+              {
+                "name": "is_active",
+                "value": "",
+                "type": "query",
+                "description": "filter active users"
+              },
+              {
+                "name": "is_admin",
+                "value": "",
+                "type": "query",
+                "description": "filter admin users"
+              },
+              {
+                "name": "is_restricted",
+                "value": "",
+                "type": "query",
+                "description": "filter restricted users"
+              },
+              {
+                "name": "is_2fa_enabled",
+                "value": "",
+                "type": "query",
+                "description": "filter 2FA enabled users"
+              },
+              {
+                "name": "is_prohibit_login",
+                "value": "",
+                "type": "query",
+                "description": "filter login prohibited users"
+              }
+            ]
+          },
+          "docs": "Search users according filter conditions"
+        },
+        {
+          "info": {
+            "name": "Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users"
+          },
+          "docs": "Create a user"
+        },
+        {
+          "info": {
+            "name": "Edit an existing user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/admin/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose data is to be edited"
+              }
+            ]
+          },
+          "docs": "Edit an existing user"
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to delete"
+              },
+              {
+                "name": "purge",
+                "value": "",
+                "type": "query",
+                "description": "purge the user from the system completely"
+              }
+            ]
+          },
+          "docs": "Delete a user"
+        },
+        {
+          "info": {
+            "name": "List a user's badges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/admin/users/:username/badges",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose badges are to be listed"
+              }
+            ]
+          },
+          "docs": "List a user's badges"
+        },
+        {
+          "info": {
+            "name": "Add a badge to a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users/:username/badges",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to whom a badge is to be added"
+              }
+            ]
+          },
+          "docs": "Add a badge to a user"
+        },
+        {
+          "info": {
+            "name": "Remove a badge from a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/users/:username/badges",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose badge is to be deleted"
+              }
+            ]
+          },
+          "docs": "Remove a badge from a user"
+        },
+        {
+          "info": {
+            "name": "Add a public key on behalf of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users/:username/keys",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user who is to receive a public key"
+              }
+            ]
+          },
+          "docs": "Add a public key on behalf of a user"
+        },
+        {
+          "info": {
+            "name": "Delete a user's public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/admin/users/:username/keys/:id",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose public key is to be deleted"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the key to delete"
+              }
+            ]
+          },
+          "docs": "Delete a user's public key"
+        },
+        {
+          "info": {
+            "name": "Create an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users/:username/orgs",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user who will own the created organization"
+              }
+            ]
+          },
+          "docs": "Create an organization"
+        },
+        {
+          "info": {
+            "name": "Rename a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users/:username/rename",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "current username of the user"
+              }
+            ]
+          },
+          "docs": "Rename a user"
+        },
+        {
+          "info": {
+            "name": "Create a repository on behalf of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/admin/users/:username/repos",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user who will own the created repository"
+              }
+            ]
+          },
+          "docs": "Create a repository on behalf of a user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1664 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gitea admin user API",
+    "version": "1.27.0+dev-89-gf52b6f3315"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user"
+          },
+          "docs": "Get the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Get workflow jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/jobs",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get workflow jobs"
+        },
+        {
+          "info": {
+            "name": "Get user-level runners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/runners",
+            "params": [
+              {
+                "name": "disabled",
+                "value": "",
+                "type": "query",
+                "description": "filter by disabled status (true or false)"
+              }
+            ]
+          },
+          "docs": "Get user-level runners"
+        },
+        {
+          "info": {
+            "name": "Get a user's actions runner registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/actions/runners/registration-token"
+          },
+          "docs": "Get a user's actions runner registration token"
+        },
+        {
+          "info": {
+            "name": "Get a user-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Get a user-level runner"
+        },
+        {
+          "info": {
+            "name": "Update a user-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/user/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Update a user-level runner"
+        },
+        {
+          "info": {
+            "name": "Delete a user-level runner",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/actions/runners/:runner_id",
+            "params": [
+              {
+                "name": "runner_id",
+                "value": "",
+                "type": "path",
+                "description": "id of the runner"
+              }
+            ]
+          },
+          "docs": "Delete a user-level runner"
+        },
+        {
+          "info": {
+            "name": "Get workflow runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/runs",
+            "params": [
+              {
+                "name": "event",
+                "value": "",
+                "type": "query",
+                "description": "workflow event name"
+              },
+              {
+                "name": "branch",
+                "value": "",
+                "type": "query",
+                "description": "workflow branch"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "workflow status (pending, queued, in_progress, failure, success, skipped)"
+              },
+              {
+                "name": "actor",
+                "value": "",
+                "type": "query",
+                "description": "triggered by user"
+              },
+              {
+                "name": "head_sha",
+                "value": "",
+                "type": "query",
+                "description": "triggering sha of the workflow run"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get workflow runs"
+        },
+        {
+          "info": {
+            "name": "Create or Update a secret value in a user scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/actions/secrets/:secretname",
+            "params": [
+              {
+                "name": "secretname",
+                "value": "",
+                "type": "path",
+                "description": "name of the secret"
+              }
+            ]
+          },
+          "docs": "Create or Update a secret value in a user scope"
+        },
+        {
+          "info": {
+            "name": "Delete a secret in a user scope",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/actions/secrets/:secretname",
+            "params": [
+              {
+                "name": "secretname",
+                "value": "",
+                "type": "path",
+                "description": "name of the secret"
+              }
+            ]
+          },
+          "docs": "Delete a secret in a user scope"
+        },
+        {
+          "info": {
+            "name": "Get the user-level list of variables which is created by current doer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/variables",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get the user-level list of variables which is created by current doer"
+        },
+        {
+          "info": {
+            "name": "Get a user-level variable which is created by current doer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Get a user-level variable which is created by current doer"
+        },
+        {
+          "info": {
+            "name": "Create a user-level variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Create a user-level variable"
+        },
+        {
+          "info": {
+            "name": "Update a user-level variable which is created by current doer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Update a user-level variable which is created by current doer"
+        },
+        {
+          "info": {
+            "name": "Delete a user-level variable which is created by current doer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/actions/variables/:variablename",
+            "params": [
+              {
+                "name": "variablename",
+                "value": "",
+                "type": "path",
+                "description": "name of the variable"
+              }
+            ]
+          },
+          "docs": "Delete a user-level variable which is created by current doer"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's oauth2 applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/applications/oauth2",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's oauth2 applications"
+        },
+        {
+          "info": {
+            "name": "creates a new OAuth2 application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/applications/oauth2"
+          },
+          "docs": "creates a new OAuth2 application"
+        },
+        {
+          "info": {
+            "name": "get an OAuth2 Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/applications/oauth2/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Application ID to be found"
+              }
+            ]
+          },
+          "docs": "get an OAuth2 Application"
+        },
+        {
+          "info": {
+            "name": "update an OAuth2 Application, this includes regenerating the client secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/user/applications/oauth2/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "application to be updated"
+              }
+            ]
+          },
+          "docs": "update an OAuth2 Application, this includes regenerating the client secret"
+        },
+        {
+          "info": {
+            "name": "delete an OAuth2 Application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/applications/oauth2/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "token to be deleted"
+              }
+            ]
+          },
+          "docs": "delete an OAuth2 Application"
+        },
+        {
+          "info": {
+            "name": "Update Avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/avatar"
+          },
+          "docs": "Update Avatar"
+        },
+        {
+          "info": {
+            "name": "Delete Avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/avatar"
+          },
+          "docs": "Delete Avatar"
+        },
+        {
+          "info": {
+            "name": "List users blocked by the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/blocks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List users blocked by the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Check if a user is blocked by the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/blocks/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to check"
+              }
+            ]
+          },
+          "docs": "Check if a user is blocked by the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Block a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/blocks/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to block"
+              },
+              {
+                "name": "note",
+                "value": "",
+                "type": "query",
+                "description": "optional note for the block"
+              }
+            ]
+          },
+          "docs": "Block a user"
+        },
+        {
+          "info": {
+            "name": "Unblock a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/blocks/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to unblock"
+              }
+            ]
+          },
+          "docs": "Unblock a user"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/emails"
+          },
+          "docs": "List the authenticated user's email addresses"
+        },
+        {
+          "info": {
+            "name": "Add email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/emails"
+          },
+          "docs": "Add email addresses"
+        },
+        {
+          "info": {
+            "name": "Delete email addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/emails"
+          },
+          "docs": "Delete email addresses"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's followers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/followers",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's followers"
+        },
+        {
+          "info": {
+            "name": "List the users that the authenticated user is following",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/following",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the users that the authenticated user is following"
+        },
+        {
+          "info": {
+            "name": "Check whether a user is followed by the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/following/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to check for authenticated followers"
+              }
+            ]
+          },
+          "docs": "Check whether a user is followed by the authenticated user"
+        },
+        {
+          "info": {
+            "name": "Follow a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/following/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to follow"
+              }
+            ]
+          },
+          "docs": "Follow a user"
+        },
+        {
+          "info": {
+            "name": "Unfollow a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/following/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user to unfollow"
+              }
+            ]
+          },
+          "docs": "Unfollow a user"
+        },
+        {
+          "info": {
+            "name": "Get a Token to verify",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/gpg_key_token"
+          },
+          "docs": "Get a Token to verify"
+        },
+        {
+          "info": {
+            "name": "Verify a GPG key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/gpg_key_verify"
+          },
+          "docs": "Verify a GPG key"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's GPG keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/gpg_keys",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's GPG keys"
+        },
+        {
+          "info": {
+            "name": "Create a GPG key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/gpg_keys"
+          },
+          "docs": "Create a GPG key"
+        },
+        {
+          "info": {
+            "name": "Get a GPG key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/gpg_keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of key to get"
+              }
+            ]
+          },
+          "docs": "Get a GPG key"
+        },
+        {
+          "info": {
+            "name": "Remove a GPG key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/gpg_keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of key to delete"
+              }
+            ]
+          },
+          "docs": "Remove a GPG key"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/hooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's webhooks"
+        },
+        {
+          "info": {
+            "name": "Create a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/hooks"
+          },
+          "docs": "Create a hook"
+        },
+        {
+          "info": {
+            "name": "Get a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to get"
+              }
+            ]
+          },
+          "docs": "Get a hook"
+        },
+        {
+          "info": {
+            "name": "Update a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/user/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to update"
+              }
+            ]
+          },
+          "docs": "Update a hook"
+        },
+        {
+          "info": {
+            "name": "Delete a hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of the hook to delete"
+              }
+            ]
+          },
+          "docs": "Delete a hook"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's public keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/keys",
+            "params": [
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "query",
+                "description": "fingerprint of the key"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's public keys"
+        },
+        {
+          "info": {
+            "name": "Create a public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/keys"
+          },
+          "docs": "Create a public key"
+        },
+        {
+          "info": {
+            "name": "Get a public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of key to get"
+              }
+            ]
+          },
+          "docs": "Get a public key"
+        },
+        {
+          "info": {
+            "name": "Delete a public key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "id of key to delete"
+              }
+            ]
+          },
+          "docs": "Delete a public key"
+        },
+        {
+          "info": {
+            "name": "List the repos that the authenticated user owns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/repos",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the repos that the authenticated user owns"
+        },
+        {
+          "info": {
+            "name": "Create a repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/user/repos"
+          },
+          "docs": "Create a repository"
+        },
+        {
+          "info": {
+            "name": "Get user settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/settings"
+          },
+          "docs": "Get user settings"
+        },
+        {
+          "info": {
+            "name": "Update user settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/user/settings"
+          },
+          "docs": "Update user settings"
+        },
+        {
+          "info": {
+            "name": "The repos that the authenticated user has starred",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/starred",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "The repos that the authenticated user has starred"
+        },
+        {
+          "info": {
+            "name": "Whether the authenticated is starring the repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/starred/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo"
+              }
+            ]
+          },
+          "docs": "Whether the authenticated is starring the repo"
+        },
+        {
+          "info": {
+            "name": "Star the given repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/user/starred/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo to star"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo to star"
+              }
+            ]
+          },
+          "docs": "Star the given repo"
+        },
+        {
+          "info": {
+            "name": "Unstar the given repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/user/starred/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "owner of the repo to unstar"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "name of the repo to unstar"
+              }
+            ]
+          },
+          "docs": "Unstar the given repo"
+        },
+        {
+          "info": {
+            "name": "Get list of all existing stopwatches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/stopwatches",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Get list of all existing stopwatches"
+        },
+        {
+          "info": {
+            "name": "List repositories watched by the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/subscriptions",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List repositories watched by the authenticated user"
+        },
+        {
+          "info": {
+            "name": "List all the teams a user belongs to",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/teams",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List all the teams a user belongs to"
+        },
+        {
+          "info": {
+            "name": "List the current user's tracked times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/user/times",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "Only show times updated after the given time. This is a timestamp in RFC 3339 format"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Only show times updated before the given time. This is a timestamp in RFC 3339 format"
+              }
+            ]
+          },
+          "docs": "List the current user's tracked times"
+        },
+        {
+          "info": {
+            "name": "Search for users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "keyword"
+              },
+              {
+                "name": "uid",
+                "value": "",
+                "type": "query",
+                "description": "ID of the user to search for"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "Search for users"
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose data is to be listed"
+              }
+            ]
+          },
+          "docs": "Get a user"
+        },
+        {
+          "info": {
+            "name": "List a user's activity feeds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/activities/feeds",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose activity feeds are to be listed"
+              },
+              {
+                "name": "only-performed-by",
+                "value": "",
+                "type": "query",
+                "description": "if true, only show actions performed by the requested user"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "the date of the activities to be found"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List a user's activity feeds"
+        },
+        {
+          "info": {
+            "name": "List the given user's followers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/followers",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose followers are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the given user's followers"
+        },
+        {
+          "info": {
+            "name": "List the users that the given user is following",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/following",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose followed users are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the users that the given user is following"
+        },
+        {
+          "info": {
+            "name": "Check if one user is following another user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/following/:target",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the following user"
+              },
+              {
+                "name": "target",
+                "value": "",
+                "type": "path",
+                "description": "username of the followed user"
+              }
+            ]
+          },
+          "docs": "Check if one user is following another user"
+        },
+        {
+          "info": {
+            "name": "List the given user's GPG keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/gpg_keys",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose GPG key list is to be obtained"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the given user's GPG keys"
+        },
+        {
+          "info": {
+            "name": "Get a user's heatmap",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/heatmap",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose heatmap is to be obtained"
+              }
+            ]
+          },
+          "docs": "Get a user's heatmap"
+        },
+        {
+          "info": {
+            "name": "List the given user's public keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/keys",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose public keys are to be listed"
+              },
+              {
+                "name": "fingerprint",
+                "value": "",
+                "type": "query",
+                "description": "fingerprint of the key"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the given user's public keys"
+        },
+        {
+          "info": {
+            "name": "List the repos owned by the given user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/repos",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose owned repos are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the repos owned by the given user"
+        },
+        {
+          "info": {
+            "name": "The repos that the given user has starred",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/starred",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose starred repos are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "The repos that the given user has starred"
+        },
+        {
+          "info": {
+            "name": "List the repositories watched by a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/subscriptions",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose watched repos are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the repositories watched by a user"
+        },
+        {
+          "info": {
+            "name": "List the authenticated user's access tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:username/tokens",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of to user whose access tokens are to be listed"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "page number of results to return (1-based)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "page size of results"
+              }
+            ]
+          },
+          "docs": "List the authenticated user's access tokens"
+        },
+        {
+          "info": {
+            "name": "Create an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/:username/tokens",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose token is to be created"
+              }
+            ]
+          },
+          "docs": "Create an access token"
+        },
+        {
+          "info": {
+            "name": "delete an access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/:username/tokens/:token",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "username of the user whose token is to be deleted"
+              },
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "token to be deleted, identified by ID and if not available by name"
+              }
+            ]
+          },
+          "docs": "delete an access token"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
