@@ -28,6 +28,17 @@ tags:
   - DevOps
   - CI/CD
   - Code Hosting
+  - Open-Source
+  - Self-Hosted
+  - Package Registry
+  - Issue Tracking
+  - Pull Requests
+tags_raw:
+  - Git
+  - Source Control
+  - DevOps
+  - CI/CD
+  - Code Hosting
   - Open Source
   - Self Hosted
   - Package Registry
@@ -88,6 +99,10 @@ apis:
 - aid: gitea:gitea-webhooks
   name: Gitea Webhooks
   tags:
+  - Webhook
+  - Event
+  - Eventing
+  tags_raw:
   - Webhooks
   - Events
   - Eventing
@@ -127,6 +142,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -257,6 +274,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Issue
+  tags_raw:
   - issue
   properties:
   - type: OpenAPI
@@ -386,7 +405,8 @@ apis:
   description: The miscellaneous API from Gitea — 12 operation(s) for miscellaneous.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - miscellaneous
   properties:
   - type: OpenAPI
@@ -517,6 +537,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Notification
+  tags_raw:
   - notification
   properties:
   - type: OpenAPI
@@ -647,6 +669,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Organization
+  tags_raw:
   - organization
   properties:
   - type: OpenAPI
@@ -777,6 +801,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Package
+  tags_raw:
   - package
   properties:
   - type: OpenAPI
@@ -907,6 +933,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Repository
+  tags_raw:
   - repository
   properties:
   - type: OpenAPI
@@ -1037,6 +1065,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - Settings
+  tags_raw:
   - settings
   properties:
   - type: OpenAPI
@@ -1167,6 +1197,8 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
