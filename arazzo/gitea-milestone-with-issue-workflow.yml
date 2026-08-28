@@ -10,8 +10,8 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: giteaApi
-  url: ../openapi/gitea-rest-api-openapi.yml
+- name: issueApi
+  url: ../openapi/gitea-issue-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: milestone-with-issue

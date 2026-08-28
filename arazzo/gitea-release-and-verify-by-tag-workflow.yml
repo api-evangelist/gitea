@@ -10,8 +10,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: giteaApi
-  url: ../openapi/gitea-rest-api-openapi.yml
+- name: repositoryApi
+  url: ../openapi/gitea-repository-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: release-and-verify-by-tag

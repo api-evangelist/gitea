@@ -10,8 +10,8 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: giteaApi
-  url: ../openapi/gitea-rest-api-openapi.yml
+- name: organizationApi
+  url: ../openapi/gitea-organization-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: org-with-webhook
