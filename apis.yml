@@ -288,7 +288,7 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
-  - Issue
+  - issue
   tags_raw:
   - issue
   properties:
@@ -947,7 +947,7 @@ apis:
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
   tags:
-  - Repository
+  - repository
   tags_raw:
   - repository
   properties:
