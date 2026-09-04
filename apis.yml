@@ -26,13 +26,15 @@ accessModel:
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - scopes
+  - security
+  generated: '2026-09-03'
   method: derived
 created: '2026-05-06'
 modified: '2026-06-20'
 type: Index
 access: 3rd-Party
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gitea.png
 kind: opensource
