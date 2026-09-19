@@ -39,6 +39,7 @@ specificationVersion: '0.23'
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gitea.png
 kind: opensource
 tags:
+  - Gitea
   - Git
   - Source Control
   - DevOps
