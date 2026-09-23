@@ -1,11 +1,11 @@
 generated: '2026-06-20'
 method: searched
 host: https://gitea.com
-note: >-
-  Probed against the public gitea.com flagship instance. Every self-hosted Gitea
-  instance serves the same /.well-known surface. security.txt is Gitea-generated
-  and points at the project SECURITY.md.
-documents:
+note: Probed against the public gitea.com flagship instance. Every self-hosted Gitea instance serves the
+  same /.well-known surface. security.txt is Gitea-generated and points at the project SECURITY.md.
+hosts:
+- host: https://gitea.com
+  documents:
   - path: /.well-known/security.txt
     status: 200
     file: gitea-security.txt
@@ -13,9 +13,14 @@ documents:
     status: 200
     file: gitea-openid-configuration.json
   - path: /.well-known/oauth-authorization-server
-    status: 000
+    status: 0
     note: not served (no dedicated RFC 8414 endpoint; use openid-configuration)
   - path: /.well-known/api-catalog
     status: 404
   - path: /.well-known/ai-plugin.json
     status: 404
+x-shape-fix:
+  converted: '2026-08-20'
+  from: documents
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent.

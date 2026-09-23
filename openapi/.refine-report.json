@@ -1,15 +1,7 @@
 {
   "provider": "gitea",
   "sources": [
-    "gitea-admin-api-openapi.yml",
-    "gitea-issue-api-openapi.yml",
-    "gitea-miscellaneous-api-openapi.yml",
-    "gitea-notification-api-openapi.yml",
-    "gitea-organization-api-openapi.yml",
-    "gitea-package-api-openapi.yml",
-    "gitea-repository-api-openapi.yml",
-    "gitea-settings-api-openapi.yml",
-    "gitea-user-api-openapi.yml"
+    "_original/gitea-rest-api-openapi-original.yml"
   ],
   "outputs": [
     "gitea-admin-api-openapi.yml",
@@ -25,6 +17,31 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "gitea-rest-api-openapi-original.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: admin",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: issue",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: miscellaneous",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: notification",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: organization",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: package",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: repository",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: settings",
+    "gitea-rest-api-openapi-original.yml: declared missing tag: user",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/gitea-rest-api-openapi.yml: archived document superseded by a larger archived document",
+    "gitea-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-issue-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-miscellaneous-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-notification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-package-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-repository-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "gitea-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
