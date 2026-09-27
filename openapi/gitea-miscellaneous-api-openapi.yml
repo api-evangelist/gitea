@@ -186,81 +186,32 @@ paths:
         '200':
           $ref: '#/components/responses/ServerVersion'
 components:
-  responses:
-    ServerVersion:
-      description: ServerVersion
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerVersion'
-    LicenseTemplateInfo:
-      description: LicenseTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LicenseTemplateInfo'
-    MarkupRender:
-      description: MarkupRender is a rendered markup document
-      content:
-        application/json:
-          schema:
-            type: string
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GitignoreTemplateInfo'
-    LicenseTemplateList:
-      description: LicenseTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LicensesTemplateListEntry'
-    LabelTemplateInfo:
-      description: LabelTemplateInfo
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LabelTemplate'
-    MarkdownRender:
-      description: MarkdownRender is a rendered markdown document
-      content:
-        application/json:
-          schema:
-            type: string
-    GitignoreTemplateList:
-      description: GitignoreTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    validationError:
-      description: APIValidationError is error format response related to input validation
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    LabelTemplateList:
-      description: LabelTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    notFound:
-      description: APINotFound is a not found empty response
   schemas:
+    LicenseTemplateInfo:
+      description: LicensesInfo contains information about a License
+      type: object
+      properties:
+        body:
+          description: Body contains the full text of the license
+          type: string
+          x-go-name: Body
+        implementation:
+          description: Implementation contains license implementation details
+          type: string
+          x-go-name: Implementation
+        key:
+          description: Key is the unique identifier for the license template
+          type: string
+          x-go-name: Key
+        name:
+          description: Name is the display name of the license
+          type: string
+          x-go-name: Name
+        url:
+          description: URL is the reference URL for the license
+          type: string
+          x-go-name: URL
+      x-go-package: code.gitea.io/gitea/modules/structs
     MarkupOption:
       description: MarkupOption markup options
       type: object
@@ -299,6 +250,19 @@ components:
 
             in: body'
           type: boolean
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo name and text of a gitignore template
+      type: object
+      properties:
+        name:
+          description: Name is the name of the gitignore template
+          type: string
+          x-go-name: Name
+        source:
+          description: Source contains the content of the gitignore template
+          type: string
+          x-go-name: Source
       x-go-package: code.gitea.io/gitea/modules/structs
     MarkdownOption:
       description: MarkdownOption markdown options
@@ -350,18 +314,14 @@ components:
           type: string
           x-go-name: URL
       x-go-package: code.gitea.io/gitea/modules/structs
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo name and text of a gitignore template
+    ServerVersion:
+      description: ServerVersion wraps the version of the server
       type: object
       properties:
-        name:
-          description: Name is the name of the gitignore template
+        version:
+          description: Version is the server version string
           type: string
-          x-go-name: Name
-        source:
-          description: Source contains the content of the gitignore template
-          type: string
-          x-go-name: Source
+          x-go-name: Version
       x-go-package: code.gitea.io/gitea/modules/structs
     LabelTemplate:
       description: LabelTemplate info of a Label template
@@ -384,40 +344,80 @@ components:
           type: string
           x-go-name: Name
       x-go-package: code.gitea.io/gitea/modules/structs
-    LicenseTemplateInfo:
-      description: LicensesInfo contains information about a License
-      type: object
-      properties:
-        body:
-          description: Body contains the full text of the license
-          type: string
-          x-go-name: Body
-        implementation:
-          description: Implementation contains license implementation details
-          type: string
-          x-go-name: Implementation
-        key:
-          description: Key is the unique identifier for the license template
-          type: string
-          x-go-name: Key
-        name:
-          description: Name is the display name of the license
-          type: string
-          x-go-name: Name
+  responses:
+    validationError:
+      description: APIValidationError is error format response related to input validation
+      headers:
+        message:
+          schema:
+            type: string
         url:
-          description: URL is the reference URL for the license
-          type: string
-          x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
+          schema:
+            type: string
+    GitignoreTemplateList:
+      description: GitignoreTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    notFound:
+      description: APINotFound is a not found empty response
+    LabelTemplateInfo:
+      description: LabelTemplateInfo
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LabelTemplate'
+    LicenseTemplateList:
+      description: LicenseTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LicensesTemplateListEntry'
+    LabelTemplateList:
+      description: LabelTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    MarkupRender:
+      description: MarkupRender is a rendered markup document
+      content:
+        application/json:
+          schema:
+            type: string
     ServerVersion:
-      description: ServerVersion wraps the version of the server
-      type: object
-      properties:
-        version:
-          description: Version is the server version string
-          type: string
-          x-go-name: Version
-      x-go-package: code.gitea.io/gitea/modules/structs
+      description: ServerVersion
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerVersion'
+    MarkdownRender:
+      description: MarkdownRender is a rendered markdown document
+      content:
+        application/json:
+          schema:
+            type: string
+    LicenseTemplateInfo:
+      description: LicenseTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LicenseTemplateInfo'
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitignoreTemplateInfo'
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.

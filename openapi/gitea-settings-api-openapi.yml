@@ -57,18 +57,6 @@ paths:
           $ref: '#/components/responses/GeneralUISettings'
 components:
   responses:
-    GeneralRepoSettings:
-      description: GeneralRepoSettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralRepoSettings'
-    GeneralUISettings:
-      description: GeneralUISettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralUISettings'
     GeneralAPISettings:
       description: GeneralAPISettings
       content:
@@ -81,80 +69,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralAttachmentSettings'
-  schemas:
-    GeneralAttachmentSettings:
-      description: GeneralAttachmentSettings contains global Attachment settings exposed by API
-      type: object
-      properties:
-        allowed_types:
-          description: AllowedTypes contains the allowed file types for attachments
-          type: string
-          x-go-name: AllowedTypes
-        enabled:
-          description: Enabled indicates if file attachments are enabled
-          type: boolean
-          x-go-name: Enabled
-        max_files:
-          description: MaxFiles is the maximum number of files per attachment
-          type: integer
-          format: int64
-          x-go-name: MaxFiles
-        max_size:
-          description: MaxSize is the maximum size for individual attachments
-          type: integer
-          format: int64
-          x-go-name: MaxSize
-      x-go-package: code.gitea.io/gitea/modules/structs
-    GeneralRepoSettings:
-      description: GeneralRepoSettings contains global repository settings exposed by API
-      type: object
-      properties:
-        http_git_disabled:
-          description: HTTPGitDisabled indicates if HTTP Git operations are disabled
-          type: boolean
-          x-go-name: HTTPGitDisabled
-        lfs_disabled:
-          description: LFSDisabled indicates if Git LFS support is disabled
-          type: boolean
-          x-go-name: LFSDisabled
-        migrations_disabled:
-          description: MigrationsDisabled indicates if repository migrations are disabled
-          type: boolean
-          x-go-name: MigrationsDisabled
-        mirrors_disabled:
-          description: MirrorsDisabled indicates if repository mirroring is disabled
-          type: boolean
-          x-go-name: MirrorsDisabled
-        stars_disabled:
-          description: StarsDisabled indicates if repository starring is disabled
-          type: boolean
-          x-go-name: StarsDisabled
-        time_tracking_disabled:
-          description: TimeTrackingDisabled indicates if time tracking is disabled
-          type: boolean
-          x-go-name: TimeTrackingDisabled
-      x-go-package: code.gitea.io/gitea/modules/structs
     GeneralUISettings:
-      description: GeneralUISettings contains global ui settings exposed by API
-      type: object
-      properties:
-        allowed_reactions:
-          description: AllowedReactions contains the list of allowed emoji reactions
-          type: array
-          items:
-            type: string
-          x-go-name: AllowedReactions
-        custom_emojis:
-          description: CustomEmojis contains the list of custom emojis
-          type: array
-          items:
-            type: string
-          x-go-name: CustomEmojis
-        default_theme:
-          description: DefaultTheme is the default UI theme
-          type: string
-          x-go-name: DefaultTheme
-      x-go-package: code.gitea.io/gitea/modules/structs
+      description: GeneralUISettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralUISettings'
+    GeneralRepoSettings:
+      description: GeneralRepoSettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralRepoSettings'
+  schemas:
     GeneralAPISettings:
       description: GeneralAPISettings contains global api settings exposed by it
       type: object
@@ -184,6 +111,79 @@ components:
           type: integer
           format: int64
           x-go-name: MaxResponseItems
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GeneralAttachmentSettings:
+      description: GeneralAttachmentSettings contains global Attachment settings exposed by API
+      type: object
+      properties:
+        allowed_types:
+          description: AllowedTypes contains the allowed file types for attachments
+          type: string
+          x-go-name: AllowedTypes
+        enabled:
+          description: Enabled indicates if file attachments are enabled
+          type: boolean
+          x-go-name: Enabled
+        max_files:
+          description: MaxFiles is the maximum number of files per attachment
+          type: integer
+          format: int64
+          x-go-name: MaxFiles
+        max_size:
+          description: MaxSize is the maximum size for individual attachments
+          type: integer
+          format: int64
+          x-go-name: MaxSize
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GeneralUISettings:
+      description: GeneralUISettings contains global ui settings exposed by API
+      type: object
+      properties:
+        allowed_reactions:
+          description: AllowedReactions contains the list of allowed emoji reactions
+          type: array
+          items:
+            type: string
+          x-go-name: AllowedReactions
+        custom_emojis:
+          description: CustomEmojis contains the list of custom emojis
+          type: array
+          items:
+            type: string
+          x-go-name: CustomEmojis
+        default_theme:
+          description: DefaultTheme is the default UI theme
+          type: string
+          x-go-name: DefaultTheme
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GeneralRepoSettings:
+      description: GeneralRepoSettings contains global repository settings exposed by API
+      type: object
+      properties:
+        http_git_disabled:
+          description: HTTPGitDisabled indicates if HTTP Git operations are disabled
+          type: boolean
+          x-go-name: HTTPGitDisabled
+        lfs_disabled:
+          description: LFSDisabled indicates if Git LFS support is disabled
+          type: boolean
+          x-go-name: LFSDisabled
+        migrations_disabled:
+          description: MigrationsDisabled indicates if repository migrations are disabled
+          type: boolean
+          x-go-name: MigrationsDisabled
+        mirrors_disabled:
+          description: MirrorsDisabled indicates if repository mirroring is disabled
+          type: boolean
+          x-go-name: MirrorsDisabled
+        stars_disabled:
+          description: StarsDisabled indicates if repository starring is disabled
+          type: boolean
+          x-go-name: StarsDisabled
+        time_tracking_disabled:
+          description: TimeTrackingDisabled indicates if time tracking is disabled
+          type: boolean
+          x-go-name: TimeTrackingDisabled
       x-go-package: code.gitea.io/gitea/modules/structs
   securitySchemes:
     AccessToken:

@@ -45,7 +45,7 @@ tags:
   - DevOps
   - CI/CD
   - Code Hosting
-  - Open-Source
+  - Open Source
   - Self-Hosted
   - Package Registry
   - Issue Tracking
@@ -62,6 +62,7 @@ tags_raw:
   - Package Registry
   - Issue Tracking
   - Pull Requests
+  - Open-Source
 description: >-
   Gitea is an open-source, self-hosted Git service and all-in-one DevOps platform written in Go and licensed under the
   MIT License. It provides Git hosting, code review, team collaboration, an integrated package registry across 24+
@@ -155,7 +156,7 @@ apis:
     not currently publish a separate machine-readable OpenAPI definition; provisioning is performed via
     the cloud.gitea.com web console.
 - aid: gitea:gitea-admin-api
-  name: Gitea admin API
+  name: Gitea Admin API
   description: The admin API from Gitea — 22 operation(s) for admin.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -287,7 +288,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-issue-api
-  name: Gitea issue API
+  name: Gitea Issue API
   description: The issue API from Gitea — 34 operation(s) for issue.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -419,7 +420,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-miscellaneous-api
-  name: Gitea miscellaneous API
+  name: Gitea Miscellaneous API
   description: The miscellaneous API from Gitea — 12 operation(s) for miscellaneous.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -550,7 +551,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-notification-api
-  name: Gitea notification API
+  name: Gitea Notification API
   description: The notification API from Gitea — 4 operation(s) for notification.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -682,7 +683,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-organization-api
-  name: Gitea organization API
+  name: Gitea Organization API
   description: The organization API from Gitea — 37 operation(s) for organization.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -814,7 +815,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-package-api
-  name: Gitea package API
+  name: Gitea Package API
   description: The package API from Gitea — 7 operation(s) for package.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -946,7 +947,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-repository-api
-  name: Gitea repository API
+  name: Gitea Repository API
   description: The repository API from Gitea — 133 operation(s) for repository.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -1078,7 +1079,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-settings-api
-  name: Gitea settings API
+  name: Gitea Settings API
   description: The settings API from Gitea — 4 operation(s) for settings.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1
@@ -1210,7 +1211,7 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 - aid: gitea:gitea-user-api
-  name: Gitea user API
+  name: Gitea User API
   description: The user API from Gitea — 48 operation(s) for user.
   humanURL: https://docs.gitea.com/api/
   baseURL: https://gitea.com/api/v1

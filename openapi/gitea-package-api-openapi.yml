@@ -354,41 +354,101 @@ paths:
           $ref: '#/components/responses/notFound'
 components:
   schemas:
-    Package:
-      description: Package represents a package
+    ExternalWiki:
+      description: ExternalWiki represents setting for external wiki
       type: object
       properties:
-        created_at:
+        external_wiki_url:
+          description: URL of external wiki.
           type: string
-          format: date-time
-          x-go-name: CreatedAt
-        creator:
-          $ref: '#/components/schemas/User'
-        html_url:
-          description: The HTML URL to view the package
-          type: string
-          x-go-name: HTMLURL
+          x-go-name: ExternalWikiURL
+      x-go-package: code.gitea.io/gitea/modules/structs
+    PackageFile:
+      description: PackageFile represents a package file
+      type: object
+      properties:
         id:
-          description: The unique identifier of the package
+          description: The unique identifier of the package file
           type: integer
           format: int64
           x-go-name: ID
+        md5:
+          description: The MD5 hash of the package file
+          type: string
+          x-go-name: HashMD5
         name:
-          description: The name of the package
+          description: The name of the package file
           type: string
           x-go-name: Name
-        owner:
-          $ref: '#/components/schemas/User'
-        repository:
-          $ref: '#/components/schemas/Repository'
-        type:
-          description: The type of the package (e.g., npm, maven, docker)
+        sha1:
+          description: The SHA1 hash of the package file
           type: string
-          x-go-name: Type
-        version:
-          description: The version of the package
+          x-go-name: HashSHA1
+        sha256:
+          description: The SHA256 hash of the package file
           type: string
-          x-go-name: Version
+          x-go-name: HashSHA256
+        sha512:
+          description: The SHA512 hash of the package file
+          type: string
+          x-go-name: HashSHA512
+        size:
+          description: The size of the package file in bytes
+          type: integer
+          format: int64
+          x-go-name: Size
+      x-go-package: code.gitea.io/gitea/modules/structs
+    Organization:
+      description: Organization represents an organization
+      type: object
+      properties:
+        avatar_url:
+          description: The URL of the organization's avatar
+          type: string
+          x-go-name: AvatarURL
+        description:
+          description: The description of the organization
+          type: string
+          x-go-name: Description
+        email:
+          description: The email address of the organization
+          type: string
+          x-go-name: Email
+        full_name:
+          description: The full display name of the organization
+          type: string
+          x-go-name: FullName
+        id:
+          description: The unique identifier of the organization
+          type: integer
+          format: int64
+          x-go-name: ID
+        location:
+          description: The location of the organization
+          type: string
+          x-go-name: Location
+        name:
+          description: The name of the organization
+          type: string
+          x-go-name: Name
+        repo_admin_change_team_access:
+          description: Whether repository administrators can change team access
+          type: boolean
+          x-go-name: RepoAdminChangeTeamAccess
+        username:
+          description: 'username of the organization
+
+            deprecated'
+          type: string
+          x-go-name: UserName
+        visibility:
+          description: The visibility level of the organization (public, limited, private)
+          type: string
+          x-go-name: Visibility
+        website:
+          description: The website URL of the organization
+          type: string
+          x-go-name: Website
       x-go-package: code.gitea.io/gitea/modules/structs
     Team:
       description: Team represents a team in an organization
@@ -469,22 +529,19 @@ components:
           type: boolean
           x-go-name: Push
       x-go-package: code.gitea.io/gitea/modules/structs
-    InternalTracker:
-      description: InternalTracker represents settings for internal tracker
+    RepoTransfer:
+      description: RepoTransfer represents a pending repo transfer
       type: object
       properties:
-        allow_only_contributors_to_track_time:
-          description: Let only contributors track time (Built-in issue tracker)
-          type: boolean
-          x-go-name: AllowOnlyContributorsToTrackTime
-        enable_issue_dependencies:
-          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableIssueDependencies
-        enable_time_tracker:
-          description: Enable time tracking (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableTimeTracker
+        doer:
+          $ref: '#/components/schemas/User'
+        recipient:
+          $ref: '#/components/schemas/User'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          x-go-name: Teams
       x-go-package: code.gitea.io/gitea/modules/structs
     Repository:
       description: Repository represents a repository
@@ -706,136 +763,58 @@ components:
           type: string
           x-go-name: Website
       x-go-package: code.gitea.io/gitea/modules/structs
-    RepoTransfer:
-      description: RepoTransfer represents a pending repo transfer
+    Package:
+      description: Package represents a package
       type: object
       properties:
-        doer:
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
+        creator:
           $ref: '#/components/schemas/User'
-        recipient:
-          $ref: '#/components/schemas/User'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          x-go-name: Teams
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ExternalTracker:
-      description: ExternalTracker represents settings for external tracker
-      type: object
-      properties:
-        external_tracker_format:
-          description: External Issue Tracker URL Format. Use the placeholders {user}, {repo} and {index} for the username, repository name and issue index.
+        html_url:
+          description: The HTML URL to view the package
           type: string
-          x-go-name: ExternalTrackerFormat
-        external_tracker_regexp_pattern:
-          description: External Issue Tracker issue regular expression
-          type: string
-          x-go-name: ExternalTrackerRegexpPattern
-        external_tracker_style:
-          description: External Issue Tracker Number Format, either `numeric`, `alphanumeric`, or `regexp`
-          type: string
-          x-go-name: ExternalTrackerStyle
-        external_tracker_url:
-          description: URL of external issue tracker.
-          type: string
-          x-go-name: ExternalTrackerURL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ExternalWiki:
-      description: ExternalWiki represents setting for external wiki
-      type: object
-      properties:
-        external_wiki_url:
-          description: URL of external wiki.
-          type: string
-          x-go-name: ExternalWikiURL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Organization:
-      description: Organization represents an organization
-      type: object
-      properties:
-        avatar_url:
-          description: The URL of the organization's avatar
-          type: string
-          x-go-name: AvatarURL
-        description:
-          description: The description of the organization
-          type: string
-          x-go-name: Description
-        email:
-          description: The email address of the organization
-          type: string
-          x-go-name: Email
-        full_name:
-          description: The full display name of the organization
-          type: string
-          x-go-name: FullName
+          x-go-name: HTMLURL
         id:
-          description: The unique identifier of the organization
+          description: The unique identifier of the package
           type: integer
           format: int64
           x-go-name: ID
-        location:
-          description: The location of the organization
-          type: string
-          x-go-name: Location
         name:
-          description: The name of the organization
+          description: The name of the package
           type: string
           x-go-name: Name
-        repo_admin_change_team_access:
-          description: Whether repository administrators can change team access
+        owner:
+          $ref: '#/components/schemas/User'
+        repository:
+          $ref: '#/components/schemas/Repository'
+        type:
+          description: The type of the package (e.g., npm, maven, docker)
+          type: string
+          x-go-name: Type
+        version:
+          description: The version of the package
+          type: string
+          x-go-name: Version
+      x-go-package: code.gitea.io/gitea/modules/structs
+    InternalTracker:
+      description: InternalTracker represents settings for internal tracker
+      type: object
+      properties:
+        allow_only_contributors_to_track_time:
+          description: Let only contributors track time (Built-in issue tracker)
           type: boolean
-          x-go-name: RepoAdminChangeTeamAccess
-        username:
-          description: 'username of the organization
-
-            deprecated'
-          type: string
-          x-go-name: UserName
-        visibility:
-          description: The visibility level of the organization (public, limited, private)
-          type: string
-          x-go-name: Visibility
-        website:
-          description: The website URL of the organization
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    PackageFile:
-      description: PackageFile represents a package file
-      type: object
-      properties:
-        id:
-          description: The unique identifier of the package file
-          type: integer
-          format: int64
-          x-go-name: ID
-        md5:
-          description: The MD5 hash of the package file
-          type: string
-          x-go-name: HashMD5
-        name:
-          description: The name of the package file
-          type: string
-          x-go-name: Name
-        sha1:
-          description: The SHA1 hash of the package file
-          type: string
-          x-go-name: HashSHA1
-        sha256:
-          description: The SHA256 hash of the package file
-          type: string
-          x-go-name: HashSHA256
-        sha512:
-          description: The SHA512 hash of the package file
-          type: string
-          x-go-name: HashSHA512
-        size:
-          description: The size of the package file in bytes
-          type: integer
-          format: int64
-          x-go-name: Size
+          x-go-name: AllowOnlyContributorsToTrackTime
+        enable_issue_dependencies:
+          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableIssueDependencies
+        enable_time_tracker:
+          description: Enable time tracking (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableTimeTracker
       x-go-package: code.gitea.io/gitea/modules/structs
     User:
       description: User represents a user
@@ -934,17 +913,28 @@ components:
           type: string
           x-go-name: Website
       x-go-package: code.gitea.io/gitea/modules/structs
+    ExternalTracker:
+      description: ExternalTracker represents settings for external tracker
+      type: object
+      properties:
+        external_tracker_format:
+          description: External Issue Tracker URL Format. Use the placeholders {user}, {repo} and {index} for the username, repository name and issue index.
+          type: string
+          x-go-name: ExternalTrackerFormat
+        external_tracker_regexp_pattern:
+          description: External Issue Tracker issue regular expression
+          type: string
+          x-go-name: ExternalTrackerRegexpPattern
+        external_tracker_style:
+          description: External Issue Tracker Number Format, either `numeric`, `alphanumeric`, or `regexp`
+          type: string
+          x-go-name: ExternalTrackerStyle
+        external_tracker_url:
+          description: URL of external issue tracker.
+          type: string
+          x-go-name: ExternalTrackerURL
+      x-go-package: code.gitea.io/gitea/modules/structs
   responses:
-    PackageFileList:
-      description: PackageFileList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/PackageFile'
-    empty:
-      description: APIEmpty is an empty response
     PackageList:
       description: PackageList
       content:
@@ -953,14 +943,24 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Package'
+    notFound:
+      description: APINotFound is a not found empty response
+    empty:
+      description: APIEmpty is an empty response
+    PackageFileList:
+      description: PackageFileList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PackageFile'
     Package:
       description: Package
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Package'
-    notFound:
-      description: APINotFound is a not found empty response
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
