@@ -69,48 +69,39 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralAttachmentSettings'
-    GeneralUISettings:
-      description: GeneralUISettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralUISettings'
     GeneralRepoSettings:
       description: GeneralRepoSettings
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralRepoSettings'
+    GeneralUISettings:
+      description: GeneralUISettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralUISettings'
   schemas:
-    GeneralAPISettings:
-      description: GeneralAPISettings contains global api settings exposed by it
+    GeneralUISettings:
+      description: GeneralUISettings contains global ui settings exposed by API
       type: object
       properties:
-        default_git_trees_per_page:
-          description: DefaultGitTreesPerPage is the default number of Git tree items per page
-          type: integer
-          format: int64
-          x-go-name: DefaultGitTreesPerPage
-        default_max_blob_size:
-          description: DefaultMaxBlobSize is the default maximum blob size for API responses
-          type: integer
-          format: int64
-          x-go-name: DefaultMaxBlobSize
-        default_max_response_size:
-          description: DefaultMaxResponseSize is the default maximum response size
-          type: integer
-          format: int64
-          x-go-name: DefaultMaxResponseSize
-        default_paging_num:
-          description: DefaultPagingNum is the default number of items per page
-          type: integer
-          format: int64
-          x-go-name: DefaultPagingNum
-        max_response_items:
-          description: MaxResponseItems is the maximum number of items returned in API responses
-          type: integer
-          format: int64
-          x-go-name: MaxResponseItems
+        allowed_reactions:
+          description: AllowedReactions contains the list of allowed emoji reactions
+          type: array
+          items:
+            type: string
+          x-go-name: AllowedReactions
+        custom_emojis:
+          description: CustomEmojis contains the list of custom emojis
+          type: array
+          items:
+            type: string
+          x-go-name: CustomEmojis
+        default_theme:
+          description: DefaultTheme is the default UI theme
+          type: string
+          x-go-name: DefaultTheme
       x-go-package: code.gitea.io/gitea/modules/structs
     GeneralAttachmentSettings:
       description: GeneralAttachmentSettings contains global Attachment settings exposed by API
@@ -134,27 +125,6 @@ components:
           type: integer
           format: int64
           x-go-name: MaxSize
-      x-go-package: code.gitea.io/gitea/modules/structs
-    GeneralUISettings:
-      description: GeneralUISettings contains global ui settings exposed by API
-      type: object
-      properties:
-        allowed_reactions:
-          description: AllowedReactions contains the list of allowed emoji reactions
-          type: array
-          items:
-            type: string
-          x-go-name: AllowedReactions
-        custom_emojis:
-          description: CustomEmojis contains the list of custom emojis
-          type: array
-          items:
-            type: string
-          x-go-name: CustomEmojis
-        default_theme:
-          description: DefaultTheme is the default UI theme
-          type: string
-          x-go-name: DefaultTheme
       x-go-package: code.gitea.io/gitea/modules/structs
     GeneralRepoSettings:
       description: GeneralRepoSettings contains global repository settings exposed by API
@@ -184,6 +154,36 @@ components:
           description: TimeTrackingDisabled indicates if time tracking is disabled
           type: boolean
           x-go-name: TimeTrackingDisabled
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GeneralAPISettings:
+      description: GeneralAPISettings contains global api settings exposed by it
+      type: object
+      properties:
+        default_git_trees_per_page:
+          description: DefaultGitTreesPerPage is the default number of Git tree items per page
+          type: integer
+          format: int64
+          x-go-name: DefaultGitTreesPerPage
+        default_max_blob_size:
+          description: DefaultMaxBlobSize is the default maximum blob size for API responses
+          type: integer
+          format: int64
+          x-go-name: DefaultMaxBlobSize
+        default_max_response_size:
+          description: DefaultMaxResponseSize is the default maximum response size
+          type: integer
+          format: int64
+          x-go-name: DefaultMaxResponseSize
+        default_paging_num:
+          description: DefaultPagingNum is the default number of items per page
+          type: integer
+          format: int64
+          x-go-name: DefaultPagingNum
+        max_response_items:
+          description: MaxResponseItems is the maximum number of items returned in API responses
+          type: integer
+          format: int64
+          x-go-name: MaxResponseItems
       x-go-package: code.gitea.io/gitea/modules/structs
   securitySchemes:
     AccessToken:

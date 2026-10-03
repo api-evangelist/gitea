@@ -186,7 +186,128 @@ paths:
         '200':
           $ref: '#/components/responses/ServerVersion'
 components:
+  responses:
+    MarkdownRender:
+      description: MarkdownRender is a rendered markdown document
+      content:
+        application/json:
+          schema:
+            type: string
+    validationError:
+      description: APIValidationError is error format response related to input validation
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    GitignoreTemplateList:
+      description: GitignoreTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    LabelTemplateInfo:
+      description: LabelTemplateInfo
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LabelTemplate'
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitignoreTemplateInfo'
+    notFound:
+      description: APINotFound is a not found empty response
+    ServerVersion:
+      description: ServerVersion
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerVersion'
+    LabelTemplateList:
+      description: LabelTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    LicenseTemplateList:
+      description: LicenseTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LicensesTemplateListEntry'
+    LicenseTemplateInfo:
+      description: LicenseTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LicenseTemplateInfo'
+    MarkupRender:
+      description: MarkupRender is a rendered markup document
+      content:
+        application/json:
+          schema:
+            type: string
   schemas:
+    ServerVersion:
+      description: ServerVersion wraps the version of the server
+      type: object
+      properties:
+        version:
+          description: Version is the server version string
+          type: string
+          x-go-name: Version
+      x-go-package: code.gitea.io/gitea/modules/structs
+    LicensesTemplateListEntry:
+      description: LicensesListEntry is used for the API
+      type: object
+      properties:
+        key:
+          description: Key is the unique identifier for the license template
+          type: string
+          x-go-name: Key
+        name:
+          description: Name is the display name of the license
+          type: string
+          x-go-name: Name
+        url:
+          description: URL is the reference URL for the license
+          type: string
+          x-go-name: URL
+      x-go-package: code.gitea.io/gitea/modules/structs
+    LabelTemplate:
+      description: LabelTemplate info of a Label template
+      type: object
+      properties:
+        color:
+          type: string
+          x-go-name: Color
+          example: 00aabb
+        description:
+          description: Description provides additional context about the label template's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
+          type: boolean
+          x-go-name: Exclusive
+          example: false
+        name:
+          description: Name is the display name of the label template
+          type: string
+          x-go-name: Name
+      x-go-package: code.gitea.io/gitea/modules/structs
     LicenseTemplateInfo:
       description: LicensesInfo contains information about a License
       type: object
@@ -297,127 +418,6 @@ components:
             in: body'
           type: boolean
       x-go-package: code.gitea.io/gitea/modules/structs
-    LicensesTemplateListEntry:
-      description: LicensesListEntry is used for the API
-      type: object
-      properties:
-        key:
-          description: Key is the unique identifier for the license template
-          type: string
-          x-go-name: Key
-        name:
-          description: Name is the display name of the license
-          type: string
-          x-go-name: Name
-        url:
-          description: URL is the reference URL for the license
-          type: string
-          x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ServerVersion:
-      description: ServerVersion wraps the version of the server
-      type: object
-      properties:
-        version:
-          description: Version is the server version string
-          type: string
-          x-go-name: Version
-      x-go-package: code.gitea.io/gitea/modules/structs
-    LabelTemplate:
-      description: LabelTemplate info of a Label template
-      type: object
-      properties:
-        color:
-          type: string
-          x-go-name: Color
-          example: 00aabb
-        description:
-          description: Description provides additional context about the label template's purpose
-          type: string
-          x-go-name: Description
-        exclusive:
-          type: boolean
-          x-go-name: Exclusive
-          example: false
-        name:
-          description: Name is the display name of the label template
-          type: string
-          x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-  responses:
-    validationError:
-      description: APIValidationError is error format response related to input validation
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    GitignoreTemplateList:
-      description: GitignoreTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    notFound:
-      description: APINotFound is a not found empty response
-    LabelTemplateInfo:
-      description: LabelTemplateInfo
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LabelTemplate'
-    LicenseTemplateList:
-      description: LicenseTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LicensesTemplateListEntry'
-    LabelTemplateList:
-      description: LabelTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    MarkupRender:
-      description: MarkupRender is a rendered markup document
-      content:
-        application/json:
-          schema:
-            type: string
-    ServerVersion:
-      description: ServerVersion
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerVersion'
-    MarkdownRender:
-      description: MarkdownRender is a rendered markdown document
-      content:
-        application/json:
-          schema:
-            type: string
-    LicenseTemplateInfo:
-      description: LicenseTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LicenseTemplateInfo'
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GitignoreTemplateInfo'
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
