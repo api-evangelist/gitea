@@ -57,52 +57,31 @@ paths:
           $ref: '#/components/responses/GeneralUISettings'
 components:
   responses:
-    GeneralAPISettings:
-      description: GeneralAPISettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralAPISettings'
-    GeneralAttachmentSettings:
-      description: GeneralAttachmentSettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralAttachmentSettings'
     GeneralRepoSettings:
       description: GeneralRepoSettings
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralRepoSettings'
+    GeneralAPISettings:
+      description: GeneralAPISettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralAPISettings'
     GeneralUISettings:
       description: GeneralUISettings
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralUISettings'
+    GeneralAttachmentSettings:
+      description: GeneralAttachmentSettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralAttachmentSettings'
   schemas:
-    GeneralUISettings:
-      description: GeneralUISettings contains global ui settings exposed by API
-      type: object
-      properties:
-        allowed_reactions:
-          description: AllowedReactions contains the list of allowed emoji reactions
-          type: array
-          items:
-            type: string
-          x-go-name: AllowedReactions
-        custom_emojis:
-          description: CustomEmojis contains the list of custom emojis
-          type: array
-          items:
-            type: string
-          x-go-name: CustomEmojis
-        default_theme:
-          description: DefaultTheme is the default UI theme
-          type: string
-          x-go-name: DefaultTheme
-      x-go-package: code.gitea.io/gitea/modules/structs
     GeneralAttachmentSettings:
       description: GeneralAttachmentSettings contains global Attachment settings exposed by API
       type: object
@@ -184,6 +163,27 @@ components:
           type: integer
           format: int64
           x-go-name: MaxResponseItems
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GeneralUISettings:
+      description: GeneralUISettings contains global ui settings exposed by API
+      type: object
+      properties:
+        allowed_reactions:
+          description: AllowedReactions contains the list of allowed emoji reactions
+          type: array
+          items:
+            type: string
+          x-go-name: AllowedReactions
+        custom_emojis:
+          description: CustomEmojis contains the list of custom emojis
+          type: array
+          items:
+            type: string
+          x-go-name: CustomEmojis
+        default_theme:
+          description: DefaultTheme is the default UI theme
+          type: string
+          x-go-name: DefaultTheme
       x-go-package: code.gitea.io/gitea/modules/structs
   securitySchemes:
     AccessToken:

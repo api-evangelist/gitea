@@ -187,6 +187,56 @@ paths:
           $ref: '#/components/responses/ServerVersion'
 components:
   responses:
+    MarkupRender:
+      description: MarkupRender is a rendered markup document
+      content:
+        application/json:
+          schema:
+            type: string
+    LicenseTemplateList:
+      description: LicenseTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LicensesTemplateListEntry'
+    LicenseTemplateInfo:
+      description: LicenseTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LicenseTemplateInfo'
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitignoreTemplateInfo'
+    LabelTemplateInfo:
+      description: LabelTemplateInfo
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LabelTemplate'
+    ServerVersion:
+      description: ServerVersion
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerVersion'
+    GitignoreTemplateList:
+      description: GitignoreTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    notFound:
+      description: APINotFound is a not found empty response
     MarkdownRender:
       description: MarkdownRender is a rendered markdown document
       content:
@@ -202,36 +252,6 @@ components:
         url:
           schema:
             type: string
-    GitignoreTemplateList:
-      description: GitignoreTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
-    LabelTemplateInfo:
-      description: LabelTemplateInfo
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LabelTemplate'
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GitignoreTemplateInfo'
-    notFound:
-      description: APINotFound is a not found empty response
-    ServerVersion:
-      description: ServerVersion
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerVersion'
     LabelTemplateList:
       description: LabelTemplateList
       content:
@@ -240,40 +260,52 @@ components:
             type: array
             items:
               type: string
-    LicenseTemplateList:
-      description: LicenseTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LicensesTemplateListEntry'
-    LicenseTemplateInfo:
-      description: LicenseTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LicenseTemplateInfo'
-    MarkupRender:
-      description: MarkupRender is a rendered markup document
-      content:
-        application/json:
-          schema:
-            type: string
   schemas:
-    ServerVersion:
-      description: ServerVersion wraps the version of the server
+    MarkdownOption:
+      description: MarkdownOption markdown options
       type: object
       properties:
-        version:
-          description: Version is the server version string
+        Context:
+          description: 'URL path for rendering issue, media and file links
+
+            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}
+
+
+            in: body'
           type: string
-          x-go-name: Version
+        Mode:
+          description: 'Mode to render (markdown, comment, wiki, file)
+
+
+            in: body'
+          type: string
+        Text:
+          description: 'Text markdown to render
+
+
+            in: body'
+          type: string
+        Wiki:
+          description: 'Is it a wiki page? (use mode=wiki instead)
+
+
+            Deprecated: true
+
+            in: body'
+          type: boolean
       x-go-package: code.gitea.io/gitea/modules/structs
-    LicensesTemplateListEntry:
-      description: LicensesListEntry is used for the API
+    LicenseTemplateInfo:
+      description: LicensesInfo contains information about a License
       type: object
       properties:
+        body:
+          description: Body contains the full text of the license
+          type: string
+          x-go-name: Body
+        implementation:
+          description: Implementation contains license implementation details
+          type: string
+          x-go-name: Implementation
         key:
           description: Key is the unique identifier for the license template
           type: string
@@ -308,18 +340,10 @@ components:
           type: string
           x-go-name: Name
       x-go-package: code.gitea.io/gitea/modules/structs
-    LicenseTemplateInfo:
-      description: LicensesInfo contains information about a License
+    LicensesTemplateListEntry:
+      description: LicensesListEntry is used for the API
       type: object
       properties:
-        body:
-          description: Body contains the full text of the license
-          type: string
-          x-go-name: Body
-        implementation:
-          description: Implementation contains license implementation details
-          type: string
-          x-go-name: Implementation
         key:
           description: Key is the unique identifier for the license template
           type: string
@@ -332,6 +356,28 @@ components:
           description: URL is the reference URL for the license
           type: string
           x-go-name: URL
+      x-go-package: code.gitea.io/gitea/modules/structs
+    ServerVersion:
+      description: ServerVersion wraps the version of the server
+      type: object
+      properties:
+        version:
+          description: Version is the server version string
+          type: string
+          x-go-name: Version
+      x-go-package: code.gitea.io/gitea/modules/structs
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo name and text of a gitignore template
+      type: object
+      properties:
+        name:
+          description: Name is the name of the gitignore template
+          type: string
+          x-go-name: Name
+        source:
+          description: Source contains the content of the gitignore template
+          type: string
+          x-go-name: Source
       x-go-package: code.gitea.io/gitea/modules/structs
     MarkupOption:
       description: MarkupOption markup options
@@ -359,52 +405,6 @@ components:
           type: string
         Text:
           description: 'Text markup to render
-
-
-            in: body'
-          type: string
-        Wiki:
-          description: 'Is it a wiki page? (use mode=wiki instead)
-
-
-            Deprecated: true
-
-            in: body'
-          type: boolean
-      x-go-package: code.gitea.io/gitea/modules/structs
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo name and text of a gitignore template
-      type: object
-      properties:
-        name:
-          description: Name is the name of the gitignore template
-          type: string
-          x-go-name: Name
-        source:
-          description: Source contains the content of the gitignore template
-          type: string
-          x-go-name: Source
-      x-go-package: code.gitea.io/gitea/modules/structs
-    MarkdownOption:
-      description: MarkdownOption markdown options
-      type: object
-      properties:
-        Context:
-          description: 'URL path for rendering issue, media and file links
-
-            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}
-
-
-            in: body'
-          type: string
-        Mode:
-          description: 'Mode to render (markdown, comment, wiki, file)
-
-
-            in: body'
-          type: string
-        Text:
-          description: 'Text markdown to render
 
 
             in: body'
