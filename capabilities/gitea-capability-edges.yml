@@ -1,0 +1,36 @@
+slug: gitea
+provider: Gitea
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Repository
+  spec_file: gitea-repository-api-openapi.yml
+  capability_id: BC-4200.40
+  capability_id_l1: BC-4200
+  capability_name: Software Construction Management
+  confidence: 0.85
+  evidence: GET /repos/{owner}/{repo} — "Get a repository"; schemas DismissPullReviewOptions, EditPullRequestOption,
+    EditBranchProtectionOption, CommitStats, AddCollaboratorOption
+  reason: Git repository hosting with pull requests, reviews, branch protection and collaborators is exactly
+    source control and code review practice — Software Construction Management.
+- tag: Issue
+  spec_file: gitea-issue-api-openapi.yml
+  capability_id: BC-4200
+  capability_id_l1: BC-4200
+  capability_name: Software Product Engineering Management
+  confidence: 0.75
+  evidence: POST /repos/{owner}/{repo}/issues — "Create an issue."; schemas Milestone, Label, TrackedTime,
+    EditIssueOption
+  reason: Issue tracking with labels, milestones and tracked time on a software repository platform is
+    software product engineering work management; ambiguous whether it realises backlog stewardship (BC-4200.10)
+    or defect management within quality engineering (BC-4200.50), so only the L1 is asserted.

@@ -1343,6 +1343,9 @@ apis:
   - type: CodeExamples
     url: examples/gitea-rest-api-package-example.json
 common:
+  - type: CapabilityMap
+    url: capabilities/gitea-capability-edges.yml
+    name: Gitea Business Capability Map
   - type: IssueTracker
     url: https://github.com/go-gitea/gitea/issues
   - type: Releases
