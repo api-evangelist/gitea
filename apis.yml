@@ -1632,6 +1632,8 @@ common:
           24x7 availability, and SOC 2 Type 2 certification.
       - name: Gitea Actions Runner (act_runner)
         description: Stand-alone runner agent for executing Gitea Actions workflows on customer infrastructure.
+  - type: SpectralRules
+    url: https://github.com/go-gitea/gitea/blob/76aabbff9f0644743b30882b5910d9e1d818ec2e/.spectral.yaml
 maintainers:
   - FN: Kin Lane
     email: kinlane@gmail.com
