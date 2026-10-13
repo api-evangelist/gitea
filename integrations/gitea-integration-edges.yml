@@ -1,0 +1,58 @@
+edges:
+- partner_name: Open Container Initiative
+  partner: open-container-initiative
+  partner_match: register
+  type: register
+  direction: partner-built
+  evidence: https://github.com/opencontainers/oci-conformance/tree/16097618fca61dc5d7aed970d61514aa8efad2c9/distribution-spec/v1.0/gitea
+  conformance: &id001
+    spec_versions:
+    - v1.0
+    live_ci: false
+    live_badge: null
+    newest:
+      spec_version: v1.0
+      name: Gitea Container Registry
+      vendor: Gitea
+      version: 1.22
+      tests: 59
+      failures: 0
+      errors: 0
+      skipped: 0
+      pass_rate: 1.0
+    submissions:
+    - spec_version: v1.0
+      version: 1.22
+      tests: 59
+      failures: 0
+      errors: 0
+      pass_rate: 1.0
+  detected_by: sweep-oci-conformance.py
+  first_seen: '2026-10-13'
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: github.com/opencontainers/oci-conformance
+    spec_file: null
+    role: conformance-submission
+    registered_name: Gitea Container Registry
+    register_id: gitea
+    detected_by: sweep-oci-conformance.py
+    detected: '2026-10-13'
+- partner_name: Open Container Initiative
+  partner: open-container-initiative
+  partner_match: register
+  type: register
+  direction: partner-built
+  evidence: https://github.com/opencontainers/oci-conformance/tree/16097618fca61dc5d7aed970d61514aa8efad2c9/distribution-spec/v1.0/gitea
+  conformance: *id001
+  detected_by: sweep-oci-conformance.py
+  first_seen: '2026-10-13'
+  channel: standard-directory
+  relationship: compatible
+  shape: oci-distribution
+  degree: full
+  evidence_kind: conformance-register
+  note: the OCI conformance suite was run against this registry and the result submitted to the OCI register
+generated: '2026-10-13'
+method: searched
