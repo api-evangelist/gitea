@@ -19,6 +19,6 @@
     registered_name: Gitea Container Registry
     register_id: gitea
     detected_by: sweep-oci-conformance.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
