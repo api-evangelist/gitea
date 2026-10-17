@@ -2764,234 +2764,60 @@ paths:
             schema:
               $ref: '#/components/schemas/EditMilestoneOption'
 components:
-  responses:
-    WatchInfo:
-      description: WatchInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/WatchInfo'
-    repoArchivedError:
-      description: APIRepoArchivedError is an error that is raised when an archived repo should be modified
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    Attachment:
-      description: Attachment
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Attachment'
-    empty:
-      description: APIEmpty is an empty response
-    forbidden:
-      description: APIForbiddenError is a forbidden error response
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    Label:
-      description: Label
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Label'
-    validationError:
-      description: APIValidationError is error format response related to input validation
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    error:
-      description: APIError is error format response
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    TimelineList:
-      description: TimelineList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/TimelineComment'
-    TrackedTimeList:
-      description: TrackedTimeList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/TrackedTime'
-    CommentList:
-      description: CommentList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Comment'
-    LabelList:
-      description: LabelList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-    MilestoneList:
-      description: MilestoneList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Milestone'
-    Issue:
-      description: Issue
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Issue'
-    AttachmentList:
-      description: AttachmentList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Attachment'
-    TrackedTime:
-      description: TrackedTime
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TrackedTime'
-    Milestone:
-      description: Milestone
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Milestone'
-    notFound:
-      description: APINotFound is a not found empty response
-    Comment:
-      description: Comment
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Comment'
-    UserList:
-      description: UserList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-    Reaction:
-      description: Reaction
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Reaction'
-    ReactionList:
-      description: ReactionList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Reaction'
-    IssueDeadline:
-      description: IssueDeadline
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/IssueDeadline'
-    IssueList:
-      description: IssueList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Issue'
   schemas:
-    EditAttachmentOptions:
-      description: EditAttachmentOptions options for editing attachments
+    CreateLabelOption:
+      description: CreateLabelOption options for creating a label
       type: object
+      required:
+      - name
+      - color
       properties:
+        color:
+          type: string
+          x-go-name: Color
+          example: '#00aabb'
+        description:
+          description: Description provides additional context about the label's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
+          type: boolean
+          x-go-name: Exclusive
+          example: false
+        is_archived:
+          type: boolean
+          x-go-name: IsArchived
+          example: false
         name:
-          description: Name is the new filename for the attachment
           type: string
           x-go-name: Name
       x-go-package: code.gitea.io/gitea/modules/structs
-    Organization:
-      description: Organization represents an organization
+    PullRequestMeta:
+      description: PullRequestMeta PR info if an issue is a PR
       type: object
       properties:
-        avatar_url:
-          description: The URL of the organization's avatar
-          type: string
-          x-go-name: AvatarURL
-        description:
-          description: The description of the organization
-          type: string
-          x-go-name: Description
-        email:
-          description: The email address of the organization
-          type: string
-          x-go-name: Email
-        full_name:
-          description: The full display name of the organization
-          type: string
-          x-go-name: FullName
-        id:
-          description: The unique identifier of the organization
-          type: integer
-          format: int64
-          x-go-name: ID
-        location:
-          description: The location of the organization
-          type: string
-          x-go-name: Location
-        name:
-          description: The name of the organization
-          type: string
-          x-go-name: Name
-        repo_admin_change_team_access:
-          description: Whether repository administrators can change team access
+        draft:
           type: boolean
-          x-go-name: RepoAdminChangeTeamAccess
-        username:
-          description: 'username of the organization
-
-            deprecated'
+          x-go-name: IsWorkInProgress
+        html_url:
           type: string
-          x-go-name: UserName
-        visibility:
-          description: The visibility level of the organization (public, limited, private)
+          x-go-name: HTMLURL
+        merged:
+          type: boolean
+          x-go-name: HasMerged
+        merged_at:
           type: string
-          x-go-name: Visibility
-        website:
-          description: The website URL of the organization
+          format: date-time
+          x-go-name: Merged
+      x-go-package: code.gitea.io/gitea/modules/structs
+    EditReactionOption:
+      description: EditReactionOption contain the reaction type
+      type: object
+      properties:
+        content:
+          description: The reaction content (e.g., emoji or reaction type)
           type: string
-          x-go-name: Website
+          x-go-name: Reaction
       x-go-package: code.gitea.io/gitea/modules/structs
     CreateIssueCommentOption:
       description: CreateIssueCommentOption options for creating a comment on an issue
@@ -3003,86 +2829,152 @@ components:
           type: string
           x-go-name: Body
       x-go-package: code.gitea.io/gitea/modules/structs
-    Milestone:
-      description: Milestone milestone is a collection of issues on one repository
+    TimelineComment:
+      description: TimelineComment represents a timeline comment (comment of any type) on a commit or issue
       type: object
       properties:
-        closed_at:
+        assignee:
+          $ref: '#/components/schemas/User'
+        assignee_team:
+          $ref: '#/components/schemas/Team'
+        body:
+          description: Body contains the timeline event content
           type: string
-          format: date-time
-          x-go-name: Closed
-        closed_issues:
-          description: ClosedIssues is the number of closed issues in this milestone
-          type: integer
-          format: int64
-          x-go-name: ClosedIssues
+          x-go-name: Body
         created_at:
           type: string
           format: date-time
           x-go-name: Created
-        description:
-          description: Description provides details about the milestone
+        dependent_issue:
+          $ref: '#/components/schemas/Issue'
+        html_url:
+          description: HTMLURL is the web URL for viewing the comment
           type: string
-          x-go-name: Description
-        due_on:
-          type: string
-          format: date-time
-          x-go-name: Deadline
+          x-go-name: HTMLURL
         id:
-          description: ID is the unique identifier for the milestone
+          description: ID is the unique identifier for the timeline comment
           type: integer
           format: int64
           x-go-name: ID
-        open_issues:
-          description: OpenIssues is the number of open issues in this milestone
+        issue_url:
+          description: IssueURL is the API URL for the issue
+          type: string
+          x-go-name: IssueURL
+        label:
+          $ref: '#/components/schemas/Label'
+        milestone:
+          $ref: '#/components/schemas/Milestone'
+        new_ref:
+          type: string
+          x-go-name: NewRef
+        new_title:
+          type: string
+          x-go-name: NewTitle
+        old_milestone:
+          $ref: '#/components/schemas/Milestone'
+        old_project_id:
           type: integer
           format: int64
-          x-go-name: OpenIssues
-        state:
-          description: 'State indicates if the milestone is open or closed
-
-            open StateOpen  StateOpen pr is opened
-
-            closed StateClosed  StateClosed pr is closed'
+          x-go-name: OldProjectID
+        old_ref:
           type: string
-          enum:
-          - open
-          - closed
-          x-go-enum-desc: 'open StateOpen  StateOpen pr is opened
-
-            closed StateClosed  StateClosed pr is closed'
-          x-go-name: State
-        title:
-          description: Title is the title of the milestone
+          x-go-name: OldRef
+        old_title:
           type: string
-          x-go-name: Title
+          x-go-name: OldTitle
+        project_id:
+          type: integer
+          format: int64
+          x-go-name: ProjectID
+        pull_request_url:
+          description: PRURL is the API URL for the pull request (if applicable)
+          type: string
+          x-go-name: PRURL
+        ref_action:
+          type: string
+          x-go-name: RefAction
+        ref_comment:
+          $ref: '#/components/schemas/Comment'
+        ref_commit_sha:
+          description: commit SHA where issue/PR was referenced
+          type: string
+          x-go-name: RefCommitSHA
+        ref_issue:
+          $ref: '#/components/schemas/Issue'
+        removed_assignee:
+          description: whether the assignees were removed or added
+          type: boolean
+          x-go-name: RemovedAssignee
+        resolve_doer:
+          $ref: '#/components/schemas/User'
+        review_id:
+          type: integer
+          format: int64
+          x-go-name: ReviewID
+        tracked_time:
+          $ref: '#/components/schemas/TrackedTime'
+        type:
+          description: Type indicates the type of timeline event
+          type: string
+          x-go-name: Type
         updated_at:
           type: string
           format: date-time
           x-go-name: Updated
+        user:
+          $ref: '#/components/schemas/User'
       x-go-package: code.gitea.io/gitea/modules/structs
-    CreateMilestoneOption:
-      description: CreateMilestoneOption options for creating a milestone
+    Attachment:
+      description: Attachment a generic attachment
       type: object
       properties:
-        description:
-          description: Description provides details about the milestone
+        browser_download_url:
+          description: DownloadURL is the URL to download the attachment
           type: string
-          x-go-name: Description
-        due_on:
+          x-go-name: DownloadURL
+        created_at:
           type: string
           format: date-time
-          x-go-name: Deadline
-        state:
+          x-go-name: Created
+        download_count:
+          description: DownloadCount is the number of times the attachment has been downloaded
+          type: integer
+          format: int64
+          x-go-name: DownloadCount
+        id:
+          description: ID is the unique identifier for the attachment
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
+          description: Name is the filename of the attachment
           type: string
-          enum:
-          - open
-          - closed
-          x-go-name: State
-        title:
-          description: Title is the title of the new milestone
+          x-go-name: Name
+        size:
+          description: Size is the file size in bytes
+          type: integer
+          format: int64
+          x-go-name: Size
+        uuid:
+          description: UUID is the unique identifier for the attachment file
           type: string
-          x-go-name: Title
+          x-go-name: UUID
+      x-go-package: code.gitea.io/gitea/modules/structs
+    IssueMeta:
+      description: IssueMeta basic issue information
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int64
+          x-go-name: Index
+        owner:
+          description: owner of the issue's repo
+          type: string
+          x-go-name: Owner
+        repo:
+          type: string
+          x-go-name: Name
       x-go-package: code.gitea.io/gitea/modules/structs
     Issue:
       description: Issue represents an issue in a repository
@@ -3189,115 +3081,6 @@ components:
         user:
           $ref: '#/components/schemas/User'
       x-go-package: code.gitea.io/gitea/modules/structs
-    TrackedTime:
-      description: TrackedTime worked time for an issue / pr
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          x-go-name: Created
-        id:
-          description: ID is the unique identifier for the tracked time entry
-          type: integer
-          format: int64
-          x-go-name: ID
-        issue:
-          $ref: '#/components/schemas/Issue'
-        issue_id:
-          description: deprecated (only for backwards compatibility)
-          type: integer
-          format: int64
-          x-go-name: IssueID
-        time:
-          description: Time in seconds
-          type: integer
-          format: int64
-          x-go-name: Time
-        user_id:
-          description: deprecated (only for backwards compatibility)
-          type: integer
-          format: int64
-          x-go-name: UserID
-        user_name:
-          description: username of the user
-          type: string
-          x-go-name: UserName
-      x-go-package: code.gitea.io/gitea/modules/structs
-    IssueDeadline:
-      description: IssueDeadline represents an issue deadline
-      type: object
-      properties:
-        due_date:
-          type: string
-          format: date-time
-          x-go-name: Deadline
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Attachment:
-      description: Attachment a generic attachment
-      type: object
-      properties:
-        browser_download_url:
-          description: DownloadURL is the URL to download the attachment
-          type: string
-          x-go-name: DownloadURL
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        download_count:
-          description: DownloadCount is the number of times the attachment has been downloaded
-          type: integer
-          format: int64
-          x-go-name: DownloadCount
-        id:
-          description: ID is the unique identifier for the attachment
-          type: integer
-          format: int64
-          x-go-name: ID
-        name:
-          description: Name is the filename of the attachment
-          type: string
-          x-go-name: Name
-        size:
-          description: Size is the file size in bytes
-          type: integer
-          format: int64
-          x-go-name: Size
-        uuid:
-          description: UUID is the unique identifier for the attachment file
-          type: string
-          x-go-name: UUID
-      x-go-package: code.gitea.io/gitea/modules/structs
-    WatchInfo:
-      description: WatchInfo represents an API watch status of one repository
-      type: object
-      properties:
-        created_at:
-          description: The timestamp when the watch status was created
-          type: string
-          format: date-time
-          x-go-name: CreatedAt
-        ignored:
-          description: Whether notifications for the repository are ignored
-          type: boolean
-          x-go-name: Ignored
-        reason:
-          description: The reason for the current watch status
-          x-go-name: Reason
-        repository_url:
-          description: The URL of the repository being watched
-          type: string
-          x-go-name: RepositoryURL
-        subscribed:
-          description: Whether the repository is being watched for notifications
-          type: boolean
-          x-go-name: Subscribed
-        url:
-          description: The URL for managing the watch status
-          type: string
-          x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
     User:
       description: User represents a user
       type: object
@@ -3395,140 +3178,107 @@ components:
           type: string
           x-go-name: Website
       x-go-package: code.gitea.io/gitea/modules/structs
-    PullRequestMeta:
-      description: PullRequestMeta PR info if an issue is a PR
+    Reaction:
+      description: Reaction contain one reaction
       type: object
       properties:
-        draft:
-          type: boolean
-          x-go-name: IsWorkInProgress
-        html_url:
+        content:
+          description: The reaction content (e.g., emoji or reaction type)
           type: string
-          x-go-name: HTMLURL
-        merged:
-          type: boolean
-          x-go-name: HasMerged
-        merged_at:
-          type: string
-          format: date-time
-          x-go-name: Merged
-      x-go-package: code.gitea.io/gitea/modules/structs
-    TimelineComment:
-      description: TimelineComment represents a timeline comment (comment of any type) on a commit or issue
-      type: object
-      properties:
-        assignee:
-          $ref: '#/components/schemas/User'
-        assignee_team:
-          $ref: '#/components/schemas/Team'
-        body:
-          description: Body contains the timeline event content
-          type: string
-          x-go-name: Body
+          x-go-name: Reaction
         created_at:
           type: string
           format: date-time
           x-go-name: Created
-        dependent_issue:
-          $ref: '#/components/schemas/Issue'
-        html_url:
-          description: HTMLURL is the web URL for viewing the comment
-          type: string
-          x-go-name: HTMLURL
-        id:
-          description: ID is the unique identifier for the timeline comment
-          type: integer
-          format: int64
-          x-go-name: ID
-        issue_url:
-          description: IssueURL is the API URL for the issue
-          type: string
-          x-go-name: IssueURL
-        label:
-          $ref: '#/components/schemas/Label'
-        milestone:
-          $ref: '#/components/schemas/Milestone'
-        new_ref:
-          type: string
-          x-go-name: NewRef
-        new_title:
-          type: string
-          x-go-name: NewTitle
-        old_milestone:
-          $ref: '#/components/schemas/Milestone'
-        old_project_id:
-          type: integer
-          format: int64
-          x-go-name: OldProjectID
-        old_ref:
-          type: string
-          x-go-name: OldRef
-        old_title:
-          type: string
-          x-go-name: OldTitle
-        project_id:
-          type: integer
-          format: int64
-          x-go-name: ProjectID
-        pull_request_url:
-          description: PRURL is the API URL for the pull request (if applicable)
-          type: string
-          x-go-name: PRURL
-        ref_action:
-          type: string
-          x-go-name: RefAction
-        ref_comment:
-          $ref: '#/components/schemas/Comment'
-        ref_commit_sha:
-          description: commit SHA where issue/PR was referenced
-          type: string
-          x-go-name: RefCommitSHA
-        ref_issue:
-          $ref: '#/components/schemas/Issue'
-        removed_assignee:
-          description: whether the assignees were removed or added
-          type: boolean
-          x-go-name: RemovedAssignee
-        resolve_doer:
-          $ref: '#/components/schemas/User'
-        review_id:
-          type: integer
-          format: int64
-          x-go-name: ReviewID
-        tracked_time:
-          $ref: '#/components/schemas/TrackedTime'
-        type:
-          description: Type indicates the type of timeline event
-          type: string
-          x-go-name: Type
-        updated_at:
-          type: string
-          format: date-time
-          x-go-name: Updated
         user:
           $ref: '#/components/schemas/User'
       x-go-package: code.gitea.io/gitea/modules/structs
-    IssueMeta:
-      description: IssueMeta basic issue information
+    WatchInfo:
+      description: WatchInfo represents an API watch status of one repository
       type: object
       properties:
-        index:
+        created_at:
+          description: The timestamp when the watch status was created
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
+        ignored:
+          description: Whether notifications for the repository are ignored
+          type: boolean
+          x-go-name: Ignored
+        reason:
+          description: The reason for the current watch status
+          x-go-name: Reason
+        repository_url:
+          description: The URL of the repository being watched
+          type: string
+          x-go-name: RepositoryURL
+        subscribed:
+          description: Whether the repository is being watched for notifications
+          type: boolean
+          x-go-name: Subscribed
+        url:
+          description: The URL for managing the watch status
+          type: string
+          x-go-name: URL
+      x-go-package: code.gitea.io/gitea/modules/structs
+    Label:
+      description: Label a label to an issue or a pr
+      type: object
+      properties:
+        color:
+          type: string
+          x-go-name: Color
+          example: 00aabb
+        description:
+          description: Description provides additional context about the label's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
+          type: boolean
+          x-go-name: Exclusive
+          example: false
+        id:
+          description: ID is the unique identifier for the label
           type: integer
           format: int64
-          x-go-name: Index
-        owner:
-          description: owner of the issue's repo
-          type: string
-          x-go-name: Owner
-        repo:
+          x-go-name: ID
+        is_archived:
+          type: boolean
+          x-go-name: IsArchived
+          example: false
+        name:
+          description: Name is the display name of the label
           type: string
           x-go-name: Name
+        url:
+          description: URL is the API endpoint for accessing this label
+          type: string
+          x-go-name: URL
       x-go-package: code.gitea.io/gitea/modules/structs
-    CreateIssueOption:
-      description: CreateIssueOption options to create one issue
+    AddTimeOption:
+      description: AddTimeOption options for adding time to an issue
       type: object
       required:
-      - title
+      - time
+      properties:
+        created:
+          type: string
+          format: date-time
+          x-go-name: Created
+        time:
+          description: time in seconds
+          type: integer
+          format: int64
+          x-go-name: Time
+        user_name:
+          description: username of the user who spent the time working on the issue (optional)
+          type: string
+          x-go-name: User
+      x-go-package: code.gitea.io/gitea/modules/structs
+    EditIssueOption:
+      description: EditIssueOption options for editing an issue
+      type: object
       properties:
         assignee:
           description: deprecated
@@ -3542,65 +3292,174 @@ components:
         body:
           type: string
           x-go-name: Body
-        closed:
-          type: boolean
-          x-go-name: Closed
+        content_version:
+          description: The current version of the issue content to detect conflicts during editing
+          type: integer
+          format: int64
+          x-go-name: ContentVersion
         due_date:
           type: string
           format: date-time
           x-go-name: Deadline
-        labels:
-          description: list of label ids
-          type: array
-          items:
-            type: integer
-            format: int64
-          x-go-name: Labels
         milestone:
-          description: milestone id
           type: integer
           format: int64
           x-go-name: Milestone
         ref:
           type: string
           x-go-name: Ref
+        state:
+          type: string
+          x-go-name: State
         title:
           type: string
           x-go-name: Title
+        unset_due_date:
+          type: boolean
+          x-go-name: RemoveDeadline
       x-go-package: code.gitea.io/gitea/modules/structs
-    EditMilestoneOption:
-      description: EditMilestoneOption options for editing a milestone
+    IssueLabelsOption:
+      description: IssueLabelsOption a collection of labels
+      type: object
+      properties:
+        labels:
+          description: 'Labels can be a list of integers representing label IDs
+
+            or a list of strings representing label names'
+          type: array
+          items: {}
+          x-go-name: Labels
+      x-go-package: code.gitea.io/gitea/modules/structs
+    LockIssueOption:
+      description: LockIssueOption options to lock an issue
+      type: object
+      properties:
+        lock_reason:
+          type: string
+          x-go-name: Reason
+      x-go-package: code.gitea.io/gitea/modules/structs
+    EditIssueCommentOption:
+      description: EditIssueCommentOption options for editing a comment
+      type: object
+      required:
+      - body
+      properties:
+        body:
+          type: string
+          x-go-name: Body
+      x-go-package: code.gitea.io/gitea/modules/structs
+    EditAttachmentOptions:
+      description: EditAttachmentOptions options for editing attachments
+      type: object
+      properties:
+        name:
+          description: Name is the new filename for the attachment
+          type: string
+          x-go-name: Name
+      x-go-package: code.gitea.io/gitea/modules/structs
+    Organization:
+      description: Organization represents an organization
+      type: object
+      properties:
+        avatar_url:
+          description: The URL of the organization's avatar
+          type: string
+          x-go-name: AvatarURL
+        description:
+          description: The description of the organization
+          type: string
+          x-go-name: Description
+        email:
+          description: The email address of the organization
+          type: string
+          x-go-name: Email
+        full_name:
+          description: The full display name of the organization
+          type: string
+          x-go-name: FullName
+        id:
+          description: The unique identifier of the organization
+          type: integer
+          format: int64
+          x-go-name: ID
+        location:
+          description: The location of the organization
+          type: string
+          x-go-name: Location
+        name:
+          description: The name of the organization
+          type: string
+          x-go-name: Name
+        repo_admin_change_team_access:
+          description: Whether repository administrators can change team access
+          type: boolean
+          x-go-name: RepoAdminChangeTeamAccess
+        username:
+          description: 'username of the organization
+
+            deprecated'
+          type: string
+          x-go-name: UserName
+        visibility:
+          description: The visibility level of the organization (public, limited, private)
+          type: string
+          x-go-name: Visibility
+        website:
+          description: The website URL of the organization
+          type: string
+          x-go-name: Website
+      x-go-package: code.gitea.io/gitea/modules/structs
+    EditDeadlineOption:
+      description: EditDeadlineOption options for creating a deadline
+      type: object
+      required:
+      - due_date
+      properties:
+        due_date:
+          type: string
+          format: date-time
+          x-go-name: Deadline
+      x-go-package: code.gitea.io/gitea/modules/structs
+    CreateMilestoneOption:
+      description: CreateMilestoneOption options for creating a milestone
       type: object
       properties:
         description:
-          description: Description provides updated details about the milestone
+          description: Description provides details about the milestone
           type: string
           x-go-name: Description
         due_on:
-          description: Deadline is the updated due date for the milestone
           type: string
           format: date-time
           x-go-name: Deadline
         state:
-          description: State indicates the updated state of the milestone
           type: string
           enum:
           - open
           - closed
           x-go-name: State
         title:
-          description: Title is the updated title of the milestone
+          description: Title is the title of the new milestone
           type: string
           x-go-name: Title
       x-go-package: code.gitea.io/gitea/modules/structs
-    EditReactionOption:
-      description: EditReactionOption contain the reaction type
+    RepositoryMeta:
+      description: RepositoryMeta basic repository information
       type: object
       properties:
-        content:
-          description: The reaction content (e.g., emoji or reaction type)
+        full_name:
           type: string
-          x-go-name: Reaction
+          x-go-name: FullName
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
+          type: string
+          x-go-name: Name
+        owner:
+          type: string
+          x-go-name: Owner
       x-go-package: code.gitea.io/gitea/modules/structs
     Team:
       description: Team represents a team in an organization
@@ -3667,28 +3526,6 @@ components:
             repo.releases: none
             repo.wiki: admin
       x-go-package: code.gitea.io/gitea/modules/structs
-    IssueLabelsOption:
-      description: IssueLabelsOption a collection of labels
-      type: object
-      properties:
-        labels:
-          description: 'Labels can be a list of integers representing label IDs
-
-            or a list of strings representing label names'
-          type: array
-          items: {}
-          x-go-name: Labels
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditIssueCommentOption:
-      description: EditIssueCommentOption options for editing a comment
-      type: object
-      required:
-      - body
-      properties:
-        body:
-          type: string
-          x-go-name: Body
-      x-go-package: code.gitea.io/gitea/modules/structs
     EditLabelOption:
       description: EditLabelOption options for editing a label
       type: object
@@ -3713,6 +3550,73 @@ components:
           description: Name is the new display name for the label
           type: string
           x-go-name: Name
+      x-go-package: code.gitea.io/gitea/modules/structs
+    IssueDeadline:
+      description: IssueDeadline represents an issue deadline
+      type: object
+      properties:
+        due_date:
+          type: string
+          format: date-time
+          x-go-name: Deadline
+      x-go-package: code.gitea.io/gitea/modules/structs
+    Milestone:
+      description: Milestone milestone is a collection of issues on one repository
+      type: object
+      properties:
+        closed_at:
+          type: string
+          format: date-time
+          x-go-name: Closed
+        closed_issues:
+          description: ClosedIssues is the number of closed issues in this milestone
+          type: integer
+          format: int64
+          x-go-name: ClosedIssues
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: Created
+        description:
+          description: Description provides details about the milestone
+          type: string
+          x-go-name: Description
+        due_on:
+          type: string
+          format: date-time
+          x-go-name: Deadline
+        id:
+          description: ID is the unique identifier for the milestone
+          type: integer
+          format: int64
+          x-go-name: ID
+        open_issues:
+          description: OpenIssues is the number of open issues in this milestone
+          type: integer
+          format: int64
+          x-go-name: OpenIssues
+        state:
+          description: 'State indicates if the milestone is open or closed
+
+            open StateOpen  StateOpen pr is opened
+
+            closed StateClosed  StateClosed pr is closed'
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-enum-desc: 'open StateOpen  StateOpen pr is opened
+
+            closed StateClosed  StateClosed pr is closed'
+          x-go-name: State
+        title:
+          description: Title is the title of the milestone
+          type: string
+          x-go-name: Title
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: Updated
       x-go-package: code.gitea.io/gitea/modules/structs
     Comment:
       description: Comment represents a comment on a commit or issue
@@ -3765,38 +3669,36 @@ components:
         user:
           $ref: '#/components/schemas/User'
       x-go-package: code.gitea.io/gitea/modules/structs
-    RepositoryMeta:
-      description: RepositoryMeta basic repository information
+    EditMilestoneOption:
+      description: EditMilestoneOption options for editing a milestone
       type: object
       properties:
-        full_name:
+        description:
+          description: Description provides updated details about the milestone
           type: string
-          x-go-name: FullName
-        id:
-          type: integer
-          format: int64
-          x-go-name: ID
-        name:
-          type: string
-          x-go-name: Name
-        owner:
-          type: string
-          x-go-name: Owner
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditDeadlineOption:
-      description: EditDeadlineOption options for creating a deadline
-      type: object
-      required:
-      - due_date
-      properties:
-        due_date:
+          x-go-name: Description
+        due_on:
+          description: Deadline is the updated due date for the milestone
           type: string
           format: date-time
           x-go-name: Deadline
+        state:
+          description: State indicates the updated state of the milestone
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-name: State
+        title:
+          description: Title is the updated title of the milestone
+          type: string
+          x-go-name: Title
       x-go-package: code.gitea.io/gitea/modules/structs
-    EditIssueOption:
-      description: EditIssueOption options for editing an issue
+    CreateIssueOption:
+      description: CreateIssueOption options to create one issue
       type: object
+      required:
+      - title
       properties:
         assignee:
           description: deprecated
@@ -3810,136 +3712,234 @@ components:
         body:
           type: string
           x-go-name: Body
-        content_version:
-          description: The current version of the issue content to detect conflicts during editing
-          type: integer
-          format: int64
-          x-go-name: ContentVersion
+        closed:
+          type: boolean
+          x-go-name: Closed
         due_date:
           type: string
           format: date-time
           x-go-name: Deadline
+        labels:
+          description: list of label ids
+          type: array
+          items:
+            type: integer
+            format: int64
+          x-go-name: Labels
         milestone:
+          description: milestone id
           type: integer
           format: int64
           x-go-name: Milestone
         ref:
           type: string
           x-go-name: Ref
-        state:
-          type: string
-          x-go-name: State
         title:
           type: string
           x-go-name: Title
-        unset_due_date:
-          type: boolean
-          x-go-name: RemoveDeadline
       x-go-package: code.gitea.io/gitea/modules/structs
-    AddTimeOption:
-      description: AddTimeOption options for adding time to an issue
+    TrackedTime:
+      description: TrackedTime worked time for an issue / pr
       type: object
-      required:
-      - time
       properties:
         created:
           type: string
           format: date-time
           x-go-name: Created
-        time:
-          description: time in seconds
-          type: integer
-          format: int64
-          x-go-name: Time
-        user_name:
-          description: username of the user who spent the time working on the issue (optional)
-          type: string
-          x-go-name: User
-      x-go-package: code.gitea.io/gitea/modules/structs
-    LockIssueOption:
-      description: LockIssueOption options to lock an issue
-      type: object
-      properties:
-        lock_reason:
-          type: string
-          x-go-name: Reason
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Reaction:
-      description: Reaction contain one reaction
-      type: object
-      properties:
-        content:
-          description: The reaction content (e.g., emoji or reaction type)
-          type: string
-          x-go-name: Reaction
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        user:
-          $ref: '#/components/schemas/User'
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateLabelOption:
-      description: CreateLabelOption options for creating a label
-      type: object
-      required:
-      - name
-      - color
-      properties:
-        color:
-          type: string
-          x-go-name: Color
-          example: '#00aabb'
-        description:
-          description: Description provides additional context about the label's purpose
-          type: string
-          x-go-name: Description
-        exclusive:
-          type: boolean
-          x-go-name: Exclusive
-          example: false
-        is_archived:
-          type: boolean
-          x-go-name: IsArchived
-          example: false
-        name:
-          type: string
-          x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Label:
-      description: Label a label to an issue or a pr
-      type: object
-      properties:
-        color:
-          type: string
-          x-go-name: Color
-          example: 00aabb
-        description:
-          description: Description provides additional context about the label's purpose
-          type: string
-          x-go-name: Description
-        exclusive:
-          type: boolean
-          x-go-name: Exclusive
-          example: false
         id:
-          description: ID is the unique identifier for the label
+          description: ID is the unique identifier for the tracked time entry
           type: integer
           format: int64
           x-go-name: ID
-        is_archived:
-          type: boolean
-          x-go-name: IsArchived
-          example: false
-        name:
-          description: Name is the display name of the label
+        issue:
+          $ref: '#/components/schemas/Issue'
+        issue_id:
+          description: deprecated (only for backwards compatibility)
+          type: integer
+          format: int64
+          x-go-name: IssueID
+        time:
+          description: Time in seconds
+          type: integer
+          format: int64
+          x-go-name: Time
+        user_id:
+          description: deprecated (only for backwards compatibility)
+          type: integer
+          format: int64
+          x-go-name: UserID
+        user_name:
+          description: username of the user
           type: string
-          x-go-name: Name
-        url:
-          description: URL is the API endpoint for accessing this label
-          type: string
-          x-go-name: URL
+          x-go-name: UserName
       x-go-package: code.gitea.io/gitea/modules/structs
+  responses:
+    WatchInfo:
+      description: WatchInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/WatchInfo'
+    empty:
+      description: APIEmpty is an empty response
+    repoArchivedError:
+      description: APIRepoArchivedError is an error that is raised when an archived repo should be modified
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    TrackedTime:
+      description: TrackedTime
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TrackedTime'
+    Issue:
+      description: Issue
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Issue'
+    validationError:
+      description: APIValidationError is error format response related to input validation
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    Attachment:
+      description: Attachment
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Attachment'
+    TrackedTimeList:
+      description: TrackedTimeList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TrackedTime'
+    Comment:
+      description: Comment
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Comment'
+    CommentList:
+      description: CommentList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Comment'
+    IssueList:
+      description: IssueList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Issue'
+    UserList:
+      description: UserList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    forbidden:
+      description: APIForbiddenError is a forbidden error response
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    TimelineList:
+      description: TimelineList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TimelineComment'
+    LabelList:
+      description: LabelList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+    Label:
+      description: Label
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Label'
+    MilestoneList:
+      description: MilestoneList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Milestone'
+    ReactionList:
+      description: ReactionList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Reaction'
+    Milestone:
+      description: Milestone
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Milestone'
+    IssueDeadline:
+      description: IssueDeadline
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/IssueDeadline'
+    error:
+      description: APIError is error format response
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    notFound:
+      description: APINotFound is a not found empty response
+    Reaction:
+      description: Reaction
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Reaction'
+    AttachmentList:
+      description: AttachmentList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Attachment'
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
