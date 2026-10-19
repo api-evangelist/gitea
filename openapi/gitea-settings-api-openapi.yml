@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
-  version: 1.27.0+dev-89-gf52b6f3315
+  version: 29.0.0+dev-153-gba4f8fa246
 servers:
 - url: /api/v1
 security:
@@ -17,7 +17,8 @@ security:
 - SudoHeader: []
 - TOTPHeader: []
 tags:
-- name: Settings
+- description: Server settings
+  name: Settings
 paths:
   /settings/api:
     get:
@@ -57,6 +58,29 @@ paths:
           $ref: '#/components/responses/GeneralUISettings'
 components:
   schemas:
+    GeneralAttachmentSettings:
+      description: GeneralAttachmentSettings contains global Attachment settings exposed by API
+      type: object
+      properties:
+        allowed_types:
+          description: AllowedTypes contains the allowed file types for attachments
+          type: string
+          x-go-name: AllowedTypes
+        enabled:
+          description: Enabled indicates if file attachments are enabled
+          type: boolean
+          x-go-name: Enabled
+        max_files:
+          description: MaxFiles is the maximum number of files per attachment
+          type: integer
+          format: int64
+          x-go-name: MaxFiles
+        max_size:
+          description: MaxSize is the maximum size for individual attachments
+          type: integer
+          format: int64
+          x-go-name: MaxSize
+      x-go-package: gitea.dev/modules/structs
     GeneralUISettings:
       description: GeneralUISettings contains global ui settings exposed by API
       type: object
@@ -77,7 +101,7 @@ components:
           description: DefaultTheme is the default UI theme
           type: string
           x-go-name: DefaultTheme
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
     GeneralAPISettings:
       description: GeneralAPISettings contains global api settings exposed by it
       type: object
@@ -107,7 +131,7 @@ components:
           type: integer
           format: int64
           x-go-name: MaxResponseItems
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
     GeneralRepoSettings:
       description: GeneralRepoSettings contains global repository settings exposed by API
       type: object
@@ -136,55 +160,32 @@ components:
           description: TimeTrackingDisabled indicates if time tracking is disabled
           type: boolean
           x-go-name: TimeTrackingDisabled
-      x-go-package: code.gitea.io/gitea/modules/structs
-    GeneralAttachmentSettings:
-      description: GeneralAttachmentSettings contains global Attachment settings exposed by API
-      type: object
-      properties:
-        allowed_types:
-          description: AllowedTypes contains the allowed file types for attachments
-          type: string
-          x-go-name: AllowedTypes
-        enabled:
-          description: Enabled indicates if file attachments are enabled
-          type: boolean
-          x-go-name: Enabled
-        max_files:
-          description: MaxFiles is the maximum number of files per attachment
-          type: integer
-          format: int64
-          x-go-name: MaxFiles
-        max_size:
-          description: MaxSize is the maximum size for individual attachments
-          type: integer
-          format: int64
-          x-go-name: MaxSize
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
   responses:
-    GeneralAPISettings:
-      description: GeneralAPISettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralAPISettings'
-    GeneralRepoSettings:
-      description: GeneralRepoSettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralRepoSettings'
-    GeneralUISettings:
-      description: GeneralUISettings
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GeneralUISettings'
     GeneralAttachmentSettings:
       description: GeneralAttachmentSettings
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GeneralAttachmentSettings'
+    GeneralAPISettings:
+      description: GeneralAPISettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralAPISettings'
+    GeneralUISettings:
+      description: GeneralUISettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralUISettings'
+    GeneralRepoSettings:
+      description: GeneralRepoSettings
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GeneralRepoSettings'
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.

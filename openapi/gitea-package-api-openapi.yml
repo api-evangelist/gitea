@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
-  version: 1.27.0+dev-89-gf52b6f3315
+  version: 29.0.0+dev-153-gba4f8fa246
 servers:
 - url: /api/v1
 security:
@@ -17,7 +17,8 @@ security:
 - SudoHeader: []
 - TOTPHeader: []
 tags:
-- name: Package
+- description: Package registry
+  name: Package
 paths:
   /packages/{owner}:
     get:
@@ -353,131 +354,7 @@ paths:
         '404':
           $ref: '#/components/responses/notFound'
 components:
-  responses:
-    PackageFileList:
-      description: PackageFileList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/PackageFile'
-    empty:
-      description: APIEmpty is an empty response
-    PackageList:
-      description: PackageList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Package'
-    notFound:
-      description: APINotFound is a not found empty response
-    Package:
-      description: Package
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Package'
   schemas:
-    User:
-      description: User represents a user
-      type: object
-      properties:
-        active:
-          description: Is user active
-          type: boolean
-          x-go-name: IsActive
-        avatar_url:
-          description: URL to the user's avatar
-          type: string
-          x-go-name: AvatarURL
-        created:
-          type: string
-          format: date-time
-          x-go-name: Created
-        description:
-          description: the user's description
-          type: string
-          x-go-name: Description
-        email:
-          type: string
-          format: email
-          x-go-name: Email
-        followers_count:
-          description: user counts
-          type: integer
-          format: int64
-          x-go-name: Followers
-        following_count:
-          type: integer
-          format: int64
-          x-go-name: Following
-        full_name:
-          description: the user's full name
-          type: string
-          x-go-name: FullName
-        html_url:
-          description: URL to the user's gitea page
-          type: string
-          x-go-name: HTMLURL
-        id:
-          description: the user's id
-          type: integer
-          format: int64
-          x-go-name: ID
-        is_admin:
-          description: Is the user an administrator
-          type: boolean
-          x-go-name: IsAdmin
-        language:
-          description: User locale
-          type: string
-          x-go-name: Language
-        last_login:
-          type: string
-          format: date-time
-          x-go-name: LastLogin
-        location:
-          description: the user's location
-          type: string
-          x-go-name: Location
-        login:
-          description: login of the user, same as `username`
-          type: string
-          x-go-name: UserName
-        login_name:
-          description: identifier of the user, provided by the external authenticator (if configured)
-          type: string
-          default: empty
-          x-go-name: LoginName
-        prohibit_login:
-          description: Is user login prohibited
-          type: boolean
-          x-go-name: ProhibitLogin
-        restricted:
-          description: Is user restricted
-          type: boolean
-          x-go-name: Restricted
-        source_id:
-          description: The ID of the user's Authentication Source
-          type: integer
-          format: int64
-          x-go-name: SourceID
-        starred_repos_count:
-          type: integer
-          format: int64
-          x-go-name: StarredRepos
-        visibility:
-          description: 'User visibility level option: public, limited, private'
-          type: string
-          x-go-name: Visibility
-        website:
-          description: the user's website
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
     ExternalTracker:
       description: ExternalTracker represents settings for external tracker
       type: object
@@ -498,7 +375,177 @@ components:
           description: URL of external issue tracker.
           type: string
           x-go-name: ExternalTrackerURL
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
+    Organization:
+      description: Organization represents an organization
+      type: object
+      properties:
+        avatar_url:
+          description: The URL of the organization's avatar
+          type: string
+          x-go-name: AvatarURL
+        description:
+          description: The description of the organization
+          type: string
+          x-go-name: Description
+        email:
+          description: The email address of the organization
+          type: string
+          x-go-name: Email
+        full_name:
+          description: The full display name of the organization
+          type: string
+          x-go-name: FullName
+        id:
+          description: The unique identifier of the organization
+          type: integer
+          format: int64
+          x-go-name: ID
+        location:
+          description: The location of the organization
+          type: string
+          x-go-name: Location
+        name:
+          description: The name of the organization
+          type: string
+          x-go-name: Name
+        repo_admin_change_team_access:
+          description: Whether repository administrators can change team access
+          type: boolean
+          x-go-name: RepoAdminChangeTeamAccess
+        username:
+          description: 'username of the organization
+
+            deprecated'
+          type: string
+          x-go-name: UserName
+        visibility:
+          description: The visibility level of the organization (public, limited, private)
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
+          x-go-name: Visibility
+        website:
+          description: The website URL of the organization
+          type: string
+          x-go-name: Website
+      x-go-package: gitea.dev/modules/structs
+    Permission:
+      description: Permission represents a set of permissions
+      type: object
+      properties:
+        admin:
+          type: boolean
+          x-go-name: Admin
+        pull:
+          type: boolean
+          x-go-name: Pull
+        push:
+          type: boolean
+          x-go-name: Push
+      x-go-package: gitea.dev/modules/structs
+    Team:
+      description: Team represents a team in an organization
+      type: object
+      properties:
+        can_create_org_repo:
+          description: Whether the team can create repositories in the organization
+          type: boolean
+          x-go-name: CanCreateOrgRepo
+        description:
+          description: The description of the team
+          type: string
+          x-go-name: Description
+        id:
+          description: The unique identifier of the team
+          type: integer
+          format: int64
+          x-go-name: ID
+        includes_all_repositories:
+          description: Whether the team has access to all repositories in the organization
+          type: boolean
+          x-go-name: IncludesAllRepositories
+        name:
+          description: The name of the team
+          type: string
+          x-go-name: Name
+        organization:
+          $ref: '#/components/schemas/Organization'
+        permission:
+          type: string
+          enum:
+          - none
+          - read
+          - write
+          - admin
+          - owner
+          x-go-enum-desc: 'none AccessLevelNameNone
+
+            read AccessLevelNameRead
+
+            write AccessLevelNameWrite
+
+            admin AccessLevelNameAdmin
+
+            owner AccessLevelNameOwner'
+          x-go-name: Permission
+        units:
+          description: 'Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.'
+          type: array
+          items:
+            type: string
+          x-deprecated: true
+          x-go-name: Units
+          example:
+          - repo.code
+          - repo.issues
+          - repo.ext_issues
+          - repo.wiki
+          - repo.pulls
+          - repo.releases
+          - repo.projects
+          - repo.ext_wiki
+        units_map:
+          type: object
+          additionalProperties:
+            type: string
+          x-go-name: UnitsMap
+          example:
+            repo.code: read
+            repo.ext_issues: none
+            repo.ext_wiki: none
+            repo.issues: write
+            repo.projects: none
+            repo.pulls: owner
+            repo.releases: none
+            repo.wiki: admin
+        visibility:
+          description: 'Team visibility within the organization. "private" teams are only
+
+            listable by members and org owners; "limited" teams are listable by
+
+            any organization member; "public" teams are listable by any signed-in
+
+            user.'
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public TeamVisibilityPublic
+
+            limited TeamVisibilityLimited
+
+            private TeamVisibilityPrivate'
+          x-go-name: Visibility
+      x-go-package: gitea.dev/modules/structs
     Repository:
       description: Repository represents a repository
       type: object
@@ -512,6 +559,9 @@ components:
         allow_merge_commits:
           type: boolean
           x-go-name: AllowMerge
+        allow_merge_update:
+          type: boolean
+          x-go-name: AllowMergeUpdate
         allow_rebase:
           type: boolean
           x-go-name: AllowRebase
@@ -563,6 +613,9 @@ components:
         default_target_branch:
           type: string
           x-go-name: DefaultTargetBranch
+        default_update_style:
+          type: string
+          x-go-name: DefaultUpdateStyle
         description:
           type: string
           x-go-name: Description
@@ -642,6 +695,10 @@ components:
         mirror_interval:
           type: string
           x-go-name: MirrorInterval
+        mirror_last_sync_at:
+          type: string
+          format: date-time
+          x-go-name: MirrorLastSyncAt
         mirror_updated:
           type: string
           format: date-time
@@ -655,6 +712,9 @@ components:
           enum:
           - sha1
           - sha256
+          x-go-enum-desc: 'sha1 ObjectFormatSHA1
+
+            sha256 ObjectFormatSHA256'
           x-go-name: ObjectFormatName
         open_issues_count:
           type: integer
@@ -689,6 +749,9 @@ components:
           type: integer
           format: int64
           x-go-name: Size
+        squash_merge_commit_message:
+          type: string
+          x-go-name: SquashMergeCommitMessage
         ssh_url:
           type: string
           x-go-name: SSHURL
@@ -718,12 +781,148 @@ components:
         website:
           type: string
           x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
+    InternalTracker:
+      description: InternalTracker represents settings for internal tracker
+      type: object
+      properties:
+        allow_only_contributors_to_track_time:
+          description: Let only contributors track time (Built-in issue tracker)
+          type: boolean
+          x-go-name: AllowOnlyContributorsToTrackTime
+        enable_issue_dependencies:
+          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableIssueDependencies
+        enable_time_tracker:
+          description: Enable time tracking (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableTimeTracker
+      x-go-package: gitea.dev/modules/structs
+    User:
+      description: User represents a user
+      type: object
+      properties:
+        active:
+          description: Is user active
+          type: boolean
+          x-go-name: IsActive
+        avatar_url:
+          description: URL to the user's avatar
+          type: string
+          x-go-name: AvatarURL
+        created:
+          type: string
+          format: date-time
+          x-go-name: Created
+        description:
+          description: the user's description
+          type: string
+          x-go-name: Description
+        email:
+          type: string
+          format: email
+          x-go-name: Email
+        followers_count:
+          description: user counts
+          type: integer
+          format: int64
+          x-go-name: Followers
+        following_count:
+          type: integer
+          format: int64
+          x-go-name: Following
+        full_name:
+          description: the user's full name
+          type: string
+          x-go-name: FullName
+        html_url:
+          description: URL to the user's gitea page
+          type: string
+          x-go-name: HTMLURL
+        id:
+          description: the user's id
+          type: integer
+          format: int64
+          x-go-name: ID
+        is_admin:
+          description: Is the user an administrator
+          type: boolean
+          x-go-name: IsAdmin
+        language:
+          description: User locale
+          type: string
+          x-go-name: Language
+        last_login:
+          type: string
+          format: date-time
+          x-go-name: LastLogin
+        location:
+          description: the user's location
+          type: string
+          x-go-name: Location
+        login:
+          description: login of the user, same as `username`
+          type: string
+          x-go-name: UserName
+        login_name:
+          description: identifier of the user, provided by the external authenticator (if configured)
+          type: string
+          x-go-name: LoginName
+        prohibit_login:
+          description: Is user login prohibited
+          type: boolean
+          x-go-name: ProhibitLogin
+        restricted:
+          description: Is user restricted
+          type: boolean
+          x-go-name: Restricted
+        source_id:
+          description: The ID of the user's Authentication Source
+          type: integer
+          format: int64
+          x-go-name: SourceID
+        starred_repos_count:
+          type: integer
+          format: int64
+          x-go-name: StarredRepos
+        type:
+          description: the user type
+          type: string
+          enum:
+          - User
+          - Organization
+          - Bot
+          x-go-enum-desc: 'User UserTypeStringUser
+
+            Organization UserTypeStringOrganization
+
+            Bot UserTypeStringBot'
+          x-go-name: Type
+        visibility:
+          description: 'User visibility level option: public, limited, private'
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
+          x-go-name: Visibility
+        website:
+          description: the user's website
+          type: string
+          x-go-name: Website
+      x-go-package: gitea.dev/modules/structs
     Package:
       description: Package represents a package
       type: object
       properties:
         created_at:
+          description: The date and time when the package was created
           type: string
           format: date-time
           x-go-name: CreatedAt
@@ -754,113 +953,7 @@ components:
           description: The version of the package
           type: string
           x-go-name: Version
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Organization:
-      description: Organization represents an organization
-      type: object
-      properties:
-        avatar_url:
-          description: The URL of the organization's avatar
-          type: string
-          x-go-name: AvatarURL
-        description:
-          description: The description of the organization
-          type: string
-          x-go-name: Description
-        email:
-          description: The email address of the organization
-          type: string
-          x-go-name: Email
-        full_name:
-          description: The full display name of the organization
-          type: string
-          x-go-name: FullName
-        id:
-          description: The unique identifier of the organization
-          type: integer
-          format: int64
-          x-go-name: ID
-        location:
-          description: The location of the organization
-          type: string
-          x-go-name: Location
-        name:
-          description: The name of the organization
-          type: string
-          x-go-name: Name
-        repo_admin_change_team_access:
-          description: Whether repository administrators can change team access
-          type: boolean
-          x-go-name: RepoAdminChangeTeamAccess
-        username:
-          description: 'username of the organization
-
-            deprecated'
-          type: string
-          x-go-name: UserName
-        visibility:
-          description: The visibility level of the organization (public, limited, private)
-          type: string
-          x-go-name: Visibility
-        website:
-          description: The website URL of the organization
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ExternalWiki:
-      description: ExternalWiki represents setting for external wiki
-      type: object
-      properties:
-        external_wiki_url:
-          description: URL of external wiki.
-          type: string
-          x-go-name: ExternalWikiURL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    RepoTransfer:
-      description: RepoTransfer represents a pending repo transfer
-      type: object
-      properties:
-        doer:
-          $ref: '#/components/schemas/User'
-        recipient:
-          $ref: '#/components/schemas/User'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          x-go-name: Teams
-      x-go-package: code.gitea.io/gitea/modules/structs
-    InternalTracker:
-      description: InternalTracker represents settings for internal tracker
-      type: object
-      properties:
-        allow_only_contributors_to_track_time:
-          description: Let only contributors track time (Built-in issue tracker)
-          type: boolean
-          x-go-name: AllowOnlyContributorsToTrackTime
-        enable_issue_dependencies:
-          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableIssueDependencies
-        enable_time_tracker:
-          description: Enable time tracking (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableTimeTracker
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Permission:
-      description: Permission represents a set of permissions
-      type: object
-      properties:
-        admin:
-          type: boolean
-          x-go-name: Admin
-        pull:
-          type: boolean
-          x-go-name: Pull
-        push:
-          type: boolean
-          x-go-name: Push
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
     PackageFile:
       description: PackageFile represents a package file
       type: object
@@ -895,72 +988,57 @@ components:
           type: integer
           format: int64
           x-go-name: Size
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Team:
-      description: Team represents a team in an organization
+      x-go-package: gitea.dev/modules/structs
+    RepoTransfer:
+      description: RepoTransfer represents a pending repo transfer
       type: object
       properties:
-        can_create_org_repo:
-          description: Whether the team can create repositories in the organization
-          type: boolean
-          x-go-name: CanCreateOrgRepo
-        description:
-          description: The description of the team
-          type: string
-          x-go-name: Description
-        id:
-          description: The unique identifier of the team
-          type: integer
-          format: int64
-          x-go-name: ID
-        includes_all_repositories:
-          description: Whether the team has access to all repositories in the organization
-          type: boolean
-          x-go-name: IncludesAllRepositories
-        name:
-          description: The name of the team
-          type: string
-          x-go-name: Name
-        organization:
-          $ref: '#/components/schemas/Organization'
-        permission:
-          type: string
-          enum:
-          - none
-          - read
-          - write
-          - admin
-          - owner
-          x-go-name: Permission
-        units:
+        doer:
+          $ref: '#/components/schemas/User'
+        recipient:
+          $ref: '#/components/schemas/User'
+        teams:
           type: array
           items:
-            type: string
-          x-go-name: Units
-          example:
-          - repo.code
-          - repo.issues
-          - repo.ext_issues
-          - repo.wiki
-          - repo.pulls
-          - repo.releases
-          - repo.projects
-          - repo.ext_wiki
-        units_map:
-          type: object
-          additionalProperties:
-            type: string
-          x-go-name: UnitsMap
-          example:
-            repo.code: read
-            repo.ext_issues: none
-            repo.ext_wiki: none
-            repo.issues: write
-            repo.projects: none
-            repo.pulls: owner
-            repo.releases: none
-            repo.wiki: admin
-      x-go-package: code.gitea.io/gitea/modules/structs
+            $ref: '#/components/schemas/Team'
+          x-go-name: Teams
+      x-go-package: gitea.dev/modules/structs
+    ExternalWiki:
+      description: ExternalWiki represents setting for external wiki
+      type: object
+      properties:
+        external_wiki_url:
+          description: URL of external wiki.
+          type: string
+          x-go-name: ExternalWikiURL
+      x-go-package: gitea.dev/modules/structs
+  responses:
+    notFound:
+      description: APINotFound is a not found empty response
+    Package:
+      description: Package
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Package'
+    PackageFileList:
+      description: PackageFileList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PackageFile'
+    PackageList:
+      description: PackageList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Package'
+    empty:
+      description: APIEmpty is an empty response
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.

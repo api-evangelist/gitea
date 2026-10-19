@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
-  version: 1.27.0+dev-89-gf52b6f3315
+  version: 29.0.0+dev-153-gba4f8fa246
 servers:
 - url: /api/v1
 security:
@@ -17,7 +17,8 @@ security:
 - SudoHeader: []
 - TOTPHeader: []
 tags:
-- name: Miscellaneous
+- description: Miscellaneous endpoints
+  name: Miscellaneous
 paths:
   /gitignore/templates:
     get:
@@ -176,6 +177,23 @@ paths:
             text/plain:
               schema:
                 type: string
+  /token:
+    get:
+      tags:
+      - Miscellaneous
+      summary: Get the currently authenticated token
+      operationId: getCurrentToken
+      responses:
+        '200':
+          $ref: '#/components/responses/CurrentAccessToken'
+    delete:
+      tags:
+      - Miscellaneous
+      summary: Delete the currently authenticated token
+      operationId: deleteCurrentToken
+      responses:
+        '204':
+          description: token deleted
   /version:
     get:
       tags:
@@ -187,26 +205,62 @@ paths:
           $ref: '#/components/responses/ServerVersion'
 components:
   responses:
-    MarkupRender:
-      description: MarkupRender is a rendered markup document
+    LicenseTemplateList:
+      description: LicenseTemplateList
       content:
         application/json:
           schema:
-            type: string
-    ServerVersion:
-      description: ServerVersion
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerVersion'
+            type: array
+            items:
+              $ref: '#/components/schemas/LicensesTemplateListEntry'
     notFound:
       description: APINotFound is a not found empty response
+    LabelTemplateList:
+      description: LabelTemplateList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: string
+    CurrentAccessToken:
+      description: CurrentAccessToken represents the currently authenticated access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CurrentAccessToken'
+    GitignoreTemplateInfo:
+      description: GitignoreTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitignoreTemplateInfo'
     MarkdownRender:
       description: MarkdownRender is a rendered markdown document
       content:
         application/json:
           schema:
             type: string
+    MarkupRender:
+      description: MarkupRender is a rendered markup document
+      content:
+        application/json:
+          schema:
+            type: string
+    LicenseTemplateInfo:
+      description: LicenseTemplateInfo
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LicenseTemplateInfo'
+    LabelTemplateInfo:
+      description: LabelTemplateInfo
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LabelTemplate'
     validationError:
       description: APIValidationError is error format response related to input validation
       headers:
@@ -216,18 +270,6 @@ components:
         url:
           schema:
             type: string
-    GitignoreTemplateInfo:
-      description: GitignoreTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GitignoreTemplateInfo'
-    LicenseTemplateInfo:
-      description: LicenseTemplateInfo
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LicenseTemplateInfo'
     GitignoreTemplateList:
       description: GitignoreTemplateList
       content:
@@ -236,31 +278,45 @@ components:
             type: array
             items:
               type: string
-    LabelTemplateInfo:
-      description: LabelTemplateInfo
+    ServerVersion:
+      description: ServerVersion
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LabelTemplate'
-    LicenseTemplateList:
-      description: LicenseTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/LicensesTemplateListEntry'
-    LabelTemplateList:
-      description: LabelTemplateList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: string
+            $ref: '#/components/schemas/ServerVersion'
   schemas:
+    CurrentAccessToken:
+      type: object
+      title: CurrentAccessToken represents the metadata of the currently authenticated token.
+      properties:
+        created_at:
+          description: The timestamp when the token was created
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
+        id:
+          description: The unique identifier of the access token
+          type: integer
+          format: int64
+          x-go-name: ID
+        last_used_at:
+          description: The timestamp when the token was last used
+          type: string
+          format: date-time
+          x-go-name: LastUsedAt
+        name:
+          description: The name of the access token
+          type: string
+          x-go-name: Name
+        scopes:
+          description: The scopes granted to this access token
+          type: array
+          items:
+            type: string
+          x-go-name: Scopes
+        user:
+          $ref: '#/components/schemas/UserMeta'
+      x-go-package: gitea.dev/modules/structs
     GitignoreTemplateInfo:
       description: GitignoreTemplateInfo name and text of a gitignore template
       type: object
@@ -273,66 +329,21 @@ components:
           description: Source contains the content of the gitignore template
           type: string
           x-go-name: Source
-      x-go-package: code.gitea.io/gitea/modules/structs
-    LicensesTemplateListEntry:
-      description: LicensesListEntry is used for the API
+      x-go-package: gitea.dev/modules/structs
+    UserMeta:
       type: object
+      title: UserMeta represents minimal user information for the token owner.
       properties:
-        key:
-          description: Key is the unique identifier for the license template
+        id:
+          description: The unique identifier of the user
+          type: integer
+          format: int64
+          x-go-name: ID
+        login:
+          description: The username of the user
           type: string
-          x-go-name: Key
-        name:
-          description: Name is the display name of the license
-          type: string
-          x-go-name: Name
-        url:
-          description: URL is the reference URL for the license
-          type: string
-          x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    MarkdownOption:
-      description: MarkdownOption markdown options
-      type: object
-      properties:
-        Context:
-          description: 'URL path for rendering issue, media and file links
-
-            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}
-
-
-            in: body'
-          type: string
-        Mode:
-          description: 'Mode to render (markdown, comment, wiki, file)
-
-
-            in: body'
-          type: string
-        Text:
-          description: 'Text markdown to render
-
-
-            in: body'
-          type: string
-        Wiki:
-          description: 'Is it a wiki page? (use mode=wiki instead)
-
-
-            Deprecated: true
-
-            in: body'
-          type: boolean
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ServerVersion:
-      description: ServerVersion wraps the version of the server
-      type: object
-      properties:
-        version:
-          description: Version is the server version string
-          type: string
-          x-go-name: Version
-      x-go-package: code.gitea.io/gitea/modules/structs
+          x-go-name: Login
+      x-go-package: gitea.dev/modules/structs
     MarkupOption:
       description: MarkupOption markup options
       type: object
@@ -340,38 +351,43 @@ components:
         Context:
           description: 'URL path for rendering issue, media and file links
 
-            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}
-
-
-            in: body'
+            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}'
           type: string
         FilePath:
-          description: 'File path for detecting extension in file mode
-
-
-            in: body'
+          description: File path for detecting extension in file mode
           type: string
         Mode:
-          description: 'Mode to render (markdown, comment, wiki, file)
-
-
-            in: body'
+          description: Mode to render (markdown, comment, wiki, file)
           type: string
         Text:
-          description: 'Text markup to render
-
-
-            in: body'
+          description: Text markup to render
           type: string
         Wiki:
-          description: 'Is it a wiki page? (use mode=wiki instead)
-
-
-            Deprecated: true
-
-            in: body'
+          description: Is it a wiki page? (use mode=wiki instead)
           type: boolean
-      x-go-package: code.gitea.io/gitea/modules/structs
+          x-deprecated: true
+      x-go-package: gitea.dev/modules/structs
+    LabelTemplate:
+      description: LabelTemplate info of a Label template
+      type: object
+      properties:
+        color:
+          type: string
+          x-go-name: Color
+          example: 00aabb
+        description:
+          description: Description provides additional context about the label template's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
+          type: boolean
+          x-go-name: Exclusive
+          example: false
+        name:
+          description: Name is the display name of the label template
+          type: string
+          x-go-name: Name
+      x-go-package: gitea.dev/modules/structs
     LicenseTemplateInfo:
       description: LicensesInfo contains information about a License
       type: object
@@ -396,28 +412,53 @@ components:
           description: URL is the reference URL for the license
           type: string
           x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    LabelTemplate:
-      description: LabelTemplate info of a Label template
+      x-go-package: gitea.dev/modules/structs
+    MarkdownOption:
+      description: MarkdownOption markdown options
       type: object
       properties:
-        color:
+        Context:
+          description: 'URL path for rendering issue, media and file links
+
+            Expected format: /subpath/{user}/{repo}/src/{branch, commit, tag}/{identifier/path}/{file/dir}'
           type: string
-          x-go-name: Color
-          example: 00aabb
-        description:
-          description: Description provides additional context about the label template's purpose
+        Mode:
+          description: Mode to render (markdown, comment, wiki, file)
           type: string
-          x-go-name: Description
-        exclusive:
+        Text:
+          description: Text markdown to render
+          type: string
+        Wiki:
+          description: Is it a wiki page? (use mode=wiki instead)
           type: boolean
-          x-go-name: Exclusive
-          example: false
+          x-deprecated: true
+      x-go-package: gitea.dev/modules/structs
+    LicensesTemplateListEntry:
+      description: LicensesListEntry is used for the API
+      type: object
+      properties:
+        key:
+          description: Key is the unique identifier for the license template
+          type: string
+          x-go-name: Key
         name:
-          description: Name is the display name of the label template
+          description: Name is the display name of the license
           type: string
           x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
+        url:
+          description: URL is the reference URL for the license
+          type: string
+          x-go-name: URL
+      x-go-package: gitea.dev/modules/structs
+    ServerVersion:
+      description: ServerVersion wraps the version of the server
+      type: object
+      properties:
+        version:
+          description: Version is the server version string
+          type: string
+          x-go-name: Version
+      x-go-package: gitea.dev/modules/structs
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.

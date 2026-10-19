@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
     url: http://opensource.org/licenses/MIT
-  version: 1.27.0+dev-89-gf52b6f3315
+  version: 29.0.0+dev-153-gba4f8fa246
 servers:
 - url: /api/v1
 security:
@@ -17,7 +17,8 @@ security:
 - SudoHeader: []
 - TOTPHeader: []
 tags:
-- name: Organization
+- description: Organizations and teams
+  name: Organization
 paths:
   /org/{org}/repos:
     post:
@@ -156,7 +157,7 @@ paths:
         required: true
         schema:
           type: string
-      - description: workflow status (pending, queued, in_progress, failure, success, skipped)
+      - description: workflow status (requested, pending, queued, in_progress, failure, success, skipped)
         name: status
         in: query
         schema:
@@ -325,7 +326,7 @@ paths:
         in: query
         schema:
           type: string
-      - description: workflow status (pending, queued, in_progress, failure, success, skipped)
+      - description: workflow status (requested, pending, queued, in_progress, failure, success, skipped)
         name: status
         in: query
         schema:
@@ -1109,6 +1110,567 @@ paths:
           description: member removed
         '404':
           $ref: '#/components/responses/notFound'
+  /orgs/{org}/projects:
+    get:
+      tags:
+      - Organization
+      summary: List an organization's projects
+      operationId: orgListProjects
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: State of the project (open, closed, all)
+        name: state
+        in: query
+        schema:
+          type: string
+          enum:
+          - open
+          - closed
+          - all
+          default: open
+      - description: page number of results to return (1-based)
+        name: page
+        in: query
+        schema:
+          type: integer
+      - description: page size of results
+        name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectList'
+        '404':
+          $ref: '#/components/responses/notFound'
+    post:
+      tags:
+      - Organization
+      summary: Create a project owned by an organization
+      operationId: orgCreateProject
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          $ref: '#/components/responses/Project'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectOption'
+  /orgs/{org}/projects/{id}:
+    get:
+      tags:
+      - Organization
+      summary: Get a project
+      operationId: orgGetProject
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/Project'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      tags:
+      - Organization
+      summary: Delete a project
+      operationId: orgDeleteProject
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '404':
+          $ref: '#/components/responses/notFound'
+    patch:
+      tags:
+      - Organization
+      summary: Edit a project
+      operationId: orgEditProject
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/Project'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditProjectOption'
+  /orgs/{org}/projects/{id}/columns:
+    get:
+      tags:
+      - Organization
+      summary: List a project's columns
+      operationId: orgListProjectColumns
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: page number of results to return (1-based)
+        name: page
+        in: query
+        schema:
+          type: integer
+      - description: page size of results
+        name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectColumnList'
+        '404':
+          $ref: '#/components/responses/notFound'
+    post:
+      tags:
+      - Organization
+      summary: Create a column in a project
+      operationId: orgCreateProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '201':
+          $ref: '#/components/responses/ProjectColumn'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectColumnOption'
+  /orgs/{org}/projects/{id}/columns/move:
+    post:
+      description: Reorders every column of the project at once. The body lists all column IDs in their new order.
+      tags:
+      - Organization
+      summary: Reorder a project's columns
+      operationId: orgMoveProjectColumns
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveProjectColumnsOption'
+  /orgs/{org}/projects/{id}/columns/{column_id}:
+    get:
+      tags:
+      - Organization
+      summary: Get a project column
+      operationId: orgGetProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectColumn'
+        '404':
+          $ref: '#/components/responses/notFound'
+    delete:
+      description: The default column cannot be deleted while it is still the column new issues land in.
+      tags:
+      - Organization
+      summary: Delete a project column
+      operationId: orgDeleteProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+    patch:
+      tags:
+      - Organization
+      summary: Edit a project column
+      operationId: orgEditProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectColumn'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditProjectColumnOption'
+  /orgs/{org}/projects/{id}/columns/{column_id}/default:
+    post:
+      description: The default column is where newly assigned issues land.
+      tags:
+      - Organization
+      summary: Set a project's default column
+      operationId: orgSetDefaultProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /orgs/{org}/projects/{id}/columns/{column_id}/issues:
+    get:
+      tags:
+      - Organization
+      summary: List the issues in a project column
+      operationId: orgListProjectColumnIssues
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: page number of results to return (1-based)
+        name: page
+        in: query
+        schema:
+          type: integer
+      - description: page size of results
+        name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/IssueList'
+        '404':
+          $ref: '#/components/responses/notFound'
+  /orgs/{org}/projects/{id}/columns/{column_id}/issues/{issue_id}:
+    post:
+      description: Assigns the issue to the project if it is not a member yet, then places it in the column.
+      tags:
+      - Organization
+      summary: Add an issue to a project column
+      operationId: orgAddIssueToProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: global id of the issue, not the repository-local index
+        name: issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '201':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+        '423':
+          $ref: '#/components/responses/repoArchivedError'
+    delete:
+      tags:
+      - Organization
+      summary: Remove an issue from a project column
+      operationId: orgRemoveIssueFromProjectColumn
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: id of the column
+        name: column_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: global id of the issue, not the repository-local index
+        name: issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '423':
+          $ref: '#/components/responses/repoArchivedError'
+  /orgs/{org}/projects/{id}/issues/{issue_id}/move:
+    post:
+      tags:
+      - Organization
+      summary: Move an issue between a project's columns
+      operationId: orgMoveProjectIssue
+      parameters:
+      - description: name of the organization
+        name: org
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: id of the project
+        name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - description: global id of the issue, not the repository-local index
+        name: issue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          $ref: '#/components/responses/empty'
+        '403':
+          $ref: '#/components/responses/forbidden'
+        '404':
+          $ref: '#/components/responses/notFound'
+        '422':
+          $ref: '#/components/responses/validationError'
+        '423':
+          $ref: '#/components/responses/repoArchivedError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveProjectIssueOption'
   /orgs/{org}/public_members:
     get:
       tags:
@@ -1813,189 +2375,451 @@ paths:
         '404':
           $ref: '#/components/responses/notFound'
 components:
-  responses:
-    Repository:
-      description: Repository
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Repository'
-    empty:
-      description: APIEmpty is an empty response
-    RegistrationToken:
-      description: RegistrationToken is response related to registration token
-      headers:
-        token:
-          schema:
-            type: string
-    validationError:
-      description: APIValidationError is error format response related to input validation
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    ActivityFeedsList:
-      description: ActivityFeedsList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Activity'
-    TeamList:
-      description: TeamList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Team'
-    Hook:
-      description: Hook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Hook'
-    OrganizationPermissions:
-      description: OrganizationPermissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OrganizationPermissions'
-    Runner:
-      description: Runner
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActionRunner'
-    ActionVariable:
-      description: ActionVariable
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActionVariable'
-    Organization:
-      description: Organization
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Organization'
-    UserList:
-      description: UserList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-    SecretList:
-      description: SecretList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Secret'
-    forbidden:
-      description: APIForbiddenError is a forbidden error response
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    WorkflowJobsList:
-      description: WorkflowJobsList
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActionWorkflowJobsResponse'
-    VariableList:
-      description: VariableList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/ActionVariable'
-    LabelList:
-      description: LabelList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Label'
-    Label:
-      description: Label
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Label'
-    HookList:
-      description: HookList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Hook'
-    RunnerList:
-      description: RunnerList
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActionRunnersResponse'
-    RepositoryList:
-      description: RepositoryList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Repository'
-    notFound:
-      description: APINotFound is a not found empty response
-    User:
-      description: User
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
-    error:
-      description: APIError is error format response
-      headers:
-        message:
-          schema:
-            type: string
-        url:
-          schema:
-            type: string
-    OrganizationList:
-      description: OrganizationList
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Organization'
-    WorkflowRunsList:
-      description: WorkflowRunsList
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActionWorkflowRunsResponse'
-    Team:
-      description: Team
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Team'
   schemas:
+    EditProjectOption:
+      description: EditProjectOption represents options for editing a project
+      type: object
+      properties:
+        card_type:
+          description: 'Card type: "text_only" or "images_and_text"'
+          type: string
+          x-go-name: CardType
+        description:
+          type: string
+          x-go-name: Description
+        state:
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-enum-desc: 'open StateOpen pr is opened
+
+            closed StateClosed pr is closed'
+          x-go-name: State
+        title:
+          type: string
+          x-go-name: Title
+      x-go-package: gitea.dev/modules/structs
+    ActionVariable:
+      description: ActionVariable return value of the query API
+      type: object
+      properties:
+        data:
+          description: the value of the variable
+          type: string
+          x-go-name: Data
+        description:
+          description: the description of the variable
+          type: string
+          x-go-name: Description
+        name:
+          description: the name of the variable
+          type: string
+          x-go-name: Name
+        owner_id:
+          description: the owner to which the variable belongs
+          type: integer
+          format: int64
+          x-go-name: OwnerID
+        repo_id:
+          description: the repository to which the variable belongs
+          type: integer
+          format: int64
+          x-go-name: RepoID
+      x-go-package: gitea.dev/modules/structs
+    MoveProjectColumnsOption:
+      description: MoveProjectColumnsOption represents options for reordering a project's columns
+      type: object
+      required:
+      - column_ids
+      properties:
+        column_ids:
+          description: Every column ID of the project, in the desired left-to-right order
+          type: array
+          items:
+            type: integer
+            format: int64
+          x-go-name: ColumnIDs
+      x-go-package: gitea.dev/modules/structs
+    CreateProjectColumnOption:
+      description: CreateProjectColumnOption represents options for creating a project column
+      type: object
+      required:
+      - title
+      properties:
+        color:
+          description: 'Column color in 6-digit hex format, e.g. #FF0000'
+          type: string
+          x-go-name: Color
+        title:
+          type: string
+          x-go-name: Title
+      x-go-package: gitea.dev/modules/structs
+    Hook:
+      description: Hook a hook is a web hook when one repository changed
+      type: object
+      properties:
+        active:
+          description: Whether the webhook is active and will be triggered
+          type: boolean
+          x-go-name: Active
+        authorization_header:
+          description: Authorization header to include in webhook requests
+          type: string
+          x-go-name: AuthorizationHeader
+        branch_filter:
+          description: Branch filter pattern to determine which branches trigger the webhook
+          type: string
+          x-go-name: BranchFilter
+        config:
+          description: Configuration settings for the webhook
+          type: object
+          additionalProperties:
+            type: string
+          x-go-name: Config
+        created_at:
+          description: The date and time when the webhook was created
+          type: string
+          format: date-time
+          x-go-name: Created
+        events:
+          description: List of events that trigger this webhook
+          type: array
+          items:
+            type: string
+          x-go-name: Events
+        id:
+          description: The unique identifier of the webhook
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
+          description: Optional human-readable name for the webhook
+          type: string
+          x-go-name: Name
+        type:
+          description: The type of the webhook (e.g., gitea, slack, discord)
+          type: string
+          x-go-name: Type
+        updated_at:
+          description: The date and time when the webhook was last updated
+          type: string
+          format: date-time
+          x-go-name: Updated
+      x-go-package: gitea.dev/modules/structs
+    CreateRepoOption:
+      description: CreateRepoOption options when creating repository
+      type: object
+      required:
+      - name
+      properties:
+        auto_init:
+          description: Whether the repository should be auto-initialized?
+          type: boolean
+          x-go-name: AutoInit
+        default_branch:
+          description: DefaultBranch of the repository (used when initializes and in template)
+          type: string
+          x-go-name: DefaultBranch
+        description:
+          description: Description of the repository to create
+          type: string
+          x-go-name: Description
+        gitignores:
+          description: Gitignores to use
+          type: string
+          x-go-name: Gitignores
+        issue_labels:
+          description: Label-Set to use
+          type: string
+          x-go-name: IssueLabels
+        license:
+          description: License to use
+          type: string
+          x-go-name: License
+        name:
+          description: Name of the repository to create
+          type: string
+          uniqueItems: true
+          x-go-name: Name
+        object_format_name:
+          description: ObjectFormatName of the underlying git repository, empty string for default (sha1)
+          type: string
+          enum:
+          - sha1
+          - sha256
+          x-go-enum-desc: 'sha1 ObjectFormatSHA1
+
+            sha256 ObjectFormatSHA256'
+          x-go-name: ObjectFormatName
+        private:
+          description: Whether the repository is private
+          type: boolean
+          x-go-name: Private
+        readme:
+          description: Readme of the repository to create
+          type: string
+          x-go-name: Readme
+        template:
+          description: Whether the repository is template
+          type: boolean
+          x-go-name: Template
+        trust_model:
+          description: TrustModel of the repository
+          type: string
+          enum:
+          - default
+          - collaborator
+          - committer
+          - collaboratorcommitter
+          x-go-name: TrustModel
+      x-go-package: gitea.dev/modules/structs
+    RenameOrgOption:
+      description: RenameOrgOption options when renaming an organization
+      type: object
+      required:
+      - new_name
+      properties:
+        new_name:
+          description: New username for this org. This name cannot be in use yet by any other user.
+          type: string
+          uniqueItems: true
+          x-go-name: NewName
+      x-go-package: gitea.dev/modules/structs
+    ActionWorkflowJobsResponse:
+      description: ActionWorkflowJobsResponse returns ActionWorkflowJobs
+      type: object
+      properties:
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionWorkflowJob'
+          x-go-name: Entries
+        total_count:
+          type: integer
+          format: int64
+          x-go-name: TotalCount
+      x-go-package: gitea.dev/modules/structs
+    CreateOrUpdateSecretOption:
+      description: CreateOrUpdateSecretOption options when creating or updating secret
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          description: Data of the secret to update
+          type: string
+          x-go-name: Data
+        description:
+          description: Description of the secret to update
+          type: string
+          x-go-name: Description
+      x-go-package: gitea.dev/modules/structs
+    EditActionRunnerOption:
+      type: object
+      title: EditActionRunnerOption represents the editable fields for a runner.
+      required:
+      - disabled
+      properties:
+        disabled:
+          type: boolean
+          x-go-name: Disabled
+      x-go-package: gitea.dev/modules/structs
+    Permission:
+      description: Permission represents a set of permissions
+      type: object
+      properties:
+        admin:
+          type: boolean
+          x-go-name: Admin
+        pull:
+          type: boolean
+          x-go-name: Pull
+        push:
+          type: boolean
+          x-go-name: Push
+      x-go-package: gitea.dev/modules/structs
+    Secret:
+      description: Secret represents a secret
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: Created
+        description:
+          description: the secret's description
+          type: string
+          x-go-name: Description
+        name:
+          description: the secret's name
+          type: string
+          x-go-name: Name
+      x-go-package: gitea.dev/modules/structs
+    CreateTeamOption:
+      description: CreateTeamOption options for creating a team
+      type: object
+      required:
+      - name
+      properties:
+        can_create_org_repo:
+          description: Whether the team can create repositories in the organization
+          type: boolean
+          x-go-name: CanCreateOrgRepo
+        description:
+          description: The description of the team
+          type: string
+          x-go-name: Description
+        includes_all_repositories:
+          description: Whether the team has access to all repositories in the organization
+          type: boolean
+          x-go-name: IncludesAllRepositories
+        name:
+          type: string
+          x-go-name: Name
+        permission:
+          description: All units have this permission (read/write/admin)
+          type: string
+          enum:
+          - read
+          - write
+          - admin
+          x-go-enum-desc: 'read RepoWritePermissionRead
+
+            write RepoWritePermissionWrite
+
+            admin RepoWritePermissionAdmin'
+          x-go-name: Permission
+        units:
+          description: 'Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.'
+          type: array
+          items:
+            type: string
+          x-deprecated: true
+          x-go-name: Units
+          example:
+          - repo.actions
+          - repo.packages
+          - repo.code
+          - repo.issues
+          - repo.ext_issues
+          - repo.wiki
+          - repo.pulls
+          - repo.releases
+          - repo.projects
+          - repo.ext_wiki
+        units_map:
+          type: object
+          additionalProperties:
+            type: string
+          x-go-name: UnitsMap
+          example:
+            repo.actions: read
+            repo.code: read
+            repo.ext_issues: none
+            repo.ext_wiki: none
+            repo.issues: write
+            repo.packages: read
+            repo.projects: none
+            repo.pulls: owner
+            repo.releases: none
+            repo.wiki: admin
+        visibility:
+          description: Team visibility within the organization. Defaults to "private".
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public TeamVisibilityPublic
+
+            limited TeamVisibilityLimited
+
+            private TeamVisibilityPrivate'
+          x-go-name: Visibility
+      x-go-package: gitea.dev/modules/structs
+    OrganizationPermissions:
+      description: OrganizationPermissions list different users permissions on an organization
+      type: object
+      properties:
+        can_create_repository:
+          description: Whether the user can create repositories in the organization
+          type: boolean
+          x-go-name: CanCreateRepository
+        can_read:
+          description: Whether the user can read the organization
+          type: boolean
+          x-go-name: CanRead
+        can_write:
+          description: Whether the user can write to the organization
+          type: boolean
+          x-go-name: CanWrite
+        is_admin:
+          description: Whether the user is an admin of the organization
+          type: boolean
+          x-go-name: IsAdmin
+        is_owner:
+          description: Whether the user is an owner of the organization
+          type: boolean
+          x-go-name: IsOwner
+      x-go-package: gitea.dev/modules/structs
+    CreateProjectOption:
+      description: CreateProjectOption represents options for creating a project
+      type: object
+      required:
+      - title
+      properties:
+        card_type:
+          description: 'Card type: "text_only" or "images_and_text"'
+          type: string
+          x-go-name: CardType
+        description:
+          type: string
+          x-go-name: Description
+        template_type:
+          description: 'Template type: "none", "basic_kanban" or "bug_triage"'
+          type: string
+          x-go-name: TemplateType
+        title:
+          type: string
+          x-go-name: Title
+      x-go-package: gitea.dev/modules/structs
+    ExternalTracker:
+      description: ExternalTracker represents settings for external tracker
+      type: object
+      properties:
+        external_tracker_format:
+          description: External Issue Tracker URL Format. Use the placeholders {user}, {repo} and {index} for the username, repository name and issue index.
+          type: string
+          x-go-name: ExternalTrackerFormat
+        external_tracker_regexp_pattern:
+          description: External Issue Tracker issue regular expression
+          type: string
+          x-go-name: ExternalTrackerRegexpPattern
+        external_tracker_style:
+          description: External Issue Tracker Number Format, either `numeric`, `alphanumeric`, or `regexp`
+          type: string
+          x-go-name: ExternalTrackerStyle
+        external_tracker_url:
+          description: URL of external issue tracker.
+          type: string
+          x-go-name: ExternalTrackerURL
+      x-go-package: gitea.dev/modules/structs
+    PullRequestMinimalHeadRepo:
+      type: object
+      title: PullRequestMinimalHeadRepo is a minimal description of the repository on one side of a pull request.
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
+          type: string
+          x-go-name: Name
+        url:
+          type: string
+          x-go-name: URL
+      x-go-package: gitea.dev/modules/structs
     CreateLabelOption:
       description: CreateLabelOption options for creating a label
       type: object
@@ -2020,39 +2844,10 @@ components:
           x-go-name: IsArchived
           example: false
         name:
+          description: Name is the display name for the new label
           type: string
           x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ExternalTracker:
-      description: ExternalTracker represents settings for external tracker
-      type: object
-      properties:
-        external_tracker_format:
-          description: External Issue Tracker URL Format. Use the placeholders {user}, {repo} and {index} for the username, repository name and issue index.
-          type: string
-          x-go-name: ExternalTrackerFormat
-        external_tracker_regexp_pattern:
-          description: External Issue Tracker issue regular expression
-          type: string
-          x-go-name: ExternalTrackerRegexpPattern
-        external_tracker_style:
-          description: External Issue Tracker Number Format, either `numeric`, `alphanumeric`, or `regexp`
-          type: string
-          x-go-name: ExternalTrackerStyle
-        external_tracker_url:
-          description: URL of external issue tracker.
-          type: string
-          x-go-name: ExternalTrackerURL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    UpdateUserAvatarOption:
-      description: UpdateUserAvatarUserOption options when updating the user avatar
-      type: object
-      properties:
-        image:
-          description: image must be base64 encoded
-          type: string
-          x-go-name: Image
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
     Repository:
       description: Repository represents a repository
       type: object
@@ -2066,6 +2861,9 @@ components:
         allow_merge_commits:
           type: boolean
           x-go-name: AllowMerge
+        allow_merge_update:
+          type: boolean
+          x-go-name: AllowMergeUpdate
         allow_rebase:
           type: boolean
           x-go-name: AllowRebase
@@ -2117,6 +2915,9 @@ components:
         default_target_branch:
           type: string
           x-go-name: DefaultTargetBranch
+        default_update_style:
+          type: string
+          x-go-name: DefaultUpdateStyle
         description:
           type: string
           x-go-name: Description
@@ -2196,6 +2997,10 @@ components:
         mirror_interval:
           type: string
           x-go-name: MirrorInterval
+        mirror_last_sync_at:
+          type: string
+          format: date-time
+          x-go-name: MirrorLastSyncAt
         mirror_updated:
           type: string
           format: date-time
@@ -2209,6 +3014,9 @@ components:
           enum:
           - sha1
           - sha256
+          x-go-enum-desc: 'sha1 ObjectFormatSHA1
+
+            sha256 ObjectFormatSHA256'
           x-go-name: ObjectFormatName
         open_issues_count:
           type: integer
@@ -2243,6 +3051,9 @@ components:
           type: integer
           format: int64
           x-go-name: Size
+        squash_merge_commit_message:
+          type: string
+          x-go-name: SquashMergeCommitMessage
         ssh_url:
           type: string
           x-go-name: SSHURL
@@ -2272,330 +3083,66 @@ components:
         website:
           type: string
           x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateHookOption:
-      description: CreateHookOption options when create a hook
+      x-go-package: gitea.dev/modules/structs
+    EditLabelOption:
+      description: EditLabelOption options for editing a label
       type: object
-      required:
-      - type
-      - config
       properties:
-        active:
+        color:
+          type: string
+          x-go-name: Color
+          example: '#00aabb'
+        description:
+          description: Description provides additional context about the label's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
           type: boolean
-          default: false
-          x-go-name: Active
-        authorization_header:
-          description: Authorization header to include in webhook requests
-          type: string
-          x-go-name: AuthorizationHeader
-        branch_filter:
-          description: Branch filter pattern to determine which branches trigger the webhook
-          type: string
-          x-go-name: BranchFilter
-        config:
-          $ref: '#/components/schemas/CreateHookOptionConfig'
-        events:
-          description: List of events that will trigger this webhook
-          type: array
-          items:
-            type: string
-          x-go-name: Events
+          x-go-name: Exclusive
+          example: false
+        is_archived:
+          type: boolean
+          x-go-name: IsArchived
+          example: false
         name:
-          description: Optional human-readable name for the webhook
+          description: Name is the new display name for the label
+          type: string
+          x-go-name: Name
+      x-go-package: gitea.dev/modules/structs
+    ActionRunnerLabel:
+      description: ActionRunnerLabel represents a Runner Label
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
           type: string
           x-go-name: Name
         type:
           type: string
-          enum:
-          - dingtalk
-          - discord
-          - gitea
-          - gogs
-          - msteams
-          - slack
-          - telegram
-          - feishu
-          - wechatwork
-          - packagist
           x-go-name: Type
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditOrgOption:
-      description: EditOrgOption options for editing an organization
-      type: object
-      properties:
-        description:
-          description: The description of the organization
-          type: string
-          x-go-name: Description
-        email:
-          description: The email address of the organization; use empty string to clear
-          type: string
-          x-go-name: Email
-        full_name:
-          description: The full display name of the organization
-          type: string
-          x-go-name: FullName
-        location:
-          description: The location of the organization
-          type: string
-          x-go-name: Location
-        repo_admin_change_team_access:
-          description: Whether repository administrators can change team access
-          type: boolean
-          x-go-name: RepoAdminChangeTeamAccess
-        visibility:
-          description: possible values are `public`, `limited` or `private`
-          type: string
-          enum:
-          - public
-          - limited
-          - private
-          x-go-name: Visibility
-        website:
-          description: The website URL of the organization
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionRunnersResponse:
-      description: ActionRunnersResponse returns Runners
-      type: object
-      properties:
-        runners:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionRunner'
-          x-go-name: Entries
-        total_count:
-          type: integer
-          format: int64
-          x-go-name: TotalCount
-      x-go-package: code.gitea.io/gitea/modules/structs
-    RepoTransfer:
-      description: RepoTransfer represents a pending repo transfer
-      type: object
-      properties:
-        doer:
-          $ref: '#/components/schemas/User'
-        recipient:
-          $ref: '#/components/schemas/User'
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
-          x-go-name: Teams
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Secret:
-      description: Secret represents a secret
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        description:
-          description: the secret's description
-          type: string
-          x-go-name: Description
-        name:
-          description: the secret's name
-          type: string
-          x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Attachment:
-      description: Attachment a generic attachment
-      type: object
-      properties:
-        browser_download_url:
-          description: DownloadURL is the URL to download the attachment
-          type: string
-          x-go-name: DownloadURL
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        download_count:
-          description: DownloadCount is the number of times the attachment has been downloaded
-          type: integer
-          format: int64
-          x-go-name: DownloadCount
-        id:
-          description: ID is the unique identifier for the attachment
-          type: integer
-          format: int64
-          x-go-name: ID
-        name:
-          description: Name is the filename of the attachment
-          type: string
-          x-go-name: Name
-        size:
-          description: Size is the file size in bytes
-          type: integer
-          format: int64
-          x-go-name: Size
-        uuid:
-          description: UUID is the unique identifier for the attachment file
-          type: string
-          x-go-name: UUID
-      x-go-package: code.gitea.io/gitea/modules/structs
-    UpdateVariableOption:
-      description: UpdateVariableOption the option when updating variable
+      x-go-package: gitea.dev/modules/structs
+    MoveProjectIssueOption:
+      description: MoveProjectIssueOption represents options for moving an issue between columns
       type: object
       required:
-      - value
+      - column_id
       properties:
-        description:
-          description: Description of the variable to update
-          type: string
-          x-go-name: Description
-        name:
-          description: New name for the variable. If the field is empty, the variable name won't be updated.
-          type: string
-          x-go-name: Name
-        value:
-          description: Value of the variable to update
-          type: string
-          x-go-name: Value
-      x-go-package: code.gitea.io/gitea/modules/structs
-    User:
-      description: User represents a user
-      type: object
-      properties:
-        active:
-          description: Is user active
-          type: boolean
-          x-go-name: IsActive
-        avatar_url:
-          description: URL to the user's avatar
-          type: string
-          x-go-name: AvatarURL
-        created:
-          type: string
-          format: date-time
-          x-go-name: Created
-        description:
-          description: the user's description
-          type: string
-          x-go-name: Description
-        email:
-          type: string
-          format: email
-          x-go-name: Email
-        followers_count:
-          description: user counts
+        column_id:
+          description: Target column to move the issue into
           type: integer
           format: int64
-          x-go-name: Followers
-        following_count:
+          x-go-name: ColumnID
+        sorting:
+          description: 'Position within the column, ascending. Omit to append. Negative values sort above
+
+            the rest, equal values are ordered newest first.'
           type: integer
           format: int64
-          x-go-name: Following
-        full_name:
-          description: the user's full name
-          type: string
-          x-go-name: FullName
-        html_url:
-          description: URL to the user's gitea page
-          type: string
-          x-go-name: HTMLURL
-        id:
-          description: the user's id
-          type: integer
-          format: int64
-          x-go-name: ID
-        is_admin:
-          description: Is the user an administrator
-          type: boolean
-          x-go-name: IsAdmin
-        language:
-          description: User locale
-          type: string
-          x-go-name: Language
-        last_login:
-          type: string
-          format: date-time
-          x-go-name: LastLogin
-        location:
-          description: the user's location
-          type: string
-          x-go-name: Location
-        login:
-          description: login of the user, same as `username`
-          type: string
-          x-go-name: UserName
-        login_name:
-          description: identifier of the user, provided by the external authenticator (if configured)
-          type: string
-          default: empty
-          x-go-name: LoginName
-        prohibit_login:
-          description: Is user login prohibited
-          type: boolean
-          x-go-name: ProhibitLogin
-        restricted:
-          description: Is user restricted
-          type: boolean
-          x-go-name: Restricted
-        source_id:
-          description: The ID of the user's Authentication Source
-          type: integer
-          format: int64
-          x-go-name: SourceID
-        starred_repos_count:
-          type: integer
-          format: int64
-          x-go-name: StarredRepos
-        visibility:
-          description: 'User visibility level option: public, limited, private'
-          type: string
-          x-go-name: Visibility
-        website:
-          description: the user's website
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateOrgOption:
-      description: CreateOrgOption options for creating an organization
-      type: object
-      required:
-      - username
-      properties:
-        description:
-          description: The description of the organization
-          type: string
-          x-go-name: Description
-        email:
-          description: The email address of the organization
-          type: string
-          x-go-name: Email
-        full_name:
-          description: The full display name of the organization
-          type: string
-          x-go-name: FullName
-        location:
-          description: The location of the organization
-          type: string
-          x-go-name: Location
-        repo_admin_change_team_access:
-          description: Whether repository administrators can change team access
-          type: boolean
-          x-go-name: RepoAdminChangeTeamAccess
-        username:
-          description: username of the organization
-          type: string
-          x-go-name: UserName
-        visibility:
-          description: possible values are `public` (default), `limited` or `private`
-          type: string
-          enum:
-          - public
-          - limited
-          - private
-          x-go-name: Visibility
-        website:
-          description: The website URL of the organization
-          type: string
-          x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
+          x-go-name: Sorting
+      x-go-package: gitea.dev/modules/structs
     ActionWorkflowRunsResponse:
       description: ActionWorkflowRunsResponse returns ActionWorkflowRuns
       type: object
@@ -2609,16 +3156,151 @@ components:
           items:
             $ref: '#/components/schemas/ActionWorkflowRun'
           x-go-name: Entries
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ExternalWiki:
-      description: ExternalWiki represents setting for external wiki
+      x-go-package: gitea.dev/modules/structs
+    InternalTracker:
+      description: InternalTracker represents settings for internal tracker
       type: object
       properties:
-        external_wiki_url:
-          description: URL of external wiki.
+        allow_only_contributors_to_track_time:
+          description: Let only contributors track time (Built-in issue tracker)
+          type: boolean
+          x-go-name: AllowOnlyContributorsToTrackTime
+        enable_issue_dependencies:
+          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableIssueDependencies
+        enable_time_tracker:
+          description: Enable time tracking (Built-in issue tracker)
+          type: boolean
+          x-go-name: EnableTimeTracker
+      x-go-package: gitea.dev/modules/structs
+    EditProjectColumnOption:
+      description: EditProjectColumnOption represents options for editing a project column
+      type: object
+      properties:
+        color:
+          description: 'Column color in 6-digit hex format, e.g. #FF0000'
           type: string
-          x-go-name: ExternalWikiURL
-      x-go-package: code.gitea.io/gitea/modules/structs
+          x-go-name: Color
+        sorting:
+          description: Position of the column within the project, between -128 and 127
+          type: integer
+          format: int64
+          x-go-name: Sorting
+        title:
+          type: string
+          x-go-name: Title
+      x-go-package: gitea.dev/modules/structs
+    Issue:
+      description: Issue represents an issue in a repository
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+          x-go-name: Attachments
+        assignee:
+          $ref: '#/components/schemas/User'
+        assignees:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+          x-go-name: Assignees
+        body:
+          type: string
+          x-go-name: Body
+        closed_at:
+          type: string
+          format: date-time
+          x-go-name: Closed
+        comments:
+          type: integer
+          format: int64
+          x-go-name: Comments
+        content_version:
+          description: The version of the issue content for optimistic locking
+          type: integer
+          format: int64
+          x-go-name: ContentVersion
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: Created
+        due_date:
+          type: string
+          format: date-time
+          x-go-name: Deadline
+        html_url:
+          type: string
+          x-go-name: HTMLURL
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        is_locked:
+          type: boolean
+          x-go-name: IsLocked
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+          x-go-name: Labels
+        milestone:
+          $ref: '#/components/schemas/Milestone'
+        number:
+          type: integer
+          format: int64
+          x-go-name: Index
+        original_author:
+          type: string
+          x-go-name: OriginalAuthor
+        original_author_id:
+          type: integer
+          format: int64
+          x-go-name: OriginalAuthorID
+        pin_order:
+          type: integer
+          format: int64
+          x-go-name: PinOrder
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+          x-go-name: Projects
+        pull_request:
+          $ref: '#/components/schemas/PullRequestMeta'
+        ref:
+          type: string
+          x-go-name: Ref
+        repository:
+          $ref: '#/components/schemas/RepositoryMeta'
+        state:
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-enum-desc: 'open StateOpen pr is opened
+
+            closed StateClosed pr is closed'
+          x-go-name: State
+        time_estimate:
+          type: integer
+          format: int64
+          x-go-name: TimeEstimate
+        title:
+          type: string
+          x-go-name: Title
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: Updated
+        url:
+          type: string
+          x-go-name: URL
+        user:
+          $ref: '#/components/schemas/User'
+      x-go-package: gitea.dev/modules/structs
     ActionWorkflowJob:
       description: ActionWorkflowJob represents a WorkflowJob
       type: object
@@ -2688,127 +3370,186 @@ components:
         url:
           type: string
           x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Permission:
-      description: Permission represents a set of permissions
-      type: object
-      properties:
-        admin:
-          type: boolean
-          x-go-name: Admin
-        pull:
-          type: boolean
-          x-go-name: Pull
-        push:
-          type: boolean
-          x-go-name: Push
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Label:
-      description: Label a label to an issue or a pr
+      x-go-package: gitea.dev/modules/structs
+    ProjectColumn:
+      description: ProjectColumn represents a project column (board)
       type: object
       properties:
         color:
           type: string
           x-go-name: Color
-          example: 00aabb
-        description:
-          description: Description provides additional context about the label's purpose
+        created_at:
           type: string
-          x-go-name: Description
-        exclusive:
+          format: date-time
+          x-go-name: CreatedAt
+        creator:
+          $ref: '#/components/schemas/User'
+        default:
           type: boolean
-          x-go-name: Exclusive
-          example: false
+          x-go-name: Default
         id:
-          description: ID is the unique identifier for the label
           type: integer
           format: int64
           x-go-name: ID
-        is_archived:
-          type: boolean
-          x-go-name: IsArchived
-          example: false
-        name:
-          description: Name is the display name of the label
-          type: string
-          x-go-name: Name
-        url:
-          description: URL is the API endpoint for accessing this label
-          type: string
-          x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateTeamOption:
-      description: CreateTeamOption options for creating a team
-      type: object
-      required:
-      - name
-      properties:
-        can_create_org_repo:
-          description: Whether the team can create repositories in the organization
-          type: boolean
-          x-go-name: CanCreateOrgRepo
-        description:
-          description: The description of the team
-          type: string
-          x-go-name: Description
-        includes_all_repositories:
-          description: Whether the team has access to all repositories in the organization
-          type: boolean
-          x-go-name: IncludesAllRepositories
-        name:
-          type: string
-          x-go-name: Name
-        permission:
-          type: string
-          enum:
-          - read
-          - write
-          - admin
-          x-go-name: Permission
-        units:
-          type: array
-          items:
-            type: string
-          x-go-name: Units
-          example:
-          - repo.actions
-          - repo.code
-          - repo.issues
-          - repo.ext_issues
-          - repo.wiki
-          - repo.ext_wiki
-          - repo.pulls
-          - repo.releases
-          - repo.projects
-          - repo.ext_wiki
-        units_map:
-          type: object
-          additionalProperties:
-            type: string
-          x-go-name: UnitsMap
-          example: '{"repo.actions","repo.packages","repo.code":"read","repo.issues":"write","repo.ext_issues":"none","repo.wiki":"admin","repo.pulls":"owner","repo.releases":"none","repo.projects":"none","repo.ext_wiki":"none"}'
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionWorkflowJobsResponse:
-      description: ActionWorkflowJobsResponse returns ActionWorkflowJobs
-      type: object
-      properties:
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/ActionWorkflowJob'
-          x-go-name: Entries
-        total_count:
+        project_id:
           type: integer
           format: int64
-          x-go-name: TotalCount
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditHookOption:
-      description: EditHookOption options when modify one hook
+          x-go-name: ProjectID
+        sorting:
+          type: integer
+          format: int64
+          x-go-name: Sorting
+        title:
+          type: string
+          x-go-name: Title
+        updated_at:
+          description: null only for legacy rows that carry no update timestamp
+          type: string
+          format: date-time
+          x-go-name: UpdatedAt
+      x-go-package: gitea.dev/modules/structs
+    Project:
+      description: Projects track issues and pull requests, standalone note cards are not supported.
+      type: object
+      title: Project represents a project.
+      properties:
+        card_type:
+          description: 'Card type: "text_only" or "images_and_text"'
+          type: string
+          x-go-name: CardType
+        closed_at:
+          type: string
+          format: date-time
+          x-go-name: ClosedAt
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
+        creator:
+          $ref: '#/components/schemas/User'
+        creator_id:
+          description: 'Deprecated: use Creator instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+          x-go-name: CreatorID
+        description:
+          type: string
+          x-go-name: Description
+        html_url:
+          type: string
+          x-go-name: HTMLURL
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        is_closed:
+          description: 'Deprecated: use State instead'
+          type: boolean
+          x-deprecated: true
+          x-go-name: IsClosed
+        num_closed_issues:
+          type: integer
+          format: int64
+          x-go-name: NumClosedIssues
+        num_issues:
+          type: integer
+          format: int64
+          x-go-name: NumIssues
+        num_open_issues:
+          type: integer
+          format: int64
+          x-go-name: NumOpenIssues
+        owner_id:
+          type: integer
+          format: int64
+          x-go-name: OwnerID
+        repo_id:
+          type: integer
+          format: int64
+          x-go-name: RepoID
+        state:
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-enum-desc: 'open StateOpen pr is opened
+
+            closed StateClosed pr is closed'
+          x-go-name: State
+        template_type:
+          description: 'Template type: "none", "basic_kanban" or "bug_triage"'
+          type: string
+          x-go-name: TemplateType
+        title:
+          type: string
+          x-go-name: Title
+        type:
+          description: 'Project type: "individual", "repository" or "organization"'
+          type: string
+          x-go-name: Type
+        updated_at:
+          description: null only for legacy rows that carry no update timestamp
+          type: string
+          format: date-time
+          x-go-name: UpdatedAt
+      x-go-package: gitea.dev/modules/structs
+    UpdateUserAvatarOption:
+      description: UpdateUserAvatarUserOption options when updating the user avatar
       type: object
       properties:
+        image:
+          description: image must be base64 encoded
+          type: string
+          x-go-name: Image
+      x-go-package: gitea.dev/modules/structs
+    ExternalWiki:
+      description: ExternalWiki represents setting for external wiki
+      type: object
+      properties:
+        external_wiki_url:
+          description: URL of external wiki.
+          type: string
+          x-go-name: ExternalWikiURL
+      x-go-package: gitea.dev/modules/structs
+    CreateHookOptionConfig:
+      description: 'CreateHookOptionConfig has all config options in it
+
+        required are "content_type" and "url" Required'
+      type: object
+      additionalProperties:
+        type: string
+      x-go-package: gitea.dev/modules/structs
+    UpdateVariableOption:
+      description: UpdateVariableOption the option when updating variable
+      type: object
+      required:
+      - value
+      properties:
+        description:
+          description: Description of the variable to update
+          type: string
+          x-go-name: Description
+        name:
+          description: New name for the variable. If the field is empty, the variable name won't be updated.
+          type: string
+          x-go-name: Name
+        value:
+          description: Value of the variable to update
+          type: string
+          x-go-name: Value
+      x-go-package: gitea.dev/modules/structs
+    CreateHookOption:
+      description: CreateHookOption options when create a hook
+      type: object
+      required:
+      - type
+      - config
+      properties:
         active:
-          description: Whether the webhook is active and will be triggered
+          description: Whether the webhook should be active upon creation
           type: boolean
+          default: false
           x-go-name: Active
         authorization_header:
           description: Authorization header to include in webhook requests
@@ -2819,96 +3560,47 @@ components:
           type: string
           x-go-name: BranchFilter
         config:
-          description: Configuration settings for the webhook
-          type: object
-          additionalProperties:
-            type: string
-          x-go-name: Config
+          $ref: '#/components/schemas/CreateHookOptionConfig'
         events:
-          description: List of events that trigger this webhook
+          description: List of events that will trigger this webhook
           type: array
           items:
             type: string
           x-go-name: Events
         name:
-          description: Optional human-readable name
+          description: Optional human-readable name for the webhook
           type: string
           x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditActionRunnerOption:
-      type: object
-      title: EditActionRunnerOption represents the editable fields for a runner.
-      required:
-      - disabled
-      properties:
-        disabled:
-          type: boolean
-          x-go-name: Disabled
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateRepoOption:
-      description: CreateRepoOption options when creating repository
-      type: object
-      required:
-      - name
-      properties:
-        auto_init:
-          description: Whether the repository should be auto-initialized?
-          type: boolean
-          x-go-name: AutoInit
-        default_branch:
-          description: DefaultBranch of the repository (used when initializes and in template)
-          type: string
-          x-go-name: DefaultBranch
-        description:
-          description: Description of the repository to create
-          type: string
-          x-go-name: Description
-        gitignores:
-          description: Gitignores to use
-          type: string
-          x-go-name: Gitignores
-        issue_labels:
-          description: Label-Set to use
-          type: string
-          x-go-name: IssueLabels
-        license:
-          description: License to use
-          type: string
-          x-go-name: License
-        name:
-          description: Name of the repository to create
-          type: string
-          uniqueItems: true
-          x-go-name: Name
-        object_format_name:
-          description: ObjectFormatName of the underlying git repository, empty string for default (sha1)
+        type:
+          description: The type of the webhook to create
           type: string
           enum:
-          - sha1
-          - sha256
-          x-go-name: ObjectFormatName
-        private:
-          description: Whether the repository is private
-          type: boolean
-          x-go-name: Private
-        readme:
-          description: Readme of the repository to create
-          type: string
-          x-go-name: Readme
-        template:
-          description: Whether the repository is template
-          type: boolean
-          x-go-name: Template
-        trust_model:
-          description: TrustModel of the repository
-          type: string
-          enum:
-          - default
-          - collaborator
-          - committer
-          - collaboratorcommitter
-          x-go-name: TrustModel
-      x-go-package: code.gitea.io/gitea/modules/structs
+          - dingtalk
+          - discord
+          - gitea
+          - gogs
+          - msteams
+          - slack
+          - telegram
+          - feishu
+          - wechatwork
+          - packagist
+          x-go-name: Type
+      x-go-package: gitea.dev/modules/structs
+    ActionRunnersResponse:
+      description: ActionRunnersResponse returns Runners
+      type: object
+      properties:
+        runners:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionRunner'
+          x-go-name: Entries
+        total_count:
+          type: integer
+          format: int64
+          x-go-name: TotalCount
+      x-go-package: gitea.dev/modules/structs
     Organization:
       description: Organization represents an organization
       type: object
@@ -2955,43 +3647,265 @@ components:
         visibility:
           description: The visibility level of the organization (public, limited, private)
           type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
           x-go-name: Visibility
         website:
           description: The website URL of the organization
           type: string
           x-go-name: Website
-      x-go-package: code.gitea.io/gitea/modules/structs
-    OrganizationPermissions:
-      description: OrganizationPermissions list different users permissions on an organization
+      x-go-package: gitea.dev/modules/structs
+    Attachment:
+      description: Attachment a generic attachment
       type: object
       properties:
-        can_create_repository:
-          description: Whether the user can create repositories in the organization
+        browser_download_url:
+          description: DownloadURL is the URL to download the attachment
+          type: string
+          x-go-name: DownloadURL
+        created_at:
+          description: Created is the time when the attachment was uploaded
+          type: string
+          format: date-time
+          x-go-name: Created
+        download_count:
+          description: DownloadCount is the number of times the attachment has been downloaded
+          type: integer
+          format: int64
+          x-go-name: DownloadCount
+        id:
+          description: ID is the unique identifier for the attachment
+          type: integer
+          format: int64
+          x-go-name: ID
+        name:
+          description: Name is the filename of the attachment
+          type: string
+          x-go-name: Name
+        size:
+          description: Size is the file size in bytes
+          type: integer
+          format: int64
+          x-go-name: Size
+        uuid:
+          description: UUID is the unique identifier for the attachment file
+          type: string
+          x-go-name: UUID
+      x-go-package: gitea.dev/modules/structs
+    Label:
+      description: Label a label to an issue or a pr
+      type: object
+      properties:
+        color:
+          type: string
+          x-go-name: Color
+          example: 00aabb
+        description:
+          description: Description provides additional context about the label's purpose
+          type: string
+          x-go-name: Description
+        exclusive:
           type: boolean
-          x-go-name: CanCreateRepository
-        can_read:
-          description: Whether the user can read the organization
+          x-go-name: Exclusive
+          example: false
+        id:
+          description: ID is the unique identifier for the label
+          type: integer
+          format: int64
+          x-go-name: ID
+        is_archived:
           type: boolean
-          x-go-name: CanRead
-        can_write:
-          description: Whether the user can write to the organization
+          x-go-name: IsArchived
+          example: false
+        name:
+          description: Name is the display name of the label
+          type: string
+          x-go-name: Name
+        url:
+          description: URL is the API endpoint for accessing this label
+          type: string
+          x-go-name: URL
+      x-go-package: gitea.dev/modules/structs
+    ActionRunner:
+      description: ActionRunner represents a Runner
+      type: object
+      properties:
+        busy:
           type: boolean
-          x-go-name: CanWrite
+          x-go-name: Busy
+        disabled:
+          type: boolean
+          x-go-name: Disabled
+        ephemeral:
+          type: boolean
+          x-go-name: Ephemeral
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActionRunnerLabel'
+          x-go-name: Labels
+        name:
+          type: string
+          x-go-name: Name
+        status:
+          type: string
+          x-go-name: Status
+      x-go-package: gitea.dev/modules/structs
+    User:
+      description: User represents a user
+      type: object
+      properties:
+        active:
+          description: Is user active
+          type: boolean
+          x-go-name: IsActive
+        avatar_url:
+          description: URL to the user's avatar
+          type: string
+          x-go-name: AvatarURL
+        created:
+          type: string
+          format: date-time
+          x-go-name: Created
+        description:
+          description: the user's description
+          type: string
+          x-go-name: Description
+        email:
+          type: string
+          format: email
+          x-go-name: Email
+        followers_count:
+          description: user counts
+          type: integer
+          format: int64
+          x-go-name: Followers
+        following_count:
+          type: integer
+          format: int64
+          x-go-name: Following
+        full_name:
+          description: the user's full name
+          type: string
+          x-go-name: FullName
+        html_url:
+          description: URL to the user's gitea page
+          type: string
+          x-go-name: HTMLURL
+        id:
+          description: the user's id
+          type: integer
+          format: int64
+          x-go-name: ID
         is_admin:
-          description: Whether the user is an admin of the organization
+          description: Is the user an administrator
           type: boolean
           x-go-name: IsAdmin
-        is_owner:
-          description: Whether the user is an owner of the organization
+        language:
+          description: User locale
+          type: string
+          x-go-name: Language
+        last_login:
+          type: string
+          format: date-time
+          x-go-name: LastLogin
+        location:
+          description: the user's location
+          type: string
+          x-go-name: Location
+        login:
+          description: login of the user, same as `username`
+          type: string
+          x-go-name: UserName
+        login_name:
+          description: identifier of the user, provided by the external authenticator (if configured)
+          type: string
+          x-go-name: LoginName
+        prohibit_login:
+          description: Is user login prohibited
           type: boolean
-          x-go-name: IsOwner
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionWorkflowRun:
-      description: ActionWorkflowRun represents a WorkflowRun
+          x-go-name: ProhibitLogin
+        restricted:
+          description: Is user restricted
+          type: boolean
+          x-go-name: Restricted
+        source_id:
+          description: The ID of the user's Authentication Source
+          type: integer
+          format: int64
+          x-go-name: SourceID
+        starred_repos_count:
+          type: integer
+          format: int64
+          x-go-name: StarredRepos
+        type:
+          description: the user type
+          type: string
+          enum:
+          - User
+          - Organization
+          - Bot
+          x-go-enum-desc: 'User UserTypeStringUser
+
+            Organization UserTypeStringOrganization
+
+            Bot UserTypeStringBot'
+          x-go-name: Type
+        visibility:
+          description: 'User visibility level option: public, limited, private'
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
+          x-go-name: Visibility
+        website:
+          description: the user's website
+          type: string
+          x-go-name: Website
+      x-go-package: gitea.dev/modules/structs
+    PullRequestMinimal:
+      description: 'PullRequestMinimal is the minimal information about a pull request, as
+
+        returned in the `pull_requests` field of a workflow run.'
       type: object
       properties:
-        actor:
-          $ref: '#/components/schemas/User'
+        base:
+          $ref: '#/components/schemas/PullRequestMinimalHead'
+        head:
+          $ref: '#/components/schemas/PullRequestMinimalHead'
+        id:
+          type: integer
+          format: int64
+          x-go-name: ID
+        number:
+          type: integer
+          format: int64
+          x-go-name: Number
+        url:
+          type: string
+          x-go-name: URL
+      x-go-package: gitea.dev/modules/structs
+    ActionWorkflowStep:
+      description: ActionWorkflowStep represents a step of a WorkflowJob
+      type: object
+      properties:
         completed_at:
           type: string
           format: date-time
@@ -2999,6 +3913,119 @@ components:
         conclusion:
           type: string
           x-go-name: Conclusion
+        name:
+          type: string
+          x-go-name: Name
+        number:
+          type: integer
+          format: int64
+          x-go-name: Number
+        started_at:
+          type: string
+          format: date-time
+          x-go-name: StartedAt
+        status:
+          type: string
+          x-go-name: Status
+      x-go-package: gitea.dev/modules/structs
+    EditHookOption:
+      description: EditHookOption options when modify one hook
+      type: object
+      properties:
+        active:
+          description: Whether the webhook is active and will be triggered
+          type: boolean
+          x-go-name: Active
+        authorization_header:
+          description: Authorization header to include in webhook requests
+          type: string
+          x-go-name: AuthorizationHeader
+        branch_filter:
+          description: Branch filter pattern to determine which branches trigger the webhook
+          type: string
+          x-go-name: BranchFilter
+        config:
+          description: Configuration settings for the webhook
+          type: object
+          additionalProperties:
+            type: string
+          x-go-name: Config
+        events:
+          description: List of events that trigger this webhook
+          type: array
+          items:
+            type: string
+          x-go-name: Events
+        name:
+          description: Optional human-readable name
+          type: string
+          x-go-name: Name
+      x-go-package: gitea.dev/modules/structs
+    EditOrgOption:
+      description: EditOrgOption options for editing an organization
+      type: object
+      properties:
+        description:
+          description: The description of the organization
+          type: string
+          x-go-name: Description
+        email:
+          description: The email address of the organization; use empty string to clear
+          type: string
+          x-go-name: Email
+        full_name:
+          description: The full display name of the organization
+          type: string
+          x-go-name: FullName
+        location:
+          description: The location of the organization
+          type: string
+          x-go-name: Location
+        repo_admin_change_team_access:
+          description: Whether repository administrators can change team access
+          type: boolean
+          x-go-name: RepoAdminChangeTeamAccess
+        visibility:
+          description: possible values are `public`, `limited` or `private`
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
+          x-go-name: Visibility
+        website:
+          description: The website URL of the organization
+          type: string
+          x-go-name: Website
+      x-go-package: gitea.dev/modules/structs
+    ActionWorkflowRun:
+      description: ActionWorkflowRun represents a WorkflowRun
+      type: object
+      properties:
+        actor:
+          $ref: '#/components/schemas/User'
+        artifacts_url:
+          type: string
+          x-go-name: ArtifactsURL
+        cancel_url:
+          type: string
+          x-go-name: CancelURL
+        completed_at:
+          type: string
+          format: date-time
+          x-go-name: CompletedAt
+        conclusion:
+          type: string
+          x-go-name: Conclusion
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: CreatedAt
         display_title:
           type: string
           x-go-name: DisplayTitle
@@ -3020,16 +4047,41 @@ components:
           type: integer
           format: int64
           x-go-name: ID
+        jobs_url:
+          type: string
+          x-go-name: JobsURL
+        logs_url:
+          type: string
+          x-go-name: LogsURL
         path:
           type: string
           x-go-name: Path
+        previous_attempt_url:
+          description: 'PreviousAttemptURL is the API URL of the previous attempt of this run, e.g. ".../actions/runs/{run_id}/attempts/{attempt-1}".
+
+            It is set only when the current attempt is > 1 (i.e. a rerun). For the first attempt, or for legacy runs that pre-date ActionRunAttempt, it is null.'
+          type: string
+          x-go-name: PreviousAttemptURL
+        pull_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/PullRequestMinimal'
+          x-go-name: PullRequests
         repository:
           $ref: '#/components/schemas/Repository'
         repository_id:
           type: integer
           format: int64
           x-go-name: RepositoryID
+        rerun_url:
+          type: string
+          x-go-name: RerunURL
         run_attempt:
+          description: 'RunAttempt is 1-based for runs created after ActionRunAttempt was introduced.
+
+            A value of 0 is a legacy-only sentinel for runs created before attempts existed
+
+            and indicates no corresponding /attempts/{n} resource is available.'
           type: integer
           format: int64
           x-go-name: RunAttempt
@@ -3046,25 +4098,14 @@ components:
           x-go-name: Status
         trigger_actor:
           $ref: '#/components/schemas/User'
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: UpdatedAt
         url:
           type: string
           x-go-name: URL
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateVariableOption:
-      description: CreateVariableOption the option when creating variable
-      type: object
-      required:
-      - value
-      properties:
-        description:
-          description: Description of the variable to create
-          type: string
-          x-go-name: Description
-        value:
-          description: Value of the variable to create
-          type: string
-          x-go-name: Value
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
     Team:
       description: Team represents a team in an organization
       type: object
@@ -3100,11 +4141,22 @@ components:
           - write
           - admin
           - owner
+          x-go-enum-desc: 'none AccessLevelNameNone
+
+            read AccessLevelNameRead
+
+            write AccessLevelNameWrite
+
+            admin AccessLevelNameAdmin
+
+            owner AccessLevelNameOwner'
           x-go-name: Permission
         units:
+          description: 'Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.'
           type: array
           items:
             type: string
+          x-deprecated: true
           x-go-name: Units
           example:
           - repo.code
@@ -3129,76 +4181,209 @@ components:
             repo.pulls: owner
             repo.releases: none
             repo.wiki: admin
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionRunner:
-      description: ActionRunner represents a Runner
+        visibility:
+          description: 'Team visibility within the organization. "private" teams are only
+
+            listable by members and org owners; "limited" teams are listable by
+
+            any organization member; "public" teams are listable by any signed-in
+
+            user.'
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public TeamVisibilityPublic
+
+            limited TeamVisibilityLimited
+
+            private TeamVisibilityPrivate'
+          x-go-name: Visibility
+      x-go-package: gitea.dev/modules/structs
+    RepositoryMeta:
+      description: RepositoryMeta basic repository information
       type: object
       properties:
-        busy:
-          type: boolean
-          x-go-name: Busy
-        disabled:
-          type: boolean
-          x-go-name: Disabled
-        ephemeral:
-          type: boolean
-          x-go-name: Ephemeral
+        full_name:
+          type: string
+          x-go-name: FullName
         id:
           type: integer
           format: int64
           x-go-name: ID
-        labels:
+        name:
+          type: string
+          x-go-name: Name
+        owner:
+          type: string
+          x-go-name: Owner
+      x-go-package: gitea.dev/modules/structs
+    Comment:
+      description: Comment represents a comment on a commit or issue
+      type: object
+      properties:
+        assets:
+          description: Attachments contains files attached to the comment
           type: array
           items:
-            $ref: '#/components/schemas/ActionRunnerLabel'
-          x-go-name: Labels
-        name:
+            $ref: '#/components/schemas/Attachment'
+          x-go-name: Attachments
+        body:
+          description: Body contains the comment text content
           type: string
-          x-go-name: Name
-        status:
+          x-go-name: Body
+        created_at:
           type: string
-          x-go-name: Status
-      x-go-package: code.gitea.io/gitea/modules/structs
-    EditLabelOption:
-      description: EditLabelOption options for editing a label
+          format: date-time
+          x-go-name: Created
+        html_url:
+          description: HTMLURL is the web URL for viewing the comment
+          type: string
+          x-go-name: HTMLURL
+        id:
+          description: ID is the unique identifier for the comment
+          type: integer
+          format: int64
+          x-go-name: ID
+        issue_url:
+          description: IssueURL is the API URL for the issue
+          type: string
+          x-go-name: IssueURL
+        original_author:
+          description: OriginalAuthor is the original author name (for imported comments)
+          type: string
+          x-go-name: OriginalAuthor
+        original_author_id:
+          description: OriginalAuthorID is the original author ID (for imported comments)
+          type: integer
+          format: int64
+          x-go-name: OriginalAuthorID
+        pull_request_url:
+          description: PRURL is the API URL for the pull request (if applicable)
+          type: string
+          x-go-name: PRURL
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: Updated
+        user:
+          $ref: '#/components/schemas/User'
+      x-go-package: gitea.dev/modules/structs
+    PullRequestMeta:
+      description: PullRequestMeta PR info if an issue is a PR
       type: object
       properties:
-        color:
+        draft:
+          type: boolean
+          x-go-name: IsWorkInProgress
+        html_url:
           type: string
-          x-go-name: Color
-          example: '#00aabb'
+          x-go-name: HTMLURL
+        merged:
+          type: boolean
+          x-go-name: HasMerged
+        merged_at:
+          type: string
+          format: date-time
+          x-go-name: Merged
+      x-go-package: gitea.dev/modules/structs
+    Milestone:
+      description: Milestone milestone is a collection of issues on one repository
+      type: object
+      properties:
+        closed_at:
+          type: string
+          format: date-time
+          x-go-name: Closed
+        closed_issues:
+          description: ClosedIssues is the number of closed issues in this milestone
+          type: integer
+          format: int64
+          x-go-name: ClosedIssues
+        created_at:
+          type: string
+          format: date-time
+          x-go-name: Created
         description:
-          description: Description provides additional context about the label's purpose
+          description: Description provides details about the milestone
           type: string
           x-go-name: Description
-        exclusive:
-          type: boolean
-          x-go-name: Exclusive
-          example: false
-        is_archived:
-          type: boolean
-          x-go-name: IsArchived
-          example: false
-        name:
-          description: Name is the new display name for the label
+        due_on:
           type: string
-          x-go-name: Name
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateOrUpdateSecretOption:
-      description: CreateOrUpdateSecretOption options when creating or updating secret
+          format: date-time
+          x-go-name: Deadline
+        id:
+          description: ID is the unique identifier for the milestone
+          type: integer
+          format: int64
+          x-go-name: ID
+        open_issues:
+          description: OpenIssues is the number of open issues in this milestone
+          type: integer
+          format: int64
+          x-go-name: OpenIssues
+        state:
+          description: State indicates if the milestone is open or closed
+          type: string
+          enum:
+          - open
+          - closed
+          x-go-enum-desc: 'open StateOpen pr is opened
+
+            closed StateClosed pr is closed'
+          x-go-name: State
+        title:
+          description: Title is the title of the milestone
+          type: string
+          x-go-name: Title
+        updated_at:
+          type: string
+          format: date-time
+          x-go-name: Updated
+      x-go-package: gitea.dev/modules/structs
+    PullRequestMinimalHead:
+      type: object
+      title: PullRequestMinimalHead is a minimal description of one side of a pull request.
+      properties:
+        ref:
+          type: string
+          x-go-name: Ref
+        repo:
+          $ref: '#/components/schemas/PullRequestMinimalHeadRepo'
+        sha:
+          type: string
+          x-go-name: SHA
+      x-go-package: gitea.dev/modules/structs
+    CreateVariableOption:
+      description: CreateVariableOption the option when creating variable
       type: object
       required:
-      - data
+      - value
       properties:
-        data:
-          description: Data of the secret to update
-          type: string
-          x-go-name: Data
         description:
-          description: Description of the secret to update
+          description: Description of the variable to create
           type: string
           x-go-name: Description
-      x-go-package: code.gitea.io/gitea/modules/structs
+        value:
+          description: Value of the variable to create
+          type: string
+          x-go-name: Value
+      x-go-package: gitea.dev/modules/structs
+    RepoTransfer:
+      description: RepoTransfer represents a pending repo transfer
+      type: object
+      properties:
+        doer:
+          $ref: '#/components/schemas/User'
+        recipient:
+          $ref: '#/components/schemas/User'
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+          x-go-name: Teams
+      x-go-package: gitea.dev/modules/structs
     Activity:
       type: object
       properties:
@@ -3282,7 +4467,55 @@ components:
           type: integer
           format: int64
           x-go-name: UserID
-      x-go-package: code.gitea.io/gitea/modules/structs
+      x-go-package: gitea.dev/modules/structs
+    CreateOrgOption:
+      description: CreateOrgOption options for creating an organization
+      type: object
+      required:
+      - username
+      properties:
+        description:
+          description: The description of the organization
+          type: string
+          x-go-name: Description
+        email:
+          description: The email address of the organization
+          type: string
+          x-go-name: Email
+        full_name:
+          description: The full display name of the organization
+          type: string
+          x-go-name: FullName
+        location:
+          description: The location of the organization
+          type: string
+          x-go-name: Location
+        repo_admin_change_team_access:
+          description: Whether repository administrators can change team access
+          type: boolean
+          x-go-name: RepoAdminChangeTeamAccess
+        username:
+          description: username of the organization
+          type: string
+          x-go-name: UserName
+        visibility:
+          description: possible values are `public` (default), `limited` or `private`
+          type: string
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public VisibilityStringPublic
+
+            limited VisibilityStringLimited
+
+            private VisibilityStringPrivate'
+          x-go-name: Visibility
+        website:
+          description: The website URL of the organization
+          type: string
+          x-go-name: Website
+      x-go-package: gitea.dev/modules/structs
     EditTeamOption:
       description: EditTeamOption options for editing a team
       type: object
@@ -3305,16 +4538,24 @@ components:
           type: string
           x-go-name: Name
         permission:
+          description: All units have this permission (read/write/admin)
           type: string
           enum:
           - read
           - write
           - admin
+          x-go-enum-desc: 'read RepoWritePermissionRead
+
+            write RepoWritePermissionWrite
+
+            admin RepoWritePermissionAdmin'
           x-go-name: Permission
         units:
+          description: 'Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.'
           type: array
           items:
             type: string
+          x-deprecated: true
           x-go-name: Units
           example:
           - repo.code
@@ -3339,213 +4580,249 @@ components:
             repo.pulls: owner
             repo.releases: none
             repo.wiki: admin
-      x-go-package: code.gitea.io/gitea/modules/structs
-    RenameOrgOption:
-      description: RenameOrgOption options when renaming an organization
-      type: object
-      required:
-      - new_name
-      properties:
-        new_name:
-          description: New username for this org. This name cannot be in use yet by any other user.
-          type: string
-          uniqueItems: true
-          x-go-name: NewName
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionVariable:
-      description: ActionVariable return value of the query API
-      type: object
-      properties:
-        data:
-          description: the value of the variable
-          type: string
-          x-go-name: Data
-        description:
-          description: the description of the variable
-          type: string
-          x-go-name: Description
-        name:
-          description: the name of the variable
-          type: string
-          x-go-name: Name
-        owner_id:
-          description: the owner to which the variable belongs
-          type: integer
-          format: int64
-          x-go-name: OwnerID
-        repo_id:
-          description: the repository to which the variable belongs
-          type: integer
-          format: int64
-          x-go-name: RepoID
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Comment:
-      description: Comment represents a comment on a commit or issue
-      type: object
-      properties:
-        assets:
-          description: Attachments contains files attached to the comment
-          type: array
-          items:
-            $ref: '#/components/schemas/Attachment'
-          x-go-name: Attachments
-        body:
-          description: Body contains the comment text content
-          type: string
-          x-go-name: Body
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        html_url:
-          description: HTMLURL is the web URL for viewing the comment
-          type: string
-          x-go-name: HTMLURL
-        id:
-          description: ID is the unique identifier for the comment
-          type: integer
-          format: int64
-          x-go-name: ID
-        issue_url:
-          description: IssueURL is the API URL for the issue
-          type: string
-          x-go-name: IssueURL
-        original_author:
-          description: OriginalAuthor is the original author name (for imported comments)
-          type: string
-          x-go-name: OriginalAuthor
-        original_author_id:
-          description: OriginalAuthorID is the original author ID (for imported comments)
-          type: integer
-          format: int64
-          x-go-name: OriginalAuthorID
-        pull_request_url:
-          description: PRURL is the API URL for the pull request (if applicable)
-          type: string
-          x-go-name: PRURL
-        updated_at:
-          type: string
-          format: date-time
-          x-go-name: Updated
-        user:
-          $ref: '#/components/schemas/User'
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionWorkflowStep:
-      description: ActionWorkflowStep represents a step of a WorkflowJob
-      type: object
-      properties:
-        completed_at:
-          type: string
-          format: date-time
-          x-go-name: CompletedAt
-        conclusion:
-          type: string
-          x-go-name: Conclusion
-        name:
-          type: string
-          x-go-name: Name
-        number:
-          type: integer
-          format: int64
-          x-go-name: Number
-        started_at:
-          type: string
-          format: date-time
-          x-go-name: StartedAt
-        status:
-          type: string
-          x-go-name: Status
-      x-go-package: code.gitea.io/gitea/modules/structs
-    InternalTracker:
-      description: InternalTracker represents settings for internal tracker
-      type: object
-      properties:
-        allow_only_contributors_to_track_time:
-          description: Let only contributors track time (Built-in issue tracker)
-          type: boolean
-          x-go-name: AllowOnlyContributorsToTrackTime
-        enable_issue_dependencies:
-          description: Enable dependencies for issues and pull requests (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableIssueDependencies
-        enable_time_tracker:
-          description: Enable time tracking (Built-in issue tracker)
-          type: boolean
-          x-go-name: EnableTimeTracker
-      x-go-package: code.gitea.io/gitea/modules/structs
-    Hook:
-      description: Hook a hook is a web hook when one repository changed
-      type: object
-      properties:
-        active:
-          description: Whether the webhook is active and will be triggered
-          type: boolean
-          x-go-name: Active
-        authorization_header:
-          description: Authorization header to include in webhook requests
-          type: string
-          x-go-name: AuthorizationHeader
-        branch_filter:
-          description: Branch filter pattern to determine which branches trigger the webhook
-          type: string
-          x-go-name: BranchFilter
-        config:
-          description: Configuration settings for the webhook
-          type: object
-          additionalProperties:
-            type: string
-          x-go-name: Config
-        created_at:
-          type: string
-          format: date-time
-          x-go-name: Created
-        events:
-          description: List of events that trigger this webhook
-          type: array
-          items:
-            type: string
-          x-go-name: Events
-        id:
-          description: The unique identifier of the webhook
-          type: integer
-          format: int64
-          x-go-name: ID
-        name:
-          description: Optional human-readable name for the webhook
-          type: string
-          x-go-name: Name
-        type:
-          description: The type of the webhook (e.g., gitea, slack, discord)
-          type: string
-          x-go-name: Type
-        updated_at:
-          type: string
-          format: date-time
-          x-go-name: Updated
-      x-go-package: code.gitea.io/gitea/modules/structs
-    CreateHookOptionConfig:
-      description: 'CreateHookOptionConfig has all config options in it
+        visibility:
+          description: 'Team visibility within the organization. When omitted, visibility is
 
-        required are "content_type" and "url" Required'
-      type: object
-      additionalProperties:
-        type: string
-      x-go-package: code.gitea.io/gitea/modules/structs
-    ActionRunnerLabel:
-      description: ActionRunnerLabel represents a Runner Label
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          x-go-name: ID
-        name:
+            left unchanged.'
           type: string
-          x-go-name: Name
-        type:
-          type: string
-          x-go-name: Type
-      x-go-package: code.gitea.io/gitea/modules/structs
+          enum:
+          - public
+          - limited
+          - private
+          x-go-enum-desc: 'public TeamVisibilityPublic
+
+            limited TeamVisibilityLimited
+
+            private TeamVisibilityPrivate'
+          x-go-name: Visibility
+      x-go-package: gitea.dev/modules/structs
+  responses:
+    OrganizationList:
+      description: OrganizationList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Organization'
+    error:
+      description: APIError is error format response
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    Team:
+      description: Team
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Team'
+    Hook:
+      description: Hook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Hook'
+    RepositoryList:
+      description: RepositoryList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Repository'
+    empty:
+      description: APIEmpty is an empty response
+    WorkflowJobsList:
+      description: WorkflowJobsList
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionWorkflowJobsResponse'
+    TeamList:
+      description: TeamList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Team'
+    ActionVariable:
+      description: ActionVariable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionVariable'
+    validationError:
+      description: APIValidationError is error format response related to input validation
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    Runner:
+      description: Runner
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionRunner'
+    SecretList:
+      description: SecretList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Secret'
+    UserList:
+      description: UserList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+    HookList:
+      description: HookList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Hook'
+    notFound:
+      description: APINotFound is a not found empty response
+    RunnerList:
+      description: RunnerList
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionRunnersResponse'
+    VariableList:
+      description: VariableList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ActionVariable'
+    WorkflowRunsList:
+      description: WorkflowRunsList
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActionWorkflowRunsResponse'
+    OrganizationPermissions:
+      description: OrganizationPermissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrganizationPermissions'
+    ActivityFeedsList:
+      description: ActivityFeedsList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Activity'
+    Project:
+      description: Project
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Project'
+    User:
+      description: User
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    Organization:
+      description: Organization
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Organization'
+    LabelList:
+      description: LabelList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Label'
+    RegistrationToken:
+      description: RegistrationToken is response related to registration token
+      headers:
+        token:
+          schema:
+            type: string
+    Repository:
+      description: Repository
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Repository'
+    IssueList:
+      description: IssueList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Issue'
+    ProjectList:
+      description: ProjectList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project'
+    Label:
+      description: Label
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Label'
+    ProjectColumn:
+      description: ProjectColumn
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectColumn'
+    repoArchivedError:
+      description: APIRepoArchivedError is an error that is raised when an archived repo should be modified
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
+    ProjectColumnList:
+      description: ProjectColumnList
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProjectColumn'
+    forbidden:
+      description: APIForbiddenError is a forbidden error response
+      headers:
+        message:
+          schema:
+            type: string
+        url:
+          schema:
+            type: string
   securitySchemes:
     AccessToken:
       description: This authentication option is deprecated for removal in Gitea 1.23. Please use AuthorizationHeaderToken instead.
