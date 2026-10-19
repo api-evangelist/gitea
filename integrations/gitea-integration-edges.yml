@@ -54,5 +54,60 @@ edges:
   degree: full
   evidence_kind: conformance-register
   note: the OCI conformance suite was run against this registry and the result submitted to the OCI register
+- partner_name: Go module proxy
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (Go)
+  evidence: https://pkg.go.dev/gitea.com/gitea/act_runner
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: gitea.com/gitea/act_runner
+      version: v1.0.8
+      released: '2026-06-02'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/gitea.com/gitea/act_runner
+      repo_leg: domain:gitea.com
+      publisher_leg: module-path:gitea.com
+      matched_by: domain
+    - name: gitea.com/gitea/tea
+      version: v0.16.0
+      released: '2026-09-10'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/gitea.com/gitea/tea
+      repo_leg: domain:gitea.com
+      publisher_leg: module-path:gitea.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 generated: '2026-10-13'
 method: searched
+source:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
+checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
