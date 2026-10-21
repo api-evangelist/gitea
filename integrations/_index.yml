@@ -22,3 +22,146 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: gitea-go-module-proxy
+  label: Go module proxy
+  partner_name: Go module proxy
+  category: official SDK (Go)
+  type: register
+  channel: package-registry
+  evidence: https://pkg.go.dev/gitea.com/gitea/act_runner
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: gitea.com/gitea/act_runner
+      version: v1.0.8
+      released: '2026-06-02'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/gitea.com/gitea/act_runner
+      repo_leg: domain:gitea.com
+      publisher_leg: module-path:gitea.com
+      matched_by: domain
+    - name: gitea.com/gitea/tea
+      version: v0.16.0
+      released: '2026-09-10'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/gitea.com/gitea/tea
+      repo_leg: domain:gitea.com
+      publisher_leg: module-path:gitea.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: gitea-homebrew
+  label: Homebrew
+  partner: homebrew
+  partner_name: Homebrew
+  category: official CLI (Homebrew)
+  type: register
+  channel: package-registry
+  evidence: https://formulae.brew.sh/formula/tea
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Homebrew (public package index)
+    spec_file: null
+    packages:
+    - name: tea
+      kind: formula
+      version: 0.16.0
+      released: null
+      lapsed: false
+      page: https://formulae.brew.sh/formula/tea
+      cli: 'formula desc: Command-line tool to interact with Gitea servers'
+      repo_leg: domain:gitea.com
+      publisher_leg: artifact-domain:gitea.com
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: gitea-scoop
+  label: Scoop
+  partner_name: Scoop
+  category: official CLI (Scoop)
+  type: register
+  channel: package-registry
+  evidence: https://github.com/ScoopInstaller/Main/blob/master/bucket/tea.json
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Scoop (public package index)
+    spec_file: null
+    packages:
+    - name: tea
+      kind: main
+      version: 0.16.0
+      released: null
+      lapsed: false
+      page: https://github.com/ScoopInstaller/Main/blob/master/bucket/tea.json
+      cli: 'scoop description: Official command-line tool to interact with Gitea servers'
+      repo_leg: domain:gitea.com
+      publisher_leg: artifact-domain:gitea.com
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: gitea-winget-windows-package-manager
+  label: winget (Windows Package Manager)
+  partner_name: winget (Windows Package Manager)
+  category: official CLI (winget (Windows Package Manager))
+  type: register
+  channel: package-registry
+  evidence: https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Gitea/tea
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: winget (Windows Package Manager) (public package index)
+    spec_file: null
+    packages:
+    - name: Gitea.tea
+      kind: manifest
+      version: 0.16.0
+      released: '2026-09-10'
+      lapsed: false
+      page: https://github.com/microsoft/winget-pkgs/tree/master/manifests/g/Gitea/tea
+      cli: 'winget: A command line tool to interact with Gitea servers'
+      repo_leg: domain:gitea.com
+      publisher_leg: artifact-domain:gitea.com
+      matched_by: domain
+    current: true
+    signal_note: 'the provider''s own command-line tool on a package manager: distribution, not an integration;
+      lapsed = no release in 24 months or deprecated / disabled by the manager'
+    detected_by: sweep-official-clis.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: gitea-eclipse-foundation-open-vsx
+  label: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_name: Eclipse Foundation (open-vsx)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: open-vsx
+  channel: partner-built
+  evidence: https://open-vsx.org/namespace/Gitea
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
