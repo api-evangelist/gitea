@@ -260,42 +260,6 @@ edges:
   apps:
   - Hybrid Git Sync
   - Gitea Cards
-- partner_name: OpenSSF Best Practices Badge
-  partner: null
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://www.bestpractices.dev/en/projects/9532
-  category: OpenSSF Best Practices badge (open-source project security conformance)
-  contract_reference:
-    register: OpenSSF Best Practices badge projects (bestpractices.dev/en/projects.json, paged)
-    standard: OpenSSF Best Practices Badge criteria (formerly CII Best Practices; bestpractices.dev)
-    spec_file: null
-    role: badge-holder
-    registered_name: gitea
-    matched_by: github-org
-    matched_on: go-gitea
-    certified_products:
-    - product: open-source project
-      product_type: open-source project
-      standard: OpenSSF Best Practices Badge criteria (formerly CII Best Practices; bestpractices.dev)
-      lapsed: false
-      partner_tier: passing
-      projects:
-      - name: gitea
-        id: 9532
-        url: https://www.bestpractices.dev/en/projects/9532
-        badge_level: passing
-    signal_note: 'certified_products = ONE entry (product type: open-source project) with the highest CURRENT badge
-      level in partner_tier; a provider whose projects only lost the badge is lapsed: true; project names are context,
-      never counted; in_progress entries are not conformance'
-    detected_by: sweep-openssf-best-practices-badges.py
-    detected: '2026-10-22'
-    identity_source: apis.yml GitHubOrganization pointer (provider's own declaration)
-  detected_by: sweep-openssf-best-practices-badges.py
-  first_seen: '2026-10-22'
 - partner_name: Eclipse Foundation (open-vsx)
   partner: eclipse
   partner_match: mirror
@@ -373,6 +337,42 @@ edges:
   category: Artifact Hub listing (Helm chart)
   badges:
   - 'Verified publisher (Artifact Hub verified publisher: repository ownership proven)'
+- partner_name: OpenSSF Best Practices Badge (bestpractices.dev)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.bestpractices.dev/en/projects/9532
+  category: OpenSSF Best Practices badge (open-source project security practices)
+  contract_reference:
+    register: OpenSSF Best Practices Badge projects (www.bestpractices.dev/en/projects.json)
+    standard: OpenSSF Best Practices Badge criteria (passing / silver / gold)
+    spec_file: null
+    role: badged-project-owner
+    registered_name: gitea
+    matched_domain: gitea.com
+    matched_by: domain
+    certified_products:
+    - product: open-source project
+      product_type: open-source project
+      standard: OpenSSF Best Practices Badge criteria (passing / silver / gold)
+      partner_tier: passing
+      lapsed: false
+      badge_date: '2025-03-02'
+    badged_projects:
+    - name: gitea
+      id: 9532
+      badge: passing
+      url: https://www.bestpractices.dev/en/projects/9532
+    signal_note: 'certified_products = ONE entry per provider (product type open-source project): highest current
+      OpenSSF Best Practices badge level in partner_tier, earliest date at that level; lapsed: true when every linked
+      project lost its badge. badged_projects is context, never counted'
+    detected_by: sweep-openssf-best-practices-badges.py
+    detected: '2026-10-22'
+  detected_by: sweep-openssf-best-practices-badges.py
+  first_seen: '2026-10-22'
 generated: '2026-10-13'
 method: searched
 source:
@@ -408,3 +408,4 @@ checked:
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
 - https://www.bestpractices.dev/en/projects.json
 - artifact-hub/integrations/artifact-hub-integration-edges.yml
+- https://www.bestpractices.dev/en/projects.json?page=N
