@@ -1,4 +1,4 @@
-# Gitea (gitea)
+# Gitea
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,245 +66,292 @@
 
 Gitea is an open-source, self-hosted Git service and all-in-one DevOps platform written in Go and licensed under the MIT License. It provides Git hosting, code review, team collaboration, an integrated package registry across 24+ formats, issue tracking, project boards, and GitHub-Actions-compatible CI/CD via Gitea Actions. Gitea ships with a comprehensive Swagger 2.0 / OpenAPI-described REST API at /api/v1/ exposing roughly 300 operations across repositories, users, organizations, issues, packages, notifications, admin, and miscellaneous tags. The project is governed by CommitGo, Inc., which also offers Gitea Enterprise (self-managed, with SSO, audit logs and Kubernetes auto-scaling runners) and Gitea Cloud (single-tenant fully-managed hosting in multiple regions).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/gitea/refs/heads/main/apis.yml)
+**Areas:** Gitea · Version Control · DevOps · CI/CD · Code Hosting · Open Source · Self-Hosted · Package Registry · Issue Tracking · Pull Requests
 
-## Scope
+## Gitea on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Gitea is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/gitea/](https://apis.io/providers/gitea/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (13)
 
-- Git
-- Source Control
-- DevOps
-- CI/CD
-- Code Hosting
-- Open Source
-- Self Hosted
-- Package Registry
-- Issue Tracking
-- Pull Requests
+- [Gitea Actions API](https://apis.io/apis/gitea/gitea-actions-api/) — GitHub-Actions-compatible workflow engine embedded in Gitea. The Actions API surface is exposed under the main REST API (/repos/{owner}/{repo}/actions/* and…
+- [Gitea Package Registry](https://apis.io/apis/gitea/gitea-package-registry/) — Multi-format package registry built into Gitea exposing client protocols for 24 ecosystems including Cargo, Composer, Conan, Conda, Container (OCI), CRAN,…
+- [Gitea Webhooks](https://apis.io/apis/gitea/gitea-webhooks/) — Outbound HTTP webhook system delivering JSON event payloads for pushes, pull requests, issues, releases, package events, and more. Webhooks are configurable…
+- [Gitea Cloud Management API](https://apis.io/apis/gitea/gitea-cloud-management-api/) — Gitea Cloud management plane for provisioning and operating single-tenant managed Gitea instances. Each provisioned instance exposes the same REST API at…
+- [Gitea Admin API](https://apis.io/apis/gitea/gitea-admin-api/) — The admin API from Gitea — 22 operation(s) for admin.
+- [Gitea Issue API](https://apis.io/apis/gitea/gitea-issue-api/) — The issue API from Gitea — 34 operation(s) for issue.
+- [Gitea Miscellaneous API](https://apis.io/apis/gitea/gitea-miscellaneous-api/) — The miscellaneous API from Gitea — 12 operation(s) for miscellaneous.
+- [Gitea Notification API](https://apis.io/apis/gitea/gitea-notification-api/) — The notification API from Gitea — 4 operation(s) for notification.
+- [Gitea Organization API](https://apis.io/apis/gitea/gitea-organization-api/) — The organization API from Gitea — 37 operation(s) for organization.
+- [Gitea Package API](https://apis.io/apis/gitea/gitea-package-api/) — The package API from Gitea — 7 operation(s) for package.
+- [Gitea Repository API](https://apis.io/apis/gitea/gitea-repository-api/) — The repository API from Gitea — 133 operation(s) for repository.
+- [Gitea Settings API](https://apis.io/apis/gitea/gitea-settings-api/) — The settings API from Gitea — 4 operation(s) for settings.
+- [Gitea User API](https://apis.io/apis/gitea/gitea-user-api/) — The user API from Gitea — 48 operation(s) for user.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-06
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (19)
 
-### Gitea REST API
+Multi-step workflows that chain operations into a business task.
 
-Swagger 2.0-described REST API exposed by every Gitea instance at /api/v1/. Approximately 300 operations cover repository, branch, commit, pull request, issue, milestone, label, release, webhook, organization, team, user, package, notification, admin and miscellaneous functionality. Authentication is supported via BasicAuth, personal access tokens (Token / AccessToken / AuthorizationHeaderToken), OAuth2 bearer tokens, optional sudo headers/parameters, and TOTP. The same API surface is shipped with Gitea Enterprise and Gitea Cloud.
+- [Gitea Bootstrap Repository With Tracking Issue](https://apis.io/arazzos/gitea/gitea-bootstrap-repo-with-tracking-issue-workflow/)
+- [Gitea Feature Branch To Merged Pull Request](https://apis.io/arazzos/gitea/gitea-branch-pull-request-merge-workflow/)
+- [Gitea Comment And Close Issue](https://apis.io/arazzos/gitea/gitea-comment-and-close-issue-workflow/)
+- [Gitea Commit File On New Branch And Open Pull Request](https://apis.io/arazzos/gitea/gitea-commit-file-and-open-pr-workflow/)
+- [Gitea Create Branch And Await Availability](https://apis.io/arazzos/gitea/gitea-create-branch-and-await-workflow/)
+- [Gitea Draft Then Publish Release](https://apis.io/arazzos/gitea/gitea-draft-then-publish-release-workflow/)
+- [Gitea Create Label And Apply To Issue](https://apis.io/arazzos/gitea/gitea-label-create-and-apply-workflow/)
+- [Gitea Create Milestone With Tracked Issue](https://apis.io/arazzos/gitea/gitea-milestone-with-issue-workflow/)
+- [Gitea Sync Mirror And Confirm Branch](https://apis.io/arazzos/gitea/gitea-mirror-sync-workflow/)
+- [Gitea Open And Triage Pull Request](https://apis.io/arazzos/gitea/gitea-open-and-triage-pull-request-workflow/)
+- [Gitea Bootstrap Organization With Shared Label](https://apis.io/arazzos/gitea/gitea-org-bootstrap-with-label-workflow/)
+- [Gitea Provision Organization Repository With Webhook](https://apis.io/arazzos/gitea/gitea-org-repo-with-webhook-workflow/)
+- [Gitea Create Organization With Webhook](https://apis.io/arazzos/gitea/gitea-org-with-webhook-workflow/)
+- [Gitea Create Release And Verify By Tag](https://apis.io/arazzos/gitea/gitea-release-and-verify-by-tag-workflow/)
+- [Gitea Publish Release With Asset](https://apis.io/arazzos/gitea/gitea-release-with-asset-workflow/)
+- [Gitea Create Repository With A Labeled Issue](https://apis.io/arazzos/gitea/gitea-repo-with-labeled-issue-workflow/)
+- [Gitea Create Repository With Webhook](https://apis.io/arazzos/gitea/gitea-repo-with-webhook-workflow/)
+- [Gitea Report Issue To Existing Repository](https://apis.io/arazzos/gitea/gitea-report-issue-to-existing-repo-workflow/)
+- [Gitea Sprint Issue Setup](https://apis.io/arazzos/gitea/gitea-sprint-issue-setup-workflow/)
 
-- **Human URL:** [https://docs.gitea.com/api/](https://docs.gitea.com/api/)
-- **Base URL:** `https://gitea.com/api/v1`
+#### MCP servers (1)
 
-#### Tags
+Model Context Protocol servers that expose the API to agents.
 
-- REST
-- Git
-- Code Hosting
-- DevOps
+- [gitea-mcp](https://apis.io/servers/gitea/gitea-mcp/)
 
-#### Properties
+#### Agentic access (1)
 
-- [Documentation](https://docs.gitea.com/api/)
-- [API Reference](https://docs.gitea.com/api/1.26/)
-- [Swagger](https://demo.gitea.com/api/swagger)
-- [OpenAPI](https://demo.gitea.com/swagger.v1.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/gitea-rest-api-openapi-original.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [OpenAPI](openapi/gitea-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/gitea-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gitea-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Getting Started](https://docs.gitea.com/development/api-usage)
-- [Authentication](https://docs.gitea.com/development/oauth2-provider)
-- [JSON Schema](json-schema/gitea-rest-api-repository-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-issue-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-pullrequest-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-branch-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-commit-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-release-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-hook-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-organization-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-team-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-user-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-notificationthread-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-package-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-label-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-milestone-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-tag-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gitea-rest-api-comment-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/gitea-rest-api-repository-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-issue-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-pullrequest-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-branch-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-commit-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-release-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-hook-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-organization-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-team-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-user-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-notificationthread-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-package-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-label-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-milestone-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-tag-structure.json)
-- [JSON Structure](json-structure/gitea-rest-api-comment-structure.json)
-- [Code Examples](examples/gitea-rest-api-repo-get-example.json)
-- [Code Examples](examples/gitea-rest-api-repo-update-example.json)
-- [Code Examples](examples/gitea-rest-api-issues-list-example.json)
-- [Code Examples](examples/gitea-rest-api-issue-create-example.json)
-- [Code Examples](examples/gitea-rest-api-pulls-list-example.json)
-- [Code Examples](examples/gitea-rest-api-pull-create-example.json)
-- [Code Examples](examples/gitea-rest-api-branches-list-example.json)
-- [Code Examples](examples/gitea-rest-api-commits-list-example.json)
-- [Code Examples](examples/gitea-rest-api-release-create-example.json)
-- [Code Examples](examples/gitea-rest-api-webhook-create-example.json)
-- [Code Examples](examples/gitea-rest-api-org-create-example.json)
-- [Code Examples](examples/gitea-rest-api-org-repos-list-example.json)
-- [Code Examples](examples/gitea-rest-api-user-get-example.json)
-- [Code Examples](examples/gitea-rest-api-user-repo-create-example.json)
-- [Code Examples](examples/gitea-rest-api-admin-user-create-example.json)
-- [Code Examples](examples/gitea-rest-api-notifications-list-example.json)
-- [Code Examples](examples/gitea-rest-api-packages-list-owner-example.json)
-- [Code Examples](examples/gitea-rest-api-repository-example.json)
-- [Code Examples](examples/gitea-rest-api-issue-example.json)
-- [Code Examples](examples/gitea-rest-api-pullrequest-example.json)
-- [Code Examples](examples/gitea-rest-api-release-example.json)
-- [Code Examples](examples/gitea-rest-api-hook-example.json)
-- [Code Examples](examples/gitea-rest-api-package-example.json)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Gitea Actions API
+- [Gitea Agentic Access](https://apis.io/agentic-access/gitea/gitea-agentic-access/)
 
-GitHub-Actions-compatible workflow engine embedded in Gitea. The Actions API surface is exposed under the main REST API (/repos/{owner}/{repo}/actions/* and /admin/actions/*) for managing workflows, runs, jobs, runners, and secrets. Actions runners are deployed via the Go-based act_runner project.
+#### JSON Schema (16)
 
-- **Human URL:** [https://docs.gitea.com/usage/actions/overview](https://docs.gitea.com/usage/actions/overview)
-- **Base URL:** `https://gitea.com/api/v1`
+The data models the API reads and writes.
 
-#### Tags
+- [Branch](https://apis.io/schemas/gitea/gitea-rest-api-branch/)
+- [Comment](https://apis.io/schemas/gitea/gitea-rest-api-comment/)
+- [Commit contains information generated from a Git commit.](https://apis.io/schemas/gitea/gitea-rest-api-commit/)
+- [Hook](https://apis.io/schemas/gitea/gitea-rest-api-hook/)
+- [Issue](https://apis.io/schemas/gitea/gitea-rest-api-issue/)
+- [Label](https://apis.io/schemas/gitea/gitea-rest-api-label/)
+- [Milestone](https://apis.io/schemas/gitea/gitea-rest-api-milestone/)
+- [NotificationThread](https://apis.io/schemas/gitea/gitea-rest-api-notificationthread/)
+- [Organization](https://apis.io/schemas/gitea/gitea-rest-api-organization/)
+- [Package](https://apis.io/schemas/gitea/gitea-rest-api-package/)
+- [PullRequest](https://apis.io/schemas/gitea/gitea-rest-api-pullrequest/)
+- [Release](https://apis.io/schemas/gitea/gitea-rest-api-release/)
+- [Repository](https://apis.io/schemas/gitea/gitea-rest-api-repository/)
+- [Tag](https://apis.io/schemas/gitea/gitea-rest-api-tag/)
+- [Team](https://apis.io/schemas/gitea/gitea-rest-api-team/)
+- [User](https://apis.io/schemas/gitea/gitea-rest-api-user/)
 
-- CI/CD
-- Workflows
-- Automation
+#### JSON Structure (16)
 
-#### Properties
+Data models expressed in JSON Structure.
 
-- [Documentation](https://docs.gitea.com/usage/actions/overview)
-- [Quickstart](https://docs.gitea.com/usage/actions/quickstart)
-- [API Reference](https://docs.gitea.com/usage/actions/comparison)
-- [GitHub Repository](https://gitea.com/gitea/act_runner)
-- [Postman Collection](collections/gitea-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gitea-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Gitea Rest Api Branch Structure](https://apis.io/json-structure/gitea/gitea-rest-api-branch-structure/)
+- [Gitea Rest Api Comment Structure](https://apis.io/json-structure/gitea/gitea-rest-api-comment-structure/)
+- [Gitea Rest Api Commit Structure](https://apis.io/json-structure/gitea/gitea-rest-api-commit-structure/)
+- [Gitea Rest Api Hook Structure](https://apis.io/json-structure/gitea/gitea-rest-api-hook-structure/)
+- [Gitea Rest Api Issue Structure](https://apis.io/json-structure/gitea/gitea-rest-api-issue-structure/)
+- [Gitea Rest Api Label Structure](https://apis.io/json-structure/gitea/gitea-rest-api-label-structure/)
+- [Gitea Rest Api Milestone Structure](https://apis.io/json-structure/gitea/gitea-rest-api-milestone-structure/)
+- [Gitea Rest Api Notificationthread Structure](https://apis.io/json-structure/gitea/gitea-rest-api-notificationthread-structure/)
+- [Gitea Rest Api Organization Structure](https://apis.io/json-structure/gitea/gitea-rest-api-organization-structure/)
+- [Gitea Rest Api Package Structure](https://apis.io/json-structure/gitea/gitea-rest-api-package-structure/)
+- [Gitea Rest Api Pullrequest Structure](https://apis.io/json-structure/gitea/gitea-rest-api-pullrequest-structure/)
+- [Gitea Rest Api Release Structure](https://apis.io/json-structure/gitea/gitea-rest-api-release-structure/)
+- [Gitea Rest Api Repository Structure](https://apis.io/json-structure/gitea/gitea-rest-api-repository-structure/)
+- [Gitea Rest Api Tag Structure](https://apis.io/json-structure/gitea/gitea-rest-api-tag-structure/)
+- [Gitea Rest Api Team Structure](https://apis.io/json-structure/gitea/gitea-rest-api-team-structure/)
+- [Gitea Rest Api User Structure](https://apis.io/json-structure/gitea/gitea-rest-api-user-structure/)
 
-### Gitea Package Registry
+#### JSON-LD (1)
 
-Multi-format package registry built into Gitea exposing client protocols for 24 ecosystems including Cargo, Composer, Conan, Conda, Container (OCI), CRAN, Debian, Generic, Go, Helm, Maven, npm, NuGet, Pub, PyPI, RPM, RubyGems, Swift, Terraform, Vagrant, Alpine, Arch, Chef, and more. Packages are scoped per user or organization and addressable under /api/packages/{owner}/{type}.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://docs.gitea.com/usage/packages/overview](https://docs.gitea.com/usage/packages/overview)
-- **Base URL:** `https://gitea.com/api/packages`
+- [Gitea Context](https://apis.io/jsonld/gitea/gitea-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Packages
-- Registry
-- Artifacts
+The provider's domain terms, defined.
 
-#### Properties
+- [Gitea Vocabulary](https://apis.io/vocabularies/gitea/gitea-vocabulary/)
 
-- [Documentation](https://docs.gitea.com/usage/packages/overview)
-- [API Reference](https://docs.gitea.com/usage/packages/cargo)
-- [API Reference](https://docs.gitea.com/usage/packages/container)
-- [API Reference](https://docs.gitea.com/usage/packages/helm)
-- [Postman Collection](collections/gitea-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gitea-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Examples (23)
 
-### Gitea Webhooks
+Example requests and responses.
 
-Outbound HTTP webhook system delivering JSON event payloads for pushes, pull requests, issues, releases, package events, and more. Webhooks are configurable per repository, organization or instance-wide and are managed through the REST API.
+- [Gitea Rest Api Admin User Create Example](https://apis.io/examples/gitea/gitea-rest-api-admin-user-create-example/)
+- [Gitea Rest Api Branches List Example](https://apis.io/examples/gitea/gitea-rest-api-branches-list-example/)
+- [Gitea Rest Api Commits List Example](https://apis.io/examples/gitea/gitea-rest-api-commits-list-example/)
+- [Gitea Rest Api Hook Example](https://apis.io/examples/gitea/gitea-rest-api-hook-example/)
+- [Gitea Rest Api Issue Create Example](https://apis.io/examples/gitea/gitea-rest-api-issue-create-example/)
+- [Gitea Rest Api Issue Example](https://apis.io/examples/gitea/gitea-rest-api-issue-example/)
+- [Gitea Rest Api Issues List Example](https://apis.io/examples/gitea/gitea-rest-api-issues-list-example/)
+- [Gitea Rest Api Notifications List Example](https://apis.io/examples/gitea/gitea-rest-api-notifications-list-example/)
+- [Gitea Rest Api Org Create Example](https://apis.io/examples/gitea/gitea-rest-api-org-create-example/)
+- [Gitea Rest Api Org Repos List Example](https://apis.io/examples/gitea/gitea-rest-api-org-repos-list-example/)
+- [Gitea Rest Api Package Example](https://apis.io/examples/gitea/gitea-rest-api-package-example/)
+- [Gitea Rest Api Packages List Owner Example](https://apis.io/examples/gitea/gitea-rest-api-packages-list-owner-example/)
+- [Gitea Rest Api Pull Create Example](https://apis.io/examples/gitea/gitea-rest-api-pull-create-example/)
+- [Gitea Rest Api Pullrequest Example](https://apis.io/examples/gitea/gitea-rest-api-pullrequest-example/)
+- [Gitea Rest Api Pulls List Example](https://apis.io/examples/gitea/gitea-rest-api-pulls-list-example/)
+- [Gitea Rest Api Release Create Example](https://apis.io/examples/gitea/gitea-rest-api-release-create-example/)
+- [Gitea Rest Api Release Example](https://apis.io/examples/gitea/gitea-rest-api-release-example/)
+- [Gitea Rest Api Repo Get Example](https://apis.io/examples/gitea/gitea-rest-api-repo-get-example/)
+- [Gitea Rest Api Repo Update Example](https://apis.io/examples/gitea/gitea-rest-api-repo-update-example/)
+- [Gitea Rest Api Repository Example](https://apis.io/examples/gitea/gitea-rest-api-repository-example/)
+- [Gitea Rest Api User Get Example](https://apis.io/examples/gitea/gitea-rest-api-user-get-example/)
+- [Gitea Rest Api User Repo Create Example](https://apis.io/examples/gitea/gitea-rest-api-user-repo-create-example/)
+- [Gitea Rest Api Webhook Create Example](https://apis.io/examples/gitea/gitea-rest-api-webhook-create-example/)
 
-- **Human URL:** [https://docs.gitea.com/usage/webhooks](https://docs.gitea.com/usage/webhooks)
+#### Collections (12)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Webhooks
-- Events
-- Eventing
+- [Gitea admin API](https://apis.io/collections/gitea/open-gitea-admin-api/)
+- [Gitea admin issue API](https://apis.io/collections/gitea/open-gitea-issue-api/)
+- [Gitea admin miscellaneous API](https://apis.io/collections/gitea/open-gitea-miscellaneous-api/)
+- [Gitea admin notification API](https://apis.io/collections/gitea/open-gitea-notification-api/)
+- [Gitea admin organization API](https://apis.io/collections/gitea/open-gitea-organization-api/)
+- [Gitea admin package API](https://apis.io/collections/gitea/open-gitea-package-api/)
+- [Gitea admin repository API](https://apis.io/collections/gitea/open-gitea-repository-api/)
+- [Gitea API](https://apis.io/collections/gitea/open-gitea-rest-api/)
+- [Gitea admin settings API](https://apis.io/collections/gitea/open-gitea-settings-api/)
+- [Gitea admin user API](https://apis.io/collections/gitea/open-gitea-user-api/)
+- [Gitea API](https://apis.io/collections/gitea/postman-gitea-rest-api/)
+- [Gitea API](https://apis.io/collections/gitea/postman-gitea-rest-api-openapi-original/)
 
-#### Properties
+#### Overlays (10)
 
-- [Documentation](https://docs.gitea.com/usage/webhooks)
-- [API Reference](https://docs.gitea.com/usage/webhooks#event-information)
-- [Postman Collection](collections/gitea-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gitea-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-### Gitea Cloud Management API
+- [Gitea Admin Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-admin-api-phrasing-overlay/)
+- [Gitea Issue Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-issue-api-phrasing-overlay/)
+- [Gitea Miscellaneous Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-miscellaneous-api-phrasing-overlay/)
+- [Gitea Notification Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-notification-api-phrasing-overlay/)
+- [Gitea Organization Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-organization-api-phrasing-overlay/)
+- [Gitea Package Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-package-api-phrasing-overlay/)
+- [Gitea Repository Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-repository-api-phrasing-overlay/)
+- [Gitea Rest Api Overlay](https://apis.io/overlays/gitea/gitea-rest-api-overlay/)
+- [Gitea Settings Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-settings-api-phrasing-overlay/)
+- [Gitea User Api Phrasing Overlay](https://apis.io/overlays/gitea/gitea-user-api-phrasing-overlay/)
 
-Gitea Cloud management plane for provisioning and operating single-tenant managed Gitea instances. Each provisioned instance exposes the same REST API at /api/v1/. The management plane itself does not currently publish a separate machine-readable OpenAPI definition; provisioning is performed via the cloud.gitea.com web console.
+#### Governance rules (3)
 
-- **Human URL:** [https://about.gitea.com/products/cloud](https://about.gitea.com/products/cloud)
-- **Base URL:** `https://cloud.gitea.com`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Gitea — gitea rules](https://apis.io/rules/gitea/gitea-gitea-spectral-rules/)
+- [Gitea — jsonschema rules](https://apis.io/rules/gitea/gitea-jsonschema-spectral-rules/)
+- [Gitea API Rules](https://apis.io/rules/gitea/gitea-rules/)
 
-- Cloud
-- Management
-- Hosted
+#### Security (4)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://about.gitea.com/products/cloud)
-- [Pricing](https://about.gitea.com/products/gitea-cloud-pricing/)
-- [Console](https://cloud.gitea.com/)
-- [Postman Collection](collections/gitea-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/gitea-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Gitea Authentication](https://apis.io/security/gitea/gitea-authentication/)
+- [Gitea Domain Security](https://apis.io/security/gitea/gitea-domain-security/)
+- [Gitea Trust Center](https://apis.io/security/gitea/gitea-trust-center/)
+- [Gitea Vulnerability Disclosure](https://apis.io/security/gitea/gitea-vulnerability-disclosure/)
 
-## Common Properties
+#### OAuth scopes (1)
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+The permissions the API asks for.
+
+- [Gitea Scopes](https://apis.io/scopes/gitea/gitea-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Gitea Plans Pricing](https://apis.io/plans/gitea/gitea-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Gitea Rate Limits](https://apis.io/rate-limits/gitea/gitea-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Gitea Finops](https://apis.io/finops/gitea/gitea-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://about.gitea.com/)
 - [Documentation](https://docs.gitea.com/)
-- [API Reference](https://docs.gitea.com/api/)
-- [Blog](https://blog.gitea.com/)
-- [GitHub Organization](https://github.com/go-gitea)
-- [GitHub Repository](https://github.com/go-gitea/gitea)
-- [Sign Up](https://cloud.gitea.com/)
+- [API reference](https://docs.gitea.com/api/)
 - [Pricing](https://about.gitea.com/pricing/)
-- [Plans](plans/gitea-plans-pricing.yml)
-- [Rate Limits](rate-limits/gitea-rate-limits.yml)
-- [Fin Ops](finops/gitea-finops.yml)
-- [Terms of Service](https://about.gitea.com/legal/terms-of-service)
-- [Privacy Policy](https://about.gitea.com/legal/privacy-policy)
 - [Support](https://forum.gitea.com/)
-- [F A Q](https://about.gitea.com/about/faq)
-- [Release Notes](https://blog.gitea.com/)
 - [Changelog](https://github.com/go-gitea/gitea/blob/main/CHANGELOG.md)
-- [Status Page](https://status.gitea.com/)
+- [Blog](https://blog.gitea.com/)
 - [Security](https://docs.gitea.com/administration/security)
 - [Compliance](https://about.gitea.com/products/cloud)
-- [SDK](https://gitea.com/gitea/go-sdk)
-- [SDK](https://www.npmjs.com/package/gitea-js)
-- [SDK](https://pypi.org/project/py-gitea/)
-- [SDK](https://github.com/hypermodeinc/gitea4j)
-- [C L I](https://gitea.com/gitea/tea)
-- [C L I](https://gitea.com/gitea/runner)
-- [GitHub Repository](https://github.com/go-gitea/terraform-provider-gitea)
-- [GitHub Repository](https://gitea.com/gitea/helm-gitea)
-- [GitHub Repository](https://gitea.com/gitea/helm-actions)
-- [Resources](https://gitea.com/gitea/awesome-gitea)
-- [Hub](https://discord.gg/gitea)
-- [Forum](https://forum.gitea.com/)
-- [Spectral Rules](rules/gitea-rules.yml)
-- [JSON-LD](json-ld/gitea-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/gitea-vocabulary.yml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Solutions](undefined)
+- [Terms of service](https://about.gitea.com/legal/terms-of-service)
+- [Privacy policy](https://about.gitea.com/legal/privacy-policy)
+- [GitHub](https://github.com/go-gitea)
+- [Status](https://status.gitea.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kinlane@gmail.com
-**URL:** https://kinlane.com
+**Kin Score 65.5** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 60.6 |
+| Contract governance | 31.8 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 79.8 |
+| Access clarity | 47.4 |
+
+**Agent readiness 31.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 37.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/gitea/](https://apis.io/providers/gitea/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Gitea: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/gitea/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
